@@ -827,11 +827,15 @@
     to { opacity: 1; }
   }
   .reveal {
-    opacity: 0;
-    transform: translateY(32px);
+    opacity: 1;
+    transform: translateY(0);
     transition: opacity 0.8s ease, transform 0.8s ease;
   }
-  .reveal.visible {
+  .reveal.hidden {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  .reveal.hidden.visible {
     opacity: 1;
     transform: translateY(0);
   }
@@ -1251,3 +1255,19 @@
   window.addEventListener('scroll', () => {
     navbar.classList.toggle('scrolled', window.scrollY > 40);
   });
+
+   // Scroll reveal — add hidden first, then reveal on intersection
+  const reveals = document.querySelectorAll('.reveal');
+  reveals.forEach(el => el.classList.add('hidden'));
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
