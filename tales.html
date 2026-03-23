@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taste the Tales — Thiện Kiến</title>
+<meta name="description" content="The journey log of Thiện Kiến — stories told by taste. Seven chapters of Vietnamese cultural storytelling through cuisine, gathering, and connection.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5F0E8;
+    --linen: #EDE7D9;
+    --ink: #1A1612;
+    --ink-soft: #3D3530;
+    --ink-muted: #7A6E65;
+    --gold: #B8935A;
+    --gold-light: #D4A96A;
+    --rust: #8B4A2F;
+    --border: #D4CCC0;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Montserrat', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 48px;
+    background: rgba(245, 240, 232, 0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--ink); }
+  .nav-cta {
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    border-bottom: 1px solid var(--gold);
+    padding-bottom: 2px;
+  }
+
+  /* ─── HERO ─── */
+  .tales-hero {
+    padding: 160px 48px 100px;
+    background: var(--ink);
+    position: relative;
+    overflow: hidden;
+  }
+  .tales-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 60px,
+      rgba(184,147,90,0.03) 60px,
+      rgba(184,147,90,0.03) 61px
+    );
+  }
+  .tales-hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: end;
+    position: relative;
+  }
+  .tales-hero-left {}
+  .tales-eyebrow {
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+  .tales-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 32px;
+    height: 1px;
+    background: var(--gold);
+  }
+  .tales-hero-title {
+    font-family: var(--serif);
+    font-size: clamp(52px, 5.5vw, 80px);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--cream);
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+  .tales-hero-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .tales-hero-right {
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+  }
+  .tales-prologue {
+    border-left: 2px solid rgba(184,147,90,0.4);
+    padding-left: 32px;
+  }
+  .tales-prologue p {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.7;
+    color: rgba(245,240,232,0.7);
+    margin-bottom: 20px;
+  }
+  .tales-prologue p:last-child { margin-bottom: 0; }
+
+  /* ─── CHAPTER INDEX ─── */
+  .chapter-index {
+    background: var(--linen);
+    padding: 60px 48px;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 73px;
+    z-index: 50;
+  }
+  .chapter-index-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .chapter-index-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-right: 16px;
+  }
+  .chapter-pill {
+    padding: 8px 18px;
+    border: 1px solid var(--border);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    color: var(--ink-muted);
+    background: var(--cream);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all 0.3s;
+  }
+  .chapter-pill:hover {
+    border-color: var(--gold);
+    color: var(--ink);
+    background: var(--cream);
+  }
+
+  /* ─── JOURNEY LOG ─── */
+  .journey-log {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 100px 48px;
+  }
+
+  .log-section-header {
+    margin-bottom: 80px;
+  }
+  .log-section-tag {
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .log-section-tag::before {
+    content: '';
+    display: inline-block;
+    width: 32px;
+    height: 1px;
+    background: var(--gold);
+  }
+  .log-section-title {
+    font-family: var(--serif);
+    font-size: clamp(36px, 4vw, 52px);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: 16px;
+  }
+  .log-section-title em { font-style: italic; color: var(--gold); }
+
+  /* Chapter entry */
+  .chapter-entry {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 0;
+    margin-bottom: 0;
+    border-top: 1px solid var(--border);
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .chapter-entry.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .chapter-entry:last-child { border-bottom: 1px solid var(--border); }
+
+  .chapter-index-col {
+    padding: 48px 32px 48px 0;
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  .chapter-roman {
+    font-family: var(--serif);
+    font-size: 48px;
+    font-weight: 300;
+    color: var(--gold);
+    opacity: 0.4;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .chapter-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  .chapter-content-col {
+    padding: 48px 0 48px 48px;
+  }
+  .chapter-title {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 20px;
+  }
+  .chapter-body {
+    font-size: 14px;
+    line-height: 1.85;
+    color: var(--ink-soft);
+    max-width: 640px;
+  }
+  .chapter-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+  }
+  .chapter-tag {
+    padding: 5px 14px;
+    border: 1px solid var(--border);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  /* ─── OTHER TALES ─── */
+  .other-tales {
+    background: var(--ink);
+    padding: 100px 48px;
+  }
+  .other-tales-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .other-tales-header {
+    margin-bottom: 64px;
+  }
+  .other-tales-header .log-section-tag { color: var(--gold); }
+  .other-tales-header .log-section-tag::before { background: var(--gold); }
+  .other-tales-header .log-section-title { color: var(--cream); }
+
+  .tales-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+  .tales-event-card {
+    background: #231E1A;
+    padding: 48px 40px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.4s;
+  }
+  .tales-event-card:hover { background: #2D2620; }
+  .tales-event-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--gold);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  .tales-event-card:hover::after { opacity: 1; }
+  .event-year {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+  .event-title {
+    font-family: var(--serif);
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--cream);
+    margin-bottom: 20px;
+  }
+  .event-body {
+    font-size: 13px;
+    line-height: 1.8;
+    color: rgba(245,240,232,0.5);
+  }
+  .event-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 28px;
+  }
+  .event-tag {
+    padding: 5px 12px;
+    border: 1px solid rgba(184,147,90,0.25);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(184,147,90,0.6);
+  }
+
+  /* ─── NEXT ─── */
+  .tales-next {
+    background: var(--linen);
+    padding: 80px 48px;
+  }
+  .tales-next-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .tales-next-text h3 {
+    font-family: var(--serif);
+    font-size: 32px;
+    font-weight: 300;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .tales-next-text p {
+    font-size: 14px;
+    color: var(--ink-muted);
+  }
+  .tales-next-actions {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .btn-ink {
+    display: inline-block;
+    padding: 14px 32px;
+    background: var(--ink);
+    color: var(--cream);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.3s;
+  }
+  .btn-ink:hover { background: var(--rust); }
+  .btn-line {
+    display: inline-block;
+    padding: 14px 32px;
+    border: 1px solid var(--border);
+    color: var(--ink-muted);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+  .btn-line:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: #110E0B;
+    padding: 40px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .footer-logo {
+    font-family: var(--serif);
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(245,240,232,0.5);
+  }
+  .footer-logo span { color: var(--gold); }
+  .footer-copy {
+    font-size: 11px;
+    color: rgba(245,240,232,0.2);
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    nav { padding: 20px 24px; }
+    .nav-links { display: none; }
+    .tales-hero { padding: 120px 24px 64px; }
+    .tales-hero-inner { grid-template-columns: 1fr; gap: 40px; }
+    .chapter-index { padding: 20px 24px; top: 65px; position: relative; }
+    .journey-log { padding: 60px 24px; }
+    .chapter-entry { grid-template-columns: 1fr; }
+    .chapter-index-col { border-right: none; border-bottom: 1px solid var(--border); padding: 32px 0 20px; flex-direction: row; align-items: center; gap: 16px; }
+    .chapter-roman { font-size: 32px; margin-bottom: 0; }
+    .chapter-content-col { padding: 24px 0 40px; }
+    .tales-cards-grid { grid-template-columns: 1fr; }
+    .other-tales { padding: 60px 24px; }
+    .tales-next { padding: 60px 24px; }
+    .tales-next-inner { flex-direction: column; align-items: flex-start; }
+    footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Thiện <span>Kiến</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#services">Services</a></li>
+    <li><a href="index.html#tkgbridge">TKG</a></li>
+    <li><a href="tales.html" class="active">Taste the Tales</a></li>
+    <li><a href="index.html#clients">Trusted by</a></li>
+  </ul>
+  <a href="index.html#contact" class="nav-cta">Work with us</a>
+</nav>
+
+<!-- HERO -->
+<div class="tales-hero">
+  <div class="tales-hero-inner">
+    <div class="tales-hero-left">
+      <p class="tales-eyebrow">Taste the Tales · Journey Log</p>
+      <h1 class="tales-hero-title">
+        Stories told<br>by <em>taste.</em>
+      </h1>
+    </div>
+    <div class="tales-hero-right">
+      <div class="tales-prologue">
+        <p>
+          This journey log is not merely a chronicle of milestones — it is a taste of our journey, a glimpse into the heart of our vision, and a reflection on the goals that have guided us.
+        </p>
+        <p>
+          It is a story seasoned with the flavors of Vietnam, the warmth of human connection, and the unwavering belief in the power of shared experiences.
+        </p>
+        <p>
+          A place where the stories behind the dishes were as important as the dishes themselves. Where every gathering became an opportunity to forge lasting connections.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CHAPTER INDEX -->
+<div class="chapter-index">
+  <div class="chapter-index-inner">
+    <span class="chapter-index-label">Jump to</span>
+    <a href="#introduce" class="chapter-pill">Introduce</a>
+    <a href="#chapter-i" class="chapter-pill">Chapter I</a>
+    <a href="#chapter-ii" class="chapter-pill">Chapter II</a>
+    <a href="#chapter-iii" class="chapter-pill">Chapter III</a>
+    <a href="#chapter-iv" class="chapter-pill">Chapter IV</a>
+    <a href="#chapter-v" class="chapter-pill">Chapter V</a>
+    <a href="#chapter-vi" class="chapter-pill">Chapter VI</a>
+    <a href="#chapter-vii" class="chapter-pill">Chapter VII</a>
+    <a href="#other-tales" class="chapter-pill">Other Tales</a>
+  </div>
+</div>
+
+<!-- JOURNEY LOG -->
+<div class="journey-log">
+
+  <div class="log-section-header">
+    <p class="log-section-tag">The Journey Log of Thiện Kiến</p>
+    <h2 class="log-section-title">Seven chapters.<br><em>One story.</em></h2>
+  </div>
+
+  <!-- INTRODUCE -->
+  <div class="chapter-entry" id="introduce">
+    <div class="chapter-index-col">
+      <div class="chapter-roman">·</div>
+      <span class="chapter-label">Introduce</span>
+    </div>
+    <div class="chapter-content-col">
+      <h2 class="chapter-title">Immerse in Vietnamese Culture Through Food & Local Experiences</h2>
+      <p class="chapter-body">
+        Have you ever wanted to truly immerse yourself in Vietnamese culture? Thiện Kiến is a cultural storyteller that offers private parties designed to engage all five senses in the rich tapestry of Vietnam.
+      </p>
+      <p class="chapter-body" style="margin-top:16px;">
+        Thiện Kiến began with a simple yet profound idea: to share the richness of Vietnamese culture through authentic culinary experiences. A space where traditions were not just observed, but lived and savored. Where every gathering — especially a private one — became an opportunity to forge lasting connections.
+      </p>
+      <div class="chapter-tags">
+        <span class="chapter-tag">Cultural Storytelling</span>
+        <span class="chapter-tag">Private Experience</span>
+        <span class="chapter-tag">Five Senses</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHAPTER I -->
+  <div class="chapter-entry" id="chapter-i">
+    <div class="chapter-index-col">
+      <div class="chapter-roman">I</div>
+      <span class="chapter-label">Chapter I · 2023</span>
+    </div>
+    <div class="chapter-content-col">
+      <h2 class="chapter-title">Exploring the Culinary Delights of Tết Đoan Ngọ — A Teabreak Experience at TECx2023</h2>
+      <p class="chapter-body">
+        At TECx2023 — a showcase of groundbreaking innovations in Fintech, VR/AR, Blockchain, and Biotech — Thiện Kiến sponsored a teabreak celebrating <em>Tết Đoan Ngọ</em> (the Duanwu Festival), inviting attendees to savor the rich culinary heritage of Vietnam.
+      </p>
+      <p class="chapter-body" style="margin-top:16px;">
+        Where technology met tradition, a bowl of fermented glutinous rice and a cup of herbal tea became the most memorable part of the day. The first public step: Vietnamese botanical culture introduced to an audience of innovators.
+      </p>
+      <div class="chapter-tags">
+        <span class="chapter-tag">TECx2023</span>
+        <span class="chapter-tag">Tết Đoan Ngọ</span>
+        <span class="chapter-tag">Teabreak</span>
+        <span class="chapter-tag">Corporate Event</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHAPTER II -->
+  <div class="chapter-entry" id="chapter-ii">
+    <div class="chapter-index-col">
+      <div class="chapter-roman">II</div>
+      <span class="chapter-label">Chapter II · 2023</span>
+    </div>
+    <div class="chapter-content-col">
+      <h2 class="chapter-title">Experiencing Vietnamese Culture Through All 5 Senses</h2>
+      <p class="chapter-body">
+        Vietnamese culture is a vibrant tapestry of traditions, colors, and flavors. Thiện Kiến enhanced this cultural journey by offering encounters that stimulate all five senses — not just a tea break or fingerfood, but immersive travel experiences designed especially for private parties.
+      </p>
+      <p class="chapter-body" style="margin-top:16px;">
+        Instead of observing, guests lived it. Scent, texture, sound, sight, and taste — each element curated to carry the essence of Vietnam into the room. Allowing guests to truly embrace what it means to experience a culture through its food.
+      </p>
+      <div class="chapter-tags">
+        <span class="chapter-tag">Immersive Experience</span>
+        <span class="chapter-tag">Private Party</span>
+        <span class="chapter-tag">Multisensory</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHAPTER III -->
+  <div class="chapter-entry" id="chapter-iii">
+    <div class="chapter-index-col">
+      <div class="chapter-roman">III</div>
+      <span class="chapter-label">Chapter III · 2023</span>
+    </div>
+    <div class="chapter-content-col">
+      <h2 class="chapter-title">The Untold Stories of "Stories of Gratitude"</h2>
+      <p class="chapter-body">
+        In a heartwarming celebration that felt both intimate and grand, Thiện Kiến hosted <em>Stories of Gratitude</em> — a private gathering honoring partners and clients who played vital roles in the journey over two years.
+      </p>
+      <p class="chapter-body" style="margin-top:16px;">
+        Inspired by Thanksgiving traditions from the United States and Canada, alongside the New Rice Festival celebrated by ethnic minorities in Vietnam's Central Highlands, the evening wove together themes of appreciation, community, and cultural richness. A table where gratitude became the main course.
+      </p>
+      <div class="chapter-tags">
+        <span class="chapter-tag">Stories of Gratitude</span>
+        <span class="chapter-tag">Partners</span>
+        <span class="chapter-tag">Private Gathering</span>
+        <span class="chapter-tag">Cross-cultural</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHAPTER IV -->
+  <div class="chapter-entry" id="chapter-iv">
+    <div class="chapter-index-col">
+      <div class="chapter-roman">IV</div>
+      <span class="chapter-label">Chapter IV · 2024</span>
+    </div>
+    <div class="chapter-content-col">
+      <h2 class="chapter-title">The Idea of the "Gratitude Fund" — Empowering Young Lives</h2>
+      <p class="chapter-body">
+        In today's fast-paced world, many children face challenges that can feel insurmountable. Yet cultivating gratitude can inspire resilience and hope.
+      </p>
+      <p class="chapter-body" style="margin-top:16px;">
+        The Gratitude Fund, founded by Thiện Kiến, aims to promote gratitude among young people while celebrating Vietnamese culture and directly supporting underprivileged children. Through meaningful programs and financial backing, the fund not only addresses immediate needs but paves the way for children to chase their dreams and unlock their potential. Because culture, when shared with intention, has the power to change lives.
+      </p>
+      <div class="chapter-tags">
+        <span class="chapter-tag">Gratitude Fund</span>
+        <span class="chapter-tag">Social Impact</span>
+        <span class="chapter-tag">Youth</span>
+        <span class="chapter-tag">Vietnamese Culture</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHAPTER V -->
+  <div class="chapter-entry" id="chapter-v">
+    <div class="chapter-index-col">
+      <div class="chapter-roman">V</div>
+      <span class="chapter-label">Chapter V · 2024</span>
+    </div>
+    <div class="chapter-content-col">
+      <h2 class="chapter-title">Tradition and Innovation at New Energy NEXUS Vietnam's 5th Anniversary</h2>
+      <p class="chapter-body">
+        New Energy NEXUS Vietnam marked its 5th anniversary with an event that artfully blended cultural traditions with modern ideas. At the heart of the festivities was the <em>Cấp Sắc Ceremony</em> — a significant coming-of-age ritual in Dao culture.
+      </p>
+      <p class="chapter-body" style="margin-top:16px;">
+        Thiện Kiến organised an experience that honored New Energy NEXUS Vietnam's five-year journey through innovative yet traditional encounters. Innovation and heritage, seated at the same table. The arrow struck the bullseye. Applause and cheers erupted. In another corner, the aroma of local herbs drew guests together to craft their own fragrant sachets — inspired by the traditional sachet-making custom of the Dao people.
+      </p>
+      <div class="chapter-tags">
+        <span class="chapter-tag">New Energy NEXUS</span>
+        <span class="chapter-tag">Cấp Sắc Ceremony</span>
+        <span class="chapter-tag">Dao Culture</span>
+        <span class="chapter-tag">Anniversary Event</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHAPTER VI -->
+  <div class="chapter-entry" id="chapter-vi">
+    <div class="chapter-index-col">
+      <div class="chapter-roman">VI</div>
+      <span class="chapter-label">Chapter VI · 2022</span>
+    </div>
+    <div class="chapter-content-col">
+      <h2 class="chapter-title">How Thiện Kiến's Journey Began — Vietnam Summer Fair 2022, Huế</h2>
+      <p class="chapter-body">
+        Thiện Kiến's story is a journey woven with culture, tradition, and innovation. The pivotal moment unfolded at the Vietnam Summer Fair 2022, hosted in the beautiful city of Huế.
+      </p>
+      <p class="chapter-body" style="margin-top:16px;">
+        Co-founded by two dedicated individuals, this event was not just a celebration of Vietnamese heritage — it showcased the talents and creativity of artisans and cultural organisations from across the nation. Here, Thiện Kiến took its first steps: a beginning rooted in the belief that Vietnamese culinary culture deserved to be shared, with care and precision, with the world.
+      </p>
+      <div class="chapter-tags">
+        <span class="chapter-tag">Origin Story</span>
+        <span class="chapter-tag">Vietnam Summer Fair 2022</span>
+        <span class="chapter-tag">Huế</span>
+        <span class="chapter-tag">Founded</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHAPTER VII -->
+  <div class="chapter-entry" id="chapter-vii">
+    <div class="chapter-index-col">
+      <div class="chapter-roman">VII</div>
+      <span class="chapter-label">Chapter VII · 2024</span>
+    </div>
+    <div class="chapter-content-col">
+      <h2 class="chapter-title">A Journey of Cultural Storytelling Through Cuisine</h2>
+      <p class="chapter-body">
+        This chapter marks the culmination of the first series of stories about Thiện Kiến — a visionary entity dedicated to sharing the rich tapestry of Vietnamese culture with the world.
+      </p>
+      <p class="chapter-body" style="margin-top:16px;">
+        As Thiện Kiến transforms into a cultural agency, its mission remains unwavering: to weave captivating narratives around Vietnamese cuisine and immerse audiences in a multi-sensory cultural experience. The first series of stories ends. A new chapter — TKG, the US market, the botanical house — begins.
+      </p>
+      <p class="chapter-body" style="margin-top:16px; font-family: var(--serif); font-style: italic; font-size:16px; color: var(--ink-muted);">
+        "From cultural storyteller to botanical house. The thread continues."
+      </p>
+      <div class="chapter-tags">
+        <span class="chapter-tag">Cultural Agency</span>
+        <span class="chapter-tag">Series Finale</span>
+        <span class="chapter-tag">New Chapter</span>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end journey-log -->
+
+<!-- OTHER TALES -->
+<div class="other-tales" id="other-tales">
+  <div class="other-tales-inner">
+    <div class="other-tales-header">
+      <p class="log-section-tag">Beyond the Log</p>
+      <h2 class="log-section-title" style="color:var(--cream);">Other <em>tales.</em></h2>
+    </div>
+    <div class="tales-cards-grid">
+
+      <div class="tales-event-card">
+        <p class="event-year">2023</p>
+        <h3 class="event-title">Danwu Festival</h3>
+        <p class="event-body">
+          A full cultural event built around the Duanwu (端午) tradition — dragon boats, rice dumplings, and the medicinal herbs of midsummer. Vietnamese customs interpreted for an international audience, with Thiện Kiến curating every sensory detail.
+        </p>
+        <div class="event-tags">
+          <span class="event-tag">Duanwu</span>
+          <span class="event-tag">Cultural Festival</span>
+          <span class="event-tag">Herbs</span>
+        </div>
+      </div>
+
+      <div class="tales-event-card">
+        <p class="event-year">2024</p>
+        <h3 class="event-title">New Energy NEXUS — Summer 2024</h3>
+        <p class="event-body">
+          A summer gathering for the New Energy NEXUS Vietnam community — connecting entrepreneurs, investors, and change-makers through Vietnamese culinary experience. Energy, in every sense of the word.
+        </p>
+        <div class="event-tags">
+          <span class="event-tag">New Energy NEXUS</span>
+          <span class="event-tag">Entrepreneurship</span>
+          <span class="event-tag">Summer</span>
+        </div>
+      </div>
+
+      <div class="tales-event-card">
+        <p class="event-year">2024</p>
+        <h3 class="event-title">Recognition of Maturity</h3>
+        <p class="event-body">
+          A milestone event for the New Energy NEXUS Vietnam community — marking a moment of collective maturity. Thiện Kiến designed an experience that honored the journey while pointing toward what comes next. The table was set. The next chapter was announced.
+        </p>
+        <div class="event-tags">
+          <span class="event-tag">Recognition</span>
+          <span class="event-tag">Milestone</span>
+          <span class="event-tag">Community</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- NEXT CHAPTER -->
+<div class="tales-next">
+  <div class="tales-next-inner">
+    <div class="tales-next-text">
+      <h3>The next tale is <em style="font-style:italic;color:var(--gold);">yours to write.</em></h3>
+      <p>Every Thiện Kiến gathering becomes a story. Reach out to begin one.</p>
+    </div>
+    <div class="tales-next-actions">
+      <a href="index.html#contact" class="btn-ink">Work with us</a>
+      <a href="index.html" class="btn-line">← Back to Thiện Kiến</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Thiện <span>Kiến</span> · 善見</div>
+  <p class="footer-copy">© 2026 Thiện Kiến. Rooted in Vietnam. Refined for the world.</p>
+</footer>
+
+<script>
+  // Scroll reveal for chapter entries
+  const entries = document.querySelectorAll('.chapter-entry');
+  const observer = new IntersectionObserver((items) => {
+    items.forEach((item, i) => {
+      if (item.isIntersecting) {
+        setTimeout(() => item.target.classList.add('visible'), i * 60);
+        observer.unobserve(item.target);
+      }
+    });
+  }, { threshold: 0.05 });
+  entries.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
