@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thiện Kiến — Cultural Agency · Vietnam</title>
+<meta name="description" content="Thiện Kiến is a Vietnamese cultural agency — curating culinary experiences, giftsets, and botanical goods rooted in the traditions of Vietnam.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5F0E8;
+    --linen: #EDE7D9;
+    --ink: #1A1612;
+    --ink-soft: #3D3530;
+    --ink-muted: #7A6E65;
+    --gold: #B8935A;
+    --gold-light: #D4A96A;
+    --rust: #8B4A2F;
+    --sage: #5C6B5A;
+    --border: #D4CCC0;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Montserrat', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 48px;
+    background: rgba(245, 240, 232, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.4s, padding 0.4s;
+  }
+  nav.scrolled {
+    border-color: var(--border);
+    padding: 18px 48px;
+  }
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .nav-logo span {
+    color: var(--gold);
+  }
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta {
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    border-bottom: 1px solid var(--gold);
+    padding-bottom: 2px;
+    transition: color 0.3s;
+  }
+  .nav-cta:hover { color: var(--rust); border-color: var(--rust); }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 64px 80px 48px;
+  }
+  .hero-eyebrow {
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+  .hero-title {
+    font-family: var(--serif);
+    font-size: clamp(56px, 6vw, 88px);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .hero-body {
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.8;
+    color: var(--ink-soft);
+    max-width: 420px;
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+  }
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.8s forwards;
+  }
+  .btn-primary {
+    display: inline-block;
+    padding: 14px 32px;
+    background: var(--ink);
+    color: var(--cream);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.2s;
+  }
+  .btn-primary:hover { background: var(--rust); transform: translateY(-1px); }
+  .btn-ghost {
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 2px;
+    transition: color 0.3s, border-color 0.3s;
+  }
+  .btn-ghost:hover { color: var(--gold); border-color: var(--gold); }
+
+  .hero-right {
+    position: relative;
+    background: var(--linen);
+    overflow: hidden;
+    opacity: 0;
+    animation: fadeIn 1.2s 0.3s forwards;
+  }
+  .hero-right::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 40px,
+        rgba(184,147,90,0.04) 40px,
+        rgba(184,147,90,0.04) 41px
+      );
+  }
+  .hero-quote {
+    position: absolute;
+    bottom: 64px;
+    left: 48px;
+    right: 48px;
+  }
+  .hero-quote blockquote {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    border-left: 2px solid var(--gold);
+    padding-left: 24px;
+    margin-bottom: 16px;
+  }
+  .hero-quote cite {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    font-style: normal;
+  }
+  .hero-ornament {
+    position: absolute;
+    top: 64px;
+    right: 48px;
+    font-family: var(--serif);
+    font-size: 120px;
+    font-weight: 300;
+    color: var(--gold);
+    opacity: 0.08;
+    line-height: 1;
+    user-select: none;
+  }
+
+  /* ─── SECTION BASE ─── */
+  section { padding: 120px 48px; }
+  .section-inner { max-width: 1200px; margin: 0 auto; }
+  .section-label {
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .section-label::before {
+    content: '';
+    display: inline-block;
+    width: 32px;
+    height: 1px;
+    background: var(--gold);
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(40px, 4vw, 60px);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: 24px;
+  }
+  .section-title em { font-style: italic; color: var(--gold); }
+  .section-body {
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.85;
+    color: var(--ink-soft);
+    max-width: 560px;
+  }
+
+  /* ─── ABOUT ─── */
+  #about {
+    background: var(--ink);
+    color: var(--cream);
+  }
+  #about .section-label { color: var(--gold); }
+  #about .section-label::before { background: var(--gold); }
+  #about .section-title { color: var(--cream); }
+  #about .section-body { color: rgba(245,240,232,0.7); max-width: none; }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+    margin-top: 64px;
+  }
+  .about-left .section-body { margin-bottom: 32px; }
+  .about-name-block {
+    margin-top: 48px;
+    padding: 32px;
+    border: 1px solid rgba(184,147,90,0.3);
+  }
+  .about-name-block h4 {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .about-name-block p {
+    font-size: 13px;
+    line-height: 1.8;
+    color: rgba(245,240,232,0.6);
+  }
+  .about-milestones {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .milestone {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 24px;
+    padding: 28px 0;
+    border-bottom: 1px solid rgba(245,240,232,0.1);
+    align-items: start;
+  }
+  .milestone:first-child { border-top: 1px solid rgba(245,240,232,0.1); }
+  .milestone-year {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 300;
+    color: var(--gold);
+  }
+  .milestone-text {
+    font-size: 13px;
+    line-height: 1.7;
+    color: rgba(245,240,232,0.65);
+  }
+  .milestone-text strong {
+    display: block;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--cream);
+    margin-bottom: 4px;
+  }
+
+  /* ─── SERVICES ─── */
+  #services { background: var(--cream); }
+  .services-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: end;
+    margin-bottom: 72px;
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+  .service-card {
+    background: var(--linen);
+    padding: 48px 40px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.4s;
+    cursor: default;
+  }
+  .service-card:hover { background: var(--ink); }
+  .service-card:hover .service-number,
+  .service-card:hover .service-name,
+  .service-card:hover .service-desc { color: var(--cream); }
+  .service-card:hover .service-line { background: var(--gold); }
+  .service-number {
+    font-family: var(--serif);
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--gold);
+    margin-bottom: 32px;
+    letter-spacing: 0.08em;
+    transition: color 0.4s;
+  }
+  .service-line {
+    width: 32px;
+    height: 1px;
+    background: var(--border);
+    margin-bottom: 24px;
+    transition: background 0.4s;
+  }
+  .service-name {
+    font-family: var(--serif);
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 20px;
+    transition: color 0.4s;
+  }
+  .service-desc {
+    font-size: 13px;
+    line-height: 1.8;
+    color: var(--ink-muted);
+    transition: color 0.4s;
+  }
+  .service-card:hover .service-desc { color: rgba(245,240,232,0.6); }
+
+  /* ─── TKG BRIDGE ─── */
+  #tkgbridge {
+    background: var(--linen);
+    padding: 120px 48px;
+  }
+  .bridge-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .bridge-left {}
+  .bridge-product-card {
+    background: var(--ink);
+    padding: 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  .bridge-product-card::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 200px;
+    height: 200px;
+    border: 1px solid rgba(184,147,90,0.2);
+    border-radius: 50%;
+  }
+  .bridge-product-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--gold);
+  }
+  .bridge-tag {
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 32px;
+  }
+  .bridge-product-card h3 {
+    font-family: var(--serif);
+    font-size: 40px;
+    font-weight: 300;
+    color: var(--cream);
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+  .bridge-product-card .bridge-sub {
+    font-family: var(--serif);
+    font-size: 16px;
+    font-style: italic;
+    color: var(--gold);
+    margin-bottom: 32px;
+  }
+  .bridge-product-card p {
+    font-size: 14px;
+    line-height: 1.8;
+    color: rgba(245,240,232,0.65);
+    margin-bottom: 40px;
+  }
+  .bridge-skus {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+  .bridge-sku {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border: 1px solid rgba(184,147,90,0.25);
+  }
+  .bridge-sku-name {
+    font-family: var(--serif);
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--cream);
+  }
+  .bridge-sku-detail {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--gold);
+  }
+  .bridge-cta {
+    display: inline-block;
+    padding: 14px 32px;
+    background: var(--gold);
+    color: var(--ink);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.3s;
+  }
+  .bridge-cta:hover { background: var(--gold-light); }
+  .bridge-credentials {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .bridge-cred {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: rgba(245,240,232,0.4);
+  }
+  .bridge-cred::before {
+    content: '·';
+    color: var(--gold);
+    font-size: 20px;
+  }
+
+  /* ─── TASTE THE TALES ─── */
+  #tales {
+    background: var(--cream);
+    padding: 120px 48px;
+  }
+  .tales-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: end;
+    margin-bottom: 72px;
+  }
+  .tales-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+  .tale-card {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 3/4;
+    background: var(--linen);
+    cursor: pointer;
+  }
+  .tale-card-inner {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 36px 32px;
+    background: linear-gradient(to top, rgba(26,22,18,0.9) 0%, rgba(26,22,18,0.2) 60%, transparent 100%);
+    transition: background 0.4s;
+  }
+  .tale-card:hover .tale-card-inner {
+    background: linear-gradient(to top, rgba(26,22,18,0.95) 0%, rgba(26,22,18,0.5) 70%, rgba(26,22,18,0.1) 100%);
+  }
+  .tale-year {
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .tale-title {
+    font-family: var(--serif);
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--cream);
+    margin-bottom: 12px;
+  }
+  .tale-desc {
+    font-size: 12px;
+    line-height: 1.7;
+    color: rgba(245,240,232,0.6);
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.4s, transform 0.4s;
+  }
+  .tale-card:hover .tale-desc {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .tale-bg {
+    position: absolute;
+    inset: 0;
+    background: var(--ink-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .tale-bg-text {
+    font-family: var(--serif);
+    font-size: 80px;
+    font-weight: 300;
+    color: rgba(184,147,90,0.15);
+    font-style: italic;
+  }
+
+  /* ─── CLIENTS ─── */
+  #clients {
+    background: var(--linen);
+    padding: 80px 48px;
+  }
+  .clients-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .clients-label {
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .clients-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+  }
+  .client-pill {
+    padding: 10px 24px;
+    border: 1px solid var(--border);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    color: var(--ink-muted);
+    background: var(--cream);
+    white-space: nowrap;
+    transition: border-color 0.3s, color 0.3s;
+  }
+  .client-pill:hover { border-color: var(--gold); color: var(--ink); }
+  .client-testimonial {
+    max-width: 720px;
+    margin: 64px auto 0;
+    text-align: center;
+  }
+  .client-testimonial blockquote {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin-bottom: 20px;
+  }
+  .client-testimonial cite {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    font-style: normal;
+  }
+
+  /* ─── CONTACT ─── */
+  #contact {
+    background: var(--ink);
+    padding: 120px 48px;
+  }
+  .contact-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+  #contact .section-label { color: var(--gold); }
+  #contact .section-label::before { background: var(--gold); }
+  #contact .section-title { color: var(--cream); }
+  #contact .section-body { color: rgba(245,240,232,0.6); }
+  .contact-details {
+    margin-top: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .contact-item {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 16px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(245,240,232,0.08);
+  }
+  .contact-item-label {
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    padding-top: 2px;
+  }
+  .contact-item-value {
+    font-size: 14px;
+    color: rgba(245,240,232,0.7);
+    line-height: 1.7;
+  }
+  .contact-item-value a {
+    color: var(--cream);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(245,240,232,0.2);
+    padding-bottom: 1px;
+    transition: border-color 0.3s;
+  }
+  .contact-item-value a:hover { border-color: var(--gold); color: var(--gold); }
+  .contact-right {
+    padding-top: 48px;
+  }
+  .contact-cta-block {
+    border: 1px solid rgba(184,147,90,0.3);
+    padding: 40px;
+  }
+  .contact-cta-block h4 {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--cream);
+    margin-bottom: 16px;
+  }
+  .contact-cta-block p {
+    font-size: 13px;
+    line-height: 1.8;
+    color: rgba(245,240,232,0.55);
+    margin-bottom: 32px;
+  }
+  .contact-cta-block a.btn-gold {
+    display: inline-block;
+    padding: 14px 32px;
+    background: var(--gold);
+    color: var(--ink);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.3s;
+    margin-right: 16px;
+    margin-bottom: 12px;
+  }
+  .contact-cta-block a.btn-gold:hover { background: var(--gold-light); }
+  .contact-cta-block a.btn-outline {
+    display: inline-block;
+    padding: 14px 32px;
+    border: 1px solid rgba(184,147,90,0.4);
+    color: var(--gold);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: border-color 0.3s, color 0.3s;
+    margin-bottom: 12px;
+  }
+  .contact-cta-block a.btn-outline:hover { border-color: var(--gold); color: var(--gold-light); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: #110E0B;
+    padding: 40px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .footer-logo {
+    font-family: var(--serif);
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(245,240,232,0.5);
+  }
+  .footer-logo span { color: var(--gold); }
+  .footer-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+  .footer-links a {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.3);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-copy {
+    font-size: 11px;
+    color: rgba(245,240,232,0.2);
+  }
+
+  /* ─── DIVIDER ─── */
+  .divider {
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 1px;
+    background: var(--border);
+  }
+  .divider-dark {
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 1px;
+    background: rgba(245,240,232,0.08);
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    nav { padding: 20px 24px; }
+    .nav-links { display: none; }
+    #hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 48px 24px; }
+    .hero-right { height: 300px; }
+    section { padding: 80px 24px; }
+    .about-grid,
+    .services-header,
+    .bridge-inner,
+    .contact-inner,
+    .tales-header { grid-template-columns: 1fr; gap: 40px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .tales-grid { grid-template-columns: 1fr; }
+    footer { padding: 32px 24px; flex-direction: column; gap: 20px; }
+    #clients { padding: 60px 24px; }
+    #tkgbridge { padding: 80px 24px; }
+    #tales { padding: 80px 24px; }
+    #contact { padding: 80px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">Thiện <span>Kiến</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#tkgbridge">TKG</a></li>
+    <li><a href="#tales">Taste the Tales</a></li>
+    <li><a href="#clients">Trusted by</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Work with us</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Cultural Agency · Established 2022 · Vietnam</p>
+    <h1 class="hero-title">
+      A clear sight<br>on <em>Vietnam's</em><br>finest.
+    </h1>
+    <p class="hero-body">
+      Thiện Kiến — from the Sanskrit <em>Sudarshana</em>, the heaven of clear sight — is a Vietnamese cultural agency rooted in the belief that every tradition, every ingredient, and every gathering deserves to be understood at its deepest level.
+    </p>
+    <div class="hero-actions">
+      <a href="#services" class="btn-primary">Our services</a>
+      <a href="#tkgbridge" class="btn-ghost">Explore TKG →</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-ornament">善見</div>
+    <div class="hero-quote">
+      <blockquote>
+        "It reminds me of my grandmother."
+      </blockquote>
+      <cite>Dr. Mason Cobb — Chairman, Victoria Healthcare · Bloomfield Hills, Michigan</cite>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-left reveal">
+        <p class="section-label">Who we are</p>
+        <h2 class="section-title">Rooted in Vietnam.<br><em>Refined for the world.</em></h2>
+        <p class="section-body">
+          Thiện Kiến began as a conviction: that Vietnamese culinary heritage — its botanicals, its rituals, its depth — is not folklore to be preserved behind glass, but living knowledge to be shared with care and precision.
+        </p>
+        <p class="section-body" style="margin-top: 20px;">
+          We work at the intersection of culture, craft, and commerce — curating experiences that open doors between Vietnam and the world, one gathering at a time.
+        </p>
+        <div class="about-name-block">
+          <h4>善見 · Sudarshana</h4>
+          <p>
+            In Buddhist cosmology, Sudṛśa is the heaven of clear sight — a realm where purity meets profound understanding. In Hindu philosophy, the Sudarshana Chakra dispels ignorance and restores harmony.<br><br>
+            These are not metaphors. They are operating principles.
+          </p>
+        </div>
+      </div>
+      <div class="about-right reveal">
+        <div class="milestones-label" style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:24px;display:flex;align-items:center;gap:16px;">
+          <span style="display:inline-block;width:32px;height:1px;background:var(--gold);"></span>
+          The journey
+        </div>
+        <div class="about-milestones">
+          <div class="milestone">
+            <span class="milestone-year">2022</span>
+            <div class="milestone-text">
+              <strong>Founded in Ho Chi Minh City</strong>
+              Seasonal fruit sourcing for international offices. The beginning of a longer story.
+            </div>
+          </div>
+          <div class="milestone">
+            <span class="milestone-year">2023</span>
+            <div class="milestone-text">
+              <strong>B2B Food & Experience</strong>
+              Culinary design, catering, and corporate gifting for FDI companies, NGOs, and diplomatic missions.
+            </div>
+          </div>
+          <div class="milestone">
+            <span class="milestone-year">2024</span>
+            <div class="milestone-text">
+              <strong>Diplomatic & NGO Clients</strong>
+              Events connecting international leaders with Vietnamese culture. The Australian Embassy, British Council, YSEALI, and others.
+            </div>
+          </div>
+          <div class="milestone">
+            <span class="milestone-year">2025</span>
+            <div class="milestone-text">
+              <strong>TKG R&D · Product Launch</strong>
+              Commercialisation of the TKG botanical wellness line. First launch event in Bloomfield Hills, Michigan.
+            </div>
+          </div>
+          <div class="milestone">
+            <span class="milestone-year">2026</span>
+            <div class="milestone-text">
+              <strong>Team Building · US Expansion</strong>
+              Establishing Thiện Kiến LLC in the United States. Expanding distribution and M&A pipeline across Oakland County.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-inner">
+    <div class="services-header">
+      <div class="reveal">
+        <p class="section-label">What we do</p>
+        <h2 class="section-title">Four disciplines.<br><em>One philosophy.</em></h2>
+      </div>
+      <div class="reveal">
+        <p class="section-body">
+          Every engagement with Thiện Kiến is built on the same foundation: deep knowledge of Vietnamese culture, precision in craft, and respect for the people on both sides of the table.
+        </p>
+      </div>
+    </div>
+    <div class="services-grid reveal">
+      <div class="service-card">
+        <p class="service-number">01</p>
+        <div class="service-line"></div>
+        <h3 class="service-name">Culinary Experience Design</h3>
+        <p class="service-desc">
+          Private dinners, teabreaks, and ceremonial feasts — designed to carry Vietnamese culinary identity into contemporary formats. For corporate gatherings, diplomatic events, and private occasions.
+        </p>
+      </div>
+      <div class="service-card">
+        <p class="service-number">02</p>
+        <div class="service-line"></div>
+        <h3 class="service-name">Giftset Design</h3>
+        <p class="service-desc">
+          Bespoke gift sets built around Vietnamese botanical and artisanal goods. Named ingredients, honest sourcing, and packaging that reflects the value of what's inside.
+        </p>
+      </div>
+      <div class="service-card">
+        <p class="service-number">03</p>
+        <div class="service-line"></div>
+        <h3 class="service-name">Gourmet Offering Design</h3>
+        <p class="service-desc">
+          Product development and curation for the TKG botanical line — from formulation discipline through Naula, to retail-ready packaging and market positioning.
+        </p>
+      </div>
+      <div class="service-card" style="grid-column: 1 / -1; background: var(--ink);">
+        <div style="display:grid;grid-template-columns:1fr 2fr;gap:48px;align-items:center;">
+          <div>
+            <p class="service-number" style="color:var(--gold);">04</p>
+            <div class="service-line" style="background:rgba(184,147,90,0.4)"></div>
+            <h3 class="service-name" style="color:var(--cream);">Cultural Experience Design</h3>
+          </div>
+          <p class="service-desc" style="color:rgba(245,240,232,0.6);">
+            Full-scale cultural events that bring Vietnamese traditions to life for international audiences — archery, herbal sachet-making, ceremonial tastings, and curated storytelling. Past clients include diplomatic missions across Southeast Asia and the United States.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TKG BRIDGE -->
+<section id="tkgbridge">
+  <div class="bridge-inner">
+    <div class="bridge-left reveal">
+      <p class="section-label">Our first product</p>
+      <h2 class="section-title">Botanical wellness,<br><em>from the source.</em></h2>
+      <p class="section-body" style="margin-bottom:32px;">
+        TKG is Thiện Kiến's botanical wellness brand — the first commercial expression of our belief that Vietnamese herbal practice deserves a place in the world's premium wellness conversation.
+      </p>
+      <p class="section-body" style="margin-bottom:32px;">
+        Named ingredients. Honest formulation. The Naula method — a whole-plant preparation discipline rooted in Vietnamese botanical practice. Laboratory tested. No shortcuts.
+      </p>
+      <p class="section-body">
+        TKG is not a product line. It is the beginning of a botanical house — structured to grow through careful M&A with companies that share the same value system.
+      </p>
+    </div>
+    <div class="bridge-right reveal">
+      <div class="bridge-product-card">
+        <p class="bridge-tag">TKG · Naula Beverage · Hệ Hoả</p>
+        <h3>Two botanicals.</h3>
+        <p class="bridge-sub">One preparation discipline.</p>
+        <p>Whole plants from Long An, Vietnam — slow-cooked through the Naula method, freeze-dried to preserve character. No artificial flavoring. No preservatives. Eurofins tested.</p>
+        <div class="bridge-skus">
+          <div class="bridge-sku">
+            <span class="bridge-sku-name">Lư Trung Hoả · Ginger + Lemongrass</span>
+            <span class="bridge-sku-detail">Bold · Direct</span>
+          </div>
+          <div class="bridge-sku">
+            <span class="bridge-sku-name">Phú Đăng Hoả · Perilla + Clove</span>
+            <span class="bridge-sku-detail">Quiet · Considered</span>
+          </div>
+        </div>
+        <a href="https://tkg-naula.com" target="_blank" class="bridge-cta">Visit TKG-Naula.com →</a>
+        <div class="bridge-credentials">
+          <span class="bridge-cred">ISO/IEC 17025 tested · Eurofins</span>
+          <span class="bridge-cred">No detectable lead · No microbial contamination</span>
+          <span class="bridge-cred">Single origin · Long An, Vietnam</span>
+          <span class="bridge-cred">$34.99 / box · 32 sachets</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TASTE THE TALES -->
+<section id="tales">
+  <div class="section-inner">
+    <div class="tales-header">
+      <div class="reveal">
+        <p class="section-label">Taste the Tales</p>
+        <h2 class="section-title">Stories told<br><em>by taste.</em></h2>
+      </div>
+      <div class="reveal">
+        <p class="section-body">
+          Every gathering Thiện Kiến has curated carries a story — of ingredients, of people, of the moment when a Vietnamese aroma becomes a shared memory across cultures.
+        </p>
+        <p class="section-body" style="margin-top:16px;">
+          These are some of those stories.
+        </p>
+      </div>
+    </div>
+    <div class="tales-grid reveal">
+      <div class="tale-card">
+        <div class="tale-bg">
+          <span class="tale-bg-text">I</span>
+        </div>
+        <div class="tale-card-inner">
+          <p class="tale-year">2022</p>
+          <h3 class="tale-title">Vietnam Summer Fair</h3>
+          <p class="tale-desc">The first public gathering — Vietnamese botanical culture introduced to an international audience in Ho Chi Minh City.</p>
+        </div>
+      </div>
+      <div class="tale-card">
+        <div class="tale-bg" style="background:#2A2218;">
+          <span class="tale-bg-text">II</span>
+        </div>
+        <div class="tale-card-inner">
+          <p class="tale-year">2023</p>
+          <h3 class="tale-title">Danwu Festival · TECx</h3>
+          <p class="tale-desc">A traditional festival reimagined — herbal sachets, archery, and the scent of local herbs. Stories that crossed language barriers.</p>
+        </div>
+      </div>
+      <div class="tale-card">
+        <div class="tale-bg" style="background:#1E2218;">
+          <span class="tale-bg-text">III</span>
+        </div>
+        <div class="tale-card-inner">
+          <p class="tale-year">2024</p>
+          <h3 class="tale-title">New Energy NEXUS</h3>
+          <p class="tale-desc">Recognition of Maturity — a milestone event bringing together the Thiện Kiến community to mark a new chapter.</p>
+        </div>
+      </div>
+      <div class="tale-card" style="background:var(--linen);">
+        <div class="tale-bg" style="background:#2C1F16;">
+          <span class="tale-bg-text">IV</span>
+        </div>
+        <div class="tale-card-inner">
+          <p class="tale-year">2025</p>
+          <h3 class="tale-title">Chân Phúc — The Table of Memories</h3>
+          <p class="tale-desc">A private dining experience designed around the Vietnamese concept of ancestral memory — food as connection across generations.</p>
+        </div>
+      </div>
+      <div class="tale-card">
+        <div class="tale-bg" style="background:#18201A;">
+          <span class="tale-bg-text">V</span>
+        </div>
+        <div class="tale-card-inner">
+          <p class="tale-year">2026</p>
+          <h3 class="tale-title">TKG Launch · Bloomfield Hills</h3>
+          <p class="tale-desc">The first TKG product launch on US soil. Ten guests. Two botanicals. One question: how does Vietnamese botanical knowledge enter the world without losing what makes it worth knowing?</p>
+        </div>
+      </div>
+      <div class="tale-card" style="background:var(--ink); cursor:default;">
+        <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;height:100%;padding:40px;text-align:center;">
+          <p style="font-family:var(--serif);font-size:18px;font-weight:300;font-style:italic;color:rgba(245,240,232,0.4);line-height:1.6;margin-bottom:24px;">
+            More stories<br>are being made.
+          </p>
+          <a href="#contact" style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(184,147,90,0.3);padding-bottom:2px;">Write one with us →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENTS -->
+<section id="clients">
+  <div class="clients-inner">
+    <p class="clients-label reveal">Trusted by organisations across Vietnam, Southeast Asia, and the United States</p>
+    <div class="clients-strip reveal">
+      <span class="client-pill">British Council</span>
+      <span class="client-pill">Australian Embassy Vietnam</span>
+      <span class="client-pill">YSEALI · US Embassy</span>
+      <span class="client-pill">New Energy NEXUS</span>
+      <span class="client-pill">Abbott Vietnam</span>
+      <span class="client-pill">SAVVi Code</span>
+      <span class="client-pill">Amanotes</span>
+      <span class="client-pill">KMS Solutions</span>
+      <span class="client-pill">SwissEP</span>
+      <span class="client-pill">Blackstone Vietnam</span>
+      <span class="client-pill">DTP Education</span>
+      <span class="client-pill">UKAV</span>
+      <span class="client-pill">SPARX</span>
+      <span class="client-pill">Phu Dong Group</span>
+    </div>
+    <div class="client-testimonial reveal">
+      <blockquote>
+        "It's incredible that two such distant and distinct countries share cultural similarities — like their ancestors using herbal steam and drinks for cold remedies. It reminds me of my grandmother."
+      </blockquote>
+      <cite>Dr. Mason Cobb — Chairman, Victoria Healthcare · Chief Longevity Advisor, Vitalgen Health</cite>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="contact-left reveal">
+      <p class="section-label">Work with us</p>
+      <h2 class="section-title" style="color:var(--cream);">Let's build<br><em>something real.</em></h2>
+      <p class="section-body" style="color:rgba(245,240,232,0.6);margin-bottom:0;">
+        Whether you are planning a corporate gathering, sourcing premium Vietnamese goods, exploring distribution of TKG, or considering a longer partnership — we are selective, and we are serious.
+      </p>
+      <div class="contact-details">
+        <div class="contact-item">
+          <span class="contact-item-label">Email</span>
+          <span class="contact-item-value"><a href="mailto:Thienkien.sudarshana@gmail.com">Thienkien.sudarshana@gmail.com</a></span>
+        </div>
+        <div class="contact-item">
+          <span class="contact-item-label">Phone</span>
+          <span class="contact-item-value"><a href="tel:+84976847789">(+84) 976 – 847 – 789</a></span>
+        </div>
+        <div class="contact-item">
+          <span class="contact-item-label">TKG Orders</span>
+          <span class="contact-item-value"><a href="mailto:TKG.naula@gmail.com">TKG.naula@gmail.com</a></span>
+        </div>
+        <div class="contact-item">
+          <span class="contact-item-label">Social</span>
+          <span class="contact-item-value">
+            <a href="https://www.instagram.com/thienkiensgn/" target="_blank">Instagram</a> &nbsp;·&nbsp;
+            <a href="https://www.facebook.com/thienkien2022" target="_blank">Facebook</a>
+          </span>
+        </div>
+        <div class="contact-item" style="border:none;">
+          <span class="contact-item-label">Location</span>
+          <span class="contact-item-value">Ho Chi Minh City, Vietnam<br>Bloomfield Hills, Michigan, USA</span>
+        </div>
+      </div>
+    </div>
+    <div class="contact-right reveal">
+      <div class="contact-cta-block">
+        <h4>Ready to begin?</h4>
+        <p>
+          We do not take every enquiry. We take the ones where there is genuine alignment — in values, in purpose, and in the kind of work we both want to put into the world.
+        </p>
+        <a href="mailto:Thienkien.sudarshana@gmail.com" class="btn-gold">Send an enquiry</a>
+        <a href="https://tkg-naula.com" target="_blank" class="btn-outline">Visit TKG →</a>
+      </div>
+      <div style="margin-top:32px;padding:32px;border:1px solid rgba(184,147,90,0.15);">
+        <p style="font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;">Thiện Kiến · Legal</p>
+        <p style="font-size:12px;line-height:1.8;color:rgba(245,240,232,0.35);">
+          Thiện Kiến Service - Trading Limited Company<br>
+          Registered in Vietnam · LLC filing in progress, United States
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Thiện <span>Kiến</span> · 善見</div>
+  <ul class="footer-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#tkgbridge">TKG</a></li>
+    <li><a href="#tales">Taste the Tales</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="https://tkg-naula.com" target="_blank">TKG-Naula.com</a></li>
+  </ul>
+  <p class="footer-copy">© 2026 Thiện Kiến. Rooted in Vietnam. Refined for the world.</p>
+</footer>
+
+<script>
+  // Nav scroll behavior
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
