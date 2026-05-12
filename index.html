@@ -939,7 +939,73 @@
     0%, 100% { opacity: 0.7; transform: scale(1); }
     50% { opacity: 1; transform: scale(1.03); }
   }
+/* ─── VIDEO MODAL ─── */
+  .video-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(0,0,0,0.92);
+    align-items: center;
+    justify-content: center;
+    cursor: default;
+  }
+  .video-modal.open {
+    display: flex;
+  }
+  .video-modal-inner {
+    position: relative;
+    width: 90vw;
+    max-width: 1200px;
+    aspect-ratio: 16/9;
+  }
+  .video-modal-inner video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+  .video-modal-close {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: rgba(245,232,192,0.5);
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .video-modal-close:hover { color: var(--cream); }
 
+  .cell-f-play-hint {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    border: 1px solid rgba(245,232,192,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+    background: rgba(0,0,0,0.3);
+  }
+  .cell-f-play-hint svg {
+    width: 18px; height: 18px;
+    fill: rgba(245,232,192,0.7);
+    margin-left: 3px;
+  }
+  .cell-f:hover .cell-f-play-hint { opacity: 1; }
+  .cell-f { cursor: pointer; }
+  
   /* ─── HOVER EFFECTS on cells ─── */
   .cell-d, .cell-e, .jc {
     transition: filter 0.3s;
@@ -1046,6 +1112,9 @@
    <!-- F: Bottom wide video -->
   <div class="cell cell-f">
     <video class="cell-f-video" autoplay muted loop playsinline>
+       <div class="cell-f-play-hint">
+      <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+    </div>
       <source src="cell-f.webm" type="video/webm">
     </video>
     <div class="cell-f-content">
@@ -1271,6 +1340,37 @@
     el.addEventListener('mouseenter', () => cur.classList.add('big'));
     el.addEventListener('mouseleave', () => cur.classList.remove('big'));
   });
+  // ── VIDEO MODAL ──
+  const modal      = document.getElementById('videoModal');
+  const modalVideo = document.getElementById('modalVideo');
+  const closeBtn   = document.getElementById('videoModalClose');
+  const cellF      = document.querySelector('.cell-f');
+
+  cellF.addEventListener('click', () => {
+    modal.classList.add('open');
+    modalVideo.currentTime = 0;
+    modalVideo.muted = true;
+    modalVideo.play();
+  });
+
+  function closeModal() {
+    modal.classList.remove('open');
+    modalVideo.pause();
+    modalVideo.muted = true;
+  }
+
+  closeBtn.addEventListener('click', (e) => { e.stopPropagation(); closeModal(); });
+  modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
 </script>
+<!-- ── VIDEO MODAL ── -->
+<div class="video-modal" id="videoModal">
+  <div class="video-modal-inner">
+    <button class="video-modal-close" id="videoModalClose">✕ &nbsp;Đóng</button>
+    <video id="modalVideo" controls muted playsinline>
+      <source src="cell-f.webm" type="video/webm">
+    </video>
+  </div>
+</div>
 </body>
 </html>
