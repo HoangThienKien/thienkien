@@ -462,9 +462,36 @@
     flex-direction: column;
     justify-content: flex-end;
     padding: 20px 22px;
+    position: relative;
+    overflow: hidden;
     opacity: 0;
     animation: fadeIn 0.8s 1.1s forwards;
   }
+
+  .cell-e-img {
+    position: absolute;
+    inset: 0;
+    background-image: url('IMG_3770.webp');
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+  }
+
+  .cell-e-img-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(45, 30, 16, 0.60);
+    z-index: 1;
+  }
+
+  .cell-e-pixel {
+    position: absolute;
+    top: 0; left: 0;
+    width: 20px; height: 20px;
+    background: #2D1E10;
+    z-index: 3;
+  }
+
   .cell-e-label {
     font-family: var(--f-mono);
     font-size: 9px;
@@ -473,15 +500,17 @@
     text-transform: uppercase;
     color: rgba(200,135,42,0.55);
     margin-bottom: 4px;
+    position: relative; z-index: 3;
   }
+
   .cell-e-text {
     font-family: var(--f-display);
     font-size: clamp(12px, 1.3vw, 18px);
     font-weight: 300;
     color: var(--amber-pale);
     line-height: 1.3;
+    position: relative; z-index: 3;
   }
-
   /* ── CELL F: wide bottom photo — Tết Đoan Ngọ ── */
   .cell-f {
     grid-column: 1;
@@ -1009,7 +1038,10 @@
   </div>
 
   <!-- E: Earth event cell -->
-  <div class="cell cell-e">
+<div class="cell cell-e">
+    <div class="cell-e-img"></div>
+    <div class="cell-e-img-overlay"></div>
+    <div class="cell-e-pixel"></div>
     <div>
       <div class="cell-e-label">Cultural Ceremony · 2024</div>
       <div class="cell-e-text">Lễ Cấp Sắc<br>người Dao — NEXUS 5 năm</div>
