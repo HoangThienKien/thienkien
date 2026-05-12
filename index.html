@@ -385,7 +385,7 @@
   }
 
   /* ── CELL D: Deep cyan event ── */
-  .cell-d {
+ .cell-d {
     grid-column: 2;
     grid-row: 2;
     background: var(--cyan-mid);
@@ -399,13 +399,40 @@
     animation: fadeIn 0.8s 1.0s forwards;
     cursor: pointer;
   }
+
+  .cell-d-img {
+    position: absolute;
+    inset: 0;
+    background-image: url('TECx2023.webp');
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+  }
+
+  .cell-d-img-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 30, 32, 0.62);
+    z-index: 1;
+  }
+
+  .cell-d-pixel {
+    position: absolute;
+    top: 0; left: 0;
+    width: 5px; height: 5px;
+    background: #0A1E20;
+    z-index: 3;
+  }
+
   .cell-d::before {
     content: '';
     position: absolute;
     top: -30%; left: -20%;
     width: 140%; height: 140%;
-    background: radial-gradient(ellipse, rgba(41,197,208,0.15) 0%, transparent 65%);
+    background: radial-gradient(ellipse, rgba(41,197,208,0.10) 0%, transparent 65%);
+    z-index: 2;
   }
+
   .cell-d-label {
     font-family: var(--f-mono);
     font-size: 9px;
@@ -414,15 +441,16 @@
     text-transform: uppercase;
     color: rgba(41,197,208,0.6);
     margin-bottom: 4px;
-    position: relative; z-index: 1;
+    position: relative; z-index: 3;
   }
+
   .cell-d-text {
     font-family: var(--f-display);
     font-size: clamp(12px, 1.3vw, 18px);
     font-weight: 300;
     color: var(--cyan-pale);
     line-height: 1.3;
-    position: relative; z-index: 1;
+    position: relative; z-index: 3;
   }
 
   /* ── CELL E: Earth/dark event ── */
@@ -970,10 +998,13 @@
   </div>
 
   <!-- D: Cyan event cell -->
-  <div class="cell cell-d">
+<div class="cell cell-d">
+    <div class="cell-d-img"></div>
+    <div class="cell-d-img-overlay"></div>
+    <div class="cell-d-pixel"></div>
     <div>
       <div class="cell-d-label">TECx · 2023</div>
-      <div class="cell-d-text">Tết Đoan Ngọ<br>US Consulate × SAVVi Code</div>
+      <div class="cell-d-text">Tết Đoan Ngọ<br>Lãnh sự quán Hoa Kỳ × SAVVi Code</div>
     </div>
   </div>
 
