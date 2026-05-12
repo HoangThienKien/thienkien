@@ -539,17 +539,12 @@
     z-index: 1;
   }
   /* Subtle pattern texture for photo placeholder */
-  .cell-f-texture {
-    position: absolute; inset: 0;
-    background:
-      repeating-linear-gradient(
-        102deg,
-        transparent 0px,
-        transparent 4px,
-        rgba(41,197,208,0.018) 4px,
-        rgba(41,197,208,0.018) 5px
-      ),
-      linear-gradient(160deg, #060E10 0%, #091418 50%, #050A0C 100%);
+  .cell-f-video {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: 0;
   }
   .cell-f-content { position: relative; z-index: 2; }
   .cell-f-tag {
@@ -1048,9 +1043,16 @@
     </div>
   </div>
 
-  <!-- F: Bottom wide photo -->
+   <!-- F: Bottom wide video -->
   <div class="cell cell-f">
-    <div class="cell-f-texture"></div>
+    <video class="cell-f-video" autoplay muted loop playsinline>
+      <source src="cell-f.webm" type="video/webm">
+    </video>
+    <div class="cell-f-content">
+      <span class="cell-f-tag">Abbott · Mid-Autumn Festival</span>
+      <div class="cell-f-title">Tết Trung Thu<br>cho văn phòng quốc tế</div>
+    </div>
+  </div>
     <!-- Atmospheric table scene -->
     <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.09" viewBox="0 0 1000 200" preserveAspectRatio="xMidYMid slice">
       <rect x="0" y="100" width="1000" height="2" fill="#C8872A"/>
