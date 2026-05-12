@@ -150,74 +150,76 @@
     overflow: hidden;
   }
 
-  /* ── CELL A: main photo — Đại sứ quán Úc ── */
+  /* ── CELL A: main photo slideshow ── */
   .cell-a {
     grid-column: 1;
     grid-row: 1 / 3;
   }
-  .cell-a .photo-bg {
-    position: absolute; inset: 0;
-    background:
-      radial-gradient(ellipse at 70% 40%, rgba(41,197,208,0.06) 0%, transparent 60%),
-      linear-gradient(160deg, #0a1a1c 0%, #091218 40%, #030a0b 100%);
-  }
-  /* Simulated photo with atmospheric scene */
-  .cell-a .scene {
-    position: absolute; inset: 0;
+
+  .slideshow {
+    position: absolute;
+    inset: 0;
     overflow: hidden;
   }
-  .cell-a .scene::before {
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 1.2s ease-in-out;
+    background-size: cover;
+    background-position: center;
+    transform: scale(1);
+    animation: none;
+  }
+
+  .slide.active {
+    opacity: 1;
+  }
+
+  .slide::after {
     content: '';
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse 120% 80% at 60% 55%,
-        rgba(10,30,40,0.0) 0%,
-        rgba(5,14,16,0.4) 50%,
-        rgba(0,0,0,0.85) 100%
+      linear-gradient(to top,
+        rgba(0,0,0,0.75) 0%,
+        rgba(0,0,0,0.2) 40%,
+        rgba(0,0,0,0.1) 100%
       );
-    z-index: 2;
   }
-  /* Table scene elements */
-  .table-scene {
+
+  /* slide progress bar */
+  .slide-progress {
     position: absolute;
-    inset: 0;
+    bottom: 0; left: 0;
+    height: 2px;
+    background: var(--cyan);
+    opacity: 0.6;
+    z-index: 4;
+    width: 0%;
+    transition: width linear;
+  }
+
+  /* slide dots */
+  .slide-dots {
+    position: absolute;
+    bottom: 20px;
+    right: 44px;
+    z-index: 4;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    gap: 6px;
   }
-  .scene-img-placeholder {
-    width: 100%; height: 100%;
-    background:
-      linear-gradient(180deg,
-        #0D1A1C 0%,
-        #112022 20%,
-        #152628 35%,
-        #0D1C1E 55%,
-        #060E10 75%,
-        #020608 100%
-      );
-    position: relative;
-  }
-  /* Table surface suggestion */
-  .scene-img-placeholder::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 45%;
-    background: linear-gradient(180deg,
-      transparent 0%,
-      rgba(12,24,28,0.6) 40%,
-      rgba(6,14,16,0.9) 100%
-    );
-  }
-  /* Atmospheric dots / bokeh */
-  .bokeh {
-    position: absolute;
+  .slide-dot {
+    width: 4px; height: 4px;
     border-radius: 50%;
-    opacity: 0.12;
-    filter: blur(1px);
-    animation: float 6s ease-in-out infinite;
+    background: rgba(245,232,192,0.3);
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+  }
+  .slide-dot.active {
+    background: var(--cyan);
+    transform: scale(1.4);
   }
 
   .cell-a .cell-caption {
@@ -646,9 +648,9 @@
   }
 
   .client-item img {
-    height: 100px;
+    height: 36px;
     width: auto;
-    max-width: 1000px;
+    max-width: 130px;
     object-fit: contain;
     filter: grayscale(100%) brightness(0.55);
     transition: filter 0.35s;
@@ -880,6 +882,7 @@
 <nav>
   <a href="#" class="nav-logo">
     <img src="Thien-Kien-logo.webp" alt="Thiện Kiến Logo" class="nav-logo-img">
+    <span class="nav-wordmark">Thiện Kiến</span>
   </a>
 
   <ul class="nav-links">
@@ -895,49 +898,26 @@
 <!-- ── HERO GRID ── -->
 <div class="hero">
 
-  <!-- A: Main photo cell — Vietnamese cultural event -->
+  <!-- A: Main photo slideshow -->
   <div class="cell cell-a">
-    <div class="photo-bg"></div>
-    <div class="scene">
-      <div class="scene-img-placeholder">
-        <!-- Bokeh atmosphere -->
-        <div class="bokeh" style="width:80px;height:80px;background:var(--cyan);top:20%;left:30%;animation-delay:0s"></div>
-        <div class="bokeh" style="width:50px;height:50px;background:var(--cyan);top:15%;left:60%;animation-delay:1.5s"></div>
-        <div class="bokeh" style="width:35px;height:35px;background:var(--amber);top:35%;left:75%;animation-delay:3s"></div>
-        <div class="bokeh" style="width:60px;height:60px;background:var(--cyan);top:55%;left:20%;animation-delay:2s;opacity:0.07"></div>
-        <!-- Geometric table suggestion -->
-        <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.06" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
-          <rect x="80" y="320" width="640" height="3" fill="#29C5D0"/>
-          <rect x="120" y="340" width="560" height="1" fill="#29C5D0" opacity="0.5"/>
-          <!-- candlelight circles -->
-          <circle cx="200" cy="318" r="28" fill="#C8872A" opacity="0.4"/>
-          <circle cx="400" cy="318" r="22" fill="#C8872A" opacity="0.35"/>
-          <circle cx="600" cy="318" r="28" fill="#C8872A" opacity="0.4"/>
-          <circle cx="200" cy="318" r="10" fill="#F5D08B" opacity="0.6"/>
-          <circle cx="400" cy="318" r="8" fill="#F5D08B" opacity="0.5"/>
-          <circle cx="600" cy="318" r="10" fill="#F5D08B" opacity="0.6"/>
-          <!-- plate suggestions -->
-          <ellipse cx="200" cy="340" rx="55" ry="12" fill="#1A3038" opacity="0.9"/>
-          <ellipse cx="400" cy="340" rx="55" ry="12" fill="#1A3038" opacity="0.9"/>
-          <ellipse cx="600" cy="340" rx="55" ry="12" fill="#1A3038" opacity="0.9"/>
-          <!-- leaf decorations -->
-          <path d="M155 310 Q200 280 245 310" stroke="#29C5D0" stroke-width="0.5" fill="none" opacity="0.5"/>
-          <path d="M355 310 Q400 280 445 310" stroke="#29C5D0" stroke-width="0.5" fill="none" opacity="0.5"/>
-          <path d="M555 310 Q600 280 645 310" stroke="#29C5D0" stroke-width="0.5" fill="none" opacity="0.5"/>
-          <!-- background architecture -->
-          <rect x="0"   y="0" width="800" height="280" fill="#0A1820" opacity="0.5"/>
-          <rect x="50"  y="40" width="100" height="240" fill="#0D1F28" opacity="0.6"/>
-          <rect x="180" y="60" width="80"  height="220" fill="#0D1F28" opacity="0.5"/>
-          <rect x="540" y="30" width="110" height="250" fill="#0D1F28" opacity="0.6"/>
-          <rect x="670" y="55" width="80"  height="225" fill="#0D1F28" opacity="0.5"/>
-          <!-- window lights -->
-          <rect x="65"  y="60"  width="32" height="48" fill="#C8872A" opacity="0.12"/>
-          <rect x="108" y="60"  width="32" height="48" fill="#C8872A" opacity="0.08"/>
-          <rect x="550" y="55"  width="32" height="48" fill="#C8872A" opacity="0.12"/>
-          <rect x="595" y="55"  width="32" height="48" fill="#29C5D0" opacity="0.07"/>
-        </svg>
-      </div>
+    <div class="slideshow" id="heroSlideshow">
+      <div class="slide active" style="background-image:url('IMG_5812.webp')"></div>
+      <div class="slide" style="background-image:url('IMG_8778.webp')"></div>
+      <div class="slide" style="background-image:url('IMG_8779.webp')"></div>
+      <div class="slide" style="background-image:url('IMG_8782.webp')"></div>
+      <div class="slide" style="background-image:url('IMG_8790.webp')"></div>
+      <div class="slide" style="background-image:url('IMG_8791.webp')"></div>
+      <div class="slide" style="background-image:url('IMG_8797.webp')"></div>
+      <div class="slide" style="background-image:url('IMG_8806.webp')"></div>
+      <div class="slide" style="background-image:url('IMG_8811.webp')"></div>
+      <div class="slide" style="background-image:url('IMG_8813.webp')"></div>
+      <div class="slide" style="background-image:url('IMG_8814.webp')"></div>
+      <div class="slide" style="background-image:url('IMG_8835.webp')"></div>
+      <div class="slide" style="background-image:url('IMG_8836.webp')"></div>
+      <div class="slide" style="background-image:url('IMG_8851.webp')"></div>
     </div>
+    <div class="slide-progress" id="slideProgress"></div>
+    <div class="slide-dots" id="slideDots"></div>
     <div class="cell-caption">
       <span class="event-tag">New Energy NEXUS × Australian Embassy · 2024</span>
       <h1 class="cell-a-title">Văn hoá Việt<br>qua hai miền Nam–Bắc</h1>
@@ -949,6 +929,7 @@
   <div class="cell cell-b">
     <div class="logo-mark">
       <img src="Thien-Kien-logo.webp" alt="Thiện Kiến Logo" class="logo-mark-img">
+      <div class="logo-word">THIEN KIEN</div>
     </div>
   </div>
 
@@ -993,7 +974,7 @@
       <circle cx="750" cy="98" r="7"  fill="#F5D08B"/>
     </svg>
     <div class="cell-f-content">
-      <span class="cell-f-tag">Abbott · Mid-Autumn Festival</span>
+      <span class="cell-f-tag">Abbott Laboratories · Mid-Autumn Festival</span>
       <div class="cell-f-title">Tết Trung Thu<br>cho văn phòng quốc tế</div>
     </div>
   </div>
@@ -1042,36 +1023,37 @@
   </div>
   <div class="clients-track-wrap">
     <div class="clients-track" id="clientsTrack">
-      <div class="client-item"><a href="https://vietnam.embassy.gov.au/" target="_blank" rel="noopener"><img src="Australian-Embassy-Vietnam.webp" alt="Australian Embassy Vietnam"></a></div>
-      <div class="client-item"><a href="https://www.vn.abbott/" target="_blank" rel="noopener"><img src="Abbott.webp" alt="Abbott Laboratories"></a></div>
-      <div class="client-item"><a href="https://www.newenergynexus.vn/vi/home/" target="_blank" rel="noopener"><img src="NEXUS-New-Energy-VN.webp" alt="New Energy NEXUS VN"></a></div>
-      <div class="client-item"><a href="https://www.savvicode.com/" target="_blank" rel="noopener"><img src="SAVVIcode.webp" alt="SAVVi Code"></a></div>
-      <div class="client-item"><a href="https://fulbright.edu.vn/vi/" target="_blank" rel="noopener"><img src="Fulbright.webp" alt="Fulbright"></a></div>
-      <div class="client-item"><a href="https://www.britishcouncil.vn/" target="_blank" rel="noopener"><img src="Britishcouncil.webp" alt="British Council"></a></div>
-      <div class="client-item"><a href="https://www.amanotes.com/" target="_blank" rel="noopener"><img src="Amanotes.webp" alt="Amanotes"></a></div>
-      <div class="client-item"><a href="https://kms-technology.com/" target="_blank" rel="noopener"><img src="KMS solutions.webp" alt="KMS Technology"></a></div>
-      <div class="client-item"><a href="https://vn.usembassy.gov/education/yseali-in-vietnam/" target="_blank" rel="noopener"><img src="YSEALI.webp" alt="YSEALI"></a></div>
-      <div class="client-item"><a href="https://blackstones.vn/" target="_blank" rel="noopener"><img src="Blackstones.webp" alt="Blackstones"></a></div>
-      <div class="client-item"><a href="https://dtp-education.com/en/" target="_blank" rel="noopener"><img src="DTP.webp" alt="DTP Education Solutions"></a></div>
-      <div class="client-item"><a href="https://www.sparx.com/" target="_blank" rel="noopener"><img src="sparx.webp" alt="Sparx"></a></div>
-      <div class="client-item"><a href="https://www.phudonggroup.com/" target="_blank" rel="noopener"><img src="Phu Dong group.webp" alt="Phú Đông Group"></a></div>
+      <div class="client-item"><a href="https://vietnam.embassy.gov.au/" target="_blank" rel="noopener"><img src="Australian-Embassy-Vietnam.jpg" alt="Australian Embassy Vietnam"></a></div>
+      <div class="client-item"><a href="https://www.vn.abbott/" target="_blank" rel="noopener"><img src="Abbott.jpg" alt="Abbott Laboratories"></a></div>
+      <div class="client-item"><a href="https://www.newenergynexus.vn/vi/home/" target="_blank" rel="noopener"><img src="NEXUS-New-Energy-VN.jpg" alt="New Energy NEXUS VN"></a></div>
+      <div class="client-item"><a href="https://www.savvicode.com/" target="_blank" rel="noopener"><img src="SAVVIcode.jpg" alt="SAVVi Code"></a></div>
+      <div class="client-item"><a href="https://fulbright.edu.vn/vi/" target="_blank" rel="noopener"><img src="Fulbright.jpg" alt="Fulbright"></a></div>
+      <div class="client-item"><a href="https://www.britishcouncil.vn/" target="_blank" rel="noopener"><img src="Britishcouncil.jpg" alt="British Council"></a></div>
+      <div class="client-item"><a href="https://www.amanotes.com/" target="_blank" rel="noopener"><img src="Amanotes.jpg" alt="Amanotes"></a></div>
+      <div class="client-item"><a href="https://kms-technology.com/" target="_blank" rel="noopener"><img src="KMS solutions.jpg" alt="KMS Technology"></a></div>
+      <div class="client-item"><a href="https://vn.usembassy.gov/education/yseali-in-vietnam/" target="_blank" rel="noopener"><img src="YSEALI.jpg" alt="YSEALI"></a></div>
+      <div class="client-item"><a href="https://blackstones.vn/" target="_blank" rel="noopener"><img src="Blackstones.jpg" alt="Blackstones"></a></div>
+      <div class="client-item"><a href="https://dtp-education.com/en/" target="_blank" rel="noopener"><img src="DTP.jpg" alt="DTP Education Solutions"></a></div>
+      <div class="client-item"><a href="https://www.sparx.com/" target="_blank" rel="noopener"><img src="sparx.jpg" alt="Sparx"></a></div>
+      <div class="client-item"><a href="https://www.phudonggroup.com/" target="_blank" rel="noopener"><img src="Phu Dong group.jpg" alt="Phú Đông Group"></a></div>
       <!-- duplicate for seamless loop -->
-      <div class="client-item"><a href="https://vietnam.embassy.gov.au/" target="_blank" rel="noopener"><img src="Australian-Embassy-Vietnam.webp" alt="Australian Embassy Vietnam"></a></div>
-      <div class="client-item"><a href="https://www.vn.abbott/" target="_blank" rel="noopener"><img src="Abbott.webp" alt="Abbott Laboratories"></a></div>
-      <div class="client-item"><a href="https://www.newenergynexus.vn/vi/home/" target="_blank" rel="noopener"><img src="NEXUS-New-Energy-VN.webp" alt="New Energy NEXUS VN"></a></div>
-      <div class="client-item"><a href="https://www.savvicode.com/" target="_blank" rel="noopener"><img src="SAVVIcode.webp" alt="SAVVi Code"></a></div>
-      <div class="client-item"><a href="https://fulbright.edu.vn/vi/" target="_blank" rel="noopener"><img src="Fulbright.webp" alt="Fulbright"></a></div>
-      <div class="client-item"><a href="https://www.britishcouncil.vn/" target="_blank" rel="noopener"><img src="Britishcouncil.webp" alt="British Council"></a></div>
-      <div class="client-item"><a href="https://www.amanotes.com/" target="_blank" rel="noopener"><img src="Amanotes.webp" alt="Amanotes"></a></div>
-      <div class="client-item"><a href="https://kms-technology.com/" target="_blank" rel="noopener"><img src="KMS solutions.webp" alt="KMS Technology"></a></div>
-      <div class="client-item"><a href="https://vn.usembassy.gov/education/yseali-in-vietnam/" target="_blank" rel="noopener"><img src="YSEALI.webp" alt="YSEALI"></a></div>
-      <div class="client-item"><a href="https://blackstones.vn/" target="_blank" rel="noopener"><img src="Blackstones.webp" alt="Blackstones"></a></div>
-      <div class="client-item"><a href="https://dtp-education.com/en/" target="_blank" rel="noopener"><img src="DTP.webp" alt="DTP Education Solutions"></a></div>
-      <div class="client-item"><a href="https://www.sparx.com/" target="_blank" rel="noopener"><img src="sparx.webp" alt="Sparx"></a></div>
-      <div class="client-item"><a href="https://www.phudonggroup.com/" target="_blank" rel="noopener"><img src="Phu Dong group.webp" alt="Phú Đông Group"></a></div>
+      <div class="client-item"><a href="https://vietnam.embassy.gov.au/" target="_blank" rel="noopener"><img src="Australian-Embassy-Vietnam.jpg" alt="Australian Embassy Vietnam"></a></div>
+      <div class="client-item"><a href="https://www.vn.abbott/" target="_blank" rel="noopener"><img src="Abbott.jpg" alt="Abbott Laboratories"></a></div>
+      <div class="client-item"><a href="https://www.newenergynexus.vn/vi/home/" target="_blank" rel="noopener"><img src="NEXUS-New-Energy-VN.jpg" alt="New Energy NEXUS VN"></a></div>
+      <div class="client-item"><a href="https://www.savvicode.com/" target="_blank" rel="noopener"><img src="SAVVIcode.jpg" alt="SAVVi Code"></a></div>
+      <div class="client-item"><a href="https://fulbright.edu.vn/vi/" target="_blank" rel="noopener"><img src="Fulbright.jpg" alt="Fulbright"></a></div>
+      <div class="client-item"><a href="https://www.britishcouncil.vn/" target="_blank" rel="noopener"><img src="Britishcouncil.jpg" alt="British Council"></a></div>
+      <div class="client-item"><a href="https://www.amanotes.com/" target="_blank" rel="noopener"><img src="Amanotes.jpg" alt="Amanotes"></a></div>
+      <div class="client-item"><a href="https://kms-technology.com/" target="_blank" rel="noopener"><img src="KMS solutions.jpg" alt="KMS Technology"></a></div>
+      <div class="client-item"><a href="https://vn.usembassy.gov/education/yseali-in-vietnam/" target="_blank" rel="noopener"><img src="YSEALI.jpg" alt="YSEALI"></a></div>
+      <div class="client-item"><a href="https://blackstones.vn/" target="_blank" rel="noopener"><img src="Blackstones.jpg" alt="Blackstones"></a></div>
+      <div class="client-item"><a href="https://dtp-education.com/en/" target="_blank" rel="noopener"><img src="DTP.jpg" alt="DTP Education Solutions"></a></div>
+      <div class="client-item"><a href="https://www.sparx.com/" target="_blank" rel="noopener"><img src="sparx.jpg" alt="Sparx"></a></div>
+      <div class="client-item"><a href="https://www.phudonggroup.com/" target="_blank" rel="noopener"><img src="Phu Dong group.jpg" alt="Phú Đông Group"></a></div>
     </div>
   </div>
 </div>
+
 <!-- ── BELOW HERO — Brand pillars ── -->
 <div class="below-hero">
   <div class="bh-inner">
@@ -1140,6 +1122,60 @@
 </footer>
 
 <script>
+  // ── HERO SLIDESHOW ──
+  (function() {
+    const slides    = document.querySelectorAll('#heroSlideshow .slide');
+    const dotsWrap  = document.getElementById('slideDots');
+    const progress  = document.getElementById('slideProgress');
+    const INTERVAL  = 4500;   // ms per slide
+    const TRANS     = 1200;   // ms fade duration
+    let current = 0;
+    let timer;
+
+    // build dots
+    slides.forEach((_, i) => {
+      const d = document.createElement('div');
+      d.className = 'slide-dot' + (i === 0 ? ' active' : '');
+      d.addEventListener('click', () => goTo(i));
+      dotsWrap.appendChild(d);
+    });
+
+    function goTo(n) {
+      slides[current].classList.remove('active');
+      dotsWrap.children[current].classList.remove('active');
+      current = (n + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      dotsWrap.children[current].classList.add('active');
+      resetProgress();
+    }
+
+    function next() { goTo(current + 1); }
+
+    function resetProgress() {
+      progress.style.transition = 'none';
+      progress.style.width = '0%';
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          progress.style.transition = `width ${INTERVAL}ms linear`;
+          progress.style.width = '100%';
+        });
+      });
+    }
+
+    function startTimer() {
+      clearInterval(timer);
+      timer = setInterval(next, INTERVAL);
+    }
+
+    // pause on hover
+    const cellA = document.querySelector('.cell-a');
+    cellA.addEventListener('mouseenter', () => clearInterval(timer));
+    cellA.addEventListener('mouseleave', () => { startTimer(); });
+
+    resetProgress();
+    startTimer();
+  })();
+
   // Custom cursor
   const cur = document.getElementById('cursor');
   let mx = 0, my = 0;
