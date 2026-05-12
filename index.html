@@ -567,6 +567,102 @@
   }
   .cell-h:hover .cta-arrow { transform: translateX(4px); }
 
+  /* ─── CLIENTS SECTION ─── */
+  .clients-section {
+    background: var(--off-black);
+    border-top: var(--gap) solid var(--black);
+    padding: 56px 0 52px;
+    overflow: hidden;
+  }
+
+  .clients-header {
+    text-align: center;
+    margin-bottom: 36px;
+    padding: 0 36px;
+  }
+
+  .clients-label {
+    display: block;
+    font-family: var(--f-mono);
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.24em;
+    color: var(--stone);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .clients-title {
+    font-family: var(--f-display);
+    font-size: clamp(20px, 2.2vw, 32px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--cream);
+  }
+
+  .clients-track-wrap {
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* fade edges */
+  .clients-track-wrap::before,
+  .clients-track-wrap::after {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 120px;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .clients-track-wrap::before {
+    left: 0;
+    background: linear-gradient(to right, var(--off-black), transparent);
+  }
+  .clients-track-wrap::after {
+    right: 0;
+    background: linear-gradient(to left, var(--off-black), transparent);
+  }
+
+  .clients-track {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    animation: clientsScroll 36s linear infinite;
+    white-space: nowrap;
+    width: max-content;
+  }
+  .clients-track:hover {
+    animation-play-state: paused;
+  }
+
+  .client-item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 44px;
+    flex-shrink: 0;
+    border-right: 0.5px solid rgba(136,135,128,0.12);
+  }
+
+  .client-item img {
+    height: 36px;
+    width: auto;
+    max-width: 130px;
+    object-fit: contain;
+    filter: grayscale(100%) brightness(0.55);
+    transition: filter 0.35s;
+  }
+
+  .client-item:hover img {
+    filter: grayscale(0%) brightness(1);
+  }
+
+  @keyframes clientsScroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
   /* ─── SECTION BELOW HERO ─── */
   .below-hero {
     background: var(--off-black);
@@ -853,7 +949,6 @@
   <div class="cell cell-b">
     <div class="logo-mark">
       <img src="Thien-Kien-logo.webp" alt="Thiện Kiến Logo" class="logo-mark-img">
-      <div class="logo-word">THIEN KIEN</div>
     </div>
   </div>
 
@@ -936,6 +1031,45 @@
     <span class="ticker-item">Tết Trung Thu · Abbott Laboratories <span class="ticker-dot">✦</span></span>
     <span class="ticker-item">TKG Goods · Lư Trung Hỏa · Michigan 2026 <span class="ticker-dot">✦</span></span>
     <span class="ticker-item">Stories of Gratitude · Annual Gathering <span class="ticker-dot">✦</span></span>
+  </div>
+</div>
+
+<!-- ── CLIENTS ── -->
+<div class="clients-section">
+  <div class="clients-header">
+    <span class="clients-label">Trusted by</span>
+    <div class="clients-title">Những tổ chức đã đồng hành</div>
+  </div>
+  <div class="clients-track-wrap">
+    <div class="clients-track" id="clientsTrack">
+      <div class="client-item"><img src="Australian-Embassy-Vietnam.jpg" alt="Australian Embassy Vietnam"></div>
+      <div class="client-item"><img src="Abbott.jpg" alt="Abbott Laboratories"></div>
+      <div class="client-item"><img src="NEXUS-New-Energy-VN.jpg" alt="NEXUS New Energy VN"></div>
+      <div class="client-item"><img src="SAVVIcode.jpg" alt="SAVVi Code"></div>
+      <div class="client-item"><img src="Fulbright.jpg" alt="Fulbright"></div>
+      <div class="client-item"><img src="Britishcouncil.jpg" alt="British Council"></div>
+      <div class="client-item"><img src="Amanotes.jpg" alt="Amanotes"></div>
+      <div class="client-item"><img src="KMS solutions.jpg" alt="KMS Solutions"></div>
+      <div class="client-item"><img src="YSEALI.jpg" alt="YSEALI"></div>
+      <div class="client-item"><img src="Blackstones.jpg" alt="Blackstones"></div>
+      <div class="client-item"><img src="DTP.jpg" alt="DTP"></div>
+      <div class="client-item"><img src="sparx.jpg" alt="Sparx"></div>
+      <div class="client-item"><img src="Phu Dong group.jpg" alt="Phú Đổng Group"></div>
+      <!-- duplicate for seamless loop -->
+      <div class="client-item"><img src="Australian-Embassy-Vietnam.jpg" alt="Australian Embassy Vietnam"></div>
+      <div class="client-item"><img src="Abbott.jpg" alt="Abbott Laboratories"></div>
+      <div class="client-item"><img src="NEXUS-New-Energy-VN.jpg" alt="NEXUS New Energy VN"></div>
+      <div class="client-item"><img src="SAVVIcode.jpg" alt="SAVVi Code"></div>
+      <div class="client-item"><img src="Fulbright.jpg" alt="Fulbright"></div>
+      <div class="client-item"><img src="Britishcouncil.jpg" alt="British Council"></div>
+      <div class="client-item"><img src="Amanotes.jpg" alt="Amanotes"></div>
+      <div class="client-item"><img src="KMS solutions.jpg" alt="KMS Solutions"></div>
+      <div class="client-item"><img src="YSEALI.jpg" alt="YSEALI"></div>
+      <div class="client-item"><img src="Blackstones.jpg" alt="Blackstones"></div>
+      <div class="client-item"><img src="DTP.jpg" alt="DTP"></div>
+      <div class="client-item"><img src="sparx.jpg" alt="Sparx"></div>
+      <div class="client-item"><img src="Phu Dong group.jpg" alt="Phú Đổng Group"></div>
+    </div>
   </div>
 </div>
 
