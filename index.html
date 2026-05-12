@@ -1110,18 +1110,13 @@
   </div>
 
    <!-- F: Bottom wide video -->
-  <div class="cell cell-f">
+<div class="cell cell-f">
     <video class="cell-f-video" autoplay muted loop playsinline>
-       <div class="cell-f-play-hint">
-      <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
-    </div>
       <source src="cell-f.webm" type="video/webm">
     </video>
-    <div class="cell-f-content">
-      <span class="cell-f-tag">Abbott · Mid-Autumn Festival</span>
-      <div class="cell-f-title">Tết Trung Thu<br>cho văn phòng quốc tế</div>
+    <div class="cell-f-play-hint">
+      <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
     </div>
-  </div>
    
   <!-- G: Tagline cell -->
   <div class="cell cell-g">
@@ -1264,7 +1259,15 @@
   <div class="footer-logo">Thiện Kiến — Prepared with Understanding</div>
   <div class="footer-note">© 2026 · Ho Chi Minh City, Vietnam</div>
 </footer>
-
+<!-- ── VIDEO MODAL ── -->
+<div class="video-modal" id="videoModal">
+  <div class="video-modal-inner">
+    <button class="video-modal-close" id="videoModalClose">✕ &nbsp;Đóng</button>
+    <video id="modalVideo" controls muted playsinline>
+      <source src="cell-f.webm" type="video/webm">
+    </video>
+  </div>
+</div>
 <script>
   // ── HERO SLIDESHOW ──
   (function() {
@@ -1336,7 +1339,7 @@
   });
 
   // Cursor expand on interactive cells
-  document.querySelectorAll('.cell-d, .cell-h, .jc').forEach(el => {
+  document.querySelectorAll('.cell-d, .cell-f, .cell-h, .jc').forEach(el => {
     el.addEventListener('mouseenter', () => cur.classList.add('big'));
     el.addEventListener('mouseleave', () => cur.classList.remove('big'));
   });
@@ -1363,14 +1366,5 @@
   modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
 </script>
-<!-- ── VIDEO MODAL ── -->
-<div class="video-modal" id="videoModal">
-  <div class="video-modal-inner">
-    <button class="video-modal-close" id="videoModalClose">✕ &nbsp;Đóng</button>
-    <video id="modalVideo" controls muted playsinline>
-      <source src="cell-f.webm" type="video/webm">
-    </video>
-  </div>
-</div>
 </body>
 </html>
