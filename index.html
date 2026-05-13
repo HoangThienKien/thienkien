@@ -877,30 +877,69 @@
   }
 
   /* ─── FOOTER ─── */
-  footer {
-    background: var(--black);
-    border-top: var(--gap) solid #111;
-    padding: 32px 36px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .footer-logo {
-    font-family: var(--f-display);
-    font-size: 11px;
-    font-weight: 400;
-    letter-spacing: 0.3em;
-    color: rgba(41,197,208,0.4);
-    text-transform: uppercase;
-  }
-  .footer-note {
-    font-family: var(--f-mono);
-    font-size: 9px;
-    font-weight: 300;
-    letter-spacing: 0.14em;
-    color: rgba(136,135,128,0.4);
-  }
-
+footer {
+  background: var(--black);
+  border-top: 3px solid #111;
+  padding: 40px 36px 36px;
+}
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 32px;
+  align-items: start;
+}
+.footer-brand .footer-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  letter-spacing: 0.3em;
+  color: rgba(41,197,208,0.5);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 8px;
+}
+.footer-tagline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  font-style: italic;
+  color: rgba(245,232,192,0.25);
+  line-height: 1.5;
+}
+.footer-company h4, .footer-contact h4 {
+  font-family: 'DM Mono', monospace;
+  font-size: 15px;
+  letter-spacing: 0.22em;
+  color: #888780;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  opacity: 0.5;
+}
+.footer-company p, .footer-company a,
+.footer-contact a {
+  font-family: 'DM Mono', monospace;
+  font-size: 15px;
+  letter-spacing: 0.1em;
+  color: rgba(136,135,128,0.45);
+  line-height: 2;
+  display: block;
+  text-decoration: none;
+}
+.footer-company a:hover, .footer-contact a:hover { color: #29C5D0; }
+.footer-bottom {
+  max-width: 1200px;
+  margin: 28px auto 0;
+  padding-top: 20px;
+  border-top: 0.5px solid rgba(255,255,255,0.05);
+  display: flex;
+  justify-content: space-between;
+}
+.footer-note {
+  font-family: 'DM Mono', monospace;
+  font-size: 15px;
+  letter-spacing: 0.14em;
+  color: rgba(136,135,128,0.25);
+}
   /* ─── ANIMATIONS ─── */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(14px); }
@@ -1254,8 +1293,31 @@
 
 <!-- ── FOOTER ── -->
 <footer>
-  <div class="footer-logo">Thiện Kiến — Prepared with Understanding</div>
-  <div class="footer-note">© 2026 · Ho Chi Minh City, Vietnam</div>
+  <div class="footer-inner">
+
+    <div class="footer-brand">
+      <span class="footer-logo">Thiện Kiến</span>
+      <div class="footer-tagline">Prepared with Understanding</div>
+    </div>
+
+    <div class="footer-company">
+      <h4>Thông tin công ty</h4>
+      <p>Thien Kien Service - Trading Limited Company</p>
+      <p>MST: 0317374438</p>
+    </div>
+
+    <div class="footer-contact">
+      <h4>Liên hệ</h4>
+      <a href="mailto:thienkien.sudarshana@gmail.com">thienkien.sudarshana@gmail.com</a>
+      <a href="tel:+84976847789">(+84) 976-847-789</a>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <div class="footer-note">© 2026 Thiện Kiến · Ho Chi Minh City, Vietnam</div>
+    <div class="footer-note">Designed with intention</div>
+  </div>
 </footer>
 
 <!-- ── VIDEO MODAL ── -->
