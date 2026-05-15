@@ -1414,15 +1414,12 @@ footer {
 
   cellF.addEventListener('click', () => {
     modal.classList.add('open');
-    modalVideo.muted = false;
     modalVideo.currentTime = 0;
     modalVideo.play();
   });
-
   function closeModal() {
     modal.classList.remove('open');
     modalVideo.pause();
-    modalVideo.muted = true;
   }
 
   modalClose.addEventListener('click', closeModal);
