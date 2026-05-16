@@ -404,13 +404,7 @@
     background-size: cover;
     background-position: center;
   }
-  .cell-d-slide.wipe-in {
-    clip-path: inset(100% 0 0 0);
-    transition: clip-path 0.9s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  .cell-d-slide.wipe-in.playing {
-    clip-path: inset(0% 0 0 0);
-  }
+
   .cell-d-overlay {
     position: absolute;
     inset: 0;
@@ -1342,7 +1336,7 @@ PREPARED FOR INTERNATIONAL ENVIRONMENTS.</div>
 
 <script>
   
-  // ── CELL D WIPE SLIDESHOW ──
+ // ── CELL D SLIDESHOW ──
   (function() {
     const imgs = [
       'TECx2023.webp','TECx2023_1.webp','TECx2023_2.webp',
@@ -1352,32 +1346,14 @@ PREPARED FOR INTERNATIONAL ENVIRONMENTS.</div>
     ];
     const wrap = document.getElementById('cellDSlideshow');
     let idx = 0;
-
-    function addSlide(src, animate) {
-      const el = document.createElement('div');
-      el.className = 'cell-d-slide';
-      el.style.backgroundImage = `url('${src}')`;
-      wrap.appendChild(el);
-      if (animate) {
-        el.classList.add('wipe-in');
-        requestAnimationFrame(() => requestAnimationFrame(() => {
-          el.classList.add('playing');
-        }));
-      }
-      return el;
-    }
-
-    addSlide(imgs[0], false);
-
+    wrap.style.backgroundImage = `url('${imgs[0]}')`;
+    wrap.style.backgroundSize = 'cover';
+    wrap.style.backgroundPosition = 'center';
     setInterval(() => {
       idx = (idx + 1) % imgs.length;
-      addSlide(imgs[idx], true);
-      setTimeout(() => {
-        while (wrap.children.length > 2) wrap.removeChild(wrap.firstChild);
-      }, 1100);
-    }, 3500);
+      wrap.style.backgroundImage = `url('${imgs[idx]}')`;
+    }, 1300);
   })();
-  
   // ── HERO SLIDESHOW ──
   (function() {
     const slides    = document.querySelectorAll('#heroSlideshow .slide');
