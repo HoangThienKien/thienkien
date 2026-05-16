@@ -393,13 +393,23 @@
     animation: fadeIn 0.8s 1.0s forwards;
     cursor: pointer;
   }
-  .cell-d-bg {
+  .cell-d-slideshow {
     position: absolute;
     inset: 0;
-    background-image: url('TECx2023.webp');
+    z-index: 0;
+  }
+  .cell-d-slide {
+    position: absolute;
+    inset: 0;
     background-size: cover;
     background-position: center;
-    z-index: 0;
+  }
+  .cell-d-slide.wipe-in {
+    clip-path: inset(100% 0 0 0);
+    transition: clip-path 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .cell-d-slide.wipe-in.playing {
+    clip-path: inset(0% 0 0 0);
   }
   .cell-d-overlay {
     position: absolute;
@@ -1124,7 +1134,7 @@ PREPARED FOR INTERNATIONAL ENVIRONMENTS.</div>
 
   <!-- D: Cyan event cell -->
   <div class="cell cell-d">
-    <div class="cell-d-bg"></div>
+    <div class="cell-d-slideshow" id="cellDSlideshow"></div>
     <div class="cell-d-overlay"></div>
     <div>
       <div class="cell-d-label">TECx · 2023</div>
@@ -1331,6 +1341,43 @@ PREPARED FOR INTERNATIONAL ENVIRONMENTS.</div>
 </div>
 
 <script>
+  
+  // ── CELL D WIPE SLIDESHOW ──
+  (function() {
+    const imgs = [
+      'TECx2023.webp','TECx2023_1.webp','TECx2023_2.webp',
+      'TECx2023_3.webp','TECx2023_4.webp','TECx2023_5.webp',
+      'TECx2023_6.webp','TECx2023_7.webp','TECx2023_8.webp',
+      'TECx2023_9.webp','TECx2023_10.webp'
+    ];
+    const wrap = document.getElementById('cellDSlideshow');
+    let idx = 0;
+
+    function addSlide(src, animate) {
+      const el = document.createElement('div');
+      el.className = 'cell-d-slide';
+      el.style.backgroundImage = `url('${src}')`;
+      wrap.appendChild(el);
+      if (animate) {
+        el.classList.add('wipe-in');
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          el.classList.add('playing');
+        }));
+      }
+      return el;
+    }
+
+    addSlide(imgs[0], false);
+
+    setInterval(() => {
+      idx = (idx + 1) % imgs.length;
+      addSlide(imgs[idx], true);
+      setTimeout(() => {
+        while (wrap.children.length > 2) wrap.removeChild(wrap.firstChild);
+      }, 1100);
+    }, 3500);
+  })();
+  
   // ── HERO SLIDESHOW ──
   (function() {
     const slides    = document.querySelectorAll('#heroSlideshow .slide');
