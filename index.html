@@ -1398,16 +1398,6 @@ PREPARED FOR INTERNATIONAL ENVIRONMENTS.</div>
       clearInterval(timer);
       timer = setInterval(next, INTERVAL);
     }
-
-    // pause on hover
-    const cellA = document.querySelector('.cell-a');
-    cellA.addEventListener('mouseenter', () => clearInterval(timer));
-    cellA.addEventListener('mouseleave', () => { startTimer(); });
-
-    resetProgress();
-    startTimer();
-  })();
-
   // Custom cursor
   const cur = document.getElementById('cursor');
   let mx = 0, my = 0;
