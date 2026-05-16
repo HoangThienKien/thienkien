@@ -1422,10 +1422,7 @@ PREPARED FOR INTERNATIONAL ENVIRONMENTS.</div>
     }
 
     // pause on hover
-    const cellA = document.querySelector('.cell-a');
-    cellA.addEventListener('mouseenter', () => clearInterval(timer));
-    cellA.addEventListener('mouseleave', () => { startTimer(); });
-
+  
     resetProgress();
     startTimer();
   })();
