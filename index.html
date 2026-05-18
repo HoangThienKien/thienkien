@@ -304,6 +304,14 @@
     line-height: 1.6;
   }
 
+  /* ── CELL C link overlay ── */
+  .cell-c-link {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    cursor: pointer;
+  }
+
   /* ── CELL C: Amber TKG ── */
   .cell-c {
     grid-column: 3;
@@ -1359,7 +1367,8 @@ for organizations working deeply within Vietnamese contexts.</p>
   </div>
 
   <!-- C: TKG Amber cell -->
-  <div class="cell cell-c" style="cursor:pointer" onclick="window.open('https://tkg-naula.com','_blank','noopener')" role="link" aria-label="Visit TKG website">
+  <div class="cell cell-c">
+    <a href="https://tkg-naula.com" target="_blank" rel="noopener" class="cell-c-link" aria-label="Visit TKG website"></a>
     <div class="cell-c-bg"></div>
     <div class="cell-c-overlay"></div>
     <div class="cell-c-top">
@@ -1687,7 +1696,7 @@ It comes from atmosphere, rhythm, preparation and shared experience.</p>
   });
 
   // Cursor expand on interactive cells
-  document.querySelectorAll('.cell-d, .cell-f, .cell-h, .jc').forEach(el => {
+  document.querySelectorAll('.cell-c, .cell-d, .cell-f, .cell-h, .jc').forEach(el => {
     el.addEventListener('mouseenter', () => cur.classList.add('big'));
     el.addEventListener('mouseleave', () => cur.classList.remove('big'));
   });
