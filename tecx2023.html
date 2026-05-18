@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TECx2023 — Thiện Kiến</title>
+<link rel="icon" type="image/webp" href="Thien-Kien-logo-symbol.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Questrial&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cyan:      #29C5D0;
+    --cyan-dim:  #1A8A92;
+    --cyan-pale: #7DE8EE;
+    --cyan-deep: #050E10;
+    --cyan-mid:  #0A1E20;
+    --amber:     #C8872A;
+    --amber-lt:  #E3A84A;
+    --amber-pale:#F5D08B;
+    --cream:     #F5E8C0;
+    --earth:     #2D1E10;
+    --bark:      #4A3828;
+    --black:     #000000;
+    --off-black: #0A0A0A;
+    --stone:     #888780;
+    --gap:       3px;
+    --f-display: 'Cormorant Garamond', serif;
+    --f-body:    'Questrial', sans-serif;
+    --f-mono:    'DM Mono', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: var(--f-body);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* ─── CUSTOM CURSOR ─── */
+  .cursor {
+    position: fixed;
+    width: 8px; height: 8px;
+    background: var(--cyan);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s, width 0.25s, height 0.25s, background 0.25s;
+    mix-blend-mode: screen;
+  }
+  .cursor.big {
+    width: 36px; height: 36px;
+    background: transparent;
+    border: 1px solid var(--cyan);
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 36px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, transparent 100%);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+  }
+
+  .nav-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .nav-back {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    font-family: var(--f-mono);
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0.18em;
+    color: rgba(245,232,192,0.5);
+    text-transform: uppercase;
+    transition: color 0.25s;
+  }
+  .nav-back:hover { color: var(--cyan); }
+  .nav-back-arrow {
+    font-size: 14px;
+    transition: transform 0.25s;
+  }
+  .nav-back:hover .nav-back-arrow { transform: translateX(-4px); }
+
+  .nav-sep {
+    width: 0.5px;
+    height: 14px;
+    background: rgba(245,232,192,0.15);
+  }
+
+  .nav-breadcrumb {
+    font-family: var(--f-mono);
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0.18em;
+    color: rgba(41,197,208,0.6);
+    text-transform: uppercase;
+  }
+
+  .nav-logo-img {
+    width: 32px; height: 32px;
+    object-fit: contain;
+    opacity: 0.7;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 600px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .hero-slideshow {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .hero-slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    background-size: cover;
+    background-position: center;
+    transition: opacity 1.4s ease-in-out;
+  }
+  .hero-slide.active { opacity: 1; }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to top,
+        rgba(0,0,0,0.85) 0%,
+        rgba(0,0,0,0.35) 45%,
+        rgba(0,0,0,0.15) 100%
+      );
+    z-index: 1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 0 72px 64px;
+    max-width: 1100px;
+  }
+
+  .hero-client-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 22px;
+  }
+  .hero-client-tag span {
+    font-family: var(--f-mono);
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(245,232,192,0.55);
+    border: 0.5px solid rgba(245,232,192,0.2);
+    padding: 4px 10px;
+    border-radius: 2px;
+  }
+  .hero-client-tag .tag-cyan {
+    color: rgba(41,197,208,0.7);
+    border-color: rgba(41,197,208,0.25);
+  }
+
+  .hero-title {
+    font-family: var(--f-display);
+    font-size: clamp(32px, 5.5vw, 72px);
+    font-weight: 300;
+    color: #fff;
+    line-height: 1.0;
+    margin-bottom: 10px;
+  }
+
+  .hero-subtitle {
+    font-family: var(--f-display);
+    font-size: clamp(16px, 2.2vw, 28px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--cyan-pale);
+    line-height: 1.3;
+    margin-bottom: 28px;
+  }
+
+  .hero-meta {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+  .hero-meta-item {
+    font-family: var(--f-mono);
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    color: var(--stone);
+    text-transform: uppercase;
+  }
+  .hero-meta-dot {
+    width: 3px; height: 3px;
+    border-radius: 50%;
+    background: var(--amber);
+    opacity: 0.6;
+    flex-shrink: 0;
+  }
+
+  /* ─── STATS STRIP ─── */
+  .stats-strip {
+    background: var(--cyan-mid);
+    border-top: var(--gap) solid var(--black);
+    border-bottom: var(--gap) solid var(--black);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .stat-cell {
+    padding: 28px 36px;
+    border-right: 0.5px solid rgba(41,197,208,0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .stat-cell:last-child { border-right: none; }
+
+  .stat-number {
+    font-family: var(--f-display);
+    font-size: clamp(28px, 3vw, 44px);
+    font-weight: 300;
+    color: var(--cyan);
+    line-height: 1;
+  }
+  .stat-label {
+    font-family: var(--f-mono);
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    color: rgba(41,197,208,0.5);
+    text-transform: uppercase;
+    line-height: 1.5;
+  }
+
+  /* ─── ARTICLE LAYOUT ─── */
+  .article {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 36px;
+  }
+
+  /* ─── SECTIONS ─── */
+  .section {
+    padding: 80px 0 0;
+  }
+  .section:last-of-type {
+    padding-bottom: 100px;
+  }
+
+  .section-label {
+    display: block;
+    font-family: var(--f-mono);
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.24em;
+    color: var(--stone);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .section-label.cyan { color: rgba(41,197,208,0.55); }
+  .section-label.amber { color: rgba(200,135,42,0.65); }
+
+  .section-divider {
+    width: 28px;
+    height: 0.5px;
+    background: var(--cyan);
+    margin-bottom: 20px;
+  }
+  .section-divider.amber { background: var(--amber); }
+  .section-divider.stone { background: var(--stone); }
+
+  .section-heading {
+    font-family: var(--f-display);
+    font-size: clamp(26px, 3.2vw, 44px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--cream);
+    line-height: 1.15;
+    margin-bottom: 32px;
+  }
+
+  .section-intro {
+    font-family: var(--f-display);
+    font-size: clamp(18px, 1.8vw, 24px);
+    font-weight: 300;
+    color: rgba(245,232,192,0.85);
+    line-height: 1.55;
+    margin-bottom: 28px;
+    font-style: italic;
+  }
+
+  p {
+    font-family: var(--f-body);
+    font-size: 15px;
+    color: rgba(245,232,192,0.6);
+    line-height: 1.85;
+    margin-bottom: 20px;
+  }
+  p:last-child { margin-bottom: 0; }
+
+  p strong {
+    color: var(--cream);
+    font-weight: 400;
+  }
+
+  /* Regional list */
+  .regional-list {
+    list-style: none;
+    margin: 28px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .regional-list li {
+    display: flex;
+    gap: 0;
+    border-left: 2px solid rgba(41,197,208,0.2);
+  }
+  .region-marker {
+    font-family: var(--f-mono);
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    min-width: 110px;
+    padding: 14px 16px;
+    background: rgba(41,197,208,0.04);
+    border-right: 0.5px solid rgba(41,197,208,0.1);
+    display: flex;
+    align-items: center;
+  }
+  .region-content {
+    padding: 14px 20px;
+    font-size: 14px;
+    color: rgba(245,232,192,0.65);
+    line-height: 1.6;
+  }
+  .region-content em {
+    color: var(--stone);
+    font-style: italic;
+  }
+
+  /* Coffee days */
+  .coffee-days {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--gap);
+    margin: 32px 0;
+  }
+  .coffee-day {
+    background: var(--cyan-deep);
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
+  }
+  .coffee-day::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: var(--cyan);
+    opacity: 0.3;
+  }
+  .coffee-day-num {
+    font-family: var(--f-mono);
+    font-size: 8px;
+    letter-spacing: 0.2em;
+    color: rgba(41,197,208,0.4);
+    text-transform: uppercase;
+  }
+  .coffee-day-region {
+    font-family: var(--f-mono);
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    color: var(--cyan);
+    text-transform: uppercase;
+  }
+  .coffee-day-name {
+    font-family: var(--f-display);
+    font-size: clamp(14px, 1.4vw, 18px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--cream);
+    line-height: 1.3;
+  }
+
+  /* Pull quote */
+  .pull-quote {
+    border-left: 2px solid var(--amber);
+    padding: 16px 28px;
+    margin: 40px 0;
+    background: rgba(200,135,42,0.04);
+  }
+  .pull-quote p {
+    font-family: var(--f-display);
+    font-size: clamp(17px, 1.8vw, 23px);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--amber-pale);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* ─── IMAGE PLACEHOLDERS ─── */
+  .img-block {
+    margin: 48px -36px;
+  }
+  .img-block.narrow {
+    margin: 48px 0;
+  }
+
+  .img-ph {
+    position: relative;
+    background: #0A1416;
+    border: 0.5px dashed rgba(41,197,208,0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    overflow: hidden;
+  }
+  .img-ph::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(
+        45deg,
+        transparent 0px,
+        transparent 18px,
+        rgba(41,197,208,0.025) 18px,
+        rgba(41,197,208,0.025) 19px
+      );
+  }
+  .img-ph-icon {
+    font-family: var(--f-mono);
+    font-size: 18px;
+    color: rgba(41,197,208,0.25);
+    position: relative;
+    z-index: 1;
+  }
+  .img-ph-filename {
+    font-family: var(--f-mono);
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0.18em;
+    color: rgba(41,197,208,0.45);
+    position: relative;
+    z-index: 1;
+  }
+  .img-ph-desc {
+    font-family: var(--f-body);
+    font-size: 12px;
+    color: rgba(136,135,128,0.4);
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 0 20px;
+    max-width: 320px;
+    line-height: 1.5;
+  }
+
+  /* aspect ratios */
+  .img-ph.r-16-9  { aspect-ratio: 16 / 9; }
+  .img-ph.r-3-2   { aspect-ratio: 3 / 2; }
+  .img-ph.r-4-3   { aspect-ratio: 4 / 3; }
+  .img-ph.r-1-1   { aspect-ratio: 1 / 1; }
+  .img-ph.r-2-1   { aspect-ratio: 2 / 1; }
+  .img-ph.r-portrait { aspect-ratio: 2 / 3; }
+
+  /* multi-image grids */
+  .img-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--gap);
+  }
+  .img-grid-3 {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--gap);
+  }
+  .img-grid-3 .img-ph:first-child {
+    grid-row: 1 / 3;
+  }
+
+  .img-caption {
+    font-family: var(--f-mono);
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.18em;
+    color: var(--stone);
+    opacity: 0.5;
+    text-transform: uppercase;
+    padding: 10px 0 0 2px;
+    text-align: center;
+  }
+
+  /* ─── FULL-WIDTH BREAK ─── */
+  .full-break {
+    background: var(--off-black);
+    border-top: var(--gap) solid var(--black);
+    border-bottom: var(--gap) solid var(--black);
+    padding: 60px 72px;
+    margin: 80px 0 0;
+  }
+
+  .full-break-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 64px;
+    align-items: center;
+  }
+
+  .full-break-label {
+    font-family: var(--f-mono);
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    color: var(--stone);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 16px;
+  }
+  .full-break-heading {
+    font-family: var(--f-display);
+    font-size: clamp(22px, 2.5vw, 36px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--cream);
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+  .full-break p {
+    font-size: 14px;
+    line-height: 1.85;
+  }
+
+  /* ─── CLOSING / THANK YOU ─── */
+  .closing {
+    background: var(--cyan-deep);
+    border-top: var(--gap) solid var(--black);
+    padding: 72px 72px 80px;
+    text-align: center;
+  }
+  .closing-mark {
+    font-family: var(--f-mono);
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    color: rgba(41,197,208,0.3);
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    display: block;
+  }
+  .closing-heading {
+    font-family: var(--f-display);
+    font-size: clamp(22px, 2.8vw, 40px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--cyan-pale);
+    margin-bottom: 28px;
+    line-height: 1.3;
+  }
+  .closing p {
+    max-width: 560px;
+    margin: 0 auto 20px;
+    font-size: 14px;
+    color: rgba(245,232,192,0.45);
+    line-height: 1.85;
+    text-align: center;
+  }
+  .closing-divider {
+    width: 1px;
+    height: 40px;
+    background: rgba(41,197,208,0.2);
+    margin: 36px auto 0;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--black);
+    border-top: 3px solid #111;
+    padding: 40px 36px 36px;
+  }
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+  .footer-brand .footer-logo {
+    font-family: var(--f-display);
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: rgba(41,197,208,0.5);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 8px;
+  }
+  .footer-tagline {
+    font-family: var(--f-display);
+    font-size: 10px;
+    font-style: italic;
+    color: rgba(245,232,192,0.25);
+    line-height: 1.5;
+  }
+  .footer-company h4, .footer-contact h4 {
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    color: #888780;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    opacity: 0.5;
+  }
+  .footer-company p, .footer-company a,
+  .footer-contact a {
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: rgba(136,135,128,0.45);
+    line-height: 2;
+    display: block;
+    text-decoration: none;
+  }
+  .footer-company a:hover, .footer-contact a:hover { color: var(--cyan); }
+  .footer-bottom {
+    max-width: 1200px;
+    margin: 28px auto 0;
+    padding-top: 20px;
+    border-top: 0.5px solid rgba(255,255,255,0.05);
+    display: flex;
+    justify-content: space-between;
+  }
+  .footer-note {
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: rgba(136,135,128,0.25);
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  .hero-content > * {
+    opacity: 0;
+    animation: fadeUp 0.9s forwards;
+  }
+  .hero-client-tag { animation-delay: 0.3s; }
+  .hero-title      { animation-delay: 0.5s; }
+  .hero-subtitle   { animation-delay: 0.65s; }
+  .hero-meta       { animation-delay: 0.8s; }
+
+  .stats-strip { opacity: 0; animation: fadeIn 0.8s 0.9s forwards; }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-left">
+    <a href="index.html" class="nav-back">
+      <span class="nav-back-arrow">←</span>
+      <span>Thiện Kiến</span>
+    </a>
+    <div class="nav-sep"></div>
+    <span class="nav-breadcrumb">TECx · 2023</span>
+  </div>
+  <img src="Thien-Kien-logo.webp" alt="Thiện Kiến" class="nav-logo-img">
+</nav>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="hero-slideshow" id="heroSlideshow">
+    <div class="hero-slide active" style="background-image:url('TECx2023.webp')"></div>
+    <div class="hero-slide" style="background-image:url('TECx2023_1.webp')"></div>
+    <div class="hero-slide" style="background-image:url('TECx2023_2.webp')"></div>
+    <div class="hero-slide" style="background-image:url('TECx2023_3.webp')"></div>
+    <div class="hero-slide" style="background-image:url('TECx2023_4.webp')"></div>
+    <div class="hero-slide" style="background-image:url('TECx2023_5.webp')"></div>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-client-tag">
+      <span class="tag-cyan">TECx · 2023</span>
+      <span>US Consulate × SAVVi Code</span>
+      <span>Tết Đoan Ngọ</span>
+    </div>
+    <h1 class="hero-title">TECx2023</h1>
+    <div class="hero-subtitle">When a Tea Break Became<br>an Introduction to Vietnam</div>
+    <div class="hero-meta">
+      <span class="hero-meta-item">3 Consecutive Days</span>
+      <div class="hero-meta-dot"></div>
+      <span class="hero-meta-item">500+ Guests Per Day</span>
+      <div class="hero-meta-dot"></div>
+      <span class="hero-meta-item">21 Selections</span>
+      <div class="hero-meta-dot"></div>
+      <span class="hero-meta-item">100 Handcrafted Gifts</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── STATS ── -->
+<div class="stats-strip">
+  <div class="stat-cell">
+    <div class="stat-number">500+</div>
+    <div class="stat-label">Guests per day<br>across 3 days</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-number">21</div>
+    <div class="stat-label">Selections introduced<br>throughout the event</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-number">100</div>
+    <div class="stat-label">Handcrafted gifts<br>for speakers</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-number">3</div>
+    <div class="stat-label">Styles of Vietnamese<br>coffee, one per day</div>
+  </div>
+</div>
+
+<!-- ── ARTICLE ── -->
+<div class="article">
+
+  <!-- SECTION 1: Opening -->
+  <div class="section">
+    <div class="section-divider"></div>
+    <span class="section-label cyan">An Early Milestone</span>
+    <h2 class="section-heading">The first time we were trusted at this scale.</h2>
+    <p class="section-intro">
+      TECx2023 was one of the earliest defining milestones for Thiện Kiến.
+    </p>
+    <p>
+      It was the first time we were trusted to prepare a tea break at this scale — more than 500 guests per day, across three consecutive days, with a commitment to presenting 18 different selections each day for international guests and speakers.
+    </p>
+    <p>
+      In the end, Thiện Kiến introduced 21 different selections throughout the event, alongside 100 handcrafted gifts prepared specifically for the speakers.
+    </p>
+    <p>
+      But more important than the scale was what the experience clarified for us. It became one of the moments where Thiện Kiến began to understand what it was slowly becoming. Not simply a catering team or hospitality provider — but a hospitality practice built around preparing meaningful encounters with Vietnam through food, people, and local culture.
+    </p>
+  </div>
+
+</div>
+
+<!-- IMAGE BLOCK: Opening wide -->
+<div class="img-block">
+  <div class="img-ph r-16-9">
+    <div class="img-ph-icon">⬚</div>
+    <div class="img-ph-filename">TECx2023.webp</div>
+    <div class="img-ph-desc">Overall setup — the full table, environment, atmosphere</div>
+  </div>
+  <div class="img-caption">TECx2023 · Ho Chi Minh City</div>
+</div>
+
+<div class="article">
+
+  <!-- SECTION 2: Tea Break -->
+  <div class="section">
+    <div class="section-divider"></div>
+    <span class="section-label cyan">Tết Đoan Ngọ</span>
+    <h2 class="section-heading">A Tea Break Inspired by<br>Tết Đoan Ngọ</h2>
+    <p>
+      TECx2023 took place during Tết Đoan Ngọ — one of Vietnam's seasonal celebrations tied to harvest, climate, and local food traditions. Thiện Kiến prepared the tea break around the spirit of the occasion itself.
+    </p>
+    <p>
+      The audience included founders, CEOs, private equity representatives, and international speakers from the United States. For us, this was never simply a break between conference sessions. It was an opportunity for guests from abroad to encounter Vietnam in a natural and unforced way — through taste, seasonality, and hospitality.
+    </p>
+    <p>The table brought together specialties from different regions of Vietnam.</p>
+
+    <ul class="regional-list">
+      <li>
+        <div class="region-marker">North</div>
+        <div class="region-content">
+          <strong>Bánh gio mật mía</strong> — <em>a traditional Vietnamese alkaline rice cake served with dark sugarcane syrup</em>
+        </div>
+      </li>
+      <li>
+        <div class="region-marker">Central</div>
+        <div class="region-content">
+          <strong>Chè kê</strong> — <em>a traditional Vietnamese sweet millet</em>
+        </div>
+      </li>
+      <li>
+        <div class="region-marker">South</div>
+        <div class="region-content">
+          <strong>Bánh ú tro</strong> — <em>alkaline rice dumpling, alongside seasonal fruits gathered from different growing regions across the country</em>
+        </div>
+      </li>
+    </ul>
+
+    <p>
+      Mountain plums, lychee, dragon fruit, mango, and vú sữa bách thảo sat together on the same table. Each item carried traces of the place it came from — the climate that shaped it, the soil it depended on, the season it belonged to, and the people who continued preserving it over time.
+    </p>
+  </div>
+
+</div>
+
+<!-- IMAGE BLOCK: Table spread grid -->
+<div class="img-block">
+  <div class="img-grid-3">
+    <div class="img-ph">
+      <div class="img-ph-icon">⬚</div>
+      <div class="img-ph-filename">TECx2023_1.webp</div>
+      <div class="img-ph-desc">Full table spread — all regional items together</div>
+    </div>
+    <div class="img-ph r-4-3">
+      <div class="img-ph-icon">⬚</div>
+      <div class="img-ph-filename">TECx2023_2.webp</div>
+      <div class="img-ph-desc">Bánh gio / chè kê close-up</div>
+    </div>
+    <div class="img-ph r-4-3">
+      <div class="img-ph-icon">⬚</div>
+      <div class="img-ph-filename">TECx2023_3.webp</div>
+      <div class="img-ph-desc">Seasonal fruits — mountain plums, lychee, dragon fruit</div>
+    </div>
+  </div>
+  <div class="img-caption">The table, the season, the region</div>
+</div>
+
+<div class="article">
+
+  <!-- SECTION 3: Fruits, Climate, Place -->
+  <div class="section">
+    <div class="section-divider amber"></div>
+    <span class="section-label amber">Sourcing Philosophy</span>
+    <h2 class="section-heading">Fruits, Climate, and Place</h2>
+    <p>
+      Thiện Kiến has always believed that food carries traces of the place it comes from. For that reason, each menu included not only the names and ingredients of each item, but also a small map of Vietnam showing where every fruit and regional specialty had been sourced.
+    </p>
+    <p>
+      It was never meant as decoration. It was a way of showing that Vietnam is not one singular taste or landscape, but many different climates, growing regions, and local traditions existing at once.
+    </p>
+    <p>
+      Many people assume that the country's best fruit only comes from the Mekong Delta. But in reality, every region carries varieties shaped by its own geography, soil, and weather. The best fruit is fruit grown where it truly belongs.
+    </p>
+    <p>
+      While preparing for TECx2023, Thiện Kiến sourced not only from commercial farms, but also from families still preserving older fruit varieties in their own gardens — varieties that slowly disappeared as farming shifted toward consistency and large-scale production, yet still carried the original flavors many people once grew up with.
+    </p>
+    <p>
+      At that time, we were not trying to package Vietnam into a product or souvenir. We simply hoped to create a small point of contact — a moment where something that once belonged to Vietnam could still be encountered and remembered.
+    </p>
+
+    <div class="pull-quote">
+      <p>"After tasting the lychee introduced by Thiện Kiến, she jokingly said she wanted to bring the seed home to plant herself. It was a lighthearted comment. But to us, it quietly meant that something had connected."</p>
+    </div>
+
+    <p>
+      One particularly memorable moment came from the wife of Mr. Huy Đỗ, a guest from Hong Kong known for being very selective with food.
+    </p>
+  </div>
+
+</div>
+
+<!-- IMAGE BLOCK: Map + sourcing -->
+<div class="img-block">
+  <div class="img-grid-2">
+    <div class="img-ph r-3-2">
+      <div class="img-ph-icon">⬚</div>
+      <div class="img-ph-filename">TECx2023_4.webp</div>
+      <div class="img-ph-desc">The Vietnam sourcing map on the menu / brochure</div>
+    </div>
+    <div class="img-ph r-3-2">
+      <div class="img-ph-icon">⬚</div>
+      <div class="img-ph-filename">TECx2023_5.webp</div>
+      <div class="img-ph-desc">Fruit varieties — older garden varieties, family sourcing</div>
+    </div>
+  </div>
+  <div class="img-caption">Every item mapped to where it came from</div>
+</div>
+
+<div class="article">
+
+  <!-- SECTION 4: Gifts -->
+  <div class="section">
+    <div class="section-divider stone"></div>
+    <span class="section-label">Craft &amp; Object</span>
+    <h2 class="section-heading">One Hundred Handwoven Gifts</h2>
+    <p>
+      TECx2023 did not end at the tea break table. Thiện Kiến also prepared 100 gifts for the speakers. Each one was a handwoven cloth made by Black Thai artisans in Nghệ An.
+    </p>
+    <p>
+      From growing the cotton, spinning the thread, weaving the fabric, to dyeing the cloth — every step was completed by hand, with each piece taking nearly a month to finish.
+    </p>
+    <p>
+      We did not choose these gifts because they resembled souvenirs. We chose them because they reflected something Thiện Kiến has always believed quietly: <strong>the value of an object can still be felt through the time and hands behind it.</strong>
+    </p>
+    <p>
+      At a conference centered around technology and the future, the gifts introduced another kind of time and labor — one shaped by patience, repetition, and people who still continue making things slowly, by hand.
+    </p>
+    <p>
+      For us, hospitality is not only about what is placed on the table. It is also about what people continue carrying with them afterward.
+    </p>
+  </div>
+
+</div>
+
+<!-- IMAGE BLOCK: Gifts -->
+<div class="img-block">
+  <div class="img-grid-2">
+    <div class="img-ph r-3-2">
+      <div class="img-ph-icon">⬚</div>
+      <div class="img-ph-filename">TECx2023_6.webp</div>
+      <div class="img-ph-desc">The handwoven cloth gifts — Black Thai artisans, Nghệ An</div>
+    </div>
+    <div class="img-ph r-3-2">
+      <div class="img-ph-icon">⬚</div>
+      <div class="img-ph-filename">TECx2023_7.webp</div>
+      <div class="img-ph-desc">Detail of the weave / textile pattern</div>
+    </div>
+  </div>
+  <div class="img-caption">100 handwoven cloths — one month per piece · Black Thai artisans, Nghệ An</div>
+</div>
+
+<div class="article">
+
+  <!-- SECTION 5: Coffee -->
+  <div class="section">
+    <div class="section-divider cyan"></div>
+    <span class="section-label cyan">Three Days, Three Regions</span>
+    <h2 class="section-heading">Coffee, Served Differently<br>Across Vietnam</h2>
+    <p>
+      Over three consecutive days of talks and conversations, coffee naturally became part of the rhythm of the event. In Vietnam, coffee is less a product than a daily habit woven into ordinary life.
+    </p>
+    <p>
+      Thiện Kiến decided that each day of TECx2023 would introduce a different way coffee is prepared and enjoyed across the country. The intention was never simply variety — it was a way of showing how the same coffee bean could be shaped into entirely different habits, flavors, and daily rituals depending on the region.
+    </p>
+
+    <div class="coffee-days">
+      <div class="coffee-day">
+        <div class="coffee-day-num">Day 1</div>
+        <div class="coffee-day-region">North · Hà Nội</div>
+        <div class="coffee-day-name">Egg Coffee<br><em style="font-size:12px; color:var(--stone); font-style:italic">Cà phê trứng</em></div>
+      </div>
+      <div class="coffee-day">
+        <div class="coffee-day-num">Day 2</div>
+        <div class="coffee-day-region">Central · Huế</div>
+        <div class="coffee-day-name">Salted Coffee<br><em style="font-size:12px; color:var(--stone); font-style:italic">Cà phê muối</em></div>
+      </div>
+      <div class="coffee-day">
+        <div class="coffee-day-num">Day 3</div>
+        <div class="coffee-day-region">South · Sài Gòn</div>
+        <div class="coffee-day-name">Milk Coffee<br><em style="font-size:12px; color:var(--stone); font-style:italic">Cà phê sữa đá</em></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- IMAGE BLOCK: Coffee -->
+<div class="img-block narrow">
+  <div class="img-ph r-16-9">
+    <div class="img-ph-icon">⬚</div>
+    <div class="img-ph-filename">TECx2023_8.webp</div>
+    <div class="img-ph-desc">Three styles of Vietnamese coffee — egg coffee, salted coffee, Southern milk coffee</div>
+  </div>
+  <div class="img-caption">One coffee, three regions, three daily rituals</div>
+</div>
+
+<div class="article">
+
+  <!-- SECTION 6: AR -->
+  <div class="section">
+    <div class="section-divider"></div>
+    <span class="section-label cyan">Collaboration · ARit Studio</span>
+    <h2 class="section-heading">AR as Part of the Experience</h2>
+    <p>
+      Two days before the event, Thiện Kiến met ARit, an AR studio that would later become part of the extended circle around the project.
+    </p>
+    <p>
+      After the first conversation between Hoàng Đại and Lê Phong (co-founder of ARit), an idea quickly emerged: using AR to extend the experience beyond the table itself.
+    </p>
+    <p>
+      Guests holding Thiện Kiến's Tết Đoan Ngọ brochure could scan a QR code and watch a three-dimensional map of Vietnam appear through their phones. Different fruits, harvesting seasons, and growing regions gradually appeared across the map, allowing guests to interact with the ingredients they had just encountered on the table.
+    </p>
+    <p>
+      What made the collaboration feel natural was that the technology never attempted to overpower the experience itself. TECx was a conference centered around technology, but Thiện Kiến never saw technology and culture as separate things. If used carefully, technology could simply become another way for people to notice place, seasonality, and the relationships behind what they were tasting.
+    </p>
+  </div>
+
+</div>
+
+<!-- IMAGE BLOCK: AR experience -->
+<div class="img-block">
+  <div class="img-grid-2">
+    <div class="img-ph r-3-2">
+      <div class="img-ph-icon">⬚</div>
+      <div class="img-ph-filename">TECx2023_9.webp</div>
+      <div class="img-ph-desc">Guest scanning QR code on the Tết Đoan Ngọ brochure</div>
+    </div>
+    <div class="img-ph r-3-2">
+      <div class="img-ph-icon">⬚</div>
+      <div class="img-ph-filename">TECx2023_10.webp</div>
+      <div class="img-ph-desc">AR map of Vietnam with fruits and growing regions appearing</div>
+    </div>
+  </div>
+  <div class="img-caption">Tết Đoan Ngọ brochure × ARit Studio — the 3D map experience</div>
+</div>
+
+<div class="article">
+
+  <!-- SECTION 7: Standard -->
+  <div class="section">
+    <div class="section-divider amber"></div>
+    <span class="section-label amber">What It Established</span>
+    <h2 class="section-heading">A Standard Formed Early</h2>
+    <p>
+      TECx2023 was also the first time Thiện Kiến prepared for an event across multiple consecutive days at this scale. Logistics, storage, sourcing, transportation, setup, and daily menu changes quickly became more demanding than anything the small team had handled before.
+    </p>
+    <p>
+      But the experience quietly established a standard that stayed with the team afterward. From that point forward, every project would be approached with the same level of preparation, timing, and care.
+    </p>
+    <p>
+      The people who first placed their trust in Thiện Kiến were never seen simply as clients. Their trust became something the team never treated lightly again.
+    </p>
+  </div>
+
+</div>
+
+<!-- ── CLOSING: Phil Tran ── -->
+<div class="closing">
+  <span class="closing-mark">A Final Thank You</span>
+  <div class="closing-heading">In memory of Phil Tran</div>
+  <p>
+    Thiện Kiến would also like to thank Phil Tran — a close friend of Huy Đỗ, and one of the first people who trusted us in the early days.
+  </p>
+  <p>May he rest peacefully.</p>
+  <p>
+    We remain deeply grateful for the trust and kindness he gave the team at a time when very little had yet been proven.
+  </p>
+  <div class="closing-divider"></div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="footer-logo">Thiện Kiến</span>
+      <div class="footer-tagline">Prepared with Understanding</div>
+    </div>
+    <div class="footer-company">
+      <h4>COMPANY INFORMATION</h4>
+      <p>Thien Kien Service - Trading Limited Company</p>
+      <p>MST: 0317374438</p>
+    </div>
+    <div class="footer-contact">
+      <h4>CONTACT</h4>
+      <a href="mailto:thienkien.sudarshana@gmail.com">thienkien.sudarshana@gmail.com</a>
+      <a href="tel:+84976847789">(+84) 976-847-789</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-note">© 2026 Thiện Kiến · Ho Chi Minh City, Vietnam</div>
+    <div class="footer-note">TECx2023 · US Consulate × SAVVi Code</div>
+  </div>
+</footer>
+
+<script>
+  // ── CUSTOM CURSOR ──
+  const cur = document.getElementById('cursor');
+  document.addEventListener('mousemove', e => {
+    cur.style.left = e.clientX + 'px';
+    cur.style.top  = e.clientY + 'px';
+  });
+  document.querySelectorAll('a, .pull-quote').forEach(el => {
+    el.addEventListener('mouseenter', () => cur.classList.add('big'));
+    el.addEventListener('mouseleave', () => cur.classList.remove('big'));
+  });
+
+  // ── HERO SLIDESHOW ──
+  (function() {
+    const slides = document.querySelectorAll('#heroSlideshow .hero-slide');
+    let idx = 0;
+    setInterval(() => {
+      slides[idx].classList.remove('active');
+      idx = (idx + 1) % slides.length;
+      slides[idx].classList.add('active');
+    }, 5000);
+  })();
+</script>
+</body>
+</html>
