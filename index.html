@@ -190,18 +190,6 @@
   );
   }
 
-  /* slide progress bar */
-  .slide-progress {
-    position: absolute;
-    bottom: 0; left: 0;
-    height: 2px;
-    background: var(--cyan);
-    opacity: 1;
-    z-index: 4;
-    width: 0%;
-    transition: width linear;
-  }
-
   /* slide dots */
   .slide-dots {
     position: absolute;
@@ -210,6 +198,9 @@
     z-index: 4;
     display: flex;
     gap: 6px;
+  }
+  @media (max-width: 767px) {
+    .slide-dots { right: 18px; bottom: 14px; }
   }
   .slide-dot {
     width: 4px; height: 4px;
@@ -249,7 +240,7 @@
 
   .cell-a-title {
     font-family: var(--f-display);
-    font-size: clamp(15px, 4.5vw, 35px);
+    font-size: clamp(25px, 4.5vw, 72px);
     font-weight: 300;
     font-style: italic;
     line-height: 1.08;
@@ -1023,6 +1014,238 @@ footer {
   }
   .cell-f:hover .cell-f-play-hint { opacity: 1; }
 
+  /* ─── HAMBURGER BUTTON ─── */
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 22px;
+    height: 14px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 200;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+  }
+  .nav-hamburger span {
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: var(--cream);
+    transition: transform 0.3s, opacity 0.3s;
+    transform-origin: center;
+  }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+  /* ─── MOBILE NAV OVERLAY ─── */
+  .nav-mobile-menu {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    background: rgba(0,0,0,0.97);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .nav-mobile-menu.open { display: flex; }
+  .nav-mobile-menu ul { list-style: none; text-align: center; width: 100%; padding: 0 40px; }
+  .nav-mobile-menu li {
+    padding: 20px 0;
+    border-bottom: 0.5px solid rgba(245,232,192,0.07);
+  }
+  .nav-mobile-menu li:first-child { border-top: 0.5px solid rgba(245,232,192,0.07); }
+  .nav-mobile-menu a {
+    font-family: var(--f-display);
+    font-size: 34px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--cream);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: color 0.25s;
+  }
+  .nav-mobile-menu a:active { color: var(--cyan); }
+  .nav-mobile-lang {
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    color: var(--stone);
+    margin-top: 36px;
+    border-top: none !important;
+    border-bottom: none !important;
+  }
+
+  /* ─── TOUCH DEVICES: hide custom cursor ─── */
+  @media (hover: none), (pointer: coarse) {
+    .cursor { display: none !important; }
+    body { cursor: auto; }
+    .cell-d, .cell-e, .cell-f, .cell-h { cursor: pointer; }
+  }
+
+  /* ═══════════════════════════════════════════
+     TABLET  768px – 1023px
+  ═══════════════════════════════════════════ */
+  @media (max-width: 1023px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .nav-hamburger { display: flex; }
+
+    /* 2-column hero grid */
+    .hero {
+      height: auto;
+      min-height: 0;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows:
+        56vh   /* cell-a */
+        190px  /* cell-b + cell-c */
+        155px  /* cell-d + cell-e */
+        250px  /* cell-f */
+        145px; /* cell-g + cell-h */
+    }
+
+    .cell-a  { grid-column: 1 / 3; grid-row: 1; }
+    .cell-b  { grid-column: 1;     grid-row: 2; padding: 20px; }
+    .cell-c  { grid-column: 2;     grid-row: 2; padding: 18px 16px; }
+    .cell-d  { grid-column: 1;     grid-row: 3; }
+    .cell-e  { grid-column: 2;     grid-row: 3; }
+    .cell-f  { grid-column: 1 / 3; grid-row: 4; padding: 22px 28px; }
+    .cell-g  { grid-column: 1;     grid-row: 5; }
+    .cell-h  { grid-column: 2;     grid-row: 5; }
+
+    .cell-a .cell-caption { padding: 28px 28px 28px; }
+    .logo-mark-img { width: clamp(60px, 10vw, 90px); margin-bottom: 12px; }
+    .tkg-tagline { font-size: 11px; padding: 8px 10px; }
+
+    /* Below hero: 2-column */
+    .bh-inner {
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+    .bh-inner > div:last-child { grid-column: 1 / 3; }
+
+    /* Journey grid: 2×2 */
+    .journey-grid { grid-template-columns: 1fr 1fr; }
+    .journey-grid .jc:first-child { grid-column: 1 / 3; }
+
+    /* Footer: 2-column */
+    .footer-inner { grid-template-columns: 1fr 1fr; }
+    .footer-brand { grid-column: 1 / 3; margin-bottom: 4px; }
+
+    /* Clients: slightly smaller */
+    .client-item img { height: 64px; }
+    .client-item { padding: 0 28px; }
+    .clients-label { font-size: 22px; }
+  }
+
+  /* ═══════════════════════════════════════════
+     MOBILE  < 768px
+  ═══════════════════════════════════════════ */
+  @media (max-width: 767px) {
+    nav { padding: 13px 18px; }
+    .nav-logo-img { width: 36px; height: 36px; }
+    .nav-lang { display: none; }
+
+    /* 2-column hero grid, shorter rows */
+    .hero {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows:
+        60vh   /* cell-a */
+        140px  /* cell-b + cell-c */
+        120px  /* cell-d + cell-e */
+        210px  /* cell-f */
+        108px; /* cell-g + cell-h */
+    }
+
+    .cell-a  { grid-column: 1 / 3; grid-row: 1; }
+    .cell-b  { grid-column: 1;     grid-row: 2; padding: 14px 12px; }
+    .cell-c  { grid-column: 2;     grid-row: 2; padding: 14px 12px; }
+    .cell-d  { grid-column: 1;     grid-row: 3; padding: 12px 14px; }
+    .cell-e  { grid-column: 2;     grid-row: 3; padding: 12px 14px; }
+    .cell-f  { grid-column: 1 / 3; grid-row: 4; padding: 14px 18px; }
+    .cell-g  { grid-column: 1;     grid-row: 5; padding: 14px 14px; }
+    .cell-h  { grid-column: 2;     grid-row: 5; padding: 14px 14px; }
+
+    /* Cell A caption */
+    .cell-a .cell-caption { padding: 16px 18px 18px; }
+    .event-tag { font-size: 7px; letter-spacing: 0.14em; padding: 3px 7px; margin-bottom: 8px; }
+    .cell-a-sub { display: none; }
+
+    /* Cell B logo */
+    .logo-mark-img { width: clamp(44px, 12vw, 68px); margin-bottom: 8px; }
+
+    /* Cell C TKG */
+    .tkg-logo-img { width: clamp(44px, 12vw, 68px); }
+    .tkg-sub { display: none; }
+    .tkg-tagline { font-size: 10px; padding: 6px 8px; line-height: 1.35; }
+
+    /* Cell D / E text */
+    .cell-d-label, .cell-e-label { font-size: 7.5px; }
+    .cell-d-text, .cell-e-text { font-size: clamp(11px, 3vw, 14px); }
+
+    /* Cell F */
+    .cell-f-title { font-size: clamp(14px, 4vw, 20px); }
+
+    /* Cell G / H */
+    .cell-g-tagline { font-size: clamp(12px, 3.5vw, 16px); }
+    .cell-g-mark { font-size: 7px; }
+    .cta-label { font-size: 8px; }
+    .cta-text { font-size: clamp(13px, 3.5vw, 16px); }
+    .cta-arrow { font-size: 16px; margin-top: 6px; }
+
+    /* Ticker */
+    .ticker-item { font-size: 8.5px; padding: 0 18px; letter-spacing: 0.1em; }
+
+    /* Clients */
+    .clients-section { padding: 32px 0 28px; }
+    .clients-label { font-size: 16px; letter-spacing: 0.14em; }
+    .client-item img { height: 44px; }
+    .client-item { padding: 0 18px; }
+    .clients-track-wrap::before,
+    .clients-track-wrap::after { width: 40px; }
+
+    /* Below hero */
+    .below-hero { padding: 44px 18px 32px; }
+    .bh-inner { grid-template-columns: 1fr; gap: 32px; }
+    .bh-inner > div:last-child { grid-column: auto; }
+    .bh-heading { font-size: clamp(18px, 5vw, 26px); }
+
+    /* Journey */
+    .journey { padding: 36px 18px; }
+    .journey-grid { grid-template-columns: 1fr 1fr; }
+    .journey-grid .jc:first-child { grid-column: 1 / 3; min-height: 160px !important; }
+    .jc { min-height: 120px; padding: 14px 14px; }
+    .jc-year { font-size: 8.5px; }
+    .jc-name { font-size: clamp(11px, 3vw, 14px); }
+
+    /* Footer */
+    footer { padding: 28px 18px 24px; }
+    .footer-inner { grid-template-columns: 1fr; gap: 22px; }
+    .footer-brand { grid-column: auto; }
+    .footer-bottom { flex-direction: column; gap: 5px; align-items: flex-start; }
+    .footer-note { font-size: 9px; }
+  }
+
+  /* ─── VERY SMALL MOBILE < 390px ─── */
+  @media (max-width: 389px) {
+    .hero {
+      grid-template-rows: 55vh 130px 108px 185px 100px;
+    }
+    .cell-a-title { font-size: clamp(17px, 4vw, 24px) !important; }
+    .tkg-tagline { font-size: 9px; }
+    .cell-d-text, .cell-e-text { font-size: 11px; }
+    .nav-mobile-menu a { font-size: 28px; }
+  }
+
   /* ── VIDEO MODAL ── */
   .video-modal {
     display: none;
@@ -1071,15 +1294,31 @@ footer {
     <img src="Thien-Kien-logo.webp" alt="Thiện Kiến Logo" class="nav-logo-img">
   </a>
 
-  <ul class="nav-links">
+  <ul class="nav-links" id="navLinks">
     <li><a href="#">Journal</a></li>
     <li><a href="#">Preparations</a></li>
     <li><a href="#">TKG</a></li>
     <li><a href="#">Contact</a></li>
   </ul>
 
-  <span class="nav-lang">VI &nbsp;/&nbsp; EN</span>
+  <div class="nav-right">
+    <span class="nav-lang">VI &nbsp;/&nbsp; EN</span>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
+
+<!-- ── MOBILE NAV MENU ── -->
+<div class="nav-mobile-menu" id="navMobileMenu">
+  <ul>
+    <li><a href="#" onclick="closeMobileMenu()">Journal</a></li>
+    <li><a href="#" onclick="closeMobileMenu()">Preparations</a></li>
+    <li><a href="#" onclick="closeMobileMenu()">TKG</a></li>
+    <li><a href="#" onclick="closeMobileMenu()">Contact</a></li>
+    <li class="nav-mobile-lang">VI &nbsp;/&nbsp; EN</li>
+  </ul>
+</div>
 
 <!-- ── HERO GRID ── -->
 <div class="hero">
@@ -1102,7 +1341,6 @@ footer {
       <div class="slide" style="background-image:url('IMG_8836.webp')"></div>
       <div class="slide" style="background-image:url('IMG_8851.webp')"></div>
     </div>
-    <div class="slide-progress" id="slideProgress"></div>
     <div class="slide-dots" id="slideDots"></div>
     <div class="cell-caption">
       <span class="event-tag">NEW ENERGY NEXUS × AUSTRALIA EMBASSY · 2024</span>
@@ -1127,7 +1365,7 @@ for organizations working deeply within Vietnamese contexts.</p>
     <div class="cell-c-top">
       <img src="TKG-logo.webp" alt="TKG" class="tkg-logo-img">
       <div class="tkg-sub">A botanical preparation system emerging<br>
-from Thiện Kiến’s cultural practice.</div>
+from Thiện Kiến's cultural practice.</div>
     </div>
     <div class="tkg-tagline">· Whole botanicals freeze-dried to preserve integrity. <br>· Built for hospitality and international environments.</div>
   </div>
@@ -1257,7 +1495,7 @@ The form changes. The responsibility does not.</p>
     <div>
       <div class="bh-divider amber"></div>
       <span class="bh-label">TKG · BOTANICAL PREPARATION SYSTEM</span>
-      <div class="bh-heading">A physical form of <br> Thiện Kiến’s preparation philosophy.</div>
+      <div class="bh-heading">A physical form of <br> Thiện Kiến's preparation philosophy.</div>
       <p class="bh-body">TKG was developed through years of preparing Vietnamese ingredients for hospitality and international environments.<br>
 The result is a portable botanical system designed to travel without losing integrity or context.</p>
     </div>
@@ -1348,8 +1586,7 @@ It comes from atmosphere, rhythm, preparation and shared experience.</p>
 </div>
 
 <script>
-  
- // ── CELL D SLIDESHOW ──
+  // ── CELL D SLIDESHOW ──
   (function() {
     const imgs = [
       'TECx2023.webp','TECx2023_1.webp','TECx2023_2.webp',
@@ -1367,16 +1604,13 @@ It comes from atmosphere, rhythm, preparation and shared experience.</p>
       wrap.style.backgroundImage = `url('${imgs[idx]}')`;
     }, 4500);
   })();
-  // ── CELL D → TECx2023 page ──
-document.querySelector('.cell-d').addEventListener('click', () => {
-  window.location.href = 'tecx2023.html';
-});
-   // ── CELL E SLIDESHOW ──
+
+  // ── CELL E SLIDESHOW ──
   (function() {
     const imgs = [
       'NEX-5y.webp','NEX-5y_1.webp','NEX-5y_2.webp',
       'NEX-5y_3.webp','NEX-5y_4.webp','NEX-5y_5.webp',
-     'NEX-5y_6.webp','NEX-5y_7.webp','NEX-5y_8.webp',
+      'NEX-5y_6.webp','NEX-5y_7.webp','NEX-5y_8.webp',
       'NEX-5y_9.webp','NEX-5y_10.webp'
     ];
     const wrap = document.getElementById('cellESlideshow');
@@ -1389,13 +1623,12 @@ document.querySelector('.cell-d').addEventListener('click', () => {
       wrap.style.backgroundImage = `url('${imgs[idx]}')`;
     }, 6000);
   })();
+
   // ── HERO SLIDESHOW ──
   (function() {
-    const slides    = document.querySelectorAll('#heroSlideshow .slide');
-    const dotsWrap  = document.getElementById('slideDots');
-    const progress  = document.getElementById('slideProgress');
-    const INTERVAL  = 4500;   // ms per slide
-    const TRANS     = 1200;   // ms fade duration
+    const slides   = document.querySelectorAll('#heroSlideshow .slide');
+    const dotsWrap = document.getElementById('slideDots');
+    const INTERVAL = 4500;
     let current = 0;
     let timer;
 
@@ -1413,31 +1646,29 @@ document.querySelector('.cell-d').addEventListener('click', () => {
       current = (n + slides.length) % slides.length;
       slides[current].classList.add('active');
       dotsWrap.children[current].classList.add('active');
-      resetProgress();
     }
 
     function next() { goTo(current + 1); }
-
-    function resetProgress() {
-      progress.style.transition = 'none';
-      progress.style.width = '0%';
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          progress.style.transition = `width ${INTERVAL}ms linear`;
-          progress.style.width = '100%';
-        });
-      });
-    }
 
     function startTimer() {
       clearInterval(timer);
       timer = setInterval(next, INTERVAL);
     }
 
-    // pause on hover
-  
-    resetProgress();
     startTimer();
+  })();
+
+  // ── TICKER: pause khi hero đang hiện trong viewport ──
+  (function() {
+    const tickerTrack = document.getElementById('ticker');
+    const hero = document.querySelector('.hero');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        tickerTrack.style.animationPlayState =
+          entry.isIntersecting ? 'paused' : 'running';
+      });
+    }, { threshold: 0.1 });
+    observer.observe(hero);
   })();
 
   // Custom cursor
@@ -1459,6 +1690,30 @@ document.querySelector('.cell-d').addEventListener('click', () => {
   document.querySelectorAll('.cell-d, .cell-f, .cell-h, .jc').forEach(el => {
     el.addEventListener('mouseenter', () => cur.classList.add('big'));
     el.addEventListener('mouseleave', () => cur.classList.remove('big'));
+  });
+
+  // ── HAMBURGER MENU ──
+  const hamburger     = document.getElementById('navHamburger');
+  const mobileMenu    = document.getElementById('navMobileMenu');
+  function closeMobileMenu() {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+  hamburger.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    hamburger.classList.toggle('open', isOpen);
+    hamburger.setAttribute('aria-expanded', String(isOpen));
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeMobileMenu();
+  });
+
+  // ── CELL D → TECx2023 page ──
+  document.querySelector('.cell-d').addEventListener('click', () => {
+    window.location.href = 'tecx2023.html';
   });
 
   // ── VIDEO MODAL ──
@@ -1487,4 +1742,3 @@ document.querySelector('.cell-d').addEventListener('click', () => {
 </script>
 </body>
 </html>
-
