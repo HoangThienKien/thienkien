@@ -537,6 +537,20 @@
     margin-left: 3px;
   }
   .cell-f:hover .cell-f-play-hint { opacity: 1; }
+  /* ── Mobile: ẩn video, hiện freeze frame tĩnh ── */
+  .cell-f-poster {
+    display: none;
+    position: absolute;
+    inset: 0;
+    background-image: url('cell-f-poster.webp');
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+  }
+  @media (hover: none), (pointer: coarse) {
+    .cell-f-video  { display: none; }
+    .cell-f-poster { display: block; }
+  }
   /* ── CELL G: tagline cyan-deep ── */
   .cell-g {
     grid-column: 2;
@@ -1249,8 +1263,9 @@ from Thiện Kiến's cultural practice.</div>
     </div>
   </div>
 
-  <!-- F: Bottom wide video — preload="none", play conditionally via JS -->
+  <!-- F: Bottom wide video — preload="none", mobile shows static poster -->
   <div class="cell cell-f" id="cellF">
+    <div class="cell-f-poster"></div>
     <video class="cell-f-video" id="heroVideo" muted loop playsinline preload="none">
       <source src="cell-f.webm" type="video/webm">
     </video>
@@ -1540,9 +1555,9 @@ It comes from atmosphere, rhythm, preparation and shared experience.</p>
     allTimers.push(t);
   })();
 
-  // ── VIDEO: load + play when cell-f enters viewport (desktop & mobile) ──
+  // ── VIDEO: desktop only — lazy load + play when cell-f enters viewport ──
   const heroVideo = document.getElementById('heroVideo');
-  if (heroVideo) {
+  if (heroVideo && !isTouchDevice) {
     const videoObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
