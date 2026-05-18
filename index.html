@@ -15,28 +15,22 @@
     --cyan-pale:#7DE8EE;
     --cyan-deep:#050E10;
     --cyan-mid: #0A1E20;
-
     --amber:    #C8872A;
     --amber-lt: #E3A84A;
     --amber-pale:#F5D08B;
     --cream:    #F5E8C0;
     --earth:    #2D1E10;
     --bark:     #4A3828;
-
     --black:    #000000;
     --off-black:#0A0A0A;
     --stone:    #888780;
     --gap:      3px;
-
     --f-display: 'Cormorant Garamond', serif;
     --f-body:    'Questrial', sans-serif;
     --f-mono:    'DM Mono', monospace;
   }
-
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   html { font-size: 16px; }
-
   body {
     background: var(--black);
     color: var(--cream);
@@ -44,7 +38,6 @@
     overflow-x: hidden;
     cursor: none;
   }
-
   /* ─── CUSTOM CURSOR ─── */
   .cursor {
     position: fixed;
@@ -63,7 +56,6 @@
     border: 1px solid var(--cyan);
   }
   .cursor.amber { background: var(--amber); }
-
   /* ─── NAV ─── */
   nav {
     position: fixed;
@@ -75,27 +67,23 @@
     padding: 20px 36px;
     mix-blend-mode: normal;
   }
-
   .nav-logo {
     display: flex;
     align-items: center;
     gap: 45px;
     text-decoration: none;
   }
-
   .nav-logo svg {
     width: 45px; height: 45px;
     opacity: 0;
     animation: fadeUp 0.8s 0.2s forwards;
   }
-
   .nav-logo-img {
     width: 45px; height: 45px;
     object-fit: contain;
     opacity: 0;
     animation: fadeUp 0.8s 0.2s forwards;
   }
-
   .nav-wordmark {
     font-family: var(--f-display);
     font-size: 13px;
@@ -106,7 +94,6 @@
     opacity: 0;
     animation: fadeUp 0.8s 0.35s forwards;
   }
-
   .nav-links {
     display: flex;
     gap: 32px;
@@ -125,7 +112,6 @@
     transition: color 0.25s;
   }
   .nav-links a:hover { color: var(--cyan); }
-
   .nav-lang {
     font-family: var(--f-mono);
     font-size: 10px;
@@ -134,7 +120,6 @@
     opacity: 0;
     animation: fadeUp 0.8s 0.6s forwards;
   }
-
   /* ─── HERO GRID ─── */
   .hero {
     width: 100%;
@@ -145,24 +130,20 @@
     gap: var(--gap);
     background: var(--black);
   }
-
   .cell {
     position: relative;
     overflow: hidden;
   }
-
   /* ── CELL A: main photo slideshow ── */
   .cell-a {
     grid-column: 1;
     grid-row: 1 / 3;
   }
-
   .slideshow {
     position: absolute;
     inset: 0;
     overflow: hidden;
   }
-
   .slide {
     position: absolute;
     inset: 0;
@@ -173,11 +154,9 @@
     transform: scale(1);
     animation: none;
   }
-
   .slide.active {
     opacity: 1;
   }
-
   .slide::after {
     content: '';
     position: absolute;
@@ -189,7 +168,6 @@
     transparent      100%
   );
   }
-
   /* slide dots */
   .slide-dots {
     position: absolute;
@@ -213,7 +191,6 @@
     background: var(--cyan);
     transform: scale(1.4);
   }
-
   .cell-a .cell-caption {
     position: absolute;
     bottom: 0; left: 0; right: 0;
@@ -221,7 +198,6 @@
     z-index: 3;
     background: rgba(5, 14, 16, 0.65);
   }
-
   .event-tag {
     display: inline-block;
     font-family: var(--f-mono);
@@ -237,7 +213,6 @@
     opacity: 0;
     animation: fadeUp 0.9s 1.0s forwards;
   }
-
   .cell-a-title {
     font-family: var(--f-display);
     font-size: clamp(25px, 4.5vw, 45px);
@@ -249,7 +224,6 @@
     opacity: 0;
     animation: fadeUp 0.9s 1.15s forwards;
   }
-
   .cell-a-sub {
     font-family: var(--f-mono);
     font-size: 10px;
@@ -260,7 +234,6 @@
     opacity: 0;
     animation: fadeUp 0.9s 1.3s forwards;
   }
-
   /* ── CELL B: Logo / Brand ── */
   .cell-b {
     grid-column: 2;
@@ -272,19 +245,16 @@
     justify-content: center;
     padding: 32px 24px;
   }
-
   .logo-mark {
     opacity: 0;
     animation: fadeIn 1.2s 0.8s forwards;
   }
-
   .logo-mark svg {
     width: clamp(80px, 8vw, 120px);
     height: auto;
     display: block;
     margin: 0 auto 20px;
   }
-
   .logo-mark-img {
     width: clamp(80px, 8vw, 120px);
     height: auto;
@@ -292,7 +262,6 @@
     margin: 0 auto 20px;
     object-fit: contain;
   }
-
   .logo-word {
     font-family: var(--f-display);
     font-size: clamp(11px, 1.1vw, 16px);
@@ -303,7 +272,6 @@
     text-align: center;
     line-height: 1.6;
   }
-
   /* ── CELL C link overlay ── */
   .cell-c-link {
     position: absolute;
@@ -311,7 +279,6 @@
     z-index: 10;
     cursor: pointer;
   }
-
   /* ── CELL C: Amber TKG ── */
   .cell-c {
     grid-column: 3;
@@ -326,7 +293,6 @@
     position: relative;
     overflow: hidden;
   }
-
   .cell-c-bg {
     position: absolute;
     inset: 0;
@@ -335,26 +301,22 @@
     background-position: center;
     z-index: 0;
   }
-
   .cell-c-overlay {
     position: absolute;
     inset: 0;
     background: rgba(5, 14, 16, 0.55);
     z-index: 1;
   }
-
   .cell-c-top {
     position: relative;
     z-index: 2;
   }
-
   .tkg-logo-img {
     width: clamp(64px, 6vw, 96px);
     height: auto;
     display: block;
     object-fit: contain;
   }
-
   .tkg-sub {
     font-family: var(--f-mono);
     font-size: 9px;
@@ -364,7 +326,6 @@
     text-transform: uppercase;
     line-height: 1.6;
   }
-
   .tkg-tagline {
     font-family: var(--f-display);
     font-size: clamp(11px, 1.1vw, 14px);
@@ -377,7 +338,6 @@
     position: relative;
     z-index: 2;
   }
-
   /* ── CELL D: Deep cyan event ── */
   .cell-d {
     grid-column: 2;
@@ -404,7 +364,6 @@
     background-size: cover;
     background-position: center;
   }
-
   .cell-d-overlay {
     position: absolute;
     inset: 0;
@@ -413,7 +372,6 @@
       rgba(10, 30, 32, 0.60);
     z-index: 1;
   }
-  /* 5px pixel accent top-left */
   .cell-d::before {
     content: '';
     position: absolute;
@@ -440,7 +398,6 @@
     line-height: 1.3;
     position: relative; z-index: 2;
   }
-
   /* ── CELL E: Earth/dark event ── */
   .cell-e {
     grid-column: 3;
@@ -472,7 +429,6 @@
     background: rgba(45, 30, 16, 0.62);
     z-index: 1;
   }
-  /* 20px pixel accent top-left */
   .cell-e::before {
     content: '';
     position: absolute;
@@ -499,8 +455,7 @@
     line-height: 1.3;
     position: relative; z-index: 2;
   }
-
-  /* ── CELL F: wide bottom photo — Tết Đoan Ngọ ── */
+  /* ── CELL F: wide bottom video ── */
   .cell-f {
     grid-column: 1;
     grid-row: 3;
@@ -512,31 +467,23 @@
     overflow: hidden;
     opacity: 0;
     animation: fadeIn 0.8s 1.2s forwards;
+    cursor: pointer;
   }
   .cell-f::before {
     content: '';
     position: absolute; inset: 0;
     background:
-      linear-gradient(90deg,
-        rgba(0,0,0,0.75) 0%,
-        transparent 50%
-      ),
-      linear-gradient(180deg,
-        transparent 30%,
-        rgba(0,0,0,0.5) 100%
-      );
+      linear-gradient(90deg, rgba(0,0,0,0.75) 0%, transparent 50%),
+      linear-gradient(180deg, transparent 30%, rgba(0,0,0,0.5) 100%);
     z-index: 1;
   }
-  /* Subtle pattern texture for photo placeholder */
   .cell-f-texture {
     position: absolute; inset: 0;
     background:
       repeating-linear-gradient(
         102deg,
-        transparent 0px,
-        transparent 4px,
-        rgba(41,197,208,0.018) 4px,
-        rgba(41,197,208,0.018) 5px
+        transparent 0px, transparent 4px,
+        rgba(41,197,208,0.018) 4px, rgba(41,197,208,0.018) 5px
       ),
       linear-gradient(160deg, #060E10 0%, #091418 50%, #050A0C 100%);
   }
@@ -558,7 +505,38 @@
     color: #fff;
     line-height: 1.15;
   }
-
+  .cell-f-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 50%;
+    display: block;
+    z-index: 0;
+  }
+  .cell-f-play-hint {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.45);
+    border: 1px solid rgba(255,255,255,0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+  .cell-f-play-hint svg {
+    width: 18px; height: 18px;
+    fill: #fff;
+    margin-left: 3px;
+  }
+  .cell-f:hover .cell-f-play-hint { opacity: 1; }
   /* ── CELL G: tagline cyan-deep ── */
   .cell-g {
     grid-column: 2;
@@ -600,7 +578,6 @@
     margin-top: 10px;
     position: relative; z-index: 1;
   }
-
   /* ── CELL H: CTA amber-light ── */
   .cell-h {
     grid-column: 3;
@@ -617,7 +594,6 @@
     transition: background 0.3s;
   }
   .cell-h:hover { background: #5A4535; }
-
   .cta-label {
     font-family: var(--f-mono);
     font-size: 9px;
@@ -641,7 +617,6 @@
     transition: transform 0.25s;
   }
   .cell-h:hover .cta-arrow { transform: translateX(4px); }
-
   /* ─── CLIENTS SECTION ─── */
   .clients-section {
     background: var(--off-black);
@@ -649,13 +624,11 @@
     padding: 56px 0 52px;
     overflow: hidden;
   }
-
   .clients-header {
     text-align: center;
     margin-bottom: 36px;
     padding: 0 36px;
   }
-
   .clients-label {
     display: block;
     font-family: var(--f-mono);
@@ -666,7 +639,6 @@
     text-transform: uppercase;
     margin-bottom: 10px;
   }
-
   .clients-title {
     font-family: var(--f-display);
     font-size: clamp(20px, 2.2vw, 32px);
@@ -674,13 +646,10 @@
     font-style: italic;
     color: var(--cream);
   }
-
   .clients-track-wrap {
     position: relative;
     overflow: hidden;
   }
-
-  /* fade edges */
   .clients-track-wrap::before,
   .clients-track-wrap::after {
     content: '';
@@ -698,7 +667,6 @@
     right: 0;
     background: linear-gradient(to left, var(--off-black), transparent);
   }
-
   .clients-track {
     display: flex;
     align-items: center;
@@ -707,10 +675,7 @@
     white-space: nowrap;
     width: max-content;
   }
-  .clients-track:hover {
-    animation-play-state: paused;
-  }
-
+  .clients-track:hover { animation-play-state: paused; }
   .client-item {
     display: inline-flex;
     align-items: center;
@@ -719,7 +684,6 @@
     flex-shrink: 0;
     border-right: 0.5px solid rgba(136,135,128,0.12);
   }
-
   .client-item img {
     height: 100px;
     width: auto;
@@ -728,16 +692,11 @@
     filter: grayscale(100%) brightness(0.55);
     transition: filter 0.35s;
   }
-
-  .client-item:hover img {
-    filter: grayscale(0%) brightness(1);
-  }
-
+  .client-item:hover img { filter: grayscale(0%) brightness(1); }
   @keyframes clientsScroll {
     from { transform: translateX(0); }
     to   { transform: translateX(-50%); }
   }
-
   /* ─── SECTION BELOW HERO ─── */
   .below-hero {
     background: var(--off-black);
@@ -782,7 +741,6 @@
     margin-bottom: 18px;
   }
   .bh-divider.amber { background: var(--amber); }
-
   /* ─── SCROLLING TICKER ─── */
   .ticker-wrap {
     background: var(--cyan-deep);
@@ -807,11 +765,7 @@
     padding: 0 32px;
     flex-shrink: 0;
   }
-  .ticker-dot {
-    color: var(--amber);
-    opacity: 0.7;
-  }
-
+  .ticker-dot { color: var(--amber); opacity: 0.7; }
   /* ─── JOURNEY LOG STRIP ─── */
   .journey {
     background: var(--black);
@@ -843,7 +797,6 @@
     text-transform: uppercase;
     text-decoration: none;
   }
-
   .journey-grid {
     max-width: 1200px;
     margin: 0 auto;
@@ -852,7 +805,6 @@
     gap: var(--gap);
     background: var(--black);
   }
-
   .jc {
     position: relative;
     overflow: hidden;
@@ -882,71 +834,70 @@
     font-weight: 300;
     line-height: 1.3;
   }
-
   /* ─── FOOTER ─── */
-footer {
-  background: var(--black);
-  border-top: 3px solid #111;
-  padding: 40px 36px 36px;
-}
-.footer-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 32px;
-  align-items: start;
-}
-.footer-brand .footer-logo {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 10px;
-  letter-spacing: 0.3em;
-  color: rgba(41,197,208,0.5);
-  text-transform: uppercase;
-  display: block;
-  margin-bottom: 8px;
-}
-.footer-tagline {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 10px;
-  font-style: italic;
-  color: rgba(245,232,192,0.25);
-  line-height: 1.5;
-}
-.footer-company h4, .footer-contact h4 {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.22em;
-  color: #888780;
-  text-transform: uppercase;
-  margin-bottom: 12px;
-  opacity: 0.5;
-}
-.footer-company p, .footer-company a,
-.footer-contact a {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  color: rgba(136,135,128,0.45);
-  line-height: 2;
-  display: block;
-  text-decoration: none;
-}
-.footer-company a:hover, .footer-contact a:hover { color: #29C5D0; }
-.footer-bottom {
-  max-width: 1200px;
-  margin: 28px auto 0;
-  padding-top: 20px;
-  border-top: 0.5px solid rgba(255,255,255,0.05);
-  display: flex;
-  justify-content: space-between;
-}
-.footer-note {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  color: rgba(136,135,128,0.25);
-}
+  footer {
+    background: var(--black);
+    border-top: 3px solid #111;
+    padding: 40px 36px 36px;
+  }
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+  .footer-brand .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: rgba(41,197,208,0.5);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 8px;
+  }
+  .footer-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    font-style: italic;
+    color: rgba(245,232,192,0.25);
+    line-height: 1.5;
+  }
+  .footer-company h4, .footer-contact h4 {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    color: #888780;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    opacity: 0.5;
+  }
+  .footer-company p, .footer-company a,
+  .footer-contact a {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: rgba(136,135,128,0.45);
+    line-height: 2;
+    display: block;
+    text-decoration: none;
+  }
+  .footer-company a:hover, .footer-contact a:hover { color: #29C5D0; }
+  .footer-bottom {
+    max-width: 1200px;
+    margin: 28px auto 0;
+    padding-top: 20px;
+    border-top: 0.5px solid rgba(255,255,255,0.05);
+    display: flex;
+    justify-content: space-between;
+  }
+  .footer-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: rgba(136,135,128,0.25);
+  }
   /* ─── ANIMATIONS ─── */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(14px); }
@@ -960,68 +911,54 @@ footer {
     from { transform: translateX(0); }
     to   { transform: translateX(-50%); }
   }
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-12px); }
-  }
-  @keyframes rotateSlow {
-    from { transform: rotate(0deg); }
-    to   { transform: rotate(360deg); }
-  }
   @keyframes mandalaBreath {
     0%, 100% { opacity: 0.7; transform: scale(1); }
     50% { opacity: 1; transform: scale(1.03); }
   }
-
   /* ─── HOVER EFFECTS on cells ─── */
-  .cell-d, .cell-e, .jc {
-    transition: filter 0.3s;
-  }
+  .cell-d, .cell-e, .jc { transition: filter 0.3s; }
   .cell-d:hover, .cell-e:hover { filter: brightness(1.12); }
   .jc:hover { filter: brightness(1.1); }
-
   /* Mandala animation */
   .logo-mark svg, .logo-mark-img {
     animation: mandalaBreath 5s ease-in-out infinite;
   }
-
-  /* ── CELL F — video ── */
-  .cell-f {
-    cursor: pointer;
-  }
-  .cell-f-video {
-    position: absolute;
+  /* ── VIDEO MODAL ── */
+  .video-modal {
+    display: none;
+    position: fixed;
     inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 50%;
-    display: block;
-    z-index: 0;
-  }
-  .cell-f-play-hint {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 52px; height: 52px;
-    border-radius: 50%;
-    background: rgba(0,0,0,0.45);
-    border: 1px solid rgba(255,255,255,0.35);
-    display: flex;
+    z-index: 10000;
+    background: rgba(0,0,0,0.92);
     align-items: center;
     justify-content: center;
-    z-index: 3;
-    opacity: 0;
-    transition: opacity 0.3s;
-    pointer-events: none;
   }
-  .cell-f-play-hint svg {
-    width: 18px; height: 18px;
-    fill: #fff;
-    margin-left: 3px;
+  .video-modal.open { display: flex; }
+  .video-modal-inner {
+    position: relative;
+    width: min(92vw, 1100px);
+    aspect-ratio: 16/9;
   }
-  .cell-f:hover .cell-f-play-hint { opacity: 1; }
-
+  .video-modal video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    background: #000;
+  }
+  .video-modal-close {
+    position: absolute;
+    top: -40px; right: 0;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 28px;
+    cursor: pointer;
+    line-height: 1;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+  .video-modal-close:hover { opacity: 1; }
   /* ─── HAMBURGER BUTTON ─── */
   .nav-right {
     display: flex;
@@ -1053,7 +990,6 @@ footer {
   .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
   .nav-hamburger.open span:nth-child(2) { opacity: 0; }
   .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-
   /* ─── MOBILE NAV OVERLAY ─── */
   .nav-mobile-menu {
     display: none;
@@ -1092,14 +1028,12 @@ footer {
     border-top: none !important;
     border-bottom: none !important;
   }
-
   /* ─── TOUCH DEVICES: hide custom cursor ─── */
   @media (hover: none), (pointer: coarse) {
     .cursor { display: none !important; }
     body { cursor: auto; }
-    .cell-d, .cell-e, .cell-f, .cell-h { cursor: pointer; }
+    .cell-c, .cell-d, .cell-e, .cell-f, .cell-h { cursor: pointer; }
   }
-
   /* ═══════════════════════════════════════════
      TABLET  768px – 1023px
   ═══════════════════════════════════════════ */
@@ -1107,20 +1041,17 @@ footer {
     nav { padding: 16px 24px; }
     .nav-links { display: none; }
     .nav-hamburger { display: flex; }
-
-    /* 2-column hero grid */
     .hero {
       height: auto;
       min-height: 0;
       grid-template-columns: 1fr 1fr;
       grid-template-rows:
-        56vh   /* cell-a */
-        190px  /* cell-b + cell-c */
-        155px  /* cell-d + cell-e */
-        250px  /* cell-f */
-        145px; /* cell-g + cell-h */
+        56vh
+        190px
+        155px
+        250px
+        145px;
     }
-
     .cell-a  { grid-column: 1 / 3; grid-row: 1; }
     .cell-b  { grid-column: 1;     grid-row: 2; padding: 20px; }
     .cell-c  { grid-column: 2;     grid-row: 2; padding: 18px 16px; }
@@ -1129,32 +1060,19 @@ footer {
     .cell-f  { grid-column: 1 / 3; grid-row: 4; padding: 22px 28px; }
     .cell-g  { grid-column: 1;     grid-row: 5; }
     .cell-h  { grid-column: 2;     grid-row: 5; }
-
     .cell-a .cell-caption { padding: 28px 28px 28px; }
     .logo-mark-img { width: clamp(60px, 10vw, 90px); margin-bottom: 12px; }
     .tkg-tagline { font-size: 11px; padding: 8px 10px; }
-
-    /* Below hero: 2-column */
-    .bh-inner {
-      grid-template-columns: 1fr 1fr;
-      gap: 32px;
-    }
+    .bh-inner { grid-template-columns: 1fr 1fr; gap: 32px; }
     .bh-inner > div:last-child { grid-column: 1 / 3; }
-
-    /* Journey grid: 2×2 */
     .journey-grid { grid-template-columns: 1fr 1fr; }
     .journey-grid .jc:first-child { grid-column: 1 / 3; }
-
-    /* Footer: 2-column */
     .footer-inner { grid-template-columns: 1fr 1fr; }
     .footer-brand { grid-column: 1 / 3; margin-bottom: 4px; }
-
-    /* Clients: slightly smaller */
     .client-item img { height: 64px; }
     .client-item { padding: 0 28px; }
     .clients-label { font-size: 22px; }
   }
-
   /* ═══════════════════════════════════════════
      MOBILE  < 768px
   ═══════════════════════════════════════════ */
@@ -1162,18 +1080,15 @@ footer {
     nav { padding: 13px 18px; }
     .nav-logo-img { width: 36px; height: 36px; }
     .nav-lang { display: none; }
-
-    /* 2-column hero grid, shorter rows */
     .hero {
       grid-template-columns: 1fr 1fr;
       grid-template-rows:
-        60vh   /* cell-a */
-        140px  /* cell-b + cell-c */
-        120px  /* cell-d + cell-e */
-        210px  /* cell-f */
-        108px; /* cell-g + cell-h */
+        60vh
+        140px
+        120px
+        210px
+        108px;
     }
-
     .cell-a  { grid-column: 1 / 3; grid-row: 1; }
     .cell-b  { grid-column: 1;     grid-row: 2; padding: 14px 12px; }
     .cell-c  { grid-column: 2;     grid-row: 2; padding: 14px 12px; }
@@ -1182,118 +1097,55 @@ footer {
     .cell-f  { grid-column: 1 / 3; grid-row: 4; padding: 14px 18px; }
     .cell-g  { grid-column: 1;     grid-row: 5; padding: 14px 14px; }
     .cell-h  { grid-column: 2;     grid-row: 5; padding: 14px 14px; }
-
-    /* Cell A caption */
     .cell-a .cell-caption { padding: 16px 18px 18px; }
     .event-tag { font-size: 7px; letter-spacing: 0.14em; padding: 3px 7px; margin-bottom: 8px; }
     .cell-a-sub { display: none; }
-
-    /* Cell B logo */
     .logo-mark-img { width: clamp(44px, 12vw, 68px); margin-bottom: 8px; }
-
-    /* Cell C TKG */
     .tkg-logo-img { width: clamp(44px, 12vw, 68px); }
     .tkg-sub { display: none; }
     .tkg-tagline { font-size: 10px; padding: 6px 8px; line-height: 1.35; }
-
-    /* Cell D / E text */
     .cell-d-label, .cell-e-label { font-size: 7.5px; }
     .cell-d-text, .cell-e-text { font-size: clamp(11px, 3vw, 14px); }
-
-    /* Cell F */
     .cell-f-title { font-size: clamp(14px, 4vw, 20px); }
-
-    /* Cell G / H */
     .cell-g-tagline { font-size: clamp(12px, 3.5vw, 16px); }
     .cell-g-mark { font-size: 7px; }
     .cta-label { font-size: 8px; }
     .cta-text { font-size: clamp(13px, 3.5vw, 16px); }
     .cta-arrow { font-size: 16px; margin-top: 6px; }
-
-    /* Ticker */
     .ticker-item { font-size: 8.5px; padding: 0 18px; letter-spacing: 0.1em; }
-
-    /* Clients */
     .clients-section { padding: 32px 0 28px; }
     .clients-label { font-size: 16px; letter-spacing: 0.14em; }
     .client-item img { height: 44px; }
     .client-item { padding: 0 18px; }
     .clients-track-wrap::before,
     .clients-track-wrap::after { width: 40px; }
-
-    /* Below hero */
     .below-hero { padding: 44px 18px 32px; }
     .bh-inner { grid-template-columns: 1fr; gap: 32px; }
     .bh-inner > div:last-child { grid-column: auto; }
     .bh-heading { font-size: clamp(18px, 5vw, 26px); }
-
-    /* Journey */
     .journey { padding: 36px 18px; }
     .journey-grid { grid-template-columns: 1fr 1fr; }
     .journey-grid .jc:first-child { grid-column: 1 / 3; min-height: 160px !important; }
     .jc { min-height: 120px; padding: 14px 14px; }
     .jc-year { font-size: 8.5px; }
     .jc-name { font-size: clamp(11px, 3vw, 14px); }
-
-    /* Footer */
     footer { padding: 28px 18px 24px; }
     .footer-inner { grid-template-columns: 1fr; gap: 22px; }
     .footer-brand { grid-column: auto; }
     .footer-bottom { flex-direction: column; gap: 5px; align-items: flex-start; }
     .footer-note { font-size: 9px; }
   }
-
   /* ─── VERY SMALL MOBILE < 390px ─── */
   @media (max-width: 389px) {
-    .hero {
-      grid-template-rows: 55vh 130px 108px 185px 100px;
-    }
+    .hero { grid-template-rows: 55vh 130px 108px 185px 100px; }
     .cell-a-title { font-size: clamp(17px, 4vw, 24px) !important; }
     .tkg-tagline { font-size: 9px; }
     .cell-d-text, .cell-e-text { font-size: 11px; }
     .nav-mobile-menu a { font-size: 28px; }
   }
-
-  /* ── VIDEO MODAL ── */
-  .video-modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 10000;
-    background: rgba(0,0,0,0.92);
-    align-items: center;
-    justify-content: center;
-  }
-  .video-modal.open { display: flex; }
-  .video-modal-inner {
-    position: relative;
-    width: min(92vw, 1100px);
-    aspect-ratio: 16/9;
-  }
-  .video-modal video {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    display: block;
-    background: #000;
-  }
-  .video-modal-close {
-    position: absolute;
-    top: -40px; right: 0;
-    background: none;
-    border: none;
-    color: #fff;
-    font-size: 28px;
-    cursor: pointer;
-    line-height: 1;
-    opacity: 0.7;
-    transition: opacity 0.2s;
-  }
-  .video-modal-close:hover { opacity: 1; }
 </style>
 </head>
 <body>
-
 <div class="cursor" id="cursor"></div>
 
 <!-- ── NAV ── -->
@@ -1301,14 +1153,12 @@ footer {
   <a href="#" class="nav-logo">
     <img src="Thien-Kien-logo.webp" alt="Thiện Kiến Logo" class="nav-logo-img">
   </a>
-
   <ul class="nav-links" id="navLinks">
     <li><a href="#">Journal</a></li>
     <li><a href="#">Preparations</a></li>
     <li><a href="https://tkg-naula.com" target="_blank" rel="noopener">TKG</a></li>
     <li><a href="#">Contact</a></li>
   </ul>
-
   <div class="nav-right">
     <span class="nav-lang">VI &nbsp;/&nbsp; EN</span>
     <button class="nav-hamburger" id="navHamburger" aria-label="Menu" aria-expanded="false">
@@ -1324,30 +1174,30 @@ footer {
     <li><a href="#" onclick="closeMobileMenu()">Preparations</a></li>
     <li><a href="https://tkg-naula.com" target="_blank" rel="noopener" onclick="closeMobileMenu()">TKG</a></li>
     <li><a href="#" onclick="closeMobileMenu()">Contact</a></li>
-    <li class="nav-mobile-lang">&nbsp; EN</li>
+    <li class="nav-mobile-lang">VI &nbsp;/&nbsp; EN</li>
   </ul>
 </div>
 
 <!-- ── HERO GRID ── -->
 <div class="hero">
 
-  <!-- A: Main photo slideshow -->
+  <!-- A: Main photo slideshow — data-bg for lazy loading -->
   <div class="cell cell-a">
     <div class="slideshow" id="heroSlideshow">
-      <div class="slide active" style="background-image:url('IMG_5812.webp')"></div>
-      <div class="slide" style="background-image:url('IMG_8778.webp')"></div>
-      <div class="slide" style="background-image:url('IMG_8779.webp')"></div>
-      <div class="slide" style="background-image:url('IMG_8782.webp')"></div>
-      <div class="slide" style="background-image:url('IMG_8790.webp')"></div>
-      <div class="slide" style="background-image:url('IMG_8791.webp')"></div>
-      <div class="slide" style="background-image:url('IMG_8797.webp')"></div>
-      <div class="slide" style="background-image:url('IMG_8806.webp')"></div>
-      <div class="slide" style="background-image:url('IMG_8811.webp')"></div>
-      <div class="slide" style="background-image:url('IMG_8813.webp')"></div>
-      <div class="slide" style="background-image:url('IMG_8814.webp')"></div>
-      <div class="slide" style="background-image:url('IMG_8835.webp')"></div>
-      <div class="slide" style="background-image:url('IMG_8836.webp')"></div>
-      <div class="slide" style="background-image:url('IMG_8851.webp')"></div>
+      <div class="slide active" data-bg="IMG_5812.webp"></div>
+      <div class="slide" data-bg="IMG_8778.webp"></div>
+      <div class="slide" data-bg="IMG_8779.webp"></div>
+      <div class="slide" data-bg="IMG_8782.webp"></div>
+      <div class="slide" data-bg="IMG_8790.webp"></div>
+      <div class="slide" data-bg="IMG_8791.webp"></div>
+      <div class="slide" data-bg="IMG_8797.webp"></div>
+      <div class="slide" data-bg="IMG_8806.webp"></div>
+      <div class="slide" data-bg="IMG_8811.webp"></div>
+      <div class="slide" data-bg="IMG_8813.webp"></div>
+      <div class="slide" data-bg="IMG_8814.webp"></div>
+      <div class="slide" data-bg="IMG_8835.webp"></div>
+      <div class="slide" data-bg="IMG_8836.webp"></div>
+      <div class="slide" data-bg="IMG_8851.webp"></div>
     </div>
     <div class="slide-dots" id="slideDots"></div>
     <div class="cell-caption">
@@ -1395,13 +1245,13 @@ from Thiện Kiến's cultural practice.</div>
     <div class="cell-e-overlay"></div>
     <div>
       <div class="cell-e-label">Cultural Ceremony · 2024</div>
-      <div class="cell-e-text">Lễ Cấp Sắc<br>Yao ethnic's Maturity Festival  — NEXUS 5 Years</div>
+      <div class="cell-e-text">Lễ Cấp Sắc<br>Yao ethnic's Maturity Festival — NEXUS 5 Years</div>
     </div>
   </div>
 
-  <!-- F: Bottom wide video -->
+  <!-- F: Bottom wide video — preload="none", play conditionally via JS -->
   <div class="cell cell-f" id="cellF">
-    <video class="cell-f-video" autoplay muted loop playsinline>
+    <video class="cell-f-video" id="heroVideo" muted loop playsinline preload="none">
       <source src="cell-f.webm" type="video/webm">
     </video>
     <div class="cell-f-play-hint">
@@ -1438,7 +1288,6 @@ from Thiện Kiến's cultural practice.</div>
     <span class="ticker-item">Tết Trung Thu/Mid-autumn Festival · Abbott <span class="ticker-dot">✦</span></span>
     <span class="ticker-item">TKG · Botanical Blend Powder · Michigan 2026 <span class="ticker-dot">✦</span></span>
     <span class="ticker-item">Stories of Gratitude · Annual Gathering <span class="ticker-dot">✦</span></span>
-    <!-- duplicate for seamless loop -->
     <span class="ticker-item">Seasonal Fruit · International Offices HCMC <span class="ticker-dot">✦</span></span>
     <span class="ticker-item">Tết Đoan Ngọ/Danwu Festival · US Consulate × SAVVi Code <span class="ticker-dot">✦</span></span>
     <span class="ticker-item">New Energy NEXUS VN · Australian Embassy <span class="ticker-dot">✦</span></span>
@@ -1456,33 +1305,33 @@ from Thiện Kiến's cultural practice.</div>
   </div>
   <div class="clients-track-wrap">
     <div class="clients-track" id="clientsTrack">
-      <div class="client-item"><a href="https://vietnam.embassy.gov.au/" target="_blank" rel="noopener"><img src="Australian-Embassy-Vietnam.webp" alt="Australian Embassy Vietnam"></a></div>
-      <div class="client-item"><a href="https://www.vn.abbott/" target="_blank" rel="noopener"><img src="Abbott.webp" alt="Abbott Laboratories"></a></div>
-      <div class="client-item"><a href="https://www.newenergynexus.vn/vi/home/" target="_blank" rel="noopener"><img src="NEXUS-New-Energy-VN.webp" alt="New Energy NEXUS VN"></a></div>
-      <div class="client-item"><a href="https://www.savvicode.com/" target="_blank" rel="noopener"><img src="SAVVIcode.webp" alt="SAVVi Code"></a></div>
-      <div class="client-item"><a href="https://fulbright.edu.vn/vi/" target="_blank" rel="noopener"><img src="Fulbright.webp" alt="Fulbright"></a></div>
-      <div class="client-item"><a href="https://www.britishcouncil.vn/" target="_blank" rel="noopener"><img src="Britishcouncil.webp" alt="British Council"></a></div>
-      <div class="client-item"><a href="https://www.amanotes.com/" target="_blank" rel="noopener"><img src="Amanotes.webp" alt="Amanotes"></a></div>
-      <div class="client-item"><a href="https://kms-technology.com/" target="_blank" rel="noopener"><img src="KMS solutions.webp" alt="KMS Technology"></a></div>
-      <div class="client-item"><a href="https://vn.usembassy.gov/education/yseali-in-vietnam/" target="_blank" rel="noopener"><img src="YSEALI.webp" alt="YSEALI"></a></div>
-      <div class="client-item"><a href="https://blackstones.vn/" target="_blank" rel="noopener"><img src="Blackstones.webp" alt="Blackstones"></a></div>
-      <div class="client-item"><a href="https://dtp-education.com/en/" target="_blank" rel="noopener"><img src="DTP.webp" alt="DTP Education Solutions"></a></div>
-      <div class="client-item"><a href="https://www.sparx.com/" target="_blank" rel="noopener"><img src="sparx.webp" alt="Sparx"></a></div>
-      <div class="client-item"><a href="https://www.phudonggroup.com/" target="_blank" rel="noopener"><img src="Phu Dong group.webp" alt="Phú Đông Group"></a></div>
+      <div class="client-item"><a href="https://vietnam.embassy.gov.au/" target="_blank" rel="noopener"><img src="Australian-Embassy-Vietnam.webp" alt="Australian Embassy Vietnam" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://www.vn.abbott/" target="_blank" rel="noopener"><img src="Abbott.webp" alt="Abbott Laboratories" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://www.newenergynexus.vn/vi/home/" target="_blank" rel="noopener"><img src="NEXUS-New-Energy-VN.webp" alt="New Energy NEXUS VN" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://www.savvicode.com/" target="_blank" rel="noopener"><img src="SAVVIcode.webp" alt="SAVVi Code" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://fulbright.edu.vn/vi/" target="_blank" rel="noopener"><img src="Fulbright.webp" alt="Fulbright" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://www.britishcouncil.vn/" target="_blank" rel="noopener"><img src="Britishcouncil.webp" alt="British Council" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://www.amanotes.com/" target="_blank" rel="noopener"><img src="Amanotes.webp" alt="Amanotes" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://kms-technology.com/" target="_blank" rel="noopener"><img src="KMS solutions.webp" alt="KMS Technology" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://vn.usembassy.gov/education/yseali-in-vietnam/" target="_blank" rel="noopener"><img src="YSEALI.webp" alt="YSEALI" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://blackstones.vn/" target="_blank" rel="noopener"><img src="Blackstones.webp" alt="Blackstones" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://dtp-education.com/en/" target="_blank" rel="noopener"><img src="DTP.webp" alt="DTP Education Solutions" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://www.sparx.com/" target="_blank" rel="noopener"><img src="sparx.webp" alt="Sparx" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://www.phudonggroup.com/" target="_blank" rel="noopener"><img src="Phu Dong group.webp" alt="Phú Đông Group" loading="lazy"></a></div>
       <!-- duplicate for seamless loop -->
-      <div class="client-item"><a href="https://vietnam.embassy.gov.au/" target="_blank" rel="noopener"><img src="Australian-Embassy-Vietnam.webp" alt="Australian Embassy Vietnam"></a></div>
-      <div class="client-item"><a href="https://www.vn.abbott/" target="_blank" rel="noopener"><img src="Abbott.webp" alt="Abbott Laboratories"></a></div>
-      <div class="client-item"><a href="https://www.newenergynexus.vn/vi/home/" target="_blank" rel="noopener"><img src="NEXUS-New-Energy-VN.webp" alt="New Energy NEXUS VN"></a></div>
-      <div class="client-item"><a href="https://www.savvicode.com/" target="_blank" rel="noopener"><img src="SAVVIcode.webp" alt="SAVVi Code"></a></div>
-      <div class="client-item"><a href="https://fulbright.edu.vn/vi/" target="_blank" rel="noopener"><img src="Fulbright.webp" alt="Fulbright"></a></div>
-      <div class="client-item"><a href="https://www.britishcouncil.vn/" target="_blank" rel="noopener"><img src="Britishcouncil.webp" alt="British Council"></a></div>
-      <div class="client-item"><a href="https://www.amanotes.com/" target="_blank" rel="noopener"><img src="Amanotes.webp" alt="Amanotes"></a></div>
-      <div class="client-item"><a href="https://kms-technology.com/" target="_blank" rel="noopener"><img src="KMS solutions.webp" alt="KMS Technology"></a></div>
-      <div class="client-item"><a href="https://vn.usembassy.gov/education/yseali-in-vietnam/" target="_blank" rel="noopener"><img src="YSEALI.webp" alt="YSEALI"></a></div>
-      <div class="client-item"><a href="https://blackstones.vn/" target="_blank" rel="noopener"><img src="Blackstones.webp" alt="Blackstones"></a></div>
-      <div class="client-item"><a href="https://dtp-education.com/en/" target="_blank" rel="noopener"><img src="DTP.webp" alt="DTP Education Solutions"></a></div>
-      <div class="client-item"><a href="https://www.sparx.com/" target="_blank" rel="noopener"><img src="sparx.webp" alt="Sparx"></a></div>
-      <div class="client-item"><a href="https://www.phudonggroup.com/" target="_blank" rel="noopener"><img src="Phu Dong group.webp" alt="Phú Đông Group"></a></div>
+      <div class="client-item"><a href="https://vietnam.embassy.gov.au/" target="_blank" rel="noopener"><img src="Australian-Embassy-Vietnam.webp" alt="Australian Embassy Vietnam" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://www.vn.abbott/" target="_blank" rel="noopener"><img src="Abbott.webp" alt="Abbott Laboratories" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://www.newenergynexus.vn/vi/home/" target="_blank" rel="noopener"><img src="NEXUS-New-Energy-VN.webp" alt="New Energy NEXUS VN" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://www.savvicode.com/" target="_blank" rel="noopener"><img src="SAVVIcode.webp" alt="SAVVi Code" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://fulbright.edu.vn/vi/" target="_blank" rel="noopener"><img src="Fulbright.webp" alt="Fulbright" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://www.britishcouncil.vn/" target="_blank" rel="noopener"><img src="Britishcouncil.webp" alt="British Council" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://www.amanotes.com/" target="_blank" rel="noopener"><img src="Amanotes.webp" alt="Amanotes" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://kms-technology.com/" target="_blank" rel="noopener"><img src="KMS solutions.webp" alt="KMS Technology" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://vn.usembassy.gov/education/yseali-in-vietnam/" target="_blank" rel="noopener"><img src="YSEALI.webp" alt="YSEALI" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://blackstones.vn/" target="_blank" rel="noopener"><img src="Blackstones.webp" alt="Blackstones" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://dtp-education.com/en/" target="_blank" rel="noopener"><img src="DTP.webp" alt="DTP Education Solutions" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://www.sparx.com/" target="_blank" rel="noopener"><img src="sparx.webp" alt="Sparx" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://www.phudonggroup.com/" target="_blank" rel="noopener"><img src="Phu Dong group.webp" alt="Phú Đông Group" loading="lazy"></a></div>
     </div>
   </div>
 </div>
@@ -1498,7 +1347,6 @@ from Thiện Kiến's cultural practice.</div>
 Some are prepared for diplomatic teams.<br>
 Some for multinational offices.<br>
 Some for people encountering Vietnam for the first time.
-
 The form changes. The responsibility does not.</p>
     </div>
     <div>
@@ -1524,9 +1372,7 @@ It comes from atmosphere, rhythm, preparation and shared experience.</p>
     <div class="journey-title">The Journey Log</div>
     <a href="#" class="journey-link">(coming soon) →</a>
   </div>
-
   <div class="journey-grid">
-    <!-- Large feature -->
     <div class="jc" style="background:#0A1820; min-height:220px">
       <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(41,197,208,0.08) 0%,transparent 60%)"></div>
       <div class="jc-content">
@@ -1558,26 +1404,21 @@ It comes from atmosphere, rhythm, preparation and shared experience.</p>
 <!-- ── FOOTER ── -->
 <footer>
   <div class="footer-inner">
-
     <div class="footer-brand">
       <span class="footer-logo">Thiện Kiến</span>
       <div class="footer-tagline">Prepared with Understanding</div>
     </div>
-
     <div class="footer-company">
       <h4>COMPANY INFORMATION</h4>
       <p>Thien Kien Service - Trading Limited Company</p>
       <p>MST: 0317374438</p>
     </div>
-
     <div class="footer-contact">
       <h4>CONTACT</h4>
       <a href="mailto:thienkien.sudarshana@gmail.com">thienkien.sudarshana@gmail.com</a>
       <a href="tel:+84976847789">(+84) 976-847-789</a>
     </div>
-
   </div>
-
   <div class="footer-bottom">
     <div class="footer-note">© 2026 Thiện Kiến · Ho Chi Minh City, Vietnam</div>
     <div class="footer-note">Designed with intention</div>
@@ -1595,7 +1436,64 @@ It comes from atmosphere, rhythm, preparation and shared experience.</p>
 </div>
 
 <script>
-  // ── CELL D SLIDESHOW ──
+  const isTouchDevice = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+
+  // ── HELPER: lazy-load background from data-bg attribute ──
+  function loadBg(el) {
+    if (el && el.dataset.bg && !el.style.backgroundImage) {
+      el.style.backgroundImage = `url('${el.dataset.bg}')`;
+    }
+  }
+
+  // ── HELPER: silently preload an image into browser cache ──
+  function preloadImg(src) {
+    const img = new Image();
+    img.src = src;
+  }
+
+  // ── HERO SLIDESHOW — lazy background loading ──
+  const allTimers = [];
+  (function() {
+    const slides   = document.querySelectorAll('#heroSlideshow .slide');
+    const dotsWrap = document.getElementById('slideDots');
+    const INTERVAL = 4500;
+    let current = 0;
+    let timer;
+
+    // Load only first slide immediately; preload second
+    loadBg(slides[0]);
+    if (slides[1]) loadBg(slides[1]);
+
+    // Build dots
+    slides.forEach((_, i) => {
+      const d = document.createElement('div');
+      d.className = 'slide-dot' + (i === 0 ? ' active' : '');
+      d.addEventListener('click', () => goTo(i));
+      dotsWrap.appendChild(d);
+    });
+
+    function goTo(n) {
+      slides[current].classList.remove('active');
+      dotsWrap.children[current].classList.remove('active');
+      current = (n + slides.length) % slides.length;
+      loadBg(slides[current]);
+      loadBg(slides[(current + 1) % slides.length]); // preload next
+      slides[current].classList.add('active');
+      dotsWrap.children[current].classList.add('active');
+    }
+
+    function next() { goTo(current + 1); }
+
+    function startTimer() {
+      clearInterval(timer);
+      timer = setInterval(next, INTERVAL);
+      allTimers.push(timer);
+    }
+
+    startTimer();
+  })();
+
+  // ── CELL D SLIDESHOW — stagger preload after page settles ──
   (function() {
     const imgs = [
       'TECx2023.webp','TECx2023_1.webp','TECx2023_2.webp',
@@ -1605,13 +1503,18 @@ It comes from atmosphere, rhythm, preparation and shared experience.</p>
     ];
     const wrap = document.getElementById('cellDSlideshow');
     let idx = 0;
-    wrap.style.backgroundImage = `url('${imgs[0]}')`;
-    wrap.style.backgroundSize = 'cover';
-    wrap.style.backgroundPosition = 'center';
-    setInterval(() => {
+    wrap.style.cssText = `background-image:url('${imgs[0]}');background-size:cover;background-position:center`;
+
+    // Stagger-preload remaining images 2s after load
+    setTimeout(() => {
+      imgs.slice(1).forEach((src, i) => setTimeout(() => preloadImg(src), i * 300));
+    }, 2000);
+
+    const t = setInterval(() => {
       idx = (idx + 1) % imgs.length;
       wrap.style.backgroundImage = `url('${imgs[idx]}')`;
     }, 4500);
+    allTimers.push(t);
   })();
 
   // ── CELL E SLIDESHOW ──
@@ -1624,50 +1527,36 @@ It comes from atmosphere, rhythm, preparation and shared experience.</p>
     ];
     const wrap = document.getElementById('cellESlideshow');
     let idx = 0;
-    wrap.style.backgroundImage = `url('${imgs[0]}')`;
-    wrap.style.backgroundSize = 'cover';
-    wrap.style.backgroundPosition = 'center';
-    setInterval(() => {
+    wrap.style.cssText = `background-image:url('${imgs[0]}');background-size:cover;background-position:center`;
+
+    setTimeout(() => {
+      imgs.slice(1).forEach((src, i) => setTimeout(() => preloadImg(src), i * 400));
+    }, 3500);
+
+    const t = setInterval(() => {
       idx = (idx + 1) % imgs.length;
       wrap.style.backgroundImage = `url('${imgs[idx]}')`;
     }, 6000);
+    allTimers.push(t);
   })();
 
-  // ── HERO SLIDESHOW ──
-  (function() {
-    const slides   = document.querySelectorAll('#heroSlideshow .slide');
-    const dotsWrap = document.getElementById('slideDots');
-    const INTERVAL = 4500;
-    let current = 0;
-    let timer;
+  // ── VIDEO: autoplay only on desktop ──
+  const heroVideo = document.getElementById('heroVideo');
+  if (heroVideo && !isTouchDevice) {
+    heroVideo.play().catch(() => {});
+  }
 
-    // build dots
-    slides.forEach((_, i) => {
-      const d = document.createElement('div');
-      d.className = 'slide-dot' + (i === 0 ? ' active' : '');
-      d.addEventListener('click', () => goTo(i));
-      dotsWrap.appendChild(d);
-    });
-
-    function goTo(n) {
-      slides[current].classList.remove('active');
-      dotsWrap.children[current].classList.remove('active');
-      current = (n + slides.length) % slides.length;
-      slides[current].classList.add('active');
-      dotsWrap.children[current].classList.add('active');
+  // ── PAUSE all intervals and animations when tab is hidden ──
+  document.addEventListener('visibilitychange', () => {
+    const animated = document.querySelectorAll('.clients-track, .ticker-track');
+    if (document.hidden) {
+      animated.forEach(el => el.style.animationPlayState = 'paused');
+    } else {
+      animated.forEach(el => el.style.animationPlayState = 'running');
     }
+  });
 
-    function next() { goTo(current + 1); }
-
-    function startTimer() {
-      clearInterval(timer);
-      timer = setInterval(next, INTERVAL);
-    }
-
-    startTimer();
-  })();
-
-  // ── TICKER: pause khi hero đang hiện trong viewport ──
+  // ── TICKER: pause when hero is in viewport ──
   (function() {
     const tickerTrack = document.getElementById('ticker');
     const hero = document.querySelector('.hero');
@@ -1680,30 +1569,26 @@ It comes from atmosphere, rhythm, preparation and shared experience.</p>
     observer.observe(hero);
   })();
 
-  // Custom cursor
+  // ── CUSTOM CURSOR (desktop only) ──
   const cur = document.getElementById('cursor');
-  let mx = 0, my = 0;
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    cur.style.left = mx + 'px';
-    cur.style.top  = my + 'px';
-  });
-
-  // Cursor state on amber cells
-  document.querySelectorAll('.cell-c, .cell-e, .cell-h').forEach(el => {
-    el.addEventListener('mouseenter', () => { cur.classList.add('amber'); });
-    el.addEventListener('mouseleave', () => { cur.classList.remove('amber'); });
-  });
-
-  // Cursor expand on interactive cells
-  document.querySelectorAll('.cell-c, .cell-d, .cell-f, .cell-h, .jc').forEach(el => {
-    el.addEventListener('mouseenter', () => cur.classList.add('big'));
-    el.addEventListener('mouseleave', () => cur.classList.remove('big'));
-  });
+  if (!isTouchDevice) {
+    document.addEventListener('mousemove', e => {
+      cur.style.left = e.clientX + 'px';
+      cur.style.top  = e.clientY + 'px';
+    });
+    document.querySelectorAll('.cell-c, .cell-e, .cell-h').forEach(el => {
+      el.addEventListener('mouseenter', () => cur.classList.add('amber'));
+      el.addEventListener('mouseleave', () => cur.classList.remove('amber'));
+    });
+    document.querySelectorAll('.cell-c, .cell-d, .cell-f, .cell-h, .jc').forEach(el => {
+      el.addEventListener('mouseenter', () => cur.classList.add('big'));
+      el.addEventListener('mouseleave', () => cur.classList.remove('big'));
+    });
+  }
 
   // ── HAMBURGER MENU ──
-  const hamburger     = document.getElementById('navHamburger');
-  const mobileMenu    = document.getElementById('navMobileMenu');
+  const hamburger  = document.getElementById('navHamburger');
+  const mobileMenu = document.getElementById('navMobileMenu');
   function closeMobileMenu() {
     hamburger.classList.remove('open');
     mobileMenu.classList.remove('open');
@@ -1717,7 +1602,7 @@ It comes from atmosphere, rhythm, preparation and shared experience.</p>
     document.body.style.overflow = isOpen ? 'hidden' : '';
   });
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeMobileMenu();
+    if (e.key === 'Escape') { closeMobileMenu(); closeModal(); }
   });
 
   // ── CELL D → TECx2023 page ──
@@ -1740,14 +1625,8 @@ It comes from atmosphere, rhythm, preparation and shared experience.</p>
     modal.classList.remove('open');
     modalVideo.pause();
   }
-
   modalClose.addEventListener('click', closeModal);
-  modal.addEventListener('click', e => {
-    if (e.target === modal) closeModal();
-  });
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeModal();
-  });
+  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
 </script>
 </body>
 </html>
