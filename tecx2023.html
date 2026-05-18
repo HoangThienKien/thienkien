@@ -489,11 +489,23 @@
     grid-template-columns: 2fr 1fr;
     grid-template-rows: auto auto;
     gap: var(--gap);
+    align-items: stretch;
   }
   .img-grid-3 .img-wrap:first-child {
     grid-row: 1 / 3;
-    aspect-ratio: auto;
-    min-height: 100%;
+    aspect-ratio: unset;
+    align-self: stretch;
+  }
+  .img-grid-3 .img-wrap:first-child img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  /* position:relative needed for the absolute img inside */
+  .img-grid-3 .img-wrap:first-child {
+    position: relative;
   }
 
   .img-caption {
@@ -822,14 +834,14 @@
 <!-- IMAGE BLOCK: Table spread grid -->
 <div class="img-block">
   <div class="img-grid-3">
-    <div class="img-wrap r-tall">
+    <div class="img-wrap">
       <img src="TECx2023_7.webp" alt="Full table spread — all regional items together">
     </div>
     <div class="img-wrap r-4-3">
-      <img src="TECx2023_2.webp" alt="Bánh gio mật mía và chè kê close-up">
+      <img src="TECx2023_6.webp" alt="Bánh gio mật mía và chè kê close-up">
     </div>
     <div class="img-wrap r-4-3">
-      <img src="TECx2023_3.webp" alt="Seasonal fruits — mountain plums, lychee, dragon fruit">
+      <img src="TECx2023.webp" alt="Seasonal fruits — mountain plums, lychee, dragon fruit">
     </div>
   </div>
   <div class="img-caption">The table, the season, the region</div>
