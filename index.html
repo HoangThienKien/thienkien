@@ -1540,10 +1540,20 @@ It comes from atmosphere, rhythm, preparation and shared experience.</p>
     allTimers.push(t);
   })();
 
-  // ── VIDEO: autoplay only on desktop ──
+  // ── VIDEO: load + play when cell-f enters viewport (desktop & mobile) ──
   const heroVideo = document.getElementById('heroVideo');
-  if (heroVideo && !isTouchDevice) {
-    heroVideo.play().catch(() => {});
+  if (heroVideo) {
+    const videoObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          heroVideo.load();
+          heroVideo.play().catch(() => {});
+        } else {
+          heroVideo.pause();
+        }
+      });
+    }, { threshold: 0.1 });
+    videoObserver.observe(document.getElementById('cellF'));
   }
 
   // ── PAUSE all intervals and animations when tab is hidden ──
