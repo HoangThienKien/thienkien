@@ -594,6 +594,23 @@
     line-height: 1.85;
     text-align: center;
   }
+  .closing-photo {
+    width: 200px;
+    height: 200px;
+    margin: 36px auto 0;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 0.5px solid rgba(41,197,208,0.2);
+    opacity: 0.75;
+  }
+  .closing-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    filter: grayscale(30%);
+  }
+ 
   .closing-divider {
     width: 1px;
     height: 40px;
@@ -1043,6 +1060,9 @@
   <p>
     We remain deeply grateful for the trust and kindness he gave the team at a time when very little had yet been proven.
   </p>
+  <div class="closing-photo">
+    <img src="Phil.webp" alt="Phil Tran">
+  </div>
   <div class="closing-divider"></div>
 </div>
 
