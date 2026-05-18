@@ -537,20 +537,8 @@
     margin-left: 3px;
   }
   .cell-f:hover .cell-f-play-hint { opacity: 1; }
-  /* ── Mobile: ẩn video, hiện freeze frame tĩnh ── */
-  .cell-f-poster {
-    display: none;
-    position: absolute;
-    inset: 0;
-    background-image: url('cell-f-poster.webp');
-    background-size: cover;
-    background-position: center;
-    z-index: 0;
-  }
-  @media (hover: none), (pointer: coarse) {
-    .cell-f-video  { display: none; }
-    .cell-f-poster { display: block; }
-  }
+  /* .cell-f-poster: reserved for future use */
+  .cell-f-poster { display: none; }
   /* ── CELL G: tagline cyan-deep ── */
   .cell-g {
     grid-column: 2;
@@ -1042,11 +1030,18 @@
     border-top: none !important;
     border-bottom: none !important;
   }
-  /* ─── TOUCH DEVICES: hide custom cursor ─── */
+  /* ─── TOUCH DEVICES ─── */
   @media (hover: none), (pointer: coarse) {
+    /* Tắt custom cursor */
     .cursor { display: none !important; }
     body { cursor: auto; }
     .cell-c, .cell-d, .cell-e, .cell-f, .cell-h { cursor: pointer; }
+    /* Tắt animation logo (tiết kiệm GPU) */
+    .logo-mark-img { animation: none; opacity: 1; }
+    /* Ẩn slide-dots vì không có slideshow trên mobile */
+    .slide-dots { display: none; }
+    /* Giảm tốc clients scroll để giảm repaint */
+    .clients-track { animation-duration: 60s; }
   }
   /* ═══════════════════════════════════════════
      TABLET  768px – 1023px
@@ -1466,20 +1461,25 @@ It comes from atmosphere, rhythm, preparation and shared experience.</p>
     img.src = src;
   }
 
-  // ── HERO SLIDESHOW — lazy background loading ──
+  // ── HERO SLIDESHOW ──
+  // Mobile: 1 ảnh tĩnh duy nhất — không timer, không dots, không preload
+  // Desktop: slideshow đầy đủ với lazy load
   const allTimers = [];
   (function() {
     const slides   = document.querySelectorAll('#heroSlideshow .slide');
     const dotsWrap = document.getElementById('slideDots');
-    const INTERVAL = 4500;
-    let current = 0;
-    let timer;
 
-    // Load only first slide immediately; preload second
+    // Luôn load ảnh đầu tiên
     loadBg(slides[0]);
+
+    if (isTouchDevice) return; // Mobile: dừng ở đây
+
+    // Desktop: preload ảnh thứ 2, build dots, start timer
     if (slides[1]) loadBg(slides[1]);
 
-    // Build dots
+    const INTERVAL = 4500;
+    let current = 0, timer;
+
     slides.forEach((_, i) => {
       const d = document.createElement('div');
       d.className = 'slide-dot' + (i === 0 ? ' active' : '');
@@ -1492,23 +1492,21 @@ It comes from atmosphere, rhythm, preparation and shared experience.</p>
       dotsWrap.children[current].classList.remove('active');
       current = (n + slides.length) % slides.length;
       loadBg(slides[current]);
-      loadBg(slides[(current + 1) % slides.length]); // preload next
+      loadBg(slides[(current + 1) % slides.length]);
       slides[current].classList.add('active');
       dotsWrap.children[current].classList.add('active');
     }
 
-    function next() { goTo(current + 1); }
-
     function startTimer() {
       clearInterval(timer);
-      timer = setInterval(next, INTERVAL);
+      timer = setInterval(() => goTo(current + 1), INTERVAL);
       allTimers.push(timer);
     }
-
     startTimer();
   })();
 
-  // ── CELL D SLIDESHOW — stagger preload after page settles ──
+  // ── CELL D SLIDESHOW ──
+  // Mobile: 1 ảnh tĩnh — Desktop: slideshow + stagger preload
   (function() {
     const imgs = [
       'TECx2023.webp','TECx2023_1.webp','TECx2023_2.webp',
@@ -1517,14 +1515,15 @@ It comes from atmosphere, rhythm, preparation and shared experience.</p>
       'TECx2023_9.webp','TECx2023_10.webp'
     ];
     const wrap = document.getElementById('cellDSlideshow');
-    let idx = 0;
     wrap.style.cssText = `background-image:url('${imgs[0]}');background-size:cover;background-position:center`;
 
-    // Stagger-preload remaining images 2s after load
+    if (isTouchDevice) return; // Mobile: dừng ở đây
+
     setTimeout(() => {
       imgs.slice(1).forEach((src, i) => setTimeout(() => preloadImg(src), i * 300));
     }, 2000);
 
+    let idx = 0;
     const t = setInterval(() => {
       idx = (idx + 1) % imgs.length;
       wrap.style.backgroundImage = `url('${imgs[idx]}')`;
@@ -1533,6 +1532,7 @@ It comes from atmosphere, rhythm, preparation and shared experience.</p>
   })();
 
   // ── CELL E SLIDESHOW ──
+  // Mobile: 1 ảnh tĩnh — Desktop: slideshow + stagger preload
   (function() {
     const imgs = [
       'NEX-5y.webp','NEX-5y_1.webp','NEX-5y_2.webp',
@@ -1541,13 +1541,15 @@ It comes from atmosphere, rhythm, preparation and shared experience.</p>
       'NEX-5y_9.webp','NEX-5y_10.webp'
     ];
     const wrap = document.getElementById('cellESlideshow');
-    let idx = 0;
     wrap.style.cssText = `background-image:url('${imgs[0]}');background-size:cover;background-position:center`;
+
+    if (isTouchDevice) return; // Mobile: dừng ở đây
 
     setTimeout(() => {
       imgs.slice(1).forEach((src, i) => setTimeout(() => preloadImg(src), i * 400));
     }, 3500);
 
+    let idx = 0;
     const t = setInterval(() => {
       idx = (idx + 1) % imgs.length;
       wrap.style.backgroundImage = `url('${imgs[idx]}')`;
@@ -1555,9 +1557,9 @@ It comes from atmosphere, rhythm, preparation and shared experience.</p>
     allTimers.push(t);
   })();
 
-  // ── VIDEO: desktop only — lazy load + play when cell-f enters viewport ──
+  // ── VIDEO: lazy load + autoplay khi cell-f vào viewport (cả mobile lẫn desktop) ──
   const heroVideo = document.getElementById('heroVideo');
-  if (heroVideo && !isTouchDevice) {
+  if (heroVideo) {
     const videoObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
