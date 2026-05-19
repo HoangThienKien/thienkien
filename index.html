@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-V035ZKD02Y"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-V035ZKD02Y');
-</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Thiện Kiến — Prepared with Understanding</title>
@@ -1263,7 +1254,7 @@ from Thiện Kiến's cultural practice.</div>
     <div class="cell-e-overlay"></div>
     <div>
       <div class="cell-e-label">Cultural Ceremony · 2024</div>
-      <div class="cell-e-text">The Dao Initiation Ceremony — NEXUS 5 Years</div>
+      <div class="cell-e-text">Lễ Cấp Sắc<br>Yao ethnic's Maturity Festival — NEXUS 5 Years</div>
     </div>
   </div>
 
@@ -1616,7 +1607,7 @@ It comes from atmosphere, rhythm, preparation and shared experience.</p>
       el.addEventListener('mouseenter', () => cur.classList.add('amber'));
       el.addEventListener('mouseleave', () => cur.classList.remove('amber'));
     });
-    document.querySelectorAll('.cell-c, .cell-d, .cell-f, .cell-h, .jc').forEach(el => {
+    document.querySelectorAll('.cell-c, .cell-d, .cell-e, .cell-f, .cell-h, .jc').forEach(el => {
       el.addEventListener('mouseenter', () => cur.classList.add('big'));
       el.addEventListener('mouseleave', () => cur.classList.remove('big'));
     });
@@ -1644,6 +1635,11 @@ It comes from atmosphere, rhythm, preparation and shared experience.</p>
   // ── CELL D → TECx2023 page ──
   document.querySelector('.cell-d').addEventListener('click', () => {
     window.location.href = 'tecx2023.html';
+  });
+
+  // ── CELL E → Dao Initiation page ──
+  document.querySelector('.cell-e').addEventListener('click', () => {
+    window.location.href = 'dao-initiation.html';
   });
 
   // ── VIDEO MODAL ──
