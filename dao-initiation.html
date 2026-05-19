@@ -38,7 +38,6 @@
     overflow-x: hidden;
     cursor: none;
   }
-
   /* ─── CUSTOM CURSOR ─── */
   .cursor {
     position: fixed;
@@ -57,7 +56,6 @@
     border: 1px solid var(--cyan);
   }
   .cursor.amber { background: var(--amber); }
-
   /* ─── NAV ─── */
   nav {
     position: fixed;
@@ -104,7 +102,6 @@
     opacity: 0;
     animation: fadeUp 0.8s 0.35s forwards;
   }
-
   /* ─── HERO ─── */
   .hero {
     position: relative;
@@ -200,7 +197,6 @@
     height: 36px;
     background: rgba(245,232,192,0.2);
   }
-
   /* ─── INTRO PULL QUOTE ─── */
   .intro-section {
     background: var(--off-black);
@@ -227,14 +223,12 @@
     line-height: 1.85;
     max-width: 640px;
   }
-
   /* ─── DIVIDER ─── */
   .section-divider {
     width: 100%;
     height: var(--gap);
     background: var(--black);
   }
-
   /* ─── CONTENT SECTIONS ─── */
   .content-section {
     padding: 72px 80px;
@@ -243,12 +237,10 @@
   .content-section.mid    { background: var(--off-black); }
   .content-section.earth  { background: var(--earth); }
   .content-section.deep   { background: var(--cyan-deep); }
-
   .section-inner {
     max-width: 1200px;
     margin: 0 auto;
   }
-
   /* two-column layout */
   .two-col {
     display: grid;
@@ -259,14 +251,12 @@
   .two-col.image-right { }
   .two-col.image-left  { direction: rtl; }
   .two-col.image-left > * { direction: ltr; }
-
   /* three-column layout */
   .three-col {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 32px;
   }
-
   .section-label {
     font-family: var(--f-mono);
     font-size: 9px;
@@ -278,7 +268,6 @@
     display: block;
   }
   .section-label.amber { color: rgba(200,135,42,0.7); }
-
   .section-heading {
     font-family: var(--f-display);
     font-size: clamp(26px, 3.2vw, 52px);
@@ -289,7 +278,6 @@
     margin-bottom: 24px;
   }
   .section-heading.amber { color: var(--amber-pale); }
-
   .section-body {
     font-family: var(--f-body);
     font-size: 15px;
@@ -303,7 +291,6 @@
     font-style: italic;
     color: rgba(245,232,192,0.75);
   }
-
   /* ─── PULL QUOTE ─── */
   .pull-quote {
     padding: 32px 0 32px 32px;
@@ -320,7 +307,6 @@
     line-height: 1.5;
   }
   .pull-quote.amber .pull-quote-text { color: var(--amber-pale); }
-
   /* ─── IMAGE CELLS ─── */
   .img-cell {
     position: relative;
@@ -338,7 +324,6 @@
     transition: transform 0.6s ease;
   }
   .img-cell:hover img { transform: scale(1.03); }
-
   /* ─── IMAGE GRID (photo mosaic) ─── */
   .photo-mosaic {
     display: grid;
@@ -373,7 +358,6 @@
   .photo-mosaic .mosaic-img.tall  { aspect-ratio: 3/4; }
   .photo-mosaic .mosaic-img.wide  { aspect-ratio: 16/9; }
   .photo-mosaic .mosaic-img.sq    { aspect-ratio: 1/1; }
-
   /* ─── SENSES STRIP ─── */
   .senses-strip {
     background: var(--cyan-deep);
@@ -429,7 +413,6 @@
     color: rgba(136,135,128,0.6);
     line-height: 1.7;
   }
-
   /* ─── CLOSING ─── */
   .closing-section {
     background: var(--earth);
@@ -485,7 +468,6 @@
     background: var(--amber);
     margin: 0 auto 28px;
   }
-
   /* ─── BACK BUTTON ─── */
   .back-cta {
     display: inline-flex;
@@ -503,7 +485,6 @@
     transition: color 0.25s, border-color 0.25s;
   }
   .back-cta:hover { color: var(--amber-pale); border-color: var(--amber); }
-
   /* ─── FOOTER ─── */
   footer {
     background: var(--black);
@@ -538,7 +519,6 @@
     letter-spacing: 0.14em;
     color: rgba(136,135,128,0.25);
   }
-
   /* ─── ANIMATIONS ─── */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(14px); }
@@ -548,13 +528,11 @@
     from { opacity: 0; }
     to   { opacity: 1; }
   }
-
   /* ─── TOUCH DEVICES ─── */
   @media (hover: none), (pointer: coarse) {
     .cursor { display: none !important; }
     body { cursor: auto; }
   }
-
   /* ─── TABLET ─── */
   @media (max-width: 1023px) {
     nav { padding: 16px 24px; }
@@ -568,7 +546,6 @@
     .two-col { gap: 40px; }
     .senses-grid { grid-template-columns: repeat(5, 1fr); }
   }
-
   /* ─── MOBILE ─── */
   @media (max-width: 767px) {
     nav { padding: 13px 18px; }
@@ -595,7 +572,6 @@
 </head>
 <body>
 <div class="cursor" id="cursor"></div>
-
 <!-- ── NAV ── -->
 <nav>
   <a href="index.html" class="nav-back">
@@ -604,7 +580,6 @@
   </a>
   <a href="index.html" class="nav-wordmark">Thiện Kiến</a>
 </nav>
-
 <!-- ── HERO ── -->
 <div class="hero">
   <div class="hero-bg" id="heroBg"></div>
@@ -616,7 +591,6 @@
   </div>
   <div class="hero-scroll-hint">Scroll</div>
 </div>
-
 <!-- ── INTRO ── -->
 <div class="intro-section">
   <div class="intro-inner">
@@ -624,7 +598,6 @@
     <p class="intro-body">The celebration of a fifth anniversary became an opportunity to explore how ritual, scent, sound, taste, and hospitality could be woven into a single cultural experience.</p>
   </div>
 </div>
-
 <!-- ── PHOTO MOSAIC 1 ── -->
 <div class="photo-mosaic three-up" style="background:var(--black);padding:var(--gap);max-width:100%">
   <div class="mosaic-img mosaic-main tall">
@@ -637,7 +610,6 @@
     <img src="NEX-5y_13.webp" alt="Event atmosphere" loading="lazy">
   </div>
 </div>
-
 <!-- ── SECTION: BRIEF ── -->
 <div class="content-section mid">
   <div class="section-inner">
@@ -660,7 +632,6 @@
     </div>
   </div>
 </div>
-
 <!-- ── SECTION: CEREMONY OF MATURITY ── -->
 <div class="content-section dark">
   <div class="section-inner">
@@ -680,7 +651,6 @@
     </div>
   </div>
 </div>
-
 <!-- ── SENSES STRIP ── -->
 <div class="senses-strip">
   <div class="senses-inner">
@@ -714,7 +684,6 @@
     </div>
   </div>
 </div>
-
 <!-- ── SECTION: THE FIRST ARRIVAL ── -->
 <div class="content-section mid">
   <div class="section-inner">
@@ -735,7 +704,6 @@
     </div>
   </div>
 </div>
-
 <!-- ── PHOTO MOSAIC 2 ── -->
 <div class="photo-mosaic two-up" style="background:var(--black);padding:var(--gap);max-width:100%">
   <div class="mosaic-img wide">
@@ -745,7 +713,6 @@
     <img src="NEX-5y_20.webp" alt="Guests arriving" loading="lazy">
   </div>
 </div>
-
 <!-- ── SECTION: TASTE ── -->
 <div class="content-section dark">
   <div class="section-inner">
@@ -765,7 +732,6 @@
     </div>
   </div>
 </div>
-
 <!-- ── SECTION: SCENT ── -->
 <div class="content-section mid">
   <div class="section-inner">
@@ -789,7 +755,10 @@
     </div>
   </div>
 </div>
-
+<!-- ── SCENT WIDE IMAGE ── -->
+<div class="mosaic-img wide" style="max-width:100%">
+  <img src="NEX-5y_9.webp" alt="Scent and herbs" loading="lazy">
+</div>
 <!-- ── SECTION: SOUND & TABLE ── -->
 <div class="content-section dark">
   <div class="section-inner two-col">
@@ -813,7 +782,6 @@
     </div>
   </div>
 </div>
-
 <!-- ── PHOTO MOSAIC 3 ── -->
 <div class="photo-mosaic three-up" style="background:var(--black);padding:var(--gap);max-width:100%">
   <div class="mosaic-img mosaic-main tall">
@@ -826,7 +794,6 @@
     <img src="NEX-5y_2.webp" alt="Gathering" loading="lazy">
   </div>
 </div>
-
 <!-- ── CLOSING ── -->
 <div class="closing-section">
   <div class="closing-inner">
@@ -837,7 +804,6 @@
     <a href="index.html" class="back-cta">← Return to Thiện Kiến</a>
   </div>
 </div>
-
 <!-- ── FOOTER ── -->
 <footer>
   <div class="footer-inner">
@@ -848,10 +814,8 @@
     <div class="footer-note">© 2026 Thiện Kiến · Ho Chi Minh City, Vietnam</div>
   </div>
 </footer>
-
 <script>
   const isTouchDevice = window.matchMedia('(hover: none), (pointer: coarse)').matches;
-
   // ── HERO BG lazy load with zoom effect ──
   const heroBg = document.getElementById('heroBg');
   const bgImg  = new Image();
@@ -860,7 +824,6 @@
     requestAnimationFrame(() => heroBg.classList.add('loaded'));
   };
   bgImg.src = 'NEX-5y_10.webp';
-
   // ── CUSTOM CURSOR (desktop only) ──
   const cur = document.getElementById('cursor');
   if (!isTouchDevice) {
@@ -877,7 +840,6 @@
       el.addEventListener('mouseleave', () => cur.classList.remove('amber'));
     });
   }
-
   // ── SCROLL REVEAL: fade up sections as they enter viewport ──
   const revealEls = document.querySelectorAll(
     '.content-section, .intro-section, .senses-strip, .closing-section, .photo-mosaic'
@@ -891,7 +853,6 @@
       }
     });
   }, { threshold: 0.06 });
-
   revealEls.forEach(el => {
     el.style.opacity    = '0';
     el.style.transform  = 'translateY(22px)';
