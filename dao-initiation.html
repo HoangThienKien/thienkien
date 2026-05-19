@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Dao Initiation Ceremony — Thiện Kiến</title>
+<link rel="icon" type="image/webp" href="Thien-Kien-logo-symbol.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Questrial&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cyan:      #29C5D0;
+    --cyan-dim:  #1A8A92;
+    --cyan-pale: #7DE8EE;
+    --cyan-deep: #050E10;
+    --cyan-mid:  #0A1E20;
+    --amber:     #C8872A;
+    --amber-lt:  #E3A84A;
+    --amber-pale:#F5D08B;
+    --cream:     #F5E8C0;
+    --earth:     #2D1E10;
+    --bark:      #4A3828;
+    --black:     #000000;
+    --off-black: #0A0A0A;
+    --stone:     #888780;
+    --gap:       3px;
+    --f-display: 'Cormorant Garamond', serif;
+    --f-body:    'Questrial', sans-serif;
+    --f-mono:    'DM Mono', monospace;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: var(--f-body);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* ─── CUSTOM CURSOR ─── */
+  .cursor {
+    position: fixed;
+    width: 8px; height: 8px;
+    background: var(--cyan);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s, width 0.25s, height 0.25s, background 0.25s;
+    mix-blend-mode: screen;
+  }
+  .cursor.big {
+    width: 36px; height: 36px;
+    background: transparent;
+    border: 1px solid var(--cyan);
+  }
+  .cursor.amber { background: var(--amber); }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 36px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.75) 0%, transparent 100%);
+  }
+  .nav-back {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+  .nav-back-arrow {
+    font-family: var(--f-mono);
+    font-size: 18px;
+    color: var(--cyan);
+    line-height: 1;
+  }
+  .nav-back-label {
+    font-family: var(--f-mono);
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0.22em;
+    color: rgba(245,232,192,0.5);
+    text-transform: uppercase;
+    transition: color 0.25s;
+  }
+  .nav-back:hover .nav-back-label { color: var(--cyan); }
+  .nav-wordmark {
+    font-family: var(--f-display);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.28em;
+    color: var(--cyan);
+    text-transform: uppercase;
+    text-decoration: none;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.35s forwards;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    position: relative;
+    height: 100vh;
+    min-height: 580px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('NEX-5y.webp');
+    background-size: cover;
+    background-position: center 30%;
+    transform: scale(1.04);
+    transition: transform 6s ease-out;
+  }
+  .hero-bg.loaded { transform: scale(1); }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to top,
+        rgba(0,0,0,0.88) 0%,
+        rgba(0,0,0,0.35) 45%,
+        rgba(0,0,0,0.15) 100%
+      );
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 0 80px 72px;
+    max-width: 1200px;
+  }
+  .hero-tag {
+    display: inline-block;
+    font-family: var(--f-mono);
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--cream);
+    border: 0.5px solid rgba(245,232,192,0.4);
+    padding: 4px 10px;
+    border-radius: 2px;
+    margin-bottom: 22px;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.6s forwards;
+  }
+  .hero-title {
+    font-family: var(--f-display);
+    font-size: clamp(36px, 6vw, 88px);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.04;
+    color: #fff;
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.8s forwards;
+  }
+  .hero-subtitle {
+    font-family: var(--f-body);
+    font-size: clamp(13px, 1.4vw, 17px);
+    color: rgba(245,232,192,0.6);
+    line-height: 1.6;
+    max-width: 560px;
+    opacity: 0;
+    animation: fadeUp 0.9s 1.0s forwards;
+  }
+  .hero-scroll-hint {
+    position: absolute;
+    bottom: 32px;
+    right: 80px;
+    z-index: 2;
+    font-family: var(--f-mono);
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.22em;
+    color: rgba(245,232,192,0.3);
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeIn 1.2s 1.4s forwards;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .hero-scroll-hint::before {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 36px;
+    background: rgba(245,232,192,0.2);
+  }
+
+  /* ─── INTRO PULL QUOTE ─── */
+  .intro-section {
+    background: var(--off-black);
+    padding: 80px 80px 72px;
+    border-top: var(--gap) solid var(--black);
+  }
+  .intro-inner {
+    max-width: 840px;
+    margin: 0 auto;
+  }
+  .intro-lead {
+    font-family: var(--f-display);
+    font-size: clamp(22px, 2.8vw, 38px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--cream);
+    line-height: 1.45;
+    margin-bottom: 28px;
+  }
+  .intro-body {
+    font-family: var(--f-body);
+    font-size: 15px;
+    color: var(--stone);
+    line-height: 1.85;
+    max-width: 640px;
+  }
+
+  /* ─── DIVIDER ─── */
+  .section-divider {
+    width: 100%;
+    height: var(--gap);
+    background: var(--black);
+  }
+
+  /* ─── CONTENT SECTIONS ─── */
+  .content-section {
+    padding: 72px 80px;
+  }
+  .content-section.dark   { background: var(--black); }
+  .content-section.mid    { background: var(--off-black); }
+  .content-section.earth  { background: var(--earth); }
+  .content-section.deep   { background: var(--cyan-deep); }
+
+  .section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* two-column layout */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+  .two-col.image-right { }
+  .two-col.image-left  { direction: rtl; }
+  .two-col.image-left > * { direction: ltr; }
+
+  /* three-column layout */
+  .three-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 32px;
+  }
+
+  .section-label {
+    font-family: var(--f-mono);
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.22em;
+    color: rgba(41,197,208,0.6);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: block;
+  }
+  .section-label.amber { color: rgba(200,135,42,0.7); }
+
+  .section-heading {
+    font-family: var(--f-display);
+    font-size: clamp(26px, 3.2vw, 52px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--cream);
+    line-height: 1.15;
+    margin-bottom: 24px;
+  }
+  .section-heading.amber { color: var(--amber-pale); }
+
+  .section-body {
+    font-family: var(--f-body);
+    font-size: 15px;
+    color: var(--stone);
+    line-height: 1.9;
+  }
+  .section-body p + p { margin-top: 16px; }
+  .section-body em {
+    font-family: var(--f-display);
+    font-size: 1.05em;
+    font-style: italic;
+    color: rgba(245,232,192,0.75);
+  }
+
+  /* ─── PULL QUOTE ─── */
+  .pull-quote {
+    padding: 32px 0 32px 32px;
+    border-left: 1px solid rgba(41,197,208,0.3);
+    margin: 8px 0;
+  }
+  .pull-quote.amber { border-left-color: rgba(200,135,42,0.4); }
+  .pull-quote-text {
+    font-family: var(--f-display);
+    font-size: clamp(18px, 2vw, 28px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--cyan-pale);
+    line-height: 1.5;
+  }
+  .pull-quote.amber .pull-quote-text { color: var(--amber-pale); }
+
+  /* ─── IMAGE CELLS ─── */
+  .img-cell {
+    position: relative;
+    overflow: hidden;
+    background: #0A1010;
+  }
+  .img-cell.tall   { aspect-ratio: 3/4; }
+  .img-cell.wide   { aspect-ratio: 16/9; }
+  .img-cell.square { aspect-ratio: 1/1; }
+  .img-cell img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+  .img-cell:hover img { transform: scale(1.03); }
+
+  /* ─── IMAGE GRID (photo mosaic) ─── */
+  .photo-mosaic {
+    display: grid;
+    gap: var(--gap);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .photo-mosaic.two-up {
+    grid-template-columns: 1fr 1fr;
+  }
+  .photo-mosaic.three-up {
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: auto;
+  }
+  .photo-mosaic.three-up .mosaic-main {
+    grid-row: 1 / 3;
+  }
+  .photo-mosaic .mosaic-img {
+    position: relative;
+    overflow: hidden;
+    background: #0A1010;
+  }
+  .photo-mosaic .mosaic-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+  .photo-mosaic .mosaic-img:hover img { transform: scale(1.04); }
+  .photo-mosaic .mosaic-img.tall  { aspect-ratio: 3/4; }
+  .photo-mosaic .mosaic-img.wide  { aspect-ratio: 16/9; }
+  .photo-mosaic .mosaic-img.sq    { aspect-ratio: 1/1; }
+
+  /* ─── SENSES STRIP ─── */
+  .senses-strip {
+    background: var(--cyan-deep);
+    border-top: var(--gap) solid var(--black);
+    border-bottom: var(--gap) solid var(--black);
+    padding: 56px 80px;
+  }
+  .senses-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .senses-label {
+    font-family: var(--f-mono);
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.24em;
+    color: rgba(41,197,208,0.4);
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .senses-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2px;
+  }
+  .sense-item {
+    padding: 28px 20px;
+    border: 0.5px solid rgba(41,197,208,0.1);
+    text-align: center;
+  }
+  .sense-no {
+    font-family: var(--f-mono);
+    font-size: 8px;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    color: rgba(41,197,208,0.4);
+    margin-bottom: 10px;
+    display: block;
+  }
+  .sense-name {
+    font-family: var(--f-display);
+    font-size: clamp(15px, 1.6vw, 22px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--cyan-pale);
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+  .sense-desc {
+    font-family: var(--f-body);
+    font-size: 11px;
+    color: rgba(136,135,128,0.6);
+    line-height: 1.7;
+  }
+
+  /* ─── CLOSING ─── */
+  .closing-section {
+    background: var(--earth);
+    padding: 96px 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .closing-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('NEX-5y_5.webp');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.2;
+  }
+  .closing-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+  .closing-eyebrow {
+    font-family: var(--f-mono);
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.28em;
+    color: rgba(200,135,42,0.6);
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    display: block;
+  }
+  .closing-title {
+    font-family: var(--f-display);
+    font-size: clamp(28px, 4vw, 64px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--cream);
+    line-height: 1.2;
+    margin-bottom: 28px;
+  }
+  .closing-body {
+    font-family: var(--f-body);
+    font-size: 15px;
+    color: rgba(245,232,192,0.55);
+    line-height: 1.85;
+    margin-bottom: 48px;
+  }
+  .closing-divider {
+    width: 40px;
+    height: 0.5px;
+    background: var(--amber);
+    margin: 0 auto 28px;
+  }
+
+  /* ─── BACK BUTTON ─── */
+  .back-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--f-mono);
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0.22em;
+    color: rgba(245,232,192,0.5);
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 0.5px solid rgba(245,232,192,0.2);
+    padding: 12px 24px;
+    transition: color 0.25s, border-color 0.25s;
+  }
+  .back-cta:hover { color: var(--amber-pale); border-color: var(--amber); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--black);
+    border-top: 3px solid #111;
+    padding: 40px 80px 36px;
+  }
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .footer-brand .footer-logo {
+    font-family: var(--f-display);
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: rgba(41,197,208,0.5);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .footer-tagline {
+    font-family: var(--f-display);
+    font-size: 10px;
+    font-style: italic;
+    color: rgba(245,232,192,0.2);
+  }
+  .footer-note {
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: rgba(136,135,128,0.25);
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  /* ─── TOUCH DEVICES ─── */
+  @media (hover: none), (pointer: coarse) {
+    .cursor { display: none !important; }
+    body { cursor: auto; }
+  }
+
+  /* ─── TABLET ─── */
+  @media (max-width: 1023px) {
+    nav { padding: 16px 24px; }
+    .hero-content { padding: 0 40px 56px; }
+    .hero-scroll-hint { right: 40px; }
+    .intro-section,
+    .content-section { padding: 56px 40px; }
+    .senses-strip { padding: 44px 40px; }
+    .closing-section { padding: 72px 40px; }
+    footer { padding: 32px 40px 28px; }
+    .two-col { gap: 40px; }
+    .senses-grid { grid-template-columns: repeat(5, 1fr); }
+  }
+
+  /* ─── MOBILE ─── */
+  @media (max-width: 767px) {
+    nav { padding: 13px 18px; }
+    .nav-back-label { display: none; }
+    .hero-content { padding: 0 20px 44px; }
+    .hero-scroll-hint { display: none; }
+    .intro-section,
+    .content-section { padding: 44px 20px; }
+    .senses-strip { padding: 40px 20px; }
+    .closing-section { padding: 64px 20px; }
+    footer { padding: 28px 20px 24px; }
+    .footer-inner { flex-direction: column; gap: 14px; align-items: flex-start; }
+    .two-col,
+    .three-col { grid-template-columns: 1fr; gap: 28px; }
+    .photo-mosaic.three-up { grid-template-columns: 1fr 1fr; }
+    .photo-mosaic.three-up .mosaic-main { grid-column: 1 / 3; grid-row: auto; }
+    .senses-grid { grid-template-columns: 1fr 1fr; gap: 2px; }
+    .sense-item:last-child { grid-column: 1 / 3; }
+    .pull-quote { padding: 20px 0 20px 20px; }
+    .photo-mosaic.two-up { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+
+<!-- ── NAV ── -->
+<nav>
+  <a href="index.html" class="nav-back">
+    <span class="nav-back-arrow">←</span>
+    <span class="nav-back-label">Back</span>
+  </a>
+  <a href="index.html" class="nav-wordmark">Thiện Kiến</a>
+</nav>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <span class="hero-tag">New Energy Nexus VN · Cultural Ceremony · 2024</span>
+    <h1 class="hero-title">The Dao<br>Initiation<br>Ceremony</h1>
+    <p class="hero-subtitle">A Five-Senses Journey for NEXVN's 5-Year Milestone</p>
+  </div>
+  <div class="hero-scroll-hint">Scroll</div>
+</div>
+
+<!-- ── INTRO ── -->
+<div class="intro-section">
+  <div class="intro-inner">
+    <p class="intro-lead">Following a series of collaborations in Hanoi alongside the Australian Embassy, Thiện Kiến was once again invited by New Energy Nexus Vietnam — this time to mark a different kind of milestone.</p>
+    <p class="intro-body">The celebration of a fifth anniversary became an opportunity to explore how ritual, scent, sound, taste, and hospitality could be woven into a single cultural experience.</p>
+  </div>
+</div>
+
+<!-- ── PHOTO MOSAIC 1 ── -->
+<div class="photo-mosaic three-up" style="background:var(--black);padding:var(--gap);max-width:100%">
+  <div class="mosaic-img mosaic-main tall">
+    <img src="NEX-5y_1.webp" alt="Dao Initiation Ceremony" loading="lazy">
+  </div>
+  <div class="mosaic-img sq">
+    <img src="NEX-5y_2.webp" alt="Event details" loading="lazy">
+  </div>
+  <div class="mosaic-img sq">
+    <img src="NEX-5y_3.webp" alt="Event atmosphere" loading="lazy">
+  </div>
+</div>
+
+<!-- ── SECTION: BRIEF ── -->
+<div class="content-section mid">
+  <div class="section-inner">
+    <div class="two-col image-right">
+      <div>
+        <span class="section-label">The Brief</span>
+        <h2 class="section-heading">A Brief That Asked for More</h2>
+        <div class="section-body">
+          <p>The event was scheduled close to Christmas, yet NEXVN did not want a conventional holiday setting.</p>
+          <p>Instead, they wanted Vietnamese cultural language to become the foundation of the experience — with Christmas only subtly suggested rather than directly portrayed or religiously framed. Orange, the signature color of NEXVN, needed to remain present throughout the evening, while star anise and cinnamon had to find their place within the spatial narrative.</p>
+          <p>This time, Thiện Kiến's role expanded far beyond table curation. From venue sourcing to the rhythm of movement through the space, the entire experience was designed as a continuous sensory journey.</p>
+        </div>
+        <div class="pull-quote" style="margin-top:32px">
+          <p class="pull-quote-text">For Thiện Kiến, the most meaningful briefs are often the ones that ask culture, hospitality, and storytelling to exist at the same table.</p>
+        </div>
+      </div>
+      <div class="img-cell tall">
+        <img src="NEX-5y_4.webp" alt="Event brief" loading="lazy">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SECTION: CEREMONY OF MATURITY ── -->
+<div class="content-section dark">
+  <div class="section-inner">
+    <div class="two-col image-left">
+      <div>
+        <span class="section-label amber">Concept Origin</span>
+        <h2 class="section-heading amber">A Ceremony of Maturity</h2>
+        <div class="section-body">
+          <p>Thiện Kiến eventually found its answer in the Dao people's <em>Lễ Cấp Sắc</em> — the initiation ceremony that marks a passage into adulthood and a new stage of life.</p>
+          <p>For the Dao community, the ritual represents recognition, transformation, and maturity. To Thiện Kiến, NEXVN's fifth anniversary carried a similar emotional weight: not simply a celebration of time passed, but a milestone of growth.</p>
+          <p>The chosen venue was a secluded villa in Thảo Điền. From there, the five-senses journey quietly began.</p>
+        </div>
+      </div>
+      <div class="img-cell tall">
+        <img src="NEX-5y_5.webp" alt="Ceremony of maturity" loading="lazy">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SENSES STRIP ── -->
+<div class="senses-strip">
+  <div class="senses-inner">
+    <p class="senses-label">A journey through five senses</p>
+    <div class="senses-grid">
+      <div class="sense-item">
+        <span class="sense-no">01</span>
+        <div class="sense-name">Sight</div>
+        <p class="sense-desc">A sculptural wooden tree bearing five years of photographs, rising upward in ascending layers</p>
+      </div>
+      <div class="sense-item">
+        <span class="sense-no">02</span>
+        <div class="sense-name">Taste</div>
+        <p class="sense-desc">Cao Phong oranges and Bách Thảo star apples — NEXVN's color carried in the produce itself</p>
+      </div>
+      <div class="sense-item">
+        <span class="sense-no">03</span>
+        <div class="sense-name">Scent</div>
+        <p class="sense-desc">A communal herbal blending table with five herbs in terracotta bowls, for guests to take home</p>
+      </div>
+      <div class="sense-item">
+        <span class="sense-no">04</span>
+        <div class="sense-name">Sound</div>
+        <p class="sense-desc">Musicians moving naturally between requested songs and quieter instrumental moments</p>
+      </div>
+      <div class="sense-item">
+        <span class="sense-no">05</span>
+        <div class="sense-name">Touch</div>
+        <p class="sense-desc">Woven Dao textiles, bamboo-rattan boxes, sticky rice cakes shaped and shared by hand</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SECTION: THE FIRST ARRIVAL ── -->
+<div class="content-section mid">
+  <div class="section-inner">
+    <div class="two-col">
+      <div>
+        <span class="section-label">I — Sight</span>
+        <h2 class="section-heading">The First Arrival</h2>
+        <div class="section-body">
+          <p>At the entrance stood a sculptural wooden tree assembled in ascending layers. Each layer carried photographs from NEXVN's five-year journey, rising upward like a quiet timeline of growth.</p>
+          <p>At its peak sat a star bearing the NEXVN logo — subtly echoing the star motifs often found in Dao textiles, symbols of harmony between humanity, nature, and the universe.</p>
+          <p>Beside it stood the gift station, framed with woven Dao textiles. Bamboo-and-rattan boxes were carefully sealed with paper wraps carrying NEXVN's colors and graphic language. At first glance, they seemed to exist as part of the installation itself.</p>
+          <p>What they contained would only be revealed at the end of the evening.</p>
+        </div>
+      </div>
+      <div class="img-cell tall">
+        <img src="NEX-5y_6.webp" alt="The first arrival" loading="lazy">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── PHOTO MOSAIC 2 ── -->
+<div class="photo-mosaic two-up" style="background:var(--black);padding:var(--gap);max-width:100%">
+  <div class="mosaic-img wide">
+    <img src="NEX-5y_7.webp" alt="Event space" loading="lazy">
+  </div>
+  <div class="mosaic-img wide">
+    <img src="NEX-5y_8.webp" alt="Guests arriving" loading="lazy">
+  </div>
+</div>
+
+<!-- ── SECTION: TASTE ── -->
+<div class="content-section dark">
+  <div class="section-inner">
+    <div class="two-col image-left">
+      <div>
+        <span class="section-label amber">II — Taste</span>
+        <h2 class="section-heading amber">Taste as the First Welcome</h2>
+        <div class="section-body">
+          <p>Beyond the entrance installation, taste became the next point of connection.</p>
+          <p>Guests were welcomed with fresh slow-pressed watermelon juice alongside seasonal Vietnamese fruits, including Cao Phong oranges from Hòa Bình and Bách Thảo star apples from Tiền Giang.</p>
+          <p>For Thiện Kiến, this was also where NEXVN's signature orange first emerged naturally within the experience — not through decoration, but through the colors of Vietnamese produce itself.</p>
+        </div>
+      </div>
+      <div class="img-cell tall">
+        <img src="NEX-5y_9.webp" alt="Welcome fruits" loading="lazy">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SECTION: SCENT ── -->
+<div class="content-section mid">
+  <div class="section-inner">
+    <div class="two-col">
+      <div>
+        <span class="section-label">III — Scent &amp; Touch</span>
+        <h2 class="section-heading">Scent, Touch, and Memory</h2>
+        <div class="section-body">
+          <p>Further inside stood a large circular table centered around herbs, scent, and tactile interaction.</p>
+          <p>Herbal traditions have long existed within both Dao culture and Vietnamese daily life. Long before perfume became commonplace, scented herbal sachets were often carried on the body or placed within living spaces.</p>
+          <p>Thiện Kiến reinterpreted this practice through a communal blending table. Five different herbs were arranged inside reddish-brown terracotta bowls, their tones quietly echoing NEXVN's visual identity.</p>
+          <p>Guests selected small fabric pouches and blended their own combinations by hand, creating personal keepsakes to later hang in a workspace or car.</p>
+        </div>
+        <div class="pull-quote" style="margin-top:32px">
+          <p class="pull-quote-text">What they carried home was not simply a gift, but a scent shaped by their own memory and instinct.</p>
+        </div>
+      </div>
+      <div class="img-cell tall">
+        <img src="NEX-5y_10.webp" alt="Herbal blending table" loading="lazy">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SECTION: SOUND & TABLE ── -->
+<div class="content-section dark">
+  <div class="section-inner two-col">
+    <div>
+      <span class="section-label">IV — Sound</span>
+      <h2 class="section-heading" style="font-size:clamp(20px,2.4vw,38px)">Guided by Sound and Spice</h2>
+      <div class="section-body">
+        <p>Nearby, musicians played throughout the evening, moving naturally between requested songs and quieter instrumental moments.</p>
+        <p>From the garden into the villa interior, strands of cinnamon and star anise hung along the pathways, allowing scent to quietly lead guests from one space to another.</p>
+        <p>The evening unfolded gradually — through sound, spice, movement, and atmosphere.</p>
+      </div>
+    </div>
+    <div>
+      <span class="section-label amber">V — Taste Continued</span>
+      <h2 class="section-heading amber" style="font-size:clamp(20px,2.4vw,38px)">The Table at the Center</h2>
+      <div class="section-body">
+        <p>Inside the villa was the evening's central gathering: the communal dining table. Inspired by the traditional Dao leaf feast, dishes were served in bamboo tubes and shared across the table.</p>
+        <p>Grilled meats seasoned with mắc khén and hạt dổi carried the fragrant, smoky character of Vietnam's northern highlands. Dao-style sticky rice cakes, traditionally colored with gac fruit, let their vivid orange tones echo NEXVN's identity through food itself.</p>
+        <p>Thiện Kiến collaborated with Thơm Brewery, a Vietnamese craft beer label known for using local ingredients. Beers infused with mắc khén, hạt dổi, and Hà Giang buckwheat added another layer of warmth to the gathering — familiar in spirit, yet unexpected in flavor.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── PHOTO MOSAIC 3 ── -->
+<div class="photo-mosaic three-up" style="background:var(--black);padding:var(--gap);max-width:100%">
+  <div class="mosaic-img mosaic-main tall">
+    <img src="NEX-5y.webp" alt="The communal table" loading="lazy">
+  </div>
+  <div class="mosaic-img sq">
+    <img src="NEX-5y_1.webp" alt="Food served" loading="lazy">
+  </div>
+  <div class="mosaic-img sq">
+    <img src="NEX-5y_2.webp" alt="Gathering" loading="lazy">
+  </div>
+</div>
+
+<!-- ── CLOSING ── -->
+<div class="closing-section">
+  <div class="closing-inner">
+    <span class="closing-eyebrow">The Farewell Gift · A Journey Through Five Senses</span>
+    <div class="closing-divider"></div>
+    <h2 class="closing-title">the quiet feeling of being truly welcomed.</h2>
+    <p class="closing-body">At the end of the evening, the sealed gift boxes near the entrance were finally revealed. Inside each bamboo-and-rattan box was a traditional Red Dao herbal infusion — a final gesture of hospitality from NEXVN to those who had gathered that night.<br><br>What first appeared as part of the installation quietly returned at the end of the journey, this time carrying something far more personal.<br><br>From the first step through the entrance to the final farewell, the evening unfolded gradually through movement, scent, sound, texture, and shared moments around the table. And beneath every detail was something Thiện Kiến values deeply in every gathering:</p>
+    <a href="index.html" class="back-cta">← Return to Thiện Kiến</a>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="footer-logo">Thiện Kiến</span>
+      <div class="footer-tagline">Prepared with Understanding</div>
+    </div>
+    <div class="footer-note">© 2026 Thiện Kiến · Ho Chi Minh City, Vietnam</div>
+  </div>
+</footer>
+
+<script>
+  const isTouchDevice = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+
+  // ── HERO BG lazy load with zoom effect ──
+  const heroBg = document.getElementById('heroBg');
+  const bgImg  = new Image();
+  bgImg.onload = () => {
+    heroBg.style.backgroundImage = `url('NEX-5y.webp')`;
+    requestAnimationFrame(() => heroBg.classList.add('loaded'));
+  };
+  bgImg.src = 'NEX-5y.webp';
+
+  // ── CUSTOM CURSOR (desktop only) ──
+  const cur = document.getElementById('cursor');
+  if (!isTouchDevice) {
+    document.addEventListener('mousemove', e => {
+      cur.style.left = e.clientX + 'px';
+      cur.style.top  = e.clientY + 'px';
+    });
+    document.querySelectorAll('.img-cell, .mosaic-img, .back-cta').forEach(el => {
+      el.addEventListener('mouseenter', () => cur.classList.add('big'));
+      el.addEventListener('mouseleave', () => cur.classList.remove('big'));
+    });
+    document.querySelectorAll('.back-cta, .closing-section').forEach(el => {
+      el.addEventListener('mouseenter', () => cur.classList.add('amber'));
+      el.addEventListener('mouseleave', () => cur.classList.remove('amber'));
+    });
+  }
+
+  // ── SCROLL REVEAL: fade up sections as they enter viewport ──
+  const revealEls = document.querySelectorAll(
+    '.content-section, .intro-section, .senses-strip, .closing-section, .photo-mosaic'
+  );
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+        revealObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.06 });
+
+  revealEls.forEach(el => {
+    el.style.opacity    = '0';
+    el.style.transform  = 'translateY(22px)';
+    el.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+    revealObs.observe(el);
+  });
+</script>
+</body>
+</html>
