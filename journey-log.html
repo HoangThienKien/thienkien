@@ -224,7 +224,7 @@
   .filter-inner::-webkit-scrollbar { display: none; }
   .filter-btn {
     font-family: var(--f-mono);
-    font-size: 9px;
+    font-size: 11px;
     font-weight: 300;
     letter-spacing: 0.18em;
     text-transform: uppercase;
@@ -288,7 +288,7 @@
   .card-content { position: relative; z-index: 2; }
   .card-type {
     font-family: var(--f-mono);
-    font-size: 8px;
+    font-size: 10px;
     font-weight: 300;
     letter-spacing: 0.28em;
     text-transform: uppercase;
@@ -315,7 +315,7 @@
   }
   .card-excerpt {
     font-family: var(--f-body);
-    font-size: 12px;
+    font-size: 14px;
     color: rgba(245,232,192,0.5);
     line-height: 1.7;
     max-width: 420px;
@@ -323,7 +323,7 @@
   }
   .card-meta {
     font-family: var(--f-mono);
-    font-size: 9px;
+    font-size: 11px;
     font-weight: 300;
     letter-spacing: 0.16em;
     color: rgba(245,232,192,0.3);
@@ -371,7 +371,7 @@
   .card .card-content { position: relative; z-index: 2; }
   .card .card-type {
     font-family: var(--f-mono);
-    font-size: 8px;
+    font-size: 10px;
     font-weight: 300;
     letter-spacing: 0.22em;
     text-transform: uppercase;
@@ -396,7 +396,7 @@
   }
   .card .card-meta {
     font-family: var(--f-mono);
-    font-size: 8px;
+    font-size: 10px;
     font-weight: 300;
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -414,13 +414,13 @@
   .type-philosophy{ background: #14100A; }
   .type-roads    { background: var(--cyan-mid); }
 
-  .type-field    .card-type { color: rgba(41,197,208,0.7); }
-  .type-cultural .card-type { color: rgba(200,135,42,0.7); }
-  .type-ritual   .card-type { color: rgba(220,100,70,0.7); }
-  .type-prep     .card-type { color: rgba(127,119,221,0.7); }
-  .type-botanical .card-type { color: rgba(80,180,100,0.7); }
-  .type-philosophy .card-type { color: rgba(200,135,42,0.55); }
-  .type-roads    .card-type { color: rgba(41,197,208,0.7); }
+  .type-field    .card-type { color: rgba(41,197,208,1.0); }
+  .type-cultural .card-type { color: rgba(228,168,74,1.0); }
+  .type-ritual   .card-type { color: rgba(240,130,100,1.0); }
+  .type-prep     .card-type { color: rgba(180,172,255,1.0); }
+  .type-botanical .card-type { color: rgba(110,220,130,1.0); }
+  .type-philosophy .card-type { color: rgba(228,168,74,0.9); }
+  .type-roads    .card-type { color: rgba(41,197,208,1.0); }
 
   .type-field    .card-title { color: #fff; }
   .type-cultural .card-title { color: var(--amber-pale); }
@@ -451,7 +451,7 @@
   }
   .card-wide .card-excerpt-small {
     font-family: var(--f-body);
-    font-size: 11px;
+    font-size: 13px;
     color: rgba(245,232,192,0.35);
     line-height: 1.5;
     max-width: 380px;
@@ -465,11 +465,11 @@
   }
   .word-count-badge {
     font-family: var(--f-mono);
-    font-size: 8px;
+    font-size: 10px;
     font-weight: 300;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    padding: 5px 10px;
+    padding: 6px 12px;
     border-radius: 2px;
     white-space: nowrap;
   }
@@ -491,15 +491,16 @@
     position: absolute;
     top: 18px; right: 18px;
     font-family: var(--f-mono);
-    font-size: 7px;
-    font-weight: 300;
+    font-size: 9px;
+    font-weight: 400;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--stone);
-    border: 0.5px solid rgba(136,135,128,0.25);
-    padding: 4px 8px;
+    color: rgba(245,232,192,0.75);
+    border: 0.5px solid rgba(245,232,192,0.35);
+    padding: 5px 10px;
     border-radius: 2px;
     z-index: 5;
+    background: rgba(0,0,0,0.35);
   }
 
   /* SECTION HEADER */
@@ -513,7 +514,7 @@
   }
   .section-label-text {
     font-family: var(--f-mono);
-    font-size: 9px;
+    font-size: 11px;
     font-weight: 300;
     letter-spacing: 0.28em;
     text-transform: uppercase;
@@ -521,7 +522,7 @@
   }
   .section-count {
     font-family: var(--f-mono);
-    font-size: 9px;
+    font-size: 11px;
     font-weight: 300;
     letter-spacing: 0.14em;
     color: rgba(136,135,128,0.35);
@@ -656,28 +657,6 @@
     .cursor { display: none !important; }
     body { cursor: auto; }
   }
-
-  /* SPLIT BACKGROUND: two images side by side (used on wide cards) */
-  .card-split-img {
-    position: absolute;
-    inset: 0;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    opacity: 0.32;
-    pointer-events: none;
-  }
-  .card-split-img::before,
-  .card-split-img::after {
-    content: '';
-    background-size: cover;
-    background-position: center;
-  }
-  /* Hai Duong left / Hung Yen right — set via inline style on parent, override here */
-  .card-split-img {
-    background-repeat: no-repeat, no-repeat;
-    background-size: 50% 100%, 50% 100%;
-    background-position: left center, right center;
-  }
 </style>
 </head>
 <body>
@@ -742,83 +721,59 @@
   <!-- ROADS & JOURNEYS SERIES -->
   <div class="section-label">
     <span class="section-label-text">Roads & Journeys · Series 2024</span>
-    <span class="section-count">5 entries · In progress</span>
+    <span class="section-count">7 entries · In progress</span>
   </div>
 
   <div class="log-grid" id="logGrid">
 
-    <!-- FEATURED: Hành Trình Thiên Lý — anchor field log Series 01 -->
+    <!-- FEATURED: Bài 1 - Tiền trạm -->
     <div class="card card-featured type-roads" data-category="field roads" data-href="journey-log-tien-tram.html">
-      <div class="card-featured-img" style="background-image:url('Journey_0.webp')"></div>
+      <div class="card-featured-img" style="background-image:url('IMG_5812.webp')"></div>
       <span class="card-arrow">→</span>
       <div class="card-content">
-        <div class="card-type">Field Log · Roads & Journeys · Series 01</div>
-        <h2 class="card-title">Gathering Vietnam Along the Road</h2>
-        <p class="card-excerpt">Before the event, there was the road. A motorcycle journey from Huế northward through Thanh Hoá, Nam Định, Hải Dương, Hưng Yên, up to Sơn La. Each person encountered became preparation for a cultural hospitality event in Hà Nội for NEXUS VN and the Australian Embassy.</p>
+        <div class="card-type">Field Log · Roads & Journeys</div>
+        <h2 class="card-title">Tiền trạm —<br>Before the event, there was the road.</h2>
+        <p class="card-excerpt">A motorcycle journey from Huế northward. Each person encountered, each landscape passed through, became preparation for a cultural hospitality event in Hà Nội for NEXUS VN and the Australian Embassy.</p>
         <div class="card-meta">
           <span>2024 · Post-Tết</span>
-          <span>~2,200 words</span>
+          <span>~1,800 words</span>
           <span>Field Log</span>
         </div>
       </div>
     </div>
 
-    <!-- Bài 2 - The Village Returns to the Temple -->
-    <div class="card type-ritual card-coming" data-category="ritual roads" style="animation-delay:0.9s">
-      <div class="card-featured-img" style="background-image:url('Nam_Dinh_2.webp')"></div>
+    <!-- Bài 2 - Nam Định -->
+    <div class="card type-roads" data-category="field roads" data-href="journey-log-diem-dau-diem-cuoi.html" style="animation-delay:0.9s">
       <span class="soon-tag">Coming soon</span>
       <div class="card-content">
-        <div class="card-type">Ritual Essay · Roads & Journeys</div>
-        <h3 class="card-title">The Village Returns to the Temple</h3>
-        <div class="card-meta"><span>Nam Định · 2024</span><span>~2,000 words</span></div>
+        <div class="card-type">Field Log</div>
+        <h3 class="card-title">"Điểm đầu cũng là điểm cuối" — A village festival in Nam Định</h3>
+        <div class="card-meta"><span>2024</span><span>~2,000 words</span></div>
+      </div>
+    </div>
+
+    <!-- Bài 3 - Cây tổ -->
+    <div class="card type-field" data-category="roads" data-href="#" style="animation-delay:1.0s">
+      <span class="soon-tag">Coming soon</span>
+      <div class="card-content">
+        <div class="card-type">Roads & Journeys</div>
+        <h3 class="card-title">Cây tổ và nghề thất truyền — Hải Dương, Hưng Yên</h3>
+        <div class="card-meta"><span>2024</span><span>~2,200 words</span></div>
       </div>
     </div>
 
   </div>
 
-  <!-- WIDE CARDS: essays from Series 01 -->
+  <!-- WIDE CARDS: remaining 4 bài -->
   <div class="log-grid" style="padding-top: 0;">
 
-    <div class="card card-wide type-botanical card-coming" data-category="botanical roads" style="animation-delay:1.0s; grid-column:1/3; overflow:hidden;">
-      <div class="card-split-img" style="background-image:url('Journey_1.webp'), url('Journey_2.webp');"></div>
+    <div class="card card-wide type-prep card-coming" data-category="prep" style="animation-delay:1.1s; grid-column:1/3;">
       <span class="soon-tag">Coming soon</span>
       <div class="card-content">
         <div>
-          <div class="card-type" style="margin-bottom:6px">Botanical & Cultural Essay</div>
-          <h3 class="card-title">The Trees That Continued</h3>
-          <p class="card-excerpt-small">Hải Dương & Hưng Yên · Cây tổ, agricultural continuity, and the cultivation memory of the Red River Delta.</p>
-        </div>
-        <div class="card-meta"><span>2024</span></div>
-      </div>
-      <div class="card-wide-right">
-        <span class="word-count-badge badge-long">Essay · ~2,200w</span>
-      </div>
-    </div>
-
-    <div class="card card-wide type-philosophy card-coming" data-category="philosophy roads" style="animation-delay:1.05s; grid-column:1/3; overflow:hidden;">
-      <div class="card-featured-img" style="background-image:url('Journey_3.webp')"></div>
-      <span class="soon-tag">Coming soon</span>
-      <div class="card-content">
-        <div>
-          <div class="card-type" style="margin-bottom:6px">Internal Philosophy · Field Reflection</div>
-          <h3 class="card-title">What Water Teaches in Sơn La</h3>
-          <p class="card-excerpt-small">Yên Châu · A farming family whose question never changes: "chỗ anh mưa có nhiều không?" On survival, climate, and adaptation.</p>
-        </div>
-        <div class="card-meta"><span>2024</span></div>
-      </div>
-      <div class="card-wide-right">
-        <span class="word-count-badge badge-med">Essay · ~1,800w</span>
-      </div>
-    </div>
-
-    <div class="card card-wide type-prep card-coming" data-category="prep roads" style="animation-delay:1.1s; grid-column:1/3; overflow:hidden;">
-      <div class="card-featured-img" style="background-image:url('Journey_4.webp')"></div>
-      <span class="soon-tag">Coming soon</span>
-      <div class="card-content">
-        <div>
-          <div class="card-type" style="margin-bottom:6px">Preparation Note · Quiet Essay</div>
-          <h3 class="card-title">The Morning Huế Learned to Walk</h3>
-          <p class="card-excerpt-small">Yên Châu · No walker. No push chair. The only motivation was a friend who could already stand.</p>
+          <div class="card-type" style="margin-bottom:6px">Preparation Note</div>
+          <h3 class="card-title">Bánh cáy, bia hơi và tay cầm lái</h3>
+          <p class="card-excerpt-small">What small roadside moments teach about hospitality pacing and cultural temperature.</p>
         </div>
         <div class="card-meta"><span>2024</span></div>
       </div>
@@ -827,9 +782,54 @@
       </div>
     </div>
 
+    <div class="card card-wide type-cultural card-coming" data-category="cultural" style="animation-delay:1.15s; grid-column:1/3;">
+      <span class="soon-tag">Coming soon</span>
+      <div class="card-content">
+        <div>
+          <div class="card-type" style="margin-bottom:6px">Cultural Distance & Hospitality</div>
+          <h3 class="card-title">Khi văn hoá cộng đồng không thể copy</h3>
+          <p class="card-excerpt-small">What Nam Định's village hospitality revealed that no catering menu can replicate.</p>
+        </div>
+        <div class="card-meta"><span>2024</span></div>
+      </div>
+      <div class="card-wide-right">
+        <span class="word-count-badge badge-long">Essay · ~2,800w</span>
+      </div>
+    </div>
+
+    <div class="card card-wide type-field card-coming" data-category="field" style="animation-delay:1.2s; grid-column:1/3;">
+      <span class="soon-tag">Coming soon</span>
+      <div class="card-content">
+        <div>
+          <div class="card-type" style="margin-bottom:6px">Field Log</div>
+          <h3 class="card-title">Sơn La — Nước mưa và bé Huế tập đi</h3>
+          <p class="card-excerpt-small">A week with a farming family in Yên Châu. On water, on children who teach themselves to walk.</p>
+        </div>
+        <div class="card-meta"><span>2024</span></div>
+      </div>
+      <div class="card-wide-right">
+        <span class="word-count-badge badge-med">Field Log · ~1,800w</span>
+      </div>
+    </div>
+
+    <div class="card card-wide type-philosophy card-coming" data-category="philosophy" style="animation-delay:1.25s; grid-column:1/3;">
+      <span class="soon-tag">Coming soon</span>
+      <div class="card-content">
+        <div>
+          <div class="card-type" style="margin-bottom:6px">Internal Philosophy</div>
+          <h3 class="card-title">Hành trình là cách chúng tôi chuẩn bị</h3>
+          <p class="card-excerpt-small">Why Thiện Kiến takes to the road before preparing any significant event.</p>
+        </div>
+        <div class="card-meta"><span>2024</span></div>
+      </div>
+      <div class="card-wide-right">
+        <span class="word-count-badge badge-long">Essay · ~2,000w</span>
+      </div>
+    </div>
+
   </div>
 
-    <!-- DIVIDER: OTHER CATEGORIES PLACEHOLDER -->
+  <!-- DIVIDER: OTHER CATEGORIES PLACEHOLDER -->
   <div class="section-label" style="margin-top: 20px;">
     <span class="section-label-text">Archive · Other entries</span>
     <span class="section-count">More being added</span>
@@ -837,6 +837,7 @@
 
   <div class="log-grid">
     <div class="card type-prep card-coming" data-category="prep" style="animation-delay:1.3s; min-height:180px;">
+      <div class="card-featured-img" style="background-image:url('Archive_1.webp')"></div>
       <span class="soon-tag">Coming soon</span>
       <div class="card-content">
         <div class="card-type">Preparation Note</div>
@@ -845,6 +846,7 @@
       </div>
     </div>
     <div class="card type-botanical card-coming" data-category="botanical" style="animation-delay:1.35s; min-height:180px;">
+      <div class="card-featured-img" style="background-image:url('Archive_2.webp')"></div>
       <span class="soon-tag">Coming soon</span>
       <div class="card-content">
         <div class="card-type">Botanical & Naula</div>
@@ -853,6 +855,7 @@
       </div>
     </div>
     <div class="card type-ritual card-coming" data-category="ritual" style="animation-delay:1.4s; min-height:180px;">
+      <div class="card-featured-img" style="background-image:url('Archive_3.webp')"></div>
       <span class="soon-tag">Coming soon</span>
       <div class="card-content">
         <div class="card-type">Ritual & Memory</div>
@@ -861,6 +864,7 @@
       </div>
     </div>
     <div class="card type-field card-coming" data-category="field" style="animation-delay:1.45s; min-height:180px;">
+      <div class="card-featured-img" style="background-image:url('Archive_4.webp')"></div>
       <span class="soon-tag">Coming soon</span>
       <div class="card-content">
         <div class="card-type">Field Log</div>
