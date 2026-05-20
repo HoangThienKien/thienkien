@@ -7,7 +7,6 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-V035ZKD02Y');
 </script>
 <meta charset="UTF-8">
@@ -1165,7 +1164,6 @@
 </head>
 <body>
 <div class="cursor" id="cursor"></div>
-
 <!-- ── NAV ── -->
 <nav>
   <a href="#" class="nav-logo">
@@ -1184,7 +1182,6 @@
     </button>
   </div>
 </nav>
-
 <!-- ── MOBILE NAV MENU ── -->
 <div class="nav-mobile-menu" id="navMobileMenu">
   <ul>
@@ -1195,10 +1192,8 @@
     <li class="nav-mobile-lang">VI &nbsp;/&nbsp; EN</li>
   </ul>
 </div>
-
 <!-- ── HERO GRID ── -->
 <div class="hero">
-
   <!-- A: Main photo slideshow — data-bg for lazy loading -->
   <div class="cell cell-a">
     <div class="slideshow" id="heroSlideshow">
@@ -1226,14 +1221,12 @@ prepared for international teams in Vietnam.</h1>
 for organizations working deeply within Vietnamese contexts.</p>
     </div>
   </div>
-
   <!-- B: Logo cell -->
   <div class="cell cell-b">
     <div class="logo-mark">
       <img src="Thien-Kien-logo.webp" alt="Thiện Kiến Logo" class="logo-mark-img">
     </div>
   </div>
-
   <!-- C: TKG Amber cell -->
   <div class="cell cell-c">
     <a href="https://tkg-naula.com" target="_blank" rel="noopener" class="cell-c-link" aria-label="Visit TKG website"></a>
@@ -1246,7 +1239,6 @@ from Thiện Kiến's cultural practice.</div>
     </div>
     <div class="tkg-tagline">· Whole botanicals freeze-dried to preserve integrity. <br>· Built for hospitality and international environments.</div>
   </div>
-
   <!-- D: Cyan event cell -->
   <div class="cell cell-d">
     <div class="cell-d-slideshow" id="cellDSlideshow"></div>
@@ -1256,7 +1248,6 @@ from Thiện Kiến's cultural practice.</div>
       <div class="cell-d-text">Vietnamese seasonal traditions, prepared without simplification.<br>US Consulate × SAVVi Code</div>
     </div>
   </div>
-
   <!-- E: Earth event cell -->
   <div class="cell cell-e">
     <div class="cell-e-slideshow" id="cellESlideshow"></div>
@@ -1266,7 +1257,6 @@ from Thiện Kiến's cultural practice.</div>
       <div class="cell-e-text">Lễ Cấp Sắc<br>Yao ethnic's Maturity Festival — NEXUS 5 Years</div>
     </div>
   </div>
-
   <!-- F: Bottom wide video — preload="none", mobile shows static poster -->
   <div class="cell cell-f" id="cellF">
     <div class="cell-f-poster"></div>
@@ -1281,22 +1271,18 @@ from Thiện Kiến's cultural practice.</div>
       <div class="cell-f-title">Mid-Autumn prepared <br>for international teams in Vietnam.</div>
     </div>
   </div>
-
   <!-- G: Tagline cell -->
   <div class="cell cell-g">
     <div class="cell-g-tagline">"Prepared with understanding."</div>
     <div class="cell-g-mark">Thiện Kiến — Since 2022</div>
   </div>
-
   <!-- H: CTA cell -->
   <div class="cell cell-h">
     <div class="cta-label">The Journey Log</div>
     <div class="cta-text">What has been learned through preparation.</div>
     <div class="cta-arrow">→</div>
   </div>
-
 </div>
-
 <!-- ── TICKER ── -->
 <div class="ticker-wrap">
   <div class="ticker-track" id="ticker">
@@ -1316,7 +1302,6 @@ from Thiện Kiến's cultural practice.</div>
     <span class="ticker-item">Stories of Gratitude · Annual Gathering <span class="ticker-dot">✦</span></span>
   </div>
 </div>
-
 <!-- ── CLIENTS ── -->
 <div class="clients-section">
   <div class="clients-header">
@@ -1354,7 +1339,6 @@ from Thiện Kiến's cultural practice.</div>
     </div>
   </div>
 </div>
-
 <!-- ── BELOW HERO — Brand pillars ── -->
 <div class="below-hero">
   <div class="bh-inner">
@@ -1384,12 +1368,11 @@ It comes from atmosphere, rhythm, preparation and shared experience.</p>
     </div>
   </div>
 </div>
-
 <!-- ── JOURNEY LOG STRIP ── -->
 <div class="journey">
   <div class="journey-header">
     <div class="journey-title">The Journey Log</div>
-    <a href="#" class="journey-link">View all soon →</a>
+    <a href="journey-log.html" class="journey-link">View all →</a>
   </div>
   <div class="journey-grid">
     <div class="jc" style="background:#0A1820; min-height:220px">
@@ -1419,7 +1402,6 @@ It comes from atmosphere, rhythm, preparation and shared experience.</p>
     </div>
   </div>
 </div>
-
 <!-- ── FOOTER ── -->
 <footer>
   <div class="footer-inner">
@@ -1443,7 +1425,6 @@ It comes from atmosphere, rhythm, preparation and shared experience.</p>
     <div class="footer-note">Designed with intention</div>
   </div>
 </footer>
-
 <!-- ── VIDEO MODAL ── -->
 <div class="video-modal" id="videoModal">
   <div class="video-modal-inner">
@@ -1453,23 +1434,19 @@ It comes from atmosphere, rhythm, preparation and shared experience.</p>
     </video>
   </div>
 </div>
-
 <script>
   const isTouchDevice = window.matchMedia('(hover: none), (pointer: coarse)').matches;
-
   // ── HELPER: lazy-load background from data-bg attribute ──
   function loadBg(el) {
     if (el && el.dataset.bg && !el.style.backgroundImage) {
       el.style.backgroundImage = `url('${el.dataset.bg}')`;
     }
   }
-
   // ── HELPER: silently preload an image into browser cache ──
   function preloadImg(src) {
     const img = new Image();
     img.src = src;
   }
-
   // ── HERO SLIDESHOW ──
   // Mobile: 1 ảnh tĩnh duy nhất — không timer, không dots, không preload
   // Desktop: slideshow đầy đủ với lazy load
@@ -1477,25 +1454,19 @@ It comes from atmosphere, rhythm, preparation and shared experience.</p>
   (function() {
     const slides   = document.querySelectorAll('#heroSlideshow .slide');
     const dotsWrap = document.getElementById('slideDots');
-
     // Luôn load ảnh đầu tiên
     loadBg(slides[0]);
-
     if (isTouchDevice) return; // Mobile: dừng ở đây
-
     // Desktop: preload ảnh thứ 2, build dots, start timer
     if (slides[1]) loadBg(slides[1]);
-
     const INTERVAL = 4500;
     let current = 0, timer;
-
     slides.forEach((_, i) => {
       const d = document.createElement('div');
       d.className = 'slide-dot' + (i === 0 ? ' active' : '');
       d.addEventListener('click', () => goTo(i));
       dotsWrap.appendChild(d);
     });
-
     function goTo(n) {
       slides[current].classList.remove('active');
       dotsWrap.children[current].classList.remove('active');
@@ -1505,7 +1476,6 @@ It comes from atmosphere, rhythm, preparation and shared experience.</p>
       slides[current].classList.add('active');
       dotsWrap.children[current].classList.add('active');
     }
-
     function startTimer() {
       clearInterval(timer);
       timer = setInterval(() => goTo(current + 1), INTERVAL);
@@ -1513,7 +1483,6 @@ It comes from atmosphere, rhythm, preparation and shared experience.</p>
     }
     startTimer();
   })();
-
   // ── CELL D SLIDESHOW ──
   // Mobile: 1 ảnh tĩnh — Desktop: slideshow + stagger preload
   (function() {
@@ -1525,13 +1494,10 @@ It comes from atmosphere, rhythm, preparation and shared experience.</p>
     ];
     const wrap = document.getElementById('cellDSlideshow');
     wrap.style.cssText = `background-image:url('${imgs[0]}');background-size:cover;background-position:center`;
-
     if (isTouchDevice) return; // Mobile: dừng ở đây
-
     setTimeout(() => {
       imgs.slice(1).forEach((src, i) => setTimeout(() => preloadImg(src), i * 300));
     }, 2000);
-
     let idx = 0;
     const t = setInterval(() => {
       idx = (idx + 1) % imgs.length;
@@ -1539,7 +1505,6 @@ It comes from atmosphere, rhythm, preparation and shared experience.</p>
     }, 4500);
     allTimers.push(t);
   })();
-
   // ── CELL E SLIDESHOW ──
   // Mobile: 1 ảnh tĩnh — Desktop: slideshow + stagger preload
   (function() {
@@ -1551,13 +1516,10 @@ It comes from atmosphere, rhythm, preparation and shared experience.</p>
     ];
     const wrap = document.getElementById('cellESlideshow');
     wrap.style.cssText = `background-image:url('${imgs[0]}');background-size:cover;background-position:center`;
-
     if (isTouchDevice) return; // Mobile: dừng ở đây
-
     setTimeout(() => {
       imgs.slice(1).forEach((src, i) => setTimeout(() => preloadImg(src), i * 400));
     }, 3500);
-
     let idx = 0;
     const t = setInterval(() => {
       idx = (idx + 1) % imgs.length;
@@ -1565,7 +1527,6 @@ It comes from atmosphere, rhythm, preparation and shared experience.</p>
     }, 6000);
     allTimers.push(t);
   })();
-
   // ── VIDEO: lazy load + autoplay khi cell-f vào viewport (cả mobile lẫn desktop) ──
   const heroVideo = document.getElementById('heroVideo');
   if (heroVideo) {
@@ -1581,7 +1542,6 @@ It comes from atmosphere, rhythm, preparation and shared experience.</p>
     }, { threshold: 0.1 });
     videoObserver.observe(document.getElementById('cellF'));
   }
-
   // ── PAUSE all intervals and animations when tab is hidden ──
   document.addEventListener('visibilitychange', () => {
     const animated = document.querySelectorAll('.clients-track, .ticker-track');
@@ -1591,7 +1551,6 @@ It comes from atmosphere, rhythm, preparation and shared experience.</p>
       animated.forEach(el => el.style.animationPlayState = 'running');
     }
   });
-
   // ── TICKER: pause when hero is in viewport ──
   (function() {
     const tickerTrack = document.getElementById('ticker');
@@ -1604,7 +1563,6 @@ It comes from atmosphere, rhythm, preparation and shared experience.</p>
     }, { threshold: 0.1 });
     observer.observe(hero);
   })();
-
   // ── CUSTOM CURSOR (desktop only) ──
   const cur = document.getElementById('cursor');
   if (!isTouchDevice) {
@@ -1621,7 +1579,6 @@ It comes from atmosphere, rhythm, preparation and shared experience.</p>
       el.addEventListener('mouseleave', () => cur.classList.remove('big'));
     });
   }
-
   // ── HAMBURGER MENU ──
   const hamburger  = document.getElementById('navHamburger');
   const mobileMenu = document.getElementById('navMobileMenu');
@@ -1640,23 +1597,23 @@ It comes from atmosphere, rhythm, preparation and shared experience.</p>
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') { closeMobileMenu(); closeModal(); }
   });
-
   // ── CELL D → TECx2023 page ──
   document.querySelector('.cell-d').addEventListener('click', () => {
     window.location.href = 'tecx2023.html';
   });
-
   // ── CELL E → Dao Initiation page ──
   document.querySelector('.cell-e').addEventListener('click', () => {
     window.location.href = 'dao-initiation.html';
   });
-
+  // ── CELL H → Journey Log page ──
+  document.querySelector('.cell-h').addEventListener('click', () => {
+    window.location.href = 'journey-log.html';
+  });
   // ── VIDEO MODAL ──
   const modal      = document.getElementById('videoModal');
   const modalVideo = document.getElementById('modalVideo');
   const modalClose = document.getElementById('videoModalClose');
   const cellF      = document.getElementById('cellF');
-
   cellF.addEventListener('click', () => {
     modal.classList.add('open');
     modalVideo.currentTime = 0;
