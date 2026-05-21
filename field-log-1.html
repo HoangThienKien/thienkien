@@ -45,8 +45,13 @@
     pointer-events: none;
     z-index: 9999;
     transform: translate(-50%, -50%);
-    transition: transform 0.1s, width 0.25s, height 0.25s;
+    transition: transform 0.1s, width 0.25s, height 0.25s, background 0.25s;
     mix-blend-mode: screen;
+  }
+  .cursor.big {
+    width: 36px; height: 36px;
+    background: transparent;
+    border: 1px solid var(--cyan);
   }
 
   /* NAV */
@@ -715,7 +720,8 @@
       cur.style.left = e.clientX + 'px';
       cur.style.top  = e.clientY + 'px';
     });
-    document.querySelectorAll('.series-card:not(.series-card-coming)').forEach(el => {
+    // Big cursor only on clickable series cards (has data-href, not coming)
+    document.querySelectorAll('.series-card[data-href]:not(.series-card-coming)').forEach(el => {
       el.addEventListener('mouseenter', () => cur.classList.add('big'));
       el.addEventListener('mouseleave', () => cur.classList.remove('big'));
     });
