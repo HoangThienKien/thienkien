@@ -44,8 +44,13 @@
     pointer-events: none;
     z-index: 9999;
     transform: translate(-50%, -50%);
-    transition: transform 0.1s, width 0.25s, height 0.25s;
+    transition: transform 0.1s, width 0.25s, height 0.25s, background 0.25s;
     mix-blend-mode: screen;
+  }
+  .cursor.big {
+    width: 36px; height: 36px;
+    background: transparent;
+    border: 1px solid var(--ritual);
   }
 
   /* NAV */
@@ -478,6 +483,40 @@
     letter-spacing: 0.14em; color: rgba(136,135,128,0.25);
   }
 
+
+  /* ── ARTICLE IMAGES ── */
+  .article-img {
+    max-width: var(--text-max);
+    margin: 2.5em 0;
+  }
+  .article-img img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+  }
+  .article-img-wide {
+    max-width: 820px;
+    margin: 3em 0;
+  }
+  .article-img-wide img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+  }
+  .article-img figcaption,
+  .article-img-wide figcaption {
+    font-family: var(--f-mono);
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(245,232,192,0.25);
+    margin-top: 10px;
+    line-height: 1.6;
+  }
+  @media (max-width: 767px) {
+    .article-img-wide { max-width: 100%; }
+  }
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(14px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -569,6 +608,12 @@
 
     <p>Unlike many processions elsewhere, where men carry all ceremonial palanquins, the women here were entrusted with the võng kiệu.</p>
 
+
+<figure class="article-img-wide">
+  <img src="essay-ritual-img-1.webp" alt="The procession departing from the Mother Temple · Vân Đồn Village · Nam Định · 2024" loading="lazy">
+  <figcaption>The procession departing from the Mother Temple · Vân Đồn Village · Nam Định · 2024</figcaption>
+</figure>
+
     <div class="pull-quote">
       <p>"The entire village seemed to move as one continuous body."</p>
     </div>
@@ -587,6 +632,12 @@
 
     <p>Because she had entered religious life early, offerings presented at the Mother Temple remain entirely vegetarian. Yet at the sacred spirits of Đông Temple and Tây Temple, the offerings are different — sticky rice and pork shared communally after the ceremonies conclude.</p>
 
+
+<figure class="article-img">
+  <img src="essay-ritual-img-2.webp" alt="The offering rites at Tây Temple · Elder men to the left, women to the right" loading="lazy">
+  <figcaption>The offering rites at Tây Temple · Elder men to the left, women to the right</figcaption>
+</figure>
+
     <div class="section-break"><span>✦</span></div>
 
     <h3>Communal Labour</h3>
@@ -596,6 +647,12 @@
     <div class="pull-quote">
       <p>"The festival was not merely preserving belief.<br>It was preserving participation."</p>
     </div>
+
+
+<figure class="article-img-wide">
+  <img src="essay-ritual-img-3.webp" alt="Communal kitchen · Village women preparing the festival meal" loading="lazy">
+  <figcaption>Communal kitchen · Village women preparing the festival meal</figcaption>
+</figure>
 
     <div class="section-break"><span>✦</span></div>
 
@@ -608,6 +665,12 @@
     <p>The pork carried the unmistakable flavour of home-raised livestock — clean, rich, and surprisingly light despite the layers of fat. Nothing about the preparation was complicated. The meat had simply been boiled, yet done with the quiet precision of people who had repeated the same task for generations.</p>
 
     <p>The sticky rice remained soft throughout the long afternoon ceremonies, neither dry nor overly dense. Together with salt, pepper, conversation, handshakes, and cups of rice wine passed from one person to another, the meal became far more than food itself.</p>
+
+
+<figure class="article-img">
+  <img src="essay-ritual-img-4.webp" alt="Boiled pork and glutinous rice · The communal table · Vân Đồn Village" loading="lazy">
+  <figcaption>Boiled pork and glutinous rice · The communal table · Vân Đồn Village</figcaption>
+</figure>
 
     <div class="pull-quote amber">
       <p>"Simple is the best, always."</p>
@@ -622,6 +685,12 @@
     <p>In Vân Đồn village, we also began noticing small traces of a past that had not entirely disappeared. French military doctor <strong>Charles-Édouard Hocquard</strong> once described seeing chalk-drawn bows and arrows outside homes during Tết in Huế in 1886 — symbols believed to ward away evil spirits. More than a century later, we found similar markings still drawn in white lime outside village homes in Nam Định.</p>
 
     <p>Seasonal fruits remained piled beside the roads. Rice fields stretched green across the landscape. Certain rhythms had endured quietly here.</p>
+
+
+<figure class="article-img">
+  <img src="essay-ritual-img-5.webp" alt="White lime markings on village doorways · Nam Định · Still present in 2024" loading="lazy">
+  <figcaption>White lime markings on village doorways · Nam Định · Still present in 2024</figcaption>
+</figure>
 
     <p>Local friends eventually led us toward a bowl of Nam Định phở at a small shop called <strong>Phở Gốc Tre</strong> — the kind of meal that quietly stays with you long after the journey ends. The broth was remarkably clear yet deeply layered in flavour. Northern-style chili sauces, crispy quẩy, fresh herbs, and slices of beef all seemed to hold together through an ingredient quality difficult to replicate elsewhere.</p>
 
@@ -722,8 +791,12 @@
       cur.style.left = e.clientX + 'px';
       cur.style.top  = e.clientY + 'px';
     });
+    // Big cursor only on clickable series cards (has data-href, not active/coming)
+    document.querySelectorAll('.series-card[data-href]:not(.series-card-active):not(.series-card-coming)').forEach(el => {
+      el.addEventListener('mouseenter', () => cur.classList.add('big'));
+      el.addEventListener('mouseleave', () => cur.classList.remove('big'));
+    });
   }
-  // Series card clicks
   document.querySelectorAll('.series-card[data-href]').forEach(card => {
     card.addEventListener('click', () => {
       window.location.href = card.dataset.href;
