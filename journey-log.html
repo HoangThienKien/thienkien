@@ -970,7 +970,8 @@
       cur.style.left = e.clientX + 'px';
       cur.style.top  = e.clientY + 'px';
     });
-    document.querySelectorAll('.card:not(.card-coming)').forEach(el => {
+    // Big cursor only on actually-clickable cards (has data-href, not coming)
+    document.querySelectorAll('.card[data-href]:not(.card-coming)').forEach(el => {
       el.addEventListener('mouseenter', () => cur.classList.add('big'));
       el.addEventListener('mouseleave', () => cur.classList.remove('big'));
     });
