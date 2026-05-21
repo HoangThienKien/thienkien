@@ -199,8 +199,6 @@
     margin: 0 auto;
     padding: 72px 36px 100px;
   }
-
-  /* Drop-cap first paragraph */
   .article-body > p:first-of-type::first-letter {
     font-family: var(--f-display);
     font-size: 5em;
@@ -211,7 +209,6 @@
     margin: 0.08em 0.1em 0 0;
     color: var(--cyan);
   }
-
   .article-body p {
     font-family: var(--f-body);
     font-size: 16px;
@@ -220,10 +217,7 @@
     max-width: var(--text-max);
     margin-bottom: 1.6em;
   }
-  .article-body p strong {
-    color: var(--cream);
-    font-weight: 400;
-  }
+  .article-body p strong { color: var(--cream); font-weight: 400; }
   .article-body h2 {
     font-family: var(--f-display);
     font-size: clamp(22px, 3vw, 34px);
@@ -244,8 +238,6 @@
     max-width: var(--text-max);
     margin: 2.5em 0 0.8em;
   }
-
-  /* Pull quote */
   .pull-quote {
     max-width: 580px;
     margin: 3em 0 3em 0;
@@ -272,15 +264,9 @@
     color: rgba(41,197,208,0.4);
     margin-top: 14px;
   }
-
-  /* Amber pull-quote variant */
-  .pull-quote.amber {
-    border-left-color: var(--amber);
-  }
+  .pull-quote.amber { border-left-color: var(--amber); }
   .pull-quote.amber p { color: var(--amber-pale) !important; }
   .pull-quote.amber cite { color: rgba(200,135,42,0.4); }
-
-  /* Location marker */
   .location-marker {
     display: inline-flex;
     align-items: center;
@@ -298,8 +284,6 @@
     width: 20px; height: 0.5px;
     background: rgba(245,232,192,0.15);
   }
-
-  /* Separator */
   .section-break {
     display: flex;
     align-items: center;
@@ -321,7 +305,137 @@
     letter-spacing: 0.2em;
   }
 
+  /* ── FROM THIS SERIES ── */
+  .series-section {
+    background: var(--off-black);
+    border-top: 3px solid #111;
+    padding: 64px 36px 80px;
+  }
+  .series-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .series-eyebrow {
+    font-family: var(--f-mono);
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(41,197,208,0.5);
+    margin-bottom: 8px;
+  }
+  .series-heading {
+    font-family: var(--f-display);
+    font-size: clamp(22px, 3vw, 32px);
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(245,232,192,0.6);
+    margin-bottom: 40px;
+  }
+  .series-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3px;
+  }
+  .series-card {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 20px;
+    transition: filter 0.25s;
+  }
+  .series-card:hover { filter: brightness(1.12); }
+  .series-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.1) 55%, transparent 100%);
+    z-index: 1;
+  }
+  .series-card-bg {
+    position: absolute; inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.35;
+    transition: transform 0.4s ease;
+  }
+  .series-card:hover .series-card-bg { transform: scale(1.04); }
+  .series-card-content {
+    position: relative;
+    z-index: 2;
+  }
+  .series-card-type {
+    font-family: var(--f-mono);
+    font-size: 8px;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .series-card-type::before {
+    content: '';
+    display: inline-block;
+    width: 10px; height: 0.5px;
+    background: currentColor;
+    flex-shrink: 0;
+  }
+  .series-card-title {
+    font-family: var(--f-display);
+    font-size: clamp(13px, 1.2vw, 17px);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.25;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .series-card-sub {
+    font-family: var(--f-body);
+    font-size: 10px;
+    color: rgba(245,232,192,0.4);
+    line-height: 1.5;
+    display: none;
+  }
+  .series-card:hover .series-card-sub { display: block; }
 
+  /* Coming soon state */
+  .series-card-coming {
+    opacity: 0.4;
+    cursor: default;
+    filter: none !important;
+  }
+  .series-card-coming:hover { filter: none !important; }
+  .series-card-coming .series-card-bg { opacity: 0.2; }
+  .series-soon-tag {
+    position: absolute;
+    top: 14px; right: 14px;
+    font-family: var(--f-mono);
+    font-size: 7px;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(245,232,192,0.6);
+    border: 0.5px solid rgba(245,232,192,0.25);
+    padding: 4px 8px;
+    border-radius: 2px;
+    background: rgba(0,0,0,0.4);
+    z-index: 3;
+  }
+
+  /* Type colours */
+  .sc-ritual    { background: #160C0A; }
+  .sc-ritual    .series-card-type { color: rgba(240,130,100,1.0); }
+  .sc-botanical { background: #0A150E; }
+  .sc-botanical .series-card-type { color: rgba(110,220,130,1.0); }
+  .sc-philosophy{ background: #14100A; }
+  .sc-philosophy .series-card-type { color: rgba(228,168,74,0.9); }
+  .sc-prep      { background: #0C0C14; }
+  .sc-prep      .series-card-type { color: rgba(180,172,255,1.0); }
 
   /* FOOTER */
   footer {
@@ -397,10 +511,11 @@
     .article-wrap { padding: 48px 18px 72px; }
     .article-body > p:first-of-type::first-letter { font-size: 4em; }
     .pull-quote { padding-left: 20px; }
+    .series-section { padding: 40px 18px 56px; }
+    .series-grid { grid-template-columns: repeat(2, 1fr); }
     footer { padding: 28px 18px 24px; }
     .footer-inner { grid-template-columns: 1fr; gap: 22px; }
     .footer-bottom { flex-direction: column; gap: 5px; }
-    .next-article { padding: 32px 18px; }
   }
   @media (hover: none), (pointer: coarse) {
     .cursor { display: none !important; }
@@ -462,16 +577,13 @@
     <div class="section-break"><span>✦</span></div>
 
     <h3>Hoành Sơn Quan (橫山關) — A Historical Threshold</h3>
-
     <div class="location-marker">Đèo Ngang · Hà Tĩnh / Quảng Bình</div>
-
     <p>Crossing the Hoành Sơn range from the Quảng Bình side, the verse of Bà Huyện Thanh Quan lingered quietly in our minds: <em>"Bước tới Đèo Ngang bóng xế tà..."</em> The modern highway now runs beneath the mountain pass, but we chose to climb toward the summit instead — where Hoành Sơn Quan still stands.</p>
-
     <p>Standing there, Quảng Bình stretched to the south while Hà Tĩnh lay to the north. It was impossible not to think of the famous words of Trạng Trình Nguyễn Bỉnh Khiêm:</p>
     <div class="pull-quote">
-    <p><em>"Hoành Sơn nhất đái, vạn đại dung thân"</em>
-    <p style="text-align: center;"> *** </p>
-    <p>“Past Hoành Sơn lies a land where generations may endure.”</p> 
+      <p><em>"Hoành Sơn nhất đái, vạn đại dung thân"</em></p>
+      <p style="text-align: center;"> *** </p>
+      <p>"Past Hoành Sơn lies a land where generations may endure."</p>
     </div>
     <p>A single sentence that would alter the course of Vietnamese history — when Nguyễn Hoàng led his household and followers across this mountain pass, laying the foundation for the southern realm of Đàng Trong.</p>
     <p>One prophecy.<br>One decision.<br>One frontier.</p>
@@ -482,47 +594,96 @@
     <div class="section-break"><span>✦</span></div>
 
     <h3>Lam Kinh and the Flavours Along the Way</h3>
-
     <div class="location-marker">Thanh Hoá</div>
-
-    <p>Past Nghệ Tĩnh, we entered the land of Thanh Hoá and headed straight toward <strong>Lam Kinh</strong> — the former imperial retreat of the Later Lê dynasty. But the road leading there was just as memorable as the destination itself: Thanh Hoá’s nem chua and Tứ Trụ black sticky rice cakes.</p>
+    <p>Past Nghệ Tĩnh, we entered the land of Thanh Hoá and headed straight toward <strong>Lam Kinh</strong> — the former imperial retreat of the Later Lê dynasty. But the road leading there was just as memorable as the destination itself: Thanh Hoá's nem chua and Tứ Trụ black sticky rice cakes.</p>
     <p>Along both sides of the road, these foods appeared everywhere, laid out as though they were inseparable from the landscape itself — because, in many ways, they were.</p>
     <div class="pull-quote amber">
-      <p>“Vietnamese culture reveals itself through the food of each region.<br> Each place carries its own character.<br>And at the place where it is made, everything feels entirely different.”</p>
+      <p>"Vietnamese culture reveals itself through the food of each region.<br> Each place carries its own character.<br>And at the place where it is made, everything feels entirely different."</p>
     </div>
 
     <div class="section-break"><span>✦</span></div>
 
     <h3>Bánh cáy and hot fresh-green-tea-leaves — Thái Bình</h3>
-
     <div class="location-marker">Thái Bình</div>
-
-    <p>We passed through Thái Bình without planning to stop. But the bitter cold after Tết wrapped itself around the rider’s hands until it became impossible to keep going any longer.</p>
-    <p>Hungry and freezing, we pulled over at a small roadside tea stall. A few pieces of Thái Bình’s bánh cáy and a cup of hot tea slowly brought warmth back before the road continued north again.</p>
+    <p>We passed through Thái Bình without planning to stop. But the bitter cold after Tết wrapped itself around the rider's hands until it became impossible to keep going any longer.</p>
+    <p>Hungry and freezing, we pulled over at a small roadside tea stall. A few pieces of Thái Bình's bánh cáy and a cup of hot tea slowly brought warmth back before the road continued north again.</p>
     <p>That was the kind of thing no map could ever point to.<br> You only understand it once you are sitting there yourself.</p>
-    
+
     <div class="section-break"><span>✦</span></div>
 
     <h3>Returning to Hanoi</h3>
-
     <p>By the time we finally arrived in Hanoi, we were carrying neither products nor ingredients.</p>
-    <p>What we brought back instead were fragments of a larger picture — Hoành Sơn Quan and its centuries-old prophecy, the scent of Thanh Hoá’s nem chua, the warmth of roadside tea in Thái Bình, and the feeling of having travelled through a country we once thought we understood, only to realise how much more there still was to learn.</p>
+    <p>What we brought back instead were fragments of a larger picture — Hoành Sơn Quan and its centuries-old prophecy, the scent of Thanh Hoá's nem chua, the warmth of roadside tea in Thái Bình, and the feeling of having travelled through a country we once thought we understood, only to realise how much more there still was to learn.</p>
     <p>The cultural environment we prepared for the event in Hanoi — from the way the space was arranged, to the ingredients we chose, to the stories placed quietly within each detail — all carried traces of this journey.</p>
     <p>Not because we had planned it that way.</p>
     <p>But because it was the only way we knew how to prepare.</p>
-    
+
     <div class="pull-quote">
-      <p>“We did not gather ingredients on this journey.<br>We gathered understanding instead.”</p>
+      <p>"We did not gather ingredients on this journey.<br>We gathered understanding instead."</p>
       <cite>Thiện Kiến — 2024</cite>
     </div>
 
     <p>The journey continued — through Nam Định, Hải Dương, and Hưng Yên, before eventually leading us into Sơn La, where we met a small family living in the highlands, in a place where children learn to stand without baby walkers.</p>
-
     <p>But perhaps the most important thing this journey reminded us of was this:</p>
     <p>To go before preparing — not for research, but to remember why preparation matters in the first place.</p>
 
   </div>
 </div>
+
+<!-- FROM THIS SERIES -->
+<section class="series-section">
+  <div class="series-inner">
+    <p class="series-eyebrow">Roads & Journeys · Series 2024</p>
+    <h2 class="series-heading">More from this journey</h2>
+    <div class="series-grid">
+
+      <!-- 1. The Village Returns to the Temple — coming soon -->
+      <div class="series-card sc-ritual series-card-coming">
+        <div class="series-card-bg" style="background-image:url('Journey_5.webp')"></div>
+        <span class="series-soon-tag">Coming soon</span>
+        <div class="series-card-content">
+          <div class="series-card-type">Ritual Essay</div>
+          <div class="series-card-title">The Village Returns to the Temple</div>
+          <div class="series-card-sub">Nam Định · Lễ rước, community labor, gender roles, and a communal meal that no catering menu can replicate.</div>
+        </div>
+      </div>
+
+      <!-- 2. The Trees That Continued — coming soon -->
+      <div class="series-card sc-botanical series-card-coming">
+        <div class="series-card-bg" style="background-image:url('Journey_1.webp')"></div>
+        <span class="series-soon-tag">Coming soon</span>
+        <div class="series-card-content">
+          <div class="series-card-type">Botanical & Cultural Essay</div>
+          <div class="series-card-title">The Trees That Continued</div>
+          <div class="series-card-sub">Hải Dương & Hưng Yên · Cây tổ, agricultural continuity, and the cultivation memory of the Red River Delta.</div>
+        </div>
+      </div>
+
+      <!-- 3. What Water Teaches in Sơn La — coming soon -->
+      <div class="series-card sc-philosophy series-card-coming">
+        <div class="series-card-bg" style="background-image:url('Journey_3.webp')"></div>
+        <span class="series-soon-tag">Coming soon</span>
+        <div class="series-card-content">
+          <div class="series-card-type">Internal Philosophy</div>
+          <div class="series-card-title">What Water Teaches in Sơn La</div>
+          <div class="series-card-sub">Yên Châu · A farming family whose question never changes: "chỗ anh mưa có nhiều không?" On survival, climate, and adaptation.</div>
+        </div>
+      </div>
+
+      <!-- 4. The Morning Huế Learned to Walk — coming soon -->
+      <div class="series-card sc-prep series-card-coming">
+        <div class="series-card-bg" style="background-image:url('Journey_4.webp')"></div>
+        <span class="series-soon-tag">Coming soon</span>
+        <div class="series-card-content">
+          <div class="series-card-type">Preparation Note</div>
+          <div class="series-card-title">The Morning Huế Learned to Walk</div>
+          <div class="series-card-sub">Yên Châu · No walker. No push chair. The only motivation was a friend who could already stand.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
 
 <!-- FOOTER -->
 <footer>
