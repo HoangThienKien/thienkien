@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Village Returns to the Temple — The Journey Log · Thiện Kiến</title>
+<link rel="icon" type="image/webp" href="Thien-Kien-logo-symbol.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Questrial&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cyan:      #29C5D0;
+    --cyan-pale: #7DE8EE;
+    --cyan-deep: #050E10;
+    --cyan-mid:  #0A1E20;
+    --amber:     #C8872A;
+    --amber-pale:#F5D08B;
+    --cream:     #F5E8C0;
+    --ritual:    #F08264;
+    --ritual-pale:#F5C8A8;
+    --black:     #000000;
+    --off-black: #0A0A0A;
+    --stone:     #888780;
+    --f-display: 'Cormorant Garamond', serif;
+    --f-body:    'Questrial', sans-serif;
+    --f-mono:    'DM Mono', monospace;
+    --text-max:  660px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: var(--f-body);
+    overflow-x: hidden;
+    cursor: none;
+  }
+  .cursor {
+    position: fixed;
+    width: 8px; height: 8px;
+    background: var(--ritual);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s, width 0.25s, height 0.25s;
+    mix-blend-mode: screen;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 36px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, transparent 100%);
+  }
+  .nav-logo-img {
+    width: 38px; height: 38px;
+    object-fit: contain;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+  .nav-back {
+    font-family: var(--f-mono);
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(245,232,192,0.4);
+    text-decoration: none;
+    transition: color 0.2s;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+  .nav-back:hover { color: var(--ritual); }
+  .nav-back::before { content: '← '; }
+
+  /* HERO */
+  .article-hero {
+    width: 100%;
+    height: 70vh;
+    min-height: 420px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background-image: url('Journey_5.webp');
+    background-size: cover;
+    background-position: center 40%;
+    transform: scale(1.05);
+    animation: heroZoom 12s ease-out forwards;
+  }
+  @keyframes heroZoom {
+    from { transform: scale(1.05); }
+    to   { transform: scale(1.0); }
+  }
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.15) 100%);
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 36px 56px;
+    opacity: 0;
+    animation: fadeUp 1s 0.6s forwards;
+  }
+  .article-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .breadcrumb-item {
+    font-family: var(--f-mono);
+    font-size: 8px;
+    font-weight: 300;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: rgba(245,232,192,0.35);
+  }
+  .breadcrumb-sep { color: var(--ritual); opacity: 0.5; font-size: 10px; }
+  .breadcrumb-current { color: var(--ritual); opacity: 0.8; }
+  .article-type-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--f-mono);
+    font-size: 8px;
+    font-weight: 300;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--ritual);
+    border: 0.5px solid rgba(240,130,100,0.35);
+    padding: 5px 12px;
+    border-radius: 2px;
+    margin-bottom: 20px;
+  }
+  .article-type-tag::before {
+    content: '';
+    width: 4px; height: 4px;
+    background: var(--ritual);
+    border-radius: 50%;
+  }
+  .article-hero-title {
+    font-family: var(--f-display);
+    font-size: clamp(30px, 5vw, 60px);
+    font-weight: 300;
+    font-style: italic;
+    color: #fff;
+    line-height: 1.08;
+    margin-bottom: 18px;
+    max-width: 720px;
+  }
+  .article-hero-sub {
+    font-family: var(--f-body);
+    font-size: 14px;
+    color: rgba(245,232,192,0.5);
+    line-height: 1.65;
+    max-width: 540px;
+    margin-bottom: 24px;
+  }
+  .article-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .meta-pill {
+    font-family: var(--f-mono);
+    font-size: 8px;
+    font-weight: 300;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(245,232,192,0.3);
+  }
+  .meta-pill + .meta-pill::before {
+    content: '·';
+    margin-right: 20px;
+    opacity: 0.3;
+  }
+
+  /* ARTICLE BODY */
+  .article-wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 72px 36px 100px;
+  }
+  .article-body > p:first-of-type::first-letter {
+    font-family: var(--f-display);
+    font-size: 5em;
+    font-weight: 300;
+    font-style: italic;
+    float: left;
+    line-height: 0.78;
+    margin: 0.08em 0.1em 0 0;
+    color: var(--ritual);
+  }
+  .article-body p {
+    font-family: var(--f-body);
+    font-size: 16px;
+    line-height: 1.85;
+    color: rgba(245,232,192,0.75);
+    max-width: var(--text-max);
+    margin-bottom: 1.6em;
+  }
+  .article-body p strong { color: var(--cream); font-weight: 400; }
+  .article-body h2 {
+    font-family: var(--f-display);
+    font-size: clamp(22px, 3vw, 34px);
+    font-weight: 300;
+    font-style: italic;
+    color: #fff;
+    max-width: var(--text-max);
+    margin: 3em 0 0.8em;
+    line-height: 1.2;
+  }
+  .article-body h3 {
+    font-family: var(--f-mono);
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--ritual);
+    max-width: var(--text-max);
+    margin: 2.5em 0 0.8em;
+  }
+
+  /* Pull quote */
+  .pull-quote {
+    max-width: 580px;
+    margin: 3em 0;
+    padding: 28px 0 28px 32px;
+    border-left: 1.5px solid var(--ritual);
+  }
+  .pull-quote p {
+    font-family: var(--f-display);
+    font-size: clamp(20px, 2.4vw, 30px) !important;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--ritual-pale) !important;
+    line-height: 1.4 !important;
+    margin-bottom: 0 !important;
+    max-width: none !important;
+  }
+  .pull-quote cite {
+    display: block;
+    font-family: var(--f-mono);
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(240,130,100,0.4);
+    margin-top: 14px;
+  }
+  .pull-quote.amber { border-left-color: var(--amber); }
+  .pull-quote.amber p { color: var(--amber-pale) !important; }
+
+  /* Location marker */
+  .location-marker {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--f-mono);
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(245,232,192,0.25);
+    margin: 2em 0 0.5em;
+  }
+  .location-marker::before {
+    content: '';
+    width: 20px; height: 0.5px;
+    background: rgba(245,232,192,0.15);
+  }
+
+  /* Section break */
+  .section-break {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 3.5em 0;
+    max-width: var(--text-max);
+  }
+  .section-break::before,
+  .section-break::after {
+    content: '';
+    flex: 1;
+    height: 0.5px;
+    background: rgba(245,232,192,0.08);
+  }
+  .section-break span {
+    font-family: var(--f-mono);
+    font-size: 9px;
+    color: rgba(240,130,100,0.3);
+    letter-spacing: 0.2em;
+  }
+
+  /* ── FROM THIS SERIES ── */
+  .series-section {
+    background: var(--off-black);
+    border-top: 3px solid #111;
+    padding: 64px 36px 80px;
+  }
+  .series-inner { max-width: 900px; margin: 0 auto; }
+  .series-eyebrow {
+    font-family: var(--f-mono);
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(240,130,100,0.5);
+    margin-bottom: 8px;
+  }
+  .series-heading {
+    font-family: var(--f-display);
+    font-size: clamp(22px, 3vw, 32px);
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(245,232,192,0.6);
+    margin-bottom: 40px;
+  }
+  .series-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3px;
+  }
+  .series-card {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 20px;
+    transition: filter 0.25s;
+  }
+  .series-card:hover { filter: brightness(1.12); }
+  .series-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.1) 55%, transparent 100%);
+    z-index: 1;
+  }
+  .series-card-bg {
+    position: absolute; inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.35;
+    transition: transform 0.4s ease;
+  }
+  .series-card:hover .series-card-bg { transform: scale(1.04); }
+  .series-card-content { position: relative; z-index: 2; }
+  .series-card-type {
+    font-family: var(--f-mono);
+    font-size: 8px;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .series-card-type::before {
+    content: '';
+    display: inline-block;
+    width: 10px; height: 0.5px;
+    background: currentColor;
+    flex-shrink: 0;
+  }
+  .series-card-title {
+    font-family: var(--f-display);
+    font-size: clamp(13px, 1.2vw, 17px);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.25;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .series-card-sub {
+    font-family: var(--f-body);
+    font-size: 10px;
+    color: rgba(245,232,192,0.4);
+    line-height: 1.5;
+    display: none;
+  }
+  .series-card:hover .series-card-sub { display: block; }
+
+  /* Active card (this essay) */
+  .series-card-active {
+    outline: 1.5px solid rgba(240,130,100,0.5);
+    cursor: default;
+  }
+  .series-card-active:hover { filter: none; }
+  .series-card-active .series-card-bg { opacity: 0.45; }
+
+  /* Coming soon */
+  .series-card-coming { opacity: 0.4; cursor: default; }
+  .series-card-coming:hover { filter: none !important; }
+  .series-card-coming .series-card-bg { opacity: 0.2; }
+  .series-soon-tag {
+    position: absolute;
+    top: 14px; right: 14px;
+    font-family: var(--f-mono);
+    font-size: 7px;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(245,232,192,0.6);
+    border: 0.5px solid rgba(245,232,192,0.25);
+    padding: 4px 8px;
+    border-radius: 2px;
+    background: rgba(0,0,0,0.4);
+    z-index: 3;
+  }
+
+  .sc-ritual     { background: #160C0A; }
+  .sc-ritual     .series-card-type { color: rgba(240,130,100,1.0); }
+  .sc-botanical  { background: #0A150E; }
+  .sc-botanical  .series-card-type { color: rgba(110,220,130,1.0); }
+  .sc-philosophy { background: #14100A; }
+  .sc-philosophy .series-card-type { color: rgba(228,168,74,0.9); }
+  .sc-prep       { background: #0C0C14; }
+  .sc-prep       .series-card-type { color: rgba(180,172,255,1.0); }
+
+  /* FOOTER */
+  footer {
+    background: var(--black);
+    border-top: 3px solid #111;
+    padding: 40px 36px 36px;
+  }
+  .footer-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 32px; align-items: start;
+  }
+  .footer-brand .footer-logo {
+    font-family: var(--f-display); font-size: 10px;
+    letter-spacing: 0.3em; color: rgba(240,130,100,0.5);
+    text-transform: uppercase; display: block; margin-bottom: 8px;
+  }
+  .footer-tagline {
+    font-family: var(--f-display); font-size: 10px;
+    font-style: italic; color: rgba(245,232,192,0.25);
+  }
+  .footer-company h4, .footer-contact h4 {
+    font-family: var(--f-mono); font-size: 10px;
+    letter-spacing: 0.22em; color: #888780;
+    text-transform: uppercase; margin-bottom: 12px; opacity: 0.5;
+  }
+  .footer-company p, .footer-company a, .footer-contact a {
+    font-family: var(--f-mono); font-size: 10px;
+    letter-spacing: 0.1em; color: rgba(136,135,128,0.45);
+    line-height: 2; display: block; text-decoration: none;
+  }
+  .footer-bottom {
+    max-width: 1200px; margin: 28px auto 0;
+    padding-top: 20px; border-top: 0.5px solid rgba(255,255,255,0.05);
+    display: flex; justify-content: space-between;
+  }
+  .footer-note {
+    font-family: var(--f-mono); font-size: 10px;
+    letter-spacing: 0.14em; color: rgba(136,135,128,0.25);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 767px) {
+    nav { padding: 13px 18px; }
+    .article-hero { height: 60vh; }
+    .hero-content { padding: 0 18px 40px; }
+    .article-wrap { padding: 48px 18px 72px; }
+    .article-body > p:first-of-type::first-letter { font-size: 4em; }
+    .pull-quote { padding-left: 20px; }
+    .series-section { padding: 40px 18px 56px; }
+    .series-grid { grid-template-columns: repeat(2, 1fr); }
+    footer { padding: 28px 18px 24px; }
+    .footer-inner { grid-template-columns: 1fr; gap: 22px; }
+    .footer-bottom { flex-direction: column; gap: 5px; }
+  }
+  @media (hover: none), (pointer: coarse) {
+    .cursor { display: none !important; }
+    body { cursor: auto; }
+  }
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html">
+    <img src="Thien-Kien-logo.webp" alt="Thiện Kiến" class="nav-logo-img">
+  </a>
+  <a href="field-log-1.html" class="nav-back">Field Log · Hành Trình Thiên Lý</a>
+</nav>
+
+<!-- HERO -->
+<div class="article-hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="article-breadcrumb">
+      <span class="breadcrumb-item">The Journey Log</span>
+      <span class="breadcrumb-sep">›</span>
+      <span class="breadcrumb-item">Roads & Journeys</span>
+      <span class="breadcrumb-sep">›</span>
+      <span class="breadcrumb-item breadcrumb-current">The Village Returns to the Temple</span>
+    </div>
+    <div class="article-type-tag">Ritual Essay · Roads & Journeys · 2024</div>
+    <h1 class="article-hero-title">The Village Returns<br>to the Temple</h1>
+    <p class="article-hero-sub">Nam Định · A festival procession, a communal meal, and the quiet structures that hold a village together long after the ceremony ends.</p>
+    <div class="article-meta-row">
+      <span class="meta-pill">2024 · Lunar Month 2</span>
+      <span class="meta-pill">Vân Đồn Village · Nam Trực · Nam Định</span>
+      <span class="meta-pill">~1,600 words</span>
+      <span class="meta-pill">Hoàng Đại</span>
+    </div>
+  </div>
+</div>
+
+<!-- ARTICLE -->
+<div class="article-wrap">
+  <div class="article-body">
+
+    <p>There are journeys where the road itself slowly begins to explain the country.</p>
+
+    <p>Our arrival in Nam Định was shaped long before we ever crossed into the province. Back in 2023, while wandering through Phú Nhuận in Ho Chi Minh City, Hải Ninh and I unexpectedly found ourselves at <strong>Hùng Vương Vân Đồn Temple</strong> — a spiritual site established decades ago by migrants from Nam Trực, Nam Định.</p>
+
+    <p>Both of us carry the Hoàng surname, and through a series of small conversations with the temple keeper, chú Tuất, we were introduced to the intertwined histories of the <strong>Hoàng, Lại, and Đỗ families</strong> who had once left northern Vietnam and rebuilt fragments of their village life in the South. Some families donated land to establish a vọng temple — a place to continue worshipping the Mother Goddess and the sacred spirits of Đông Temple and Tây Temple from afar.</p>
+
+    <p>What struck us most was that the local belief system here existed somewhat outside the formal structure of the Four Palaces Mother Goddess tradition commonly associated with northern Vietnam. It belonged specifically to this village, this lineage, this migration story.</p>
+
+    <p>During our Journey Across the Thousand Miles, we could not pass through the North without visiting the place where these traditions first began.</p>
+
+    <div class="pull-quote">
+      <p>"We arrived in Vân Đồn village on the 10th day of the second lunar month — the annual festival day of Tây Temple. The procession entered the village roads just as we arrived."</p>
+      <cite>Hoàng Đại — Thiện Kiến</cite>
+    </div>
+
+    <div class="section-break"><span>✦</span></div>
+
+    <h3>The Procession</h3>
+    <div class="location-marker">Vân Đồn Village · Nam Trực · Nam Định</div>
+
+    <p>Women in áo dài stood along the roadside holding five-coloured ceremonial flags. At the front came the drum keeper and the lion dancers. Behind them were the men carrying the first palanquin, bearing a large incense urn. Another ceremonial team followed carrying the <strong>National Heritage certificate</strong> — a modern echo of what would once have been royal decrees carried through the village during imperial times.</p>
+
+    <p>Then came the offering trays, musicians with đàn nhị, horns and drums, women carrying ritual staffs and parasols, and finally the women's palanquin team carrying the <em>kiệu võng</em> through the village roads.</p>
+
+    <p>The procession departed from the Mother Temple, split into two directions toward Đông Temple and Tây Temple, before joining together again along the village's main road and eventually returning to where it had begun.</p>
+
+    <p>Unlike many processions elsewhere, where men carry all ceremonial palanquins, the women here were entrusted with the võng kiệu.</p>
+
+    <div class="pull-quote">
+      <p>"The entire village seemed to move as one continuous body."</p>
+    </div>
+
+    <div class="section-break"><span>✦</span></div>
+
+    <h3>Structure Without Announcement</h3>
+
+    <p>Once the procession returned to the Mother Temple courtyard, the movement gradually separated into smaller ritual roles. The men carrying the incense palanquin and ceremonial documents entered the main hall. The ritual team prepared for the offering rites. Elder men sat to the left, women to the right.</p>
+
+    <p>Everything appeared to unfold according to a structure long understood before anyone arrived.</p>
+
+    <p>According to local accounts, the Mother Goddess had once been the daughter of an official from the Liang dynasty who followed her father southward to oversee the region. When the emperor summoned the family back to the capital, her father died along the journey. After the death of her mother soon after, she remained behind, donated land to establish a temple, and helped villagers cultivate the surrounding fields before eventually departing in search of her father's burial place. She later died on the road and was believed to have become a sacred spirit.</p>
+
+    <p>Villagers also believe she once appeared to aid Trần dynasty forces during campaigns against Champa. Through the Lê and Nguyễn dynasties, her worship continued to receive recognition, eventually culminating in an imperial decree under <strong>Emperor Khải Định</strong> conferring upon her the title of Princess.</p>
+
+    <p>Because she had entered religious life early, offerings presented at the Mother Temple remain entirely vegetarian. Yet at the sacred spirits of Đông Temple and Tây Temple, the offerings are different — sticky rice and pork shared communally after the ceremonies conclude.</p>
+
+    <div class="section-break"><span>✦</span></div>
+
+    <h3>Communal Labour</h3>
+
+    <p>Each year, different village families take turns raising ceremonial pigs for the festival season. Heavy labour falls largely to the men, while the women prepare vegetables and cooking inside communal kitchens. Younger men carry the palanquins through the village roads. By late afternoon, the women return once again as dancers and performers within the ceremony itself.</p>
+
+    <div class="pull-quote">
+      <p>"The festival was not merely preserving belief.<br>It was preserving participation."</p>
+    </div>
+
+    <div class="section-break"><span>✦</span></div>
+
+    <h3>The Meal</h3>
+
+    <p>After the incense offerings and ceremonial rites concluded, the village gradually settled into another part of the gathering — conversation. People moved between tables asking about families, harvests, old neighbours, and returning relatives. And somehow, amidst all of that, Hải Ninh and I were welcomed into the middle of it as well.</p>
+
+    <p>The meal itself was remarkably simple: boiled pork, sticky rice, salt and pepper, and cups of rice liquor shared across the tables. From the communal kitchen, each table received its own tray of pork and glutinous rice. Nothing was elaborate. Yet everything felt deeply complete within that setting.</p>
+
+    <p>The pork carried the unmistakable flavour of home-raised livestock — clean, rich, and surprisingly light despite the layers of fat. Nothing about the preparation was complicated. The meat had simply been boiled, yet done with the quiet precision of people who had repeated the same task for generations.</p>
+
+    <p>The sticky rice remained soft throughout the long afternoon ceremonies, neither dry nor overly dense. Together with salt, pepper, conversation, handshakes, and cups of rice wine passed from one person to another, the meal became far more than food itself.</p>
+
+    <div class="pull-quote amber">
+      <p>"Simple is the best, always."</p>
+    </div>
+
+    <p>Many of the next places we would eventually visit during the journey were first suggested to us over those tables.</p>
+
+    <div class="section-break"><span>✦</span></div>
+
+    <h3>Traces That Endure</h3>
+
+    <p>In Vân Đồn village, we also began noticing small traces of a past that had not entirely disappeared. French military doctor <strong>Charles-Édouard Hocquard</strong> once described seeing chalk-drawn bows and arrows outside homes during Tết in Huế in 1886 — symbols believed to ward away evil spirits. More than a century later, we found similar markings still drawn in white lime outside village homes in Nam Định.</p>
+
+    <p>Seasonal fruits remained piled beside the roads. Rice fields stretched green across the landscape. Certain rhythms had endured quietly here.</p>
+
+    <p>Local friends eventually led us toward a bowl of Nam Định phở at a small shop called <strong>Phở Gốc Tre</strong> — the kind of meal that quietly stays with you long after the journey ends. The broth was remarkably clear yet deeply layered in flavour. Northern-style chili sauces, crispy quẩy, fresh herbs, and slices of beef all seemed to hold together through an ingredient quality difficult to replicate elsewhere.</p>
+
+    <div class="pull-quote">
+      <p>"Technique can be replicated.<br>But flavour still belongs to the land, the ingredients, and the people who shape them."</p>
+    </div>
+
+    <p>Not far away, near Đò Quan Bridge, we stopped for hot pâté bánh mì served straight from the pot while still steaming. Seeing, smelling, touching, and tasting the pâté all at once created a kind of immediacy that words struggle to explain.</p>
+
+    <p>Before leaving Nam Định, we stopped once more at <strong>Trần Temple</strong> to offer incense — in gratitude not only for the military legacy of the Trần dynasty, but also for the spiritual discipline and sense of conduct that continued shaping Vietnamese life long after the dynasty itself had passed.</p>
+
+    <p>From there, the road led onward toward Thăng Long.</p>
+
+  </div>
+</div>
+
+<!-- FROM THIS SERIES -->
+<section class="series-section">
+  <div class="series-inner">
+    <p class="series-eyebrow">Roads & Journeys · Series 2024</p>
+    <h2 class="series-heading">More from this journey</h2>
+    <div class="series-grid">
+
+      <!-- 1. Field Log — clickable, links back -->
+      <div class="series-card sc-ritual" data-href="field-log-1.html">
+        <div class="series-card-bg" style="background-image:url('Journey_0.webp')"></div>
+        <div class="series-card-content">
+          <div class="series-card-type">Field Log</div>
+          <div class="series-card-title">Hành Trình Thiên Lý</div>
+          <div class="series-card-sub">The anchor field log — Before the event, there was the road.</div>
+        </div>
+      </div>
+
+      <!-- 2. The Village Returns — active (this page) -->
+      <div class="series-card sc-ritual series-card-active">
+        <div class="series-card-bg" style="background-image:url('Journey_5.webp')"></div>
+        <div class="series-card-content">
+          <div class="series-card-type">Ritual Essay · Now reading</div>
+          <div class="series-card-title">The Village Returns to the Temple</div>
+        </div>
+      </div>
+
+      <!-- 3. The Trees That Continued — coming soon -->
+      <div class="series-card sc-botanical series-card-coming">
+        <div class="series-card-bg" style="background-image:url('Journey_1.webp')"></div>
+        <span class="series-soon-tag">Coming soon</span>
+        <div class="series-card-content">
+          <div class="series-card-type">Botanical & Cultural Essay</div>
+          <div class="series-card-title">The Trees That Continued</div>
+          <div class="series-card-sub">Hải Dương & Hưng Yên · Agricultural continuity of the Red River Delta.</div>
+        </div>
+      </div>
+
+      <!-- 4. What Water Teaches — coming soon -->
+      <div class="series-card sc-philosophy series-card-coming">
+        <div class="series-card-bg" style="background-image:url('Journey_3.webp')"></div>
+        <span class="series-soon-tag">Coming soon</span>
+        <div class="series-card-content">
+          <div class="series-card-type">Internal Philosophy</div>
+          <div class="series-card-title">What Water Teaches in Sơn La</div>
+          <div class="series-card-sub">Yên Châu · On survival, climate, and adaptation.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="footer-logo">Thiện Kiến</span>
+      <div class="footer-tagline">Prepared with Understanding</div>
+    </div>
+    <div class="footer-company">
+      <h4>Company Information</h4>
+      <p>Thien Kien Service - Trading Limited Company</p>
+      <p>MST: 0317374438</p>
+    </div>
+    <div class="footer-contact">
+      <h4>Contact</h4>
+      <a href="mailto:thienkien.sudarshana@gmail.com">thienkien.sudarshana@gmail.com</a>
+      <a href="tel:+84976847789">(+84) 976-847-789</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-note">© 2026 Thiện Kiến · Ho Chi Minh City, Vietnam</div>
+    <div class="footer-note">The Journey Log · Ritual Essay</div>
+  </div>
+</footer>
+
+<script>
+  const isTouchDevice = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+  const cur = document.getElementById('cursor');
+  if (!isTouchDevice) {
+    document.addEventListener('mousemove', e => {
+      cur.style.left = e.clientX + 'px';
+      cur.style.top  = e.clientY + 'px';
+    });
+  }
+  // Series card clicks
+  document.querySelectorAll('.series-card[data-href]').forEach(card => {
+    card.addEventListener('click', () => {
+      window.location.href = card.dataset.href;
+    });
+  });
+</script>
+</body>
+</html>
