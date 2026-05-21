@@ -637,9 +637,8 @@
     <div class="series-grid">
 
       <!-- 1. The Village Returns to the Temple — coming soon -->
-      <div class="series-card sc-ritual series-card-coming">
+      <div class="series-card sc-ritual" data-href="essay-ritual-1.html">
         <div class="series-card-bg" style="background-image:url('Journey_5.webp')"></div>
-        <span class="series-soon-tag">Coming soon</span>
         <div class="series-card-content">
           <div class="series-card-type">Ritual Essay</div>
           <div class="series-card-title">The Village Returns to the Temple</div>
@@ -716,7 +715,16 @@
       cur.style.left = e.clientX + 'px';
       cur.style.top  = e.clientY + 'px';
     });
+    document.querySelectorAll('.series-card:not(.series-card-coming)').forEach(el => {
+      el.addEventListener('mouseenter', () => cur.classList.add('big'));
+      el.addEventListener('mouseleave', () => cur.classList.remove('big'));
+    });
   }
+  document.querySelectorAll('.series-card[data-href]').forEach(card => {
+    card.addEventListener('click', () => {
+      window.location.href = card.dataset.href;
+    });
+  });
 </script>
 </body>
 </html>
