@@ -593,6 +593,9 @@
     grid-column: 3;
     grid-row: 3;
     background: var(--bark);
+    background-image: url('Journey_6.webp');
+    background-size: cover;
+    background-position: center;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -602,8 +605,25 @@
     animation: fadeIn 0.8s 1.4s forwards;
     cursor: pointer;
     transition: background 0.3s;
+    position: relative;
+    overflow: hidden;
   }
-  .cell-h:hover { background: #5A4535; }
+  .cell-h::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 30px; height: 30px;
+    background: #2D1E10;
+    z-index: 3;
+  }
+  .cell-h::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(45,30,16,0.75) 0%, rgba(45,30,16,0.15) 60%, transparent 100%);
+    z-index: 1;
+  }
+  .cell-h:hover { background-color: #5A4535; }
   .cta-label {
     font-family: var(--f-mono);
     font-size: 9px;
@@ -612,6 +632,7 @@
     color: var(--amber-lt);
     text-transform: uppercase;
     margin-bottom: 6px;
+    position: relative; z-index: 2;
   }
   .cta-text {
     font-family: var(--f-display);
@@ -619,12 +640,14 @@
     font-weight: 300;
     color: var(--cream);
     line-height: 1.3;
+    position: relative; z-index: 2;
   }
   .cta-arrow {
     font-size: 20px;
     color: var(--amber);
     margin-top: 10px;
     transition: transform 0.25s;
+    position: relative; z-index: 2;
   }
   .cell-h:hover .cta-arrow { transform: translateX(4px); }
   /* ─── CLIENTS SECTION ─── */
@@ -1413,7 +1436,7 @@ It comes from atmosphere, rhythm, preparation and shared experience.</p>
     <div class="footer-company">
       <h4>COMPANY INFORMATION</h4>
       <p>Thien Kien Service - Trading Limited Company</p>
-      <p>Tax Number: 0317374438</p>
+      <p>MST: 0317374438</p>
     </div>
     <div class="footer-contact">
       <h4>CONTACT</h4>
