@@ -358,6 +358,71 @@
     line-height: 1.6;
   }
 
+  /* Document download link */
+  .doc-link {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    max-width: var(--text-max);
+    margin: 1.6em 0;
+    padding: 18px 20px;
+    border: 0.5px solid rgba(110,220,130,0.25);
+    background: rgba(110,220,130,0.04);
+    text-decoration: none;
+    transition: background 0.2s, border-color 0.2s;
+    cursor: pointer;
+  }
+  .doc-link:hover {
+    background: rgba(110,220,130,0.08);
+    border-color: rgba(110,220,130,0.5);
+  }
+  .doc-link-icon {
+    font-family: var(--f-mono);
+    font-size: 18px;
+    color: var(--botanical);
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border: 0.5px solid rgba(110,220,130,0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 300;
+  }
+  .doc-link-body {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+  }
+  .doc-link-title {
+    font-family: var(--f-display);
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--cream);
+    letter-spacing: 0.02em;
+  }
+  .doc-link-meta {
+    font-family: var(--f-mono);
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(110,220,130,0.5);
+  }
+  .doc-link-arrow {
+    font-family: var(--f-mono);
+    font-size: 14px;
+    color: rgba(110,220,130,0.35);
+    flex-shrink: 0;
+    transition: transform 0.2s, color 0.2s;
+  }
+  .doc-link:hover .doc-link-arrow {
+    transform: translateX(4px);
+    color: var(--botanical);
+  }
+
   /* Image placeholder */
   .img-placeholder {
     background: rgba(110,220,130,0.04);
@@ -712,6 +777,15 @@
     <h3>Technique du peuple Annamite — Henri Oger</h3>
 
     <p>This came through the work <em>Technique du peuple Annamite</em> — by Henri Oger, a French scholar who personally financed painters and woodblock artisans to document the daily life, beliefs, tools, and customs of Vietnamese society at the time.</p>
+
+    <a class="doc-link" href="https://drive.google.com/file/d/1vL8Tas01teh8igkfpL-kbcbLwY9dUsCO/view?usp=sharing" target="_blank" rel="noopener">
+      <span class="doc-link-icon">↓</span>
+      <span class="doc-link-body">
+        <span class="doc-link-title">Technique du peuple Annamite</span>
+        <span class="doc-link-meta">Henri Oger · PDF · Google Drive</span>
+      </span>
+      <span class="doc-link-arrow">→</span>
+    </a>
 
     <p>The two woodblock artisans who participated in that project both came from <strong>Thanh Liễu village</strong>. They even discreetly left the name of their village on several woodblocks — a small silent mark hidden within history. Because of that project, we are now able to see Vietnamese society from more than a century ago with extraordinary vividness and intimacy.</p>
 
