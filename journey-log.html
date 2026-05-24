@@ -1,14 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-V035ZKD02Y"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-V035ZKD02Y');
-</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Journey Log — Thiện Kiến</title>
@@ -643,6 +635,7 @@
     .nav-links { display: none; }
     .nav-hamburger { display: flex; }
     .log-grid { grid-template-columns: 1fr 1fr; padding: 32px 24px 60px; }
+    #essayGrid { grid-template-columns: 1fr 1fr; }
     .card-featured { grid-column: 1 / 3; min-height: 380px; }
     .card-wide { flex-direction: column; align-items: flex-start; min-height: 140px; }
     .card-wide .card-content { flex-direction: column; gap: 12px; }
@@ -676,6 +669,11 @@
     background-repeat: no-repeat, no-repeat;
     background-size: 50% 100%, 50% 100%;
     background-position: left center, right center;
+  }
+
+  /* ESSAY GRID: equal 2-col */
+  #essayGrid {
+    grid-template-columns: 1fr 1fr;
   }
 
   /* HERO: full-width solo field log card */
@@ -822,7 +820,7 @@
   <!-- ESSAYS: Roads & Journeys — 2-col grid -->
   <div class="section-label" style="margin-top: 20px;">
     <span class="section-label-text">Essays · Roads & Journeys</span>
-    <span class="section-count">4 pieces · 1 published</span>
+    <span class="section-count">5 pieces · 1 published</span>
   </div>
 
   <div class="log-grid" id="essayGrid" style="padding-top: 24px;">
@@ -845,8 +843,20 @@
       <div class="card-content">
         <div class="card-type">Botanical & Cultural Essay</div>
         <h3 class="card-title">The Trees That Continued</h3>
-        <p class="card-excerpt">Hải Dương & Hưng Yên · Cây tổ, agricultural continuity, and the cultivation memory of the Red River Delta.</p>
-        <div class="card-meta"><span>2024</span><span>~2,200 words</span></div>
+        <p class="card-excerpt">Hải Dương · The ancestral lychee tree, migratory beekeepers, Thanh Liễu woodblocks, and the agricultural memory of the Red River Delta.</p>
+        <div class="card-meta"><span>Hải Dương · 2024</span><span>~2,200 words</span></div>
+      </div>
+    </div>
+
+    <!-- Where History Still Walks Quietly -->
+    <div class="card type-ritual card-coming" data-category="ritual roads" style="animation-delay:1.05s; min-height:300px; overflow:hidden;">
+      <div class="card-featured-img" style="background-image:url('Journey_2.webp')"></div>
+      <span class="soon-tag">Coming soon</span>
+      <div class="card-content">
+        <div class="card-type">Ritual & Cultural Essay</div>
+        <h3 class="card-title">Where History Still Walks Quietly</h3>
+        <p class="card-excerpt">Phố Hiến, Hưng Yên · Temple towns, old lineages, northern sweets, and the lingering memory of Thăng Long's outer provinces.</p>
+        <div class="card-meta"><span>Hưng Yên · 2024</span><span>~1,800 words</span></div>
       </div>
     </div>
 
