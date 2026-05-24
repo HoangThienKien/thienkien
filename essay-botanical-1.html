@@ -203,6 +203,8 @@
     max-width: 900px;
     margin: 0 auto;
     padding: 72px 36px 100px;
+    box-sizing: border-box;
+    overflow: hidden;
   }
   .article-body > p:first-of-type::first-letter {
     font-family: var(--f-display);
@@ -318,24 +320,30 @@
   /* Article images */
   .article-img {
     max-width: var(--text-max);
-    margin: 2.5em 0;
+    margin: 2.5em auto;
+    width: 100%;
+    box-sizing: border-box;
   }
   .article-img img {
     width: 100%;
+    max-width: 100%;
+    height: auto;
     display: block;
     object-fit: cover;
-    min-height: 200px;
     background: rgba(110,220,130,0.04);
   }
   .article-img-wide {
-    max-width: 820px;
-    margin: 3em 0;
+    max-width: 100%;
+    margin: 3em auto;
+    width: 100%;
+    box-sizing: border-box;
   }
   .article-img-wide img {
     width: 100%;
+    max-width: 100%;
+    height: auto;
     display: block;
     object-fit: cover;
-    min-height: 260px;
     background: rgba(110,220,130,0.04);
   }
   .article-img figcaption,
@@ -628,10 +636,10 @@
 
     <p>Today, thanks to smartphones and digital maps, finding the ancestral lychee tree is fairly easy. But there is also a much older way — simply asking the locals, because everyone here knows the road leading to it.</p>
 
-<figure class="article-img-wide">
-  <img src="essay2-3.webp" alt="Ancestral Lychee" loading="eager">
-  <figcaption>The Ancestral Lychee Tree in Thanh Hà · Hải Dương · 2024</figcaption>
-</figure>
+    <figure class="article-img-wide">
+      <img src="essay2-3.webp" alt="Ancestral Lychee" loading="eager">
+      <figcaption>The Ancestral Lychee Tree in Thanh Hà · Hải Dương · 2024</figcaption>
+    </figure>
 
     <h3>Cây Vải Tổ & Cụ Hoàng Văn Cơm</h3>
 
@@ -649,10 +657,10 @@
 
     <p>And now, here at the birthplace of Vietnam's most famous lychee variety, the man who began an entire region's centuries-old growing tradition… was once again a man bearing the surname Hoàng.</p>
 
-<figure class="article-img">
-  <img src="Journey_1.webp" alt="Hoang Van Com memorial · Thanh Ha · Hai Duong" loading="lazy">
-  <figcaption>Hoàng Văn Cơm memorial and The Ancestral Lychee Tree · Thanh Hà · Hải Dương · 2024</figcaption>
-</figure>
+    <figure class="article-img">
+      <img src="Journey_1.webp" alt="Hoang Van Com memorial · Thanh Ha · Hai Duong" loading="lazy">
+      <figcaption>Hoàng Văn Cơm memorial and The Ancestral Lychee Tree · Thanh Hà · Hải Dương · 2024</figcaption>
+    </figure>
 
     <h3>Người Giữ Miếu — The Keeper of the Shrine</h3>
 
@@ -707,10 +715,10 @@
 
     <p>The two woodblock artisans who participated in that project both came from <strong>Thanh Liễu village</strong>. They even discreetly left the name of their village on several woodblocks — a small silent mark hidden within history. Because of that project, we are now able to see Vietnamese society from more than a century ago with extraordinary vividness and intimacy.</p>
 
-<figure class="article-img">
-  <img src="essay2-5.webp" alt="woodblock carving · Hai Duong" loading="lazy">
-  <figcaption>Woodblock carving tools and techniques · Thanh Liễu village · Hải Dương · 2024</figcaption>
-</figure>
+    <figure class="article-img">
+      <img src="essay2-5.webp" alt="woodblock carving · Hai Duong" loading="lazy">
+      <figcaption>Woodblock carving tools and techniques · Thanh Liễu village · Hải Dương · 2024</figcaption>
+    </figure>
 
     <p>In Thanh Liễu, Công Đạt showed us old carving tools and techniques passed down through generations. Some details, even today with modern machinery, still cannot fully recreate the methods used by earlier craftsmen. More unfortunate still, some of those techniques have already disappeared.</p>
 
@@ -720,10 +728,10 @@
       <p>"In an era where many traditional craft villages survive only as names inside tourism brochures, there are still people who choose to remain and protect the memory of their homeland."</p>
     </div>
 
-<figure class="article-img-wide">
-  <img src="essay2-6.webp" alt="Công Đạt at his workshop · Thanh Liễu woodblock carving village · 2024" loading="lazy">
-  <figcaption>Công Đạt at his workshop · Thanh Liễu woodblock carving village · 2024</figcaption>
-</figure>
+    <figure class="article-img-wide">
+      <img src="essay2-6.webp" alt="Công Đạt at his workshop · Thanh Liễu woodblock carving village · 2024" loading="lazy">
+      <figcaption>Công Đạt at his workshop · Thanh Liễu woodblock carving village · 2024</figcaption>
+    </figure>
 
     <p>From the lychee groves of Thanh Hà to the carving tools of Thanh Liễu, Hải Dương held a kind of memory that does not announce itself. It simply continues — in the shape of a tree, in the grain of a woodblock, in the way an old man pauses his bicycle when he sees someone who has come to look.</p>
 
