@@ -346,6 +346,31 @@
     position: relative;
     z-index: 2;
   }
+  .iso-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--f-mono);
+    font-size: 7.5px;
+    font-weight: 300;
+    letter-spacing: 0.16em;
+    color: rgba(245,208,139,0.75);
+    border: 0.5px solid rgba(200,135,42,0.35);
+    padding: 5px 10px 5px 6px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 2;
+    margin-top: 10px;
+    backdrop-filter: blur(4px);
+  }
+  .iso-badge img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    filter: brightness(0.85) sepia(0.3);
+    flex-shrink: 0;
+  }
   /* ── CELL D: Deep cyan event ── */
   .cell-d {
     grid-column: 2;
@@ -1250,6 +1275,10 @@ for organizations working deeply within Vietnamese contexts.</p>
     <div class="logo-mark">
       <img src="Thien-Kien-logo.webp" alt="Thiện Kiến Logo" class="logo-mark-img">
     </div>
+    <div class="iso-badge">
+      <img src="ISO-22000.png" alt="ISO 22000:2018">
+      ISO 22000:2018 · Food Safety Management
+    </div>
   </div>
   <!-- C: TKG Amber cell -->
   <div class="cell cell-c">
@@ -1382,6 +1411,10 @@ The form changes. The responsibility does not.</p>
       <div class="bh-heading">A physical form of <br> Thiện Kiến's preparation philosophy.</div>
       <p class="bh-body">TKG was developed through years of preparing Vietnamese ingredients for hospitality and international environments.<br>
 The result is a portable botanical system designed to travel without losing integrity or context.</p>
+      <div style="display:inline-flex;align-items:center;gap:7px;margin-top:18px;font-family:var(--f-mono);font-size:8px;letter-spacing:0.16em;color:rgba(200,135,42,0.7);border:0.5px solid rgba(200,135,42,0.25);padding:5px 10px 5px 6px;border-radius:2px;">
+        <img src="ISO-22000.png" alt="ISO 22000:2018" style="width:18px;height:18px;object-fit:contain;filter:grayscale(20%) brightness(0.75);">
+        ISO 22000:2018 CERTIFIED
+      </div>
     </div>
     <div>
       <div class="bh-divider" style="background:var(--stone)"></div>
@@ -1441,6 +1474,10 @@ It comes from atmosphere, rhythm, preparation and shared experience.</p>
       <h4>COMPANY INFORMATION</h4>
       <p>Thien Kien Service - Trading Limited Company</p>
       <p>MST: 0317374438</p>
+      <div style="display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.13em;color:rgba(136,135,128,0.6);border:0.5px solid rgba(136,135,128,0.18);padding:4px 9px 4px 5px;border-radius:2px;">
+        <img src="ISO-22000.png" alt="ISO 22000:2018" style="width:16px;height:16px;object-fit:contain;filter:grayscale(100%) brightness(0.6);">
+        ISO 22000:2018
+      </div>
     </div>
     <div class="footer-contact">
       <h4>CONTACT</h4>
