@@ -1205,7 +1205,7 @@
   .archive-section {
     background: var(--off-black);
     border-top: var(--gap) solid var(--black);
-    padding: 88px 36px;
+    padding: 0;
     position: relative;
     overflow: hidden;
   }
@@ -1221,16 +1221,50 @@
     max-width: 1200px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 190px 1fr;
-    gap: 88px;
-    align-items: center;
+    grid-template-columns: auto 1fr;
+    gap: 0;
+    align-items: stretch;
   }
-  .archive-map-col { display: flex; justify-content: center; }
-  .archive-map-svg {
+  /* Image frame — height driven by right column, width = height × ratio */
+  .archive-img-col {
+    aspect-ratio: 4/5;
+    align-self: stretch;
+    position: relative;
+    background: #0a1a26;
+    border-right: 1px solid rgba(245,232,192,0.07);
+    min-width: 140px;
+    max-width: 260px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .archive-img {
+    position: absolute;
+    inset: 0;
     width: 100%;
-    max-width: 170px;
-    filter: drop-shadow(0 0 28px rgba(41,197,208,0.16));
+    height: 100%;
+    object-fit: cover;
+    display: none;
   }
+  .archive-img-ph {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px;
+  }
+  .archive-img-ph svg { opacity: .2; }
+  .archive-img-filename {
+    font-size: 8px;
+    color: #2e4f6a;
+    font-family: monospace;
+    text-align: center;
+    word-break: break-all;
+    line-height: 1.5;
+  }
+  .archive-text-col { padding: 56px 56px 56px 64px; }
   .archive-label {
     font-family: var(--f-mono);
     font-size: 9px;
@@ -1302,14 +1336,15 @@
   }
   .archive-cta:hover { color: var(--cyan-pale); gap: 16px; border-color: rgba(125,232,238,0.45); }
   @media (max-width: 1023px) {
-    .archive-inner { grid-template-columns: 150px 1fr; gap: 48px; }
+    .archive-inner { grid-template-columns: auto 1fr; }
+    .archive-img-col { min-width: 110px; max-width: 200px; }
     .archive-stats { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 767px) {
-    .archive-section { padding: 48px 18px; }
-    .archive-inner { grid-template-columns: 1fr; gap: 36px; }
-    .archive-map-col { justify-content: flex-start; }
-    .archive-map-svg { max-width: 90px; }
+    .archive-section { padding: 0; }
+    .archive-inner { grid-template-columns: 1fr; }
+    .archive-img-col { aspect-ratio: 16/9; max-width: 100%; min-width: unset; width: 100%; border-right: none; border-bottom: 1px solid rgba(245,232,192,0.07); }
+    .archive-text-col { padding: 32px 18px; }
     .archive-stats { grid-template-columns: repeat(2, 1fr); }
     .stat-num { font-size: clamp(28px, 8vw, 42px); }
     .archive-sub { margin-bottom: 32px; }
@@ -1541,30 +1576,15 @@ It comes from atmosphere, rhythm, preparation and shared experience.</p>
 <!-- ── FOOD ARCHIVE SECTION ── -->
 <section class="archive-section">
   <div class="archive-inner">
-    <div class="archive-map-col">
-      <svg class="archive-map-svg" viewBox="0 0 100 260" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <radialGradient id="archiveMapGlow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="rgba(41,197,208,0.12)"/>
-            <stop offset="100%" stop-color="transparent"/>
-          </radialGradient>
-        </defs>
-        <ellipse cx="44" cy="130" rx="55" ry="115" fill="url(#archiveMapGlow)"/>
-        <path d="M42,5 C48,4 56,6 62,10 C70,16 74,24 72,34 C70,42 66,48 68,56 C70,64 74,70 74,80 C74,90 70,96 70,106 C70,116 72,122 70,132 C68,142 64,148 62,158 C60,168 58,178 56,185 C52,192 46,196 38,197 C30,198 22,195 16,190 C10,185 8,178 10,170 C12,162 18,157 18,148 C18,139 14,132 14,122 C14,112 18,106 18,96 C18,86 14,80 14,70 C14,60 18,54 22,46 C26,38 26,30 22,22 C18,14 22,8 30,6 Z"
-              fill="rgba(41,197,208,0.06)" stroke="rgba(41,197,208,0.45)" stroke-width="0.7"/>
-        <path d="M62,10 C70,16 74,24 72,34 C70,42 66,48 68,56 C70,64 74,70 74,80 C74,90 70,96 70,106 C70,116 72,122 70,132 C68,142 64,148 62,158 C60,168 58,178 56,185"
-              stroke="rgba(41,197,208,0.12)" stroke-width="0.4" stroke-dasharray="1.5,4"/>
-        <circle cx="30" cy="22" r="2.2" fill="#7F77DD" opacity="0.85"/>
-        <circle cx="58" cy="18" r="2" fill="#1D9E75" opacity="0.85"/>
-        <circle cx="50" cy="38" r="2.8" fill="#D85A30" opacity="0.9"/>
-        <circle cx="66" cy="60" r="2" fill="#D4537E" opacity="0.85"/>
-        <circle cx="70" cy="88" r="2" fill="#378ADD" opacity="0.85"/>
-        <circle cx="54" cy="108" r="2" fill="#BA7517" opacity="0.85"/>
-        <circle cx="58" cy="148" r="2.2" fill="#E24B4A" opacity="0.85"/>
-        <circle cx="34" cy="185" r="2.5" fill="#639922" opacity="0.9"/>
-        <circle cx="14" cy="186" r="1" fill="rgba(245,232,192,0.4)"/>
-        <circle cx="56" cy="175" r="1" fill="rgba(245,232,192,0.3)"/>
-      </svg>
+    <div class="archive-img-col">
+      <img class="archive-img" id="archive-photo" src="" alt="">
+      <div class="archive-img-ph">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(41,197,208,0.6)" stroke-width="1.2">
+          <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+          <circle cx="12" cy="13" r="4"/>
+        </svg>
+        <div class="archive-img-filename">archive-photo.jpg</div>
+      </div>
     </div>
     <div class="archive-text-col">
       <span class="archive-label">Cultural Preparation Archive</span>
