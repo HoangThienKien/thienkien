@@ -1201,6 +1201,119 @@
     .footer-bottom { flex-direction: column; gap: 5px; align-items: flex-start; }
     .footer-note { font-size: 9px; }
   }
+  /* ─── FOOD ARCHIVE SECTION ─── */
+  .archive-section {
+    background: var(--off-black);
+    border-top: var(--gap) solid var(--black);
+    padding: 88px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  .archive-section::before {
+    content: '';
+    position: absolute;
+    left: -5%; top: -30%;
+    width: 55%; height: 160%;
+    background: radial-gradient(ellipse, rgba(41,197,208,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .archive-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 190px 1fr;
+    gap: 88px;
+    align-items: center;
+  }
+  .archive-map-col { display: flex; justify-content: center; }
+  .archive-map-svg {
+    width: 100%;
+    max-width: 170px;
+    filter: drop-shadow(0 0 28px rgba(41,197,208,0.16));
+  }
+  .archive-label {
+    font-family: var(--f-mono);
+    font-size: 9px;
+    letter-spacing: 0.28em;
+    color: rgba(41,197,208,0.65);
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    display: block;
+  }
+  .archive-heading {
+    font-family: var(--f-display);
+    font-size: clamp(26px, 3.4vw, 50px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--cream);
+    line-height: 1.1;
+    margin-bottom: 18px;
+  }
+  .archive-sub {
+    font-family: var(--f-body);
+    font-size: 13px;
+    color: var(--stone);
+    line-height: 1.85;
+    margin-bottom: 44px;
+    max-width: 500px;
+  }
+  .archive-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin-bottom: 44px;
+    border-top: 0.5px solid rgba(245,232,192,0.07);
+    border-left: 0.5px solid rgba(245,232,192,0.07);
+  }
+  .archive-stat {
+    padding: 20px 16px 20px 24px;
+    border-right: 0.5px solid rgba(245,232,192,0.07);
+    border-bottom: 0.5px solid rgba(245,232,192,0.07);
+  }
+  .stat-num {
+    font-family: var(--f-display);
+    font-size: clamp(36px, 4vw, 58px);
+    font-weight: 300;
+    color: var(--cream);
+    line-height: 1;
+    display: block;
+    margin-bottom: 7px;
+  }
+  .stat-label {
+    font-family: var(--f-mono);
+    font-size: 8px;
+    letter-spacing: 0.14em;
+    color: var(--stone);
+    text-transform: uppercase;
+    line-height: 1.6;
+  }
+  .archive-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    color: var(--cyan);
+    text-decoration: none;
+    text-transform: uppercase;
+    border-bottom: 0.5px solid rgba(41,197,208,0.28);
+    padding-bottom: 5px;
+    transition: color 0.25s, gap 0.25s, border-color 0.25s;
+  }
+  .archive-cta:hover { color: var(--cyan-pale); gap: 16px; border-color: rgba(125,232,238,0.45); }
+  @media (max-width: 1023px) {
+    .archive-inner { grid-template-columns: 150px 1fr; gap: 48px; }
+    .archive-stats { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 767px) {
+    .archive-section { padding: 48px 18px; }
+    .archive-inner { grid-template-columns: 1fr; gap: 36px; }
+    .archive-map-col { justify-content: flex-start; }
+    .archive-map-svg { max-width: 90px; }
+    .archive-stats { grid-template-columns: repeat(2, 1fr); }
+    .stat-num { font-size: clamp(28px, 8vw, 42px); }
+    .archive-sub { margin-bottom: 32px; }
+  }
   /* ─── VERY SMALL MOBILE < 390px ─── */
   @media (max-width: 389px) {
     .hero { grid-template-rows: 55vh 130px 108px 185px 100px; }
@@ -1425,6 +1538,62 @@ It comes from atmosphere, rhythm, preparation and shared experience.</p>
     </div>
   </div>
 </div>
+<!-- ── FOOD ARCHIVE SECTION ── -->
+<section class="archive-section">
+  <div class="archive-inner">
+    <div class="archive-map-col">
+      <svg class="archive-map-svg" viewBox="0 0 100 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="archiveMapGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="rgba(41,197,208,0.12)"/>
+            <stop offset="100%" stop-color="transparent"/>
+          </radialGradient>
+        </defs>
+        <ellipse cx="44" cy="130" rx="55" ry="115" fill="url(#archiveMapGlow)"/>
+        <path d="M42,5 C48,4 56,6 62,10 C70,16 74,24 72,34 C70,42 66,48 68,56 C70,64 74,70 74,80 C74,90 70,96 70,106 C70,116 72,122 70,132 C68,142 64,148 62,158 C60,168 58,178 56,185 C52,192 46,196 38,197 C30,198 22,195 16,190 C10,185 8,178 10,170 C12,162 18,157 18,148 C18,139 14,132 14,122 C14,112 18,106 18,96 C18,86 14,80 14,70 C14,60 18,54 22,46 C26,38 26,30 22,22 C18,14 22,8 30,6 Z"
+              fill="rgba(41,197,208,0.06)" stroke="rgba(41,197,208,0.45)" stroke-width="0.7"/>
+        <path d="M62,10 C70,16 74,24 72,34 C70,42 66,48 68,56 C70,64 74,70 74,80 C74,90 70,96 70,106 C70,116 72,122 70,132 C68,142 64,148 62,158 C60,168 58,178 56,185"
+              stroke="rgba(41,197,208,0.12)" stroke-width="0.4" stroke-dasharray="1.5,4"/>
+        <circle cx="30" cy="22" r="2.2" fill="#7F77DD" opacity="0.85"/>
+        <circle cx="58" cy="18" r="2" fill="#1D9E75" opacity="0.85"/>
+        <circle cx="50" cy="38" r="2.8" fill="#D85A30" opacity="0.9"/>
+        <circle cx="66" cy="60" r="2" fill="#D4537E" opacity="0.85"/>
+        <circle cx="70" cy="88" r="2" fill="#378ADD" opacity="0.85"/>
+        <circle cx="54" cy="108" r="2" fill="#BA7517" opacity="0.85"/>
+        <circle cx="58" cy="148" r="2.2" fill="#E24B4A" opacity="0.85"/>
+        <circle cx="34" cy="185" r="2.5" fill="#639922" opacity="0.9"/>
+        <circle cx="14" cy="186" r="1" fill="rgba(245,232,192,0.4)"/>
+        <circle cx="56" cy="175" r="1" fill="rgba(245,232,192,0.3)"/>
+      </svg>
+    </div>
+    <div class="archive-text-col">
+      <span class="archive-label">Cultural Preparation Archive</span>
+      <div class="archive-heading">A Living Archive of<br>Vietnamese Food Cultures</div>
+      <p class="archive-sub">The dishes, ingredients and regional traditions that have appeared throughout Thiện Kiến's preparations — from the Northwest highlands to the Mekong Delta.</p>
+      <div class="archive-stats">
+        <div class="archive-stat">
+          <span class="stat-num">71</span>
+          <span class="stat-label">Dishes<br>documented</span>
+        </div>
+        <div class="archive-stat">
+          <span class="stat-num">8</span>
+          <span class="stat-label">Regions of<br>Vietnam</span>
+        </div>
+        <div class="archive-stat">
+          <span class="stat-num">20+</span>
+          <span class="stat-label">Organizations<br>prepared for</span>
+        </div>
+        <div class="archive-stat">
+          <span class="stat-num">2022</span>
+          <span class="stat-label">Year of first<br>preparation</span>
+        </div>
+      </div>
+      <a href="ThienKien_MenuMap.html" class="archive-cta">
+        Explore the Archive <span>→</span>
+      </a>
+    </div>
+  </div>
+</section>
 <!-- ── JOURNEY LOG STRIP ── -->
 <div class="journey">
   <div class="journey-header">
