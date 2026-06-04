@@ -38,7 +38,7 @@
     --f-mono:    'DM Mono', monospace;
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { font-size: 16px; }
+  html { font-size: 16px; scroll-behavior: smooth; }
   body {
     background: var(--black);
     color: var(--cream);
@@ -1368,7 +1368,7 @@
   </a>
   <ul class="nav-links" id="navLinks">
     <li><a href="journey-log.html">Journal</a></li>
-    <li><a href="#">Preparations</a></li>
+    <li><a href="#archive-section">Preparations</a></li>
     <li><a href="https://tkg-naula.com" target="_blank" rel="noopener">TKG</a></li>
     <li><a href="#">Contact</a></li>
   </ul>
@@ -1383,7 +1383,7 @@
 <div class="nav-mobile-menu" id="navMobileMenu">
   <ul>
     <li><a href="journey-log.html" onclick="closeMobileMenu()">Journal</a></li>
-    <li><a href="#" onclick="closeMobileMenu()">Preparations</a></li>
+    <li><a href="#archive-section" onclick="closeMobileMenu()">Preparations</a></li>
     <li><a href="https://tkg-naula.com" target="_blank" rel="noopener" onclick="closeMobileMenu()">TKG</a></li>
     <li><a href="#" onclick="closeMobileMenu()">Contact</a></li>
     <li class="nav-mobile-lang">VI &nbsp;/&nbsp; EN</li>
@@ -1574,7 +1574,7 @@ It comes from atmosphere, rhythm, preparation and shared experience.</p>
   </div>
 </div>
 <!-- ── FOOD ARCHIVE SECTION ── -->
-<section class="archive-section">
+<section class="archive-section" id="archive-section">
   <div class="archive-inner">
     <div class="archive-img-col">
       <img class="archive-img" id="archive-photo" src="TECx2023_7.webp" alt="Thiện Kiến — TECx 2023" style="display:block">
