@@ -1585,11 +1585,11 @@ It comes from atmosphere, rhythm, preparation and shared experience.</p>
       <p class="archive-sub">The dishes, ingredients and regional traditions that have appeared throughout Thiện Kiến's preparations — from the Northwest highlands to the Mekong Delta.</p>
       <div class="archive-stats">
         <div class="archive-stat">
-          <span class="stat-num">71</span>
+          <span class="stat-num" id="stat-dishes">—</span>
           <span class="stat-label">Dishes<br>documented</span>
         </div>
         <div class="archive-stat">
-          <span class="stat-num">8</span>
+          <span class="stat-num" id="stat-regions">—</span>
           <span class="stat-label">Regions of<br>Vietnam</span>
         </div>
         <div class="archive-stat">
@@ -1882,6 +1882,26 @@ It comes from atmosphere, rhythm, preparation and shared experience.</p>
   }
   modalClose.addEventListener('click', closeModal);
   modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+</script>
+
+<script>
+// ── AUTO STATS FROM MENU.JSON ─────────────────────────────────────────────────
+fetch('menu.json')
+  .then(r => r.ok ? r.json() : null)
+  .then(dishes => {
+    if (!dishes) return;
+    const totalDishes = dishes.length;
+    const uniqueRegions = new Set(dishes.map(d => d.region)).size;
+    const elDishes  = document.getElementById('stat-dishes');
+    const elRegions = document.getElementById('stat-regions');
+    if (elDishes)  elDishes.textContent  = totalDishes;
+    if (elRegions) elRegions.textContent = uniqueRegions;
+  })
+  .catch(() => {
+    // Fallback nếu không fetch được (mở file cục bộ)
+    document.getElementById('stat-dishes').textContent  = '71';
+    document.getElementById('stat-regions').textContent = '8';
+  });
 </script>
 </body>
 </html>
