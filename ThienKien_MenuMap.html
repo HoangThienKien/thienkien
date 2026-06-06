@@ -31,7 +31,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 .filter-btn.active{color:#fff;border-color:transparent;}
 .filter-btn:hover{opacity:.85;}
 
-/* Detail panel — 2-column: text left, image right */
+/* Detail panel */
 #detail{padding:0;border-bottom:1px solid #1e3f59;flex-shrink:0;display:none;background:#0a1c2b;position:relative;}
 #detail.visible{display:flex;flex-direction:row;}
 #detail-left{flex:1;min-width:0;padding:14px 16px;position:relative;}
@@ -61,11 +61,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 .row-region{font-size:10px;margin-top:1px;}
 
 /* Search */
-#search-wrap{padding:8px 20px 6px;flex-shrink:0;}
+#search-wrap{padding:8px 20px 6px;flex-shrink:0;position:relative;}
 #search-input{width:100%;background:#112D42;border:1px solid #1e3f59;border-radius:8px;padding:7px 12px 7px 32px;font-size:12px;color:#e8f0f7;outline:none;font-family:inherit;}
 #search-input::placeholder{color:#4a7a9b;}
 #search-input:focus{border-color:#2e6a94;}
-#search-wrap{position:relative;}
 #search-icon{position:absolute;left:32px;top:50%;transform:translateY(-50%);pointer-events:none;opacity:.4;}
 
 /* Scrollbar */
@@ -73,7 +72,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 #list-wrap::-webkit-scrollbar-track{background:transparent;}
 #list-wrap::-webkit-scrollbar-thumb{background:#1e3f59;border-radius:2px;}
 
-/* Dish image — right column, height = panel height, width = height × 16/9 */
+/* Dish image */
 #detail-img-wrap{flex-shrink:0;align-self:stretch;aspect-ratio:16/9;position:relative;background:#0d2234;border-left:1px solid #1e3f59;min-width:80px;}
 #detail-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;}
 #detail-img-ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:8px;}
@@ -164,35 +163,25 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
 <script>
 // ── CONFIG ────────────────────────────────────────────────────────────────────
-// Set to your GitHub raw URL once images are uploaded, e.g.:
-// 'https://raw.githubusercontent.com/username/repo/main/images/'
 const IMAGE_BASE_URL = '';
 
 function dishSlug(d) {
   return d.nameEn.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 }
 
-// ── DATA ─────────────────────────────────────────────────────────────────────
+// ── CONSTANTS ─────────────────────────────────────────────────────────────────
 const REGIONS = ['Tây Bắc Bộ','Đông Bắc Bộ','Đồng Bằng Sông Hồng','Bắc Trung Bộ','Nam Trung Bộ','Tây Nguyên','Đông Nam Bộ','Mekong Delta'];
 const REGION_EN = {
-  'Tây Bắc Bộ':         'Northwest',
-  'Đông Bắc Bộ':        'Northeast',
-  'Đồng Bằng Sông Hồng':'Red River Delta',
-  'Bắc Trung Bộ':       'North Central Coast',
-  'Nam Trung Bộ':       'South Central Coast',
-  'Tây Nguyên':         'Central Highlands',
-  'Đông Nam Bộ':        'Southeast',
-  'Mekong Delta':       'Mekong Delta',
+  'Tây Bắc Bộ':'Northwest','Đông Bắc Bộ':'Northeast',
+  'Đồng Bằng Sông Hồng':'Red River Delta','Bắc Trung Bộ':'North Central Coast',
+  'Nam Trung Bộ':'South Central Coast','Tây Nguyên':'Central Highlands',
+  'Đông Nam Bộ':'Southeast','Mekong Delta':'Mekong Delta',
 };
 const REGION_VI = {
-  'Tây Bắc Bộ':         'Tây Bắc Bộ',
-  'Đông Bắc Bộ':        'Đông Bắc Bộ',
-  'Đồng Bằng Sông Hồng':'Đồng Bằng Sông Hồng',
-  'Bắc Trung Bộ':       'Bắc Trung Bộ',
-  'Nam Trung Bộ':       'Nam Trung Bộ',
-  'Tây Nguyên':         'Tây Nguyên',
-  'Đông Nam Bộ':        'Đông Nam Bộ',
-  'Mekong Delta':       'Đồng Bằng Sông Cửu Long',
+  'Tây Bắc Bộ':'Tây Bắc Bộ','Đông Bắc Bộ':'Đông Bắc Bộ',
+  'Đồng Bằng Sông Hồng':'Đồng Bằng Sông Hồng','Bắc Trung Bộ':'Bắc Trung Bộ',
+  'Nam Trung Bộ':'Nam Trung Bộ','Tây Nguyên':'Tây Nguyên',
+  'Đông Nam Bộ':'Đông Nam Bộ','Mekong Delta':'Đồng Bằng Sông Cửu Long',
 };
 const RCOLORS = {
   'Tây Bắc Bộ':'#7F77DD','Đông Bắc Bộ':'#1D9E75',
@@ -204,269 +193,17 @@ const TYPES = ['Savory','Dessert','Fruit','Drink'];
 const TYPE_VI = {'Savory':'Món mặn','Dessert':'Món ngọt','Fruit':'Trái cây','Drink':'Nước uống'};
 const TCOLORS = {'Savory':'#2563EB','Dessert':'#DB2777','Fruit':'#16A34A','Drink':'#B45309'};
 
-// Each dish: nameEn, nameVi, region, type, events, lon, lat,
-//   ingredients: [{en, vi}]
-const DISHES = [
-  // ── TÂY BẮC BỘ ──────────────────────────────────────────────────────────
-  {nameEn:'Son La Plums', nameVi:'Mận hậu Sơn La',
-   region:'Tây Bắc Bộ', type:'Fruit', events:'NEXVN', lon:103.92, lat:21.33,
-   ingredients:[{en:'Son La mountain plums',vi:'Mận hậu Sơn La'}]},
+// ── DATA — loaded from menu.json ──────────────────────────────────────────────
+let DISHES = [];
 
-  // ── ĐÔNG BẮC BỘ ─────────────────────────────────────────────────────────
-  {nameEn:'Hand-Pounded Squid Cakes', nameVi:'Chả mực giã tay',
-   region:'Đông Bắc Bộ', type:'Savory', events:'NEXVN', lon:107.3, lat:21.0,
-   ingredients:[{en:'Fresh squid',vi:'Mực tươi'},{en:'Basic seasonings',vi:'Gia vị cơ bản'}]},
-  {nameEn:'Lychee', nameVi:'Vải thiều',
-   region:'Đông Bắc Bộ', type:'Fruit', events:'Blackstones', lon:106.62, lat:21.28,
-   ingredients:[{en:'Bac Giang / Hai Duong lychee',vi:'Vải thiều Bắc Giang / Hải Dương'}]},
-
-  // ── ĐỒNG BẰNG SÔNG HỒNG ─────────────────────────────────────────────────
-  {nameEn:'Hai Phong Bánh Mì with Pâté', nameVi:'Bánh mì Paté Hải Phòng',
-   region:'Đồng Bằng Sông Hồng', type:'Savory', events:'Blackstones', lon:106.68, lat:20.87,
-   ingredients:[{en:'Fresh baguette',vi:'Bánh mì tươi'},{en:'Pork pâté',vi:'Pâté heo'},{en:'Pork roll (chả lụa)',vi:'Chả lụa'},{en:'Pickled daikon & carrot',vi:'Đồ chua'},{en:'Fresh herbs & chili',vi:'Rau thơm & ớt'}]},
-  {nameEn:'Steamed Glutinous Rice Cake with Pork Sausage', nameVi:'Bánh dày giò chả',
-   region:'Đồng Bằng Sông Hồng', type:'Savory', events:'SAVVi, NEXVN', lon:105.90, lat:21.05,
-   ingredients:[{en:'Glutinous rice (nếp)',vi:'Gạo nếp'},{en:'Pork roll (chả lụa)',vi:'Chả lụa'},{en:'Steamed pork sausage (giò)',vi:'Giò'}]},
-  {nameEn:'Steamed Rice Rolls', nameVi:'Bánh cuốn',
-   region:'Đồng Bằng Sông Hồng', type:'Savory', events:'Abbott', lon:105.75, lat:21.10,
-   ingredients:[{en:'Rice batter sheets',vi:'Bột gạo tráng mỏng'},{en:'Minced pork',vi:'Thịt heo băm'},{en:'Wood ear mushrooms',vi:'Nấm mèo'},{en:'Fried shallots',vi:'Hành phi'},{en:'Peanut dipping sauce',vi:'Nước sốt đậu phộng'}]},
-  {nameEn:'Hanoi Sticky Rice with Greens (Xôi khúc)', nameVi:'Xôi khúc Hà Nội',
-   region:'Đồng Bằng Sông Hồng', type:'Savory', events:'Blackstones', lon:105.82, lat:21.00,
-   ingredients:[{en:'Glutinous rice',vi:'Gạo nếp'},{en:'Vietnamese mugwort (rau khúc)',vi:'Rau khúc'},{en:'Mung bean paste',vi:'Đậu xanh'},{en:'Pork floss',vi:'Chà bông'}]},
-  {nameEn:'Steamed Glutinous Corn', nameVi:'Xôi bắp nếp',
-   region:'Đồng Bằng Sông Hồng', type:'Savory', events:'SAVVi', lon:105.88, lat:20.97,
-   ingredients:[{en:'Sticky corn',vi:'Bắp nếp'},{en:'Yellow mung beans',vi:'Đậu xanh'},{en:'Fried shallots',vi:'Hành phi'}]},
-  {nameEn:'Giao Thuy Fermented Pork Roll', nameVi:'Nem nắm Giao Thuỷ',
-   region:'Đồng Bằng Sông Hồng', type:'Savory', events:'Blackstones', lon:106.15, lat:20.38,
-   ingredients:[{en:'Pork (meat & skin)',vi:'Thịt & bì heo'},{en:'Fermented fish paste',vi:'Mắm'},{en:'Galangal',vi:'Riềng'},{en:'Chili',vi:'Ớt'},{en:'Garlic',vi:'Tỏi'}]},
-  {nameEn:'Young Green Rice & Lotus Seed Sweet Soup', nameVi:'Chè cốm hạt sen',
-   region:'Đồng Bằng Sông Hồng', type:'Dessert', events:'SAVVi', lon:105.84, lat:21.08,
-   ingredients:[{en:'Young green rice (cốm non)',vi:'Cốm non'},{en:'Lotus seeds',vi:'Hạt sen'},{en:'Kudzu root starch',vi:'Bột sắn dây'},{en:'Rock sugar',vi:'Đường phèn'}]},
-  {nameEn:'Hanoi Sesame Fried Cake', nameVi:'Bánh rán mè',
-   region:'Đồng Bằng Sông Hồng', type:'Dessert', events:'Blackstones', lon:105.80, lat:20.94,
-   ingredients:[{en:'Glutinous rice flour',vi:'Bột nếp'},{en:'Mung bean paste',vi:'Đậu xanh'},{en:'White sesame',vi:'Mè trắng'},{en:'Sugar',vi:'Đường'}]},
-  {nameEn:'Molasses Fried Cake', nameVi:'Bánh rán mật mía',
-   region:'Đồng Bằng Sông Hồng', type:'Dessert', events:'Blackstones', lon:105.86, lat:20.90,
-   ingredients:[{en:'Glutinous rice flour',vi:'Bột nếp'},{en:'Sugarcane molasses',vi:'Mật mía'},{en:'Ginger',vi:'Gừng'}]},
-  {nameEn:'Hai Hau Longan Cake', nameVi:'Bánh nhãn Hải Hậu',
-   region:'Đồng Bằng Sông Hồng', type:'Dessert', events:'Blackstones', lon:106.20, lat:20.35,
-   ingredients:[{en:'Eggs',vi:'Trứng'},{en:'Sugar',vi:'Đường'},{en:'Wheat flour',vi:'Bột mì'},{en:'Longan aroma',vi:'Hương vị nhãn'}]},
-  {nameEn:'Cabbage-shaped Longan / Longan Candy', nameVi:'Nhãn bắp cải / Thanh nhãn',
-   region:'Đồng Bằng Sông Hồng', type:'Fruit', events:'Abbott', lon:106.05, lat:20.65,
-   ingredients:[{en:'Hung Yen longan',vi:'Nhãn Hưng Yên'}]},
-
-  // ── BẮC TRUNG BỘ ────────────────────────────────────────────────────────
-  {nameEn:'Lemongrass Pork & Shrimp Skewer', nameVi:'Chạo tôm thịt bọc sả',
-   region:'Bắc Trung Bộ', type:'Savory', events:'Abbott', lon:107.60, lat:16.50,
-   ingredients:[{en:'Shrimp',vi:'Tôm'},{en:'Pork',vi:'Thịt heo'},{en:'Lemongrass',vi:'Sả'},{en:'Garlic',vi:'Tỏi'},{en:'Chili',vi:'Ớt'},{en:'Honey',vi:'Mật ong'},{en:'Onion',vi:'Hành'},{en:'White sesame seeds',vi:'Mè trắng'}]},
-  {nameEn:'Hue Filefish Bánh Mì', nameVi:'Bánh mì cá bò',
-   region:'Bắc Trung Bộ', type:'Savory', events:'NEXVN', lon:107.65, lat:16.44,
-   ingredients:[{en:'Fresh baguette',vi:'Bánh mì tươi'},{en:'Dried filefish (cá bò khô)',vi:'Cá bò khô'},{en:'Vietnamese herbs',vi:'Rau thơm'},{en:'Cucumber',vi:'Dưa leo'},{en:'Basic seasonings',vi:'Gia vị cơ bản'}]},
-  {nameEn:'Hue Grilled Pork Skewers (Nem lụi)', nameVi:'Nem lụi Huế',
-   region:'Bắc Trung Bộ', type:'Savory', events:'Blackstones', lon:107.57, lat:16.42,
-   ingredients:[{en:'Minced pork',vi:'Thịt heo xay'},{en:'Lemongrass stalk',vi:'Cây sả'},{en:'Peanut dipping sauce',vi:'Nước chấm đậu phộng'},{en:'Rice paper',vi:'Bánh tráng'},{en:'Fresh herbs',vi:'Rau thơm'}]},
-  {nameEn:'Vietnamese Royal Fern Salad with Shrimp & Pork', nameVi:'Gỏi rau tiến vua',
-   region:'Bắc Trung Bộ', type:'Savory', events:'NEXVN', lon:107.62, lat:16.38,
-   ingredients:[{en:'Dried celtuce (rau tiến vua)',vi:'Rau tiến vua'},{en:'Carrot',vi:'Cà rốt'},{en:'Shrimp',vi:'Tôm'},{en:'Pork',vi:'Thịt heo'},{en:'Vietnamese herbs',vi:'Rau thơm'},{en:'Peanuts',vi:'Lạc / đậu phộng'},{en:'Basic seasonings',vi:'Gia vị cơ bản'}]},
-  {nameEn:'Ha Tinh Molasses Glutinous Dumplings', nameVi:'Bánh ngào Hà Tĩnh',
-   region:'Bắc Trung Bộ', type:'Dessert', events:'SAVVi', lon:105.90, lat:18.34,
-   ingredients:[{en:'Glutinous rice flour',vi:'Bột nếp'},{en:'Sugarcane molasses (mật mía)',vi:'Mật mía'},{en:'Ginger',vi:'Gừng'},{en:'Peanuts',vi:'Đậu phộng'}]},
-
-  // ── NAM TRUNG BỘ ─────────────────────────────────────────────────────────
-  {nameEn:'Quang Ngai Bánh Mì', nameVi:'Bánh mì Quảng Ngãi',
-   region:'Nam Trung Bộ', type:'Savory', events:'Blackstones, One Tree Hill, SAVVi', lon:108.82, lat:15.12,
-   ingredients:[{en:'Fresh baguette',vi:'Bánh mì tươi'},{en:'Pork roll (chả lụa)',vi:'Chả lụa'},{en:'Minced pork sauce',vi:'Sốt thịt bằm'},{en:'Pork floss (chà bông)',vi:'Chà bông'},{en:'Sliced cucumber',vi:'Dưa leo'},{en:'Assorted fresh herbs',vi:'Rau thơm hỗn hợp'}]},
-  {nameEn:'Quang Nam Bánh Mì', nameVi:'Bánh mì Quảng Nam',
-   region:'Nam Trung Bộ', type:'Savory', events:'NEXVN', lon:108.22, lat:15.57,
-   ingredients:[{en:'Fresh baguette',vi:'Bánh mì tươi'},{en:'Local pork roll',vi:'Chả lụa địa phương'},{en:'Vegetables & herbs',vi:'Rau & gia vị địa phương'}]},
-  {nameEn:'Red Tail Fusiler Fishcake', nameVi:'Chả cá củ đỏ',
-   region:'Nam Trung Bộ', type:'Savory', events:'NEXVN', lon:109.22, lat:13.78,
-   ingredients:[{en:'Red tail fusiler fish (củ đỏ)',vi:'Cá củ đỏ'},{en:'Dill',vi:'Thì là'},{en:'Turmeric',vi:'Nghệ'},{en:'Shrimp paste',vi:'Mắm ruốc'},{en:'Basic seasonings',vi:'Gia vị cơ bản'}]},
-  {nameEn:'Sweet & Spicy Crispy Anchovies', nameVi:'Cá cơm giòn cay',
-   region:'Nam Trung Bộ', type:'Savory', events:'NEXVN', lon:109.18, lat:12.30,
-   ingredients:[{en:'Anchovies (cá cơm)',vi:'Cá cơm'},{en:'Sweet & spicy chili',vi:'Ớt rim ngọt cay'},{en:'Basic seasonings',vi:'Gia vị cơ bản'}]},
-  {nameEn:'One-Sun-Dried Barracuda Fish', nameVi:'Cá dứa một nắng',
-   region:'Nam Trung Bộ', type:'Savory', events:'NEXVN', lon:109.15, lat:12.18,
-   ingredients:[{en:'Barracuda fish (cá dứa)',vi:'Cá dứa'},{en:'Sea salt',vi:'Muối biển'}]},
-  {nameEn:'One-Sun-Dried Shrimp', nameVi:'Tôm một nắng',
-   region:'Nam Trung Bộ', type:'Savory', events:'NEXVN', lon:109.22, lat:12.08,
-   ingredients:[{en:'Tiger shrimp',vi:'Tôm sú'},{en:'Sea salt',vi:'Muối biển'}]},
-  {nameEn:'Khanh Hoa Pink Finger Grapes', nameVi:'Nho hồng Khánh Hoà',
-   region:'Nam Trung Bộ', type:'Fruit', events:'One Tree Hill', lon:109.10, lat:12.05,
-   ingredients:[{en:'Ninh Thuan / Khanh Hoa table grapes',vi:'Nho bàn Ninh Thuận / Khánh Hoà'}]},
-
-  // ── TÂY NGUYÊN ───────────────────────────────────────────────────────────
-  {nameEn:'Buon Ma Thuot Coffee', nameVi:'Cà phê Buôn Ma Thuột',
-   region:'Tây Nguyên', type:'Drink', events:'Blackstones', lon:108.05, lat:12.67,
-   ingredients:[{en:'Robusta coffee beans (Dak Lak)',vi:'Hạt cà phê Robusta Đắk Lắk'},{en:'Hot water',vi:'Nước sôi'},{en:'Sweetened condensed milk (optional)',vi:'Sữa đặc (tuỳ chọn)'}]},
-  {nameEn:'Vietnamese Iced Milk Coffee', nameVi:'Cà phê sữa đá',
-   region:'Tây Nguyên', type:'Drink', events:'One Tree Hill', lon:108.45, lat:11.95,
-   ingredients:[{en:'Arabica / Robusta coffee (Lam Dong)',vi:'Cà phê Arabica / Robusta Lâm Đồng'},{en:'Sweetened condensed milk',vi:'Sữa đặc'},{en:'Ice',vi:'Đá'}]},
-
-  // ── ĐÔNG NAM BỘ ──────────────────────────────────────────────────────────
-  {nameEn:'Vegan Bánh Mì', nameVi:'Bánh mì chay',
-   region:'Đông Nam Bộ', type:'Savory', events:'NEXVN', lon:106.72, lat:10.90,
-   ingredients:[{en:'Fresh baguette',vi:'Bánh mì tươi'},{en:'Vegetarian sausage (chả chay)',vi:'Chả chay'},{en:'Minced-pork-style sauce (vegan)',vi:'Sốt thịt bằm chay'},{en:'Cucumber',vi:'Dưa leo'},{en:'Vietnamese herbs',vi:'Rau thơm'},{en:'Basic seasonings',vi:'Gia vị cơ bản'}]},
-  {nameEn:'Southern Vietnamese Fresh Spring Rolls', nameVi:'Gỏi cuốn Nam Bộ',
-   region:'Đông Nam Bộ', type:'Savory', events:'NEXVN', lon:106.65, lat:10.78,
-   ingredients:[{en:'Rice paper',vi:'Bánh tráng'},{en:'Rice vermicelli (bún)',vi:'Bún'},{en:'Pork',vi:'Thịt heo'},{en:'Cucumber',vi:'Dưa leo'},{en:'Vietnamese herbs',vi:'Rau thơm'},{en:'Dipping sauce: soybean paste, peanuts, chili, honey, palm sugar',vi:'Nước chấm: tương, đậu phộng, ớt, mật ong, đường thốt nốt'}]},
-  {nameEn:'Salted Egg Yolk Sponge Cake', nameVi:'Bánh bông lan trứng muối',
-   region:'Đông Nam Bộ', type:'Dessert', events:'Abbott, Blackstones', lon:106.60, lat:10.95,
-   ingredients:[{en:'Sponge cake base',vi:'Bánh bông lan'},{en:'Salted egg yolk',vi:'Lòng đỏ trứng muối'},{en:'Pork floss',vi:'Chà bông'},{en:'Mayonnaise',vi:'Sốt mayonnaise'}]},
-  {nameEn:'Vietnamese Steamed Layer Cake', nameVi:'Bánh da lợn',
-   region:'Đông Nam Bộ', type:'Dessert', events:'Blackstones', lon:106.62, lat:10.82,
-   ingredients:[{en:'Tapioca starch',vi:'Bột năng'},{en:'Mung bean paste',vi:'Đậu xanh'},{en:'Coconut milk',vi:'Nước cốt dừa'},{en:'Pandan leaves',vi:'Lá dứa'},{en:'Sugar',vi:'Đường'}]},
-  {nameEn:'Five-Color Steamed Rice Cake', nameVi:'Bánh bò ngũ sắc',
-   region:'Đông Nam Bộ', type:'Dessert', events:'One Tree Hill', lon:106.67, lat:10.75,
-   ingredients:[{en:'Rice flour',vi:'Bột gạo'},{en:'Tapioca starch',vi:'Bột năng'},{en:'Instant yeast',vi:'Men nở'},{en:'Coconut cream',vi:'Nước cốt dừa'},{en:'Fresh coconut water',vi:'Nước dừa tươi'},{en:'Natural colouring (pandan, butterfly pea, etc.)',vi:'Màu tự nhiên (lá dứa, đậu biếc, v.v.)'}]},
-  {nameEn:'Mangosteen', nameVi:'Măng cụt',
-   region:'Đông Nam Bộ', type:'Fruit', events:'Abbott, NEXVN', lon:107.09, lat:11.10,
-   ingredients:[{en:'Dong Nai / Binh Phuoc mangosteen',vi:'Măng cụt Đồng Nai / Bình Phước'}]},
-  {nameEn:'Longan Rambutan', nameVi:'Chôm chôm nhãn',
-   region:'Đông Nam Bộ', type:'Fruit', events:'One Tree Hill', lon:107.05, lat:11.18,
-   ingredients:[{en:'Dong Nai longan rambutan',vi:'Chôm chôm nhãn Đồng Nai'}]},
-  {nameEn:'Hieu Liem Mandarin Orange', nameVi:'Quýt đường Hiếu Liêm',
-   region:'Đông Nam Bộ', type:'Fruit', events:'SAVVi', lon:106.78, lat:11.20,
-   ingredients:[{en:'Binh Duong mandarin orange variety',vi:'Quýt đường Bình Dương'}]},
-
-  // ── NEW: TÂY BẮC BỘ ─────────────────────────────────────────────────────
-  {nameEn:'Grilled Beef with Mắc Khén & Hạt Dổi', nameVi:'Bò nướng mắc khén hạt dổi',
-   region:'Tây Bắc Bộ', type:'Savory', events:'Menu 2024', lon:104.50, lat:21.55,
-   ingredients:[{en:'Beef',vi:'Thịt bò'},{en:'Mắc khén pepper (Sichuan-like mountain spice)',vi:'Hạt mắc khén'},{en:'Hạt dổi (wild spice seed)',vi:'Hạt dổi'},{en:'Garlic',vi:'Tỏi'},{en:'Ginger',vi:'Gừng'}]},
-  {nameEn:'Bamboo Tube Sticky Rice', nameVi:'Cơm lam',
-   region:'Tây Bắc Bộ', type:'Savory', events:'Menu 2024', lon:103.85, lat:21.10,
-   ingredients:[{en:'Mountain glutinous rice (nếp nương)',vi:'Gạo nếp nương'},{en:'Young bamboo tube',vi:'Ống tre / nứa'},{en:'Salt',vi:'Muối'},{en:'Sesame salt (optional)',vi:'Muối mè (tuỳ chọn)'}]},
-
-  // ── NEW: ĐÔNG BẮC BỘ ─────────────────────────────────────────────────────
-  {nameEn:'Lychee Herbal Tea', nameVi:'Trà vải',
-   region:'Đông Bắc Bộ', type:'Drink', events:'Menu 2024', lon:106.92, lat:21.40,
-   ingredients:[{en:'Bac Giang lychee',vi:'Vải thiều Bắc Giang'},{en:'Oolong tea',vi:'Trà oolong'},{en:'Sugar',vi:'Đường'},{en:'Ice',vi:'Đá'}]},
-
-  // ── NEW: ĐỒNG BẰNG SÔNG HỒNG ─────────────────────────────────────────────
-  {nameEn:'Hanoi Bún Chả', nameVi:'Bún chả Hà Nội',
-   region:'Đồng Bằng Sông Hồng', type:'Savory', events:'Menu 2024', lon:105.89, lat:21.03,
-   ingredients:[{en:'Rice vermicelli (bún)',vi:'Bún'},{en:'Grilled pork patties',vi:'Thịt nướng viên'},{en:'Grilled pork belly',vi:'Thịt ba chỉ nướng'},{en:'Fish sauce dipping broth',vi:'Nước chấm'},{en:'Fresh herbs & vegetables',vi:'Rau sống'}]},
-  {nameEn:'Hanoi Turmeric Sticky Rice', nameVi:'Xôi xéo',
-   region:'Đồng Bằng Sông Hồng', type:'Savory', events:'Menu 2024', lon:105.87, lat:21.01,
-   ingredients:[{en:'Glutinous rice',vi:'Gạo nếp'},{en:'Yellow mung beans',vi:'Đậu xanh'},{en:'Turmeric',vi:'Nghệ'},{en:'Fried shallots',vi:'Hành phi'},{en:'Pork floss',vi:'Ruốc / chà bông'}]},
-  {nameEn:'Ash Water Glutinous Rice Dumpling', nameVi:'Bánh gio',
-   region:'Đồng Bằng Sông Hồng', type:'Dessert', events:'Menu 2024', lon:105.80, lat:20.96,
-   ingredients:[{en:'Glutinous rice',vi:'Gạo nếp'},{en:'Herb ash water (nước tro)',vi:'Nước tro thảo mộc'},{en:'Banana leaves',vi:'Lá chuối'},{en:'Mung bean paste filling',vi:'Đậu xanh nhân'},{en:'Sugar syrup',vi:'Nước đường'}]},
-  {nameEn:'Floating Rice Balls & Plain Dumplings', nameVi:'Bánh trôi bánh chay',
-   region:'Đồng Bằng Sông Hồng', type:'Dessert', events:'Menu 2024', lon:105.77, lat:21.05,
-   ingredients:[{en:'Glutinous rice flour',vi:'Bột nếp'},{en:'Brown sugar',vi:'Đường nâu'},{en:'Mung bean paste',vi:'Đậu xanh'},{en:'Coconut milk',vi:'Nước cốt dừa'},{en:'Ginger syrup',vi:'Nước đường gừng'}]},
-  {nameEn:'Young Green Rice Cake', nameVi:'Bánh cốm',
-   region:'Đồng Bằng Sông Hồng', type:'Dessert', events:'Menu 2024', lon:105.83, lat:21.06,
-   ingredients:[{en:'Young green rice (cốm non)',vi:'Cốm non'},{en:'Mung bean paste',vi:'Đậu xanh'},{en:'Sugar',vi:'Đường'},{en:'Pomelo flower water',vi:'Nước hoa bưởi'}]},
-  {nameEn:'Banana-Leaf Pork Steamed Roll', nameVi:'Bánh giò',
-   region:'Đồng Bằng Sông Hồng', type:'Savory', events:'Menu 2024', lon:105.91, lat:20.99,
-   ingredients:[{en:'Rice flour',vi:'Bột gạo'},{en:'Minced pork',vi:'Thịt heo băm'},{en:'Wood ear mushrooms',vi:'Nấm mèo'},{en:'Banana leaves',vi:'Lá chuối'},{en:'Fried shallots',vi:'Hành phi'}]},
-  {nameEn:'Fresh Phở Roll', nameVi:'Phở cuốn',
-   region:'Đồng Bằng Sông Hồng', type:'Savory', events:'Menu 2024', lon:105.86, lat:21.08,
-   ingredients:[{en:'Wide fresh rice noodle sheet',vi:'Bánh phở tươi'},{en:'Beef (thinly sliced)',vi:'Thịt bò thái mỏng'},{en:'Bean sprouts',vi:'Giá'},{en:'Mint & perilla',vi:'Rau thơm'},{en:'Dipping sauce',vi:'Nước chấm'}]},
-
-  // ── NEW: BẮC TRUNG BỘ ────────────────────────────────────────────────────
-  {nameEn:'Hue Crystal Tapioca Shrimp Dumplings', nameVi:'Bánh bột lọc Huế',
-   region:'Bắc Trung Bộ', type:'Savory', events:'Menu 2024', lon:107.56, lat:16.47,
-   ingredients:[{en:'Tapioca starch (bột lọc)',vi:'Bột lọc'},{en:'Shrimp',vi:'Tôm'},{en:'Pork fat',vi:'Mỡ heo'},{en:'Shrimp paste (mắm ruốc)',vi:'Mắm ruốc'},{en:'Banana leaves',vi:'Lá chuối'}]},
-  {nameEn:'Hue Flat Rice & Shrimp Dumpling', nameVi:'Bánh nậm',
-   region:'Bắc Trung Bộ', type:'Savory', events:'Menu 2024', lon:107.61, lat:16.44,
-   ingredients:[{en:'Rice flour',vi:'Bột gạo tẻ'},{en:'Shrimp',vi:'Tôm'},{en:'Pork',vi:'Thịt heo'},{en:'Banana leaves',vi:'Lá chuối'},{en:'Fried shallots',vi:'Hành phi'}]},
-  {nameEn:'Duc Tho Sesame-Leaf Sticky Cake', nameVi:'Bánh gai Đức Thọ',
-   region:'Bắc Trung Bộ', type:'Dessert', events:'Menu 2024', lon:105.62, lat:18.40,
-   ingredients:[{en:'Glutinous rice flour',vi:'Bột nếp'},{en:'Sugarleaf herb (lá gai)',vi:'Lá gai'},{en:'Mung bean paste',vi:'Đậu xanh'},{en:'Shredded coconut',vi:'Dừa nạo'},{en:'Sugar',vi:'Đường'}]},
-  {nameEn:'Thanh Hoa Fermented Pork Roll', nameVi:'Nem chua Thanh Hoá',
-   region:'Bắc Trung Bộ', type:'Savory', events:'Menu 2024', lon:105.78, lat:19.82,
-   ingredients:[{en:'Pork (meat & skin)',vi:'Thịt & bì heo'},{en:'Fried rice (cơm rang)',vi:'Cơm rang'},{en:'Garlic',vi:'Tỏi'},{en:'Chili',vi:'Ớt'},{en:'Guava leaves (fermentation)',vi:'Lá ổi'}]},
-  {nameEn:'Nghe An Veal Sausage', nameVi:'Giò me Nghệ An',
-   region:'Bắc Trung Bộ', type:'Savory', events:'Menu 2024', lon:105.70, lat:18.70,
-   ingredients:[{en:'Veal (thịt bê / thịt bò non)',vi:'Thịt bê'},{en:'Galangal',vi:'Riềng'},{en:'Local seasonings',vi:'Gia vị địa phương'},{en:'Banana leaves',vi:'Lá chuối'}]},
-  {nameEn:'Ha Tinh Steamed Rice Roll with Pork', nameVi:'Bánh mướt giò Hà Tĩnh',
-   region:'Bắc Trung Bộ', type:'Savory', events:'Menu 2024', lon:105.92, lat:18.36,
-   ingredients:[{en:'Rice batter (tráng mỏng)',vi:'Bột gạo'},{en:'Pork roll (giò chả)',vi:'Giò chả'},{en:'Fried shallots',vi:'Hành phi'},{en:'Fish sauce',vi:'Nước mắm'}]},
-  {nameEn:'Hue Vermicelli with Grilled Pork & Lemongrass Skewers', nameVi:'Bún thịt nướng nem lụi',
-   region:'Bắc Trung Bộ', type:'Savory', events:'Menu 2024', lon:107.63, lat:16.41,
-   ingredients:[{en:'Rice vermicelli (bún)',vi:'Bún'},{en:'Grilled pork',vi:'Thịt heo nướng'},{en:'Lemongrass pork skewer (nem lụi)',vi:'Nem lụi'},{en:'Peanut dipping sauce',vi:'Nước chấm đậu phộng'},{en:'Fresh herbs',vi:'Rau sống'}]},
-
-  // ── NEW: NAM TRUNG BỘ ─────────────────────────────────────────────────────
-  {nameEn:'Binh Dinh Rice Noodle Roll', nameVi:'Bánh cuốn Bình Định',
-   region:'Nam Trung Bộ', type:'Savory', events:'Menu 2024', lon:108.92, lat:13.82,
-   ingredients:[{en:'Thin steamed rice batter sheets',vi:'Bột gạo tráng mỏng'},{en:'Pork',vi:'Thịt heo'},{en:'Wood ear mushrooms',vi:'Nấm mèo'},{en:'Local dipping sauce',vi:'Nước chấm địa phương'}]},
-  {nameEn:'Dragon Fruit', nameVi:'Thanh long',
-   region:'Nam Trung Bộ', type:'Fruit', events:'Menu 2024', lon:108.10, lat:11.12,
-   ingredients:[{en:'Binh Thuan dragon fruit (red & white varieties)',vi:'Thanh long Bình Thuận'}]},
-
-  // ── NEW: TÂY NGUYÊN ──────────────────────────────────────────────────────
-  {nameEn:'Avocado', nameVi:'Bơ Tây Nguyên',
-   region:'Tây Nguyên', type:'Fruit', events:'Menu 2024', lon:108.28, lat:12.38,
-   ingredients:[{en:'Dak Lak / Lam Dong avocado',vi:'Bơ Đắk Lắk / Lâm Đồng'}]},
-
-  // ── NEW: ĐÔNG NAM BỘ ─────────────────────────────────────────────────────
-  {nameEn:'Custard Apple', nameVi:'Mãng cầu ta',
-   region:'Đông Nam Bộ', type:'Fruit', events:'Menu 2024', lon:106.12, lat:11.42,
-   ingredients:[{en:'Tay Ninh / Binh Phuoc custard apple',vi:'Mãng cầu ta Tây Ninh / Bình Phước'}]},
-
-  // ── MEKONG DELTA ────────────────────────────────────────────────────────
-  {nameEn:'Muslim Cham Beef Sausage (Tung Lo Mo)', nameVi:'Tung lò mò An Giang',
-   region:'Mekong Delta', type:'Savory', events:'Blackstones, SAVVi', lon:105.12, lat:10.68,
-   ingredients:[{en:'Lean beef',vi:'Thịt nạc bò'},{en:'Beef fat',vi:'Mỡ bò'},{en:'Beef intestine (casing)',vi:'Ruột bò'},{en:'Cooked rice',vi:'Cơm nguội'},{en:'Ginger',vi:'Gừng'},{en:'Black pepper',vi:'Tiêu'}]},
-  {nameEn:'Steamed Rice Cake (Bánh bò bông)', nameVi:'Bánh bò bông',
-   region:'Mekong Delta', type:'Dessert', events:'Abbott', lon:105.45, lat:10.25,
-   ingredients:[{en:'Rice flour',vi:'Bột gạo'},{en:'Coconut milk',vi:'Nước cốt dừa'},{en:'Sugar',vi:'Đường'},{en:'Yeast',vi:'Men'}]},
-  {nameEn:'Palm Sugar Baked Rice Cake', nameVi:'Bánh bò nướng thốt nốt',
-   region:'Mekong Delta', type:'Dessert', events:'Blackstones', lon:105.79, lat:10.04,
-   ingredients:[{en:'Rice flour',vi:'Bột gạo'},{en:'Palm sugar (thốt nốt)',vi:'Đường thốt nốt'},{en:'Coconut milk',vi:'Nước cốt dừa'},{en:'Eggs',vi:'Trứng'}]},
-  {nameEn:'An Giang Pork Liver Cake', nameVi:'Bánh gan An Giang',
-   region:'Mekong Delta', type:'Dessert', events:'Blackstones', lon:105.08, lat:10.58,
-   ingredients:[{en:'Eggs',vi:'Trứng'},{en:'Pork liver',vi:'Gan heo'},{en:'Sugar',vi:'Đường'},{en:'Fish sauce',vi:'Nước mắm'},{en:'Coconut milk',vi:'Nước cốt dừa'}]},
-  {nameEn:'Hoa Loc Mango', nameVi:'Xoài cát Hoà Lộc',
-   region:'Mekong Delta', type:'Fruit', events:'Blackstones', lon:105.75, lat:10.38,
-   ingredients:[{en:'Hoa Loc cultivar mango (Dong Thap / Tien Giang)',vi:'Xoài cát Hoà Lộc Đồng Tháp / Tiền Giang'}]},
-  {nameEn:'Lo Ren Star Apple', nameVi:'Vú sữa lò rèn',
-   region:'Mekong Delta', type:'Fruit', events:'SAVVi', lon:105.68, lat:10.35,
-   ingredients:[{en:'Lo Ren star apple variety (Vinh Long / Tien Giang)',vi:'Vú sữa lò rèn Vĩnh Long / Tiền Giang'}]},
-  {nameEn:'Tien Giang Watermelon', nameVi:'Dưa hấu Tiền Giang',
-   region:'Mekong Delta', type:'Fruit', events:'Blackstones', lon:106.35, lat:10.36,
-   ingredients:[{en:'Tien Giang seedless watermelon',vi:'Dưa hấu Tiền Giang'}]},
-  {nameEn:'Perilla & Honey Drink', nameVi:'Nước tía tô mật ong',
-   region:'Mekong Delta', type:'Drink', events:'Abbott', lon:105.5, lat:10.5,
-   ingredients:[{en:'Perilla leaves (tía tô)',vi:'Lá tía tô'},{en:'Honey',vi:'Mật ong'},{en:'Lemon',vi:'Chanh'},{en:'Water',vi:'Nước'}]},
-  {nameEn:'Lemongrass Ginger Lime', nameVi:'Chanh sả gừng',
-   region:'Mekong Delta', type:'Drink', events:'Blackstones, SAVVi', lon:105.4, lat:10.45,
-   ingredients:[{en:'Lemongrass',vi:'Sả'},{en:'Ginger',vi:'Gừng'},{en:'Lime',vi:'Chanh'},{en:'Honey / sugar',vi:'Mật ong / đường'},{en:'Water',vi:'Nước'}]},
-
-  // ── NEW: MEKONG DELTA ────────────────────────────────────────────────────
-  {nameEn:'Fish-Sauce Marinated Beef Skewers', nameVi:'Bò ngâm mắm',
-   region:'Mekong Delta', type:'Savory', events:'Menu 2024', lon:105.80, lat:10.07,
-   ingredients:[{en:'Beef (thinly sliced)',vi:'Thịt bò thái mỏng'},{en:'Fish sauce (nước mắm)',vi:'Nước mắm'},{en:'Garlic',vi:'Tỏi'},{en:'Chili',vi:'Ớt'},{en:'Palm sugar',vi:'Đường thốt nốt'},{en:'Lime',vi:'Chanh'}]},
-  {nameEn:'Durian', nameVi:'Sầu riêng',
-   region:'Mekong Delta', type:'Fruit', events:'Menu 2024', lon:106.15, lat:10.30,
-   ingredients:[{en:'Cai Rang / Ri6 variety durian',vi:'Sầu riêng Cái Răng / giống Ri6'},{en:'Grown in Mekong Delta (Tien Giang, Ben Tre, Can Tho)',vi:'Tiền Giang, Bến Tre, Cần Thơ'}]},
-  {nameEn:'Baked Palm Sugar Cake', nameVi:'Bánh thốt nốt nướng',
-   region:'Mekong Delta', type:'Dessert', events:'Menu 2024', lon:104.95, lat:10.55,
-   ingredients:[{en:'Palm sugar (thốt nốt)',vi:'Đường thốt nốt'},{en:'Rice flour',vi:'Bột gạo'},{en:'Coconut milk',vi:'Nước cốt dừa'},{en:'Eggs',vi:'Trứng'}]},
-  {nameEn:'Taro Patterned Cake', nameVi:'Bánh khoai môn gân',
-   region:'Mekong Delta', type:'Dessert', events:'Menu 2024', lon:105.48, lat:10.28,
-   ingredients:[{en:'Taro (khoai môn)',vi:'Khoai môn'},{en:'Glutinous rice flour',vi:'Bột nếp'},{en:'Coconut milk',vi:'Nước cốt dừa'},{en:'Sugar',vi:'Đường'}]},
-  {nameEn:'Banana Coconut Rice Cake', nameVi:'Bánh dừa chuối',
-   region:'Mekong Delta', type:'Dessert', events:'Menu 2024', lon:106.38, lat:10.25,
-   ingredients:[{en:'Ripe banana',vi:'Chuối chín'},{en:'Shredded coconut',vi:'Dừa nạo'},{en:'Glutinous rice flour',vi:'Bột nếp'},{en:'Sugar',vi:'Đường'},{en:'Banana leaves',vi:'Lá chuối'}]},
-];
-
-// ── MAP SETUP ─────────────────────────────────────────────────────────────
+// ── MAP SETUP ─────────────────────────────────────────────────────────────────
 const W = 380, H = window.innerHeight;
-const svg = d3.select('#map').append('svg')
-  .attr('width', W).attr('height', H);
-
-// Zoomable container — all map content goes here
+const svg = d3.select('#map').append('svg').attr('width', W).attr('height', H);
 const mapG = svg.append('g').attr('id','map-g');
-
 const proj = d3.geoMercator().center([107, 16.5]).scale(1850).translate([W/2, H/2]);
 const path = d3.geoPath(proj);
 
-// Zoom behaviour
-const zoom = d3.zoom()
-  .scaleExtent([1, 10])
+const zoom = d3.zoom().scaleExtent([1, 10])
   .on('zoom', (event) => { mapG.attr('transform', event.transform); });
 svg.call(zoom);
 
@@ -493,13 +230,18 @@ function getRegion(name) {
 const tip = document.getElementById('tooltip');
 let activeRegion = null, activeType = null, activeSearch = '', selectedDish = null;
 
-d3.json('https://cdn.jsdelivr.net/npm/datamaps@0.5.10/src/js/data/vnm.topo.json').then(topo => {
+// ── LOAD BOTH RESOURCES IN PARALLEL ──────────────────────────────────────────
+Promise.all([
+  fetch('menu.json').then(r => { if (!r.ok) throw new Error('menu.json not found'); return r.json(); }),
+  d3.json('https://cdn.jsdelivr.net/npm/datamaps@0.5.10/src/js/data/vnm.topo.json')
+]).then(([menuData, topo]) => {
+  DISHES = menuData;
+
   const key = Object.keys(topo.objects)[0];
   const features = topojson.feature(topo, topo.objects[key]).features;
 
   mapG.selectAll('path.prov').data(features).join('path')
-    .attr('class','prov')
-    .attr('d', path)
+    .attr('class','prov').attr('d', path)
     .attr('fill', d => {
       const r = getRegion((d.properties && d.properties.name) || '');
       return r ? RCOLORS[r] + '55' : '#1a3d56';
@@ -520,12 +262,27 @@ d3.json('https://cdn.jsdelivr.net/npm/datamaps@0.5.10/src/js/data/vnm.topo.json'
     });
 
   renderPins();
-  renderIslands();
+  renderIslands(topo);
+  buildFilters();
+  buildList();
+
+}).catch(err => {
+  console.error(err);
+  // Fallback: draw map without dishes
+  d3.json('https://cdn.jsdelivr.net/npm/datamaps@0.5.10/src/js/data/vnm.topo.json').then(topo => {
+    const key = Object.keys(topo.objects)[0];
+    const features = topojson.feature(topo, topo.objects[key]).features;
+    mapG.selectAll('path.prov').data(features).join('path')
+      .attr('class','prov').attr('d', path)
+      .attr('fill','#1a3d56').attr('stroke','#0d2234').attr('stroke-width',0.6);
+    renderIslands(topo);
+  });
+  document.getElementById('dish-list').innerHTML =
+    '<p style="padding:16px 20px;font-size:12px;color:#D4537E">⚠ Không tìm thấy menu.json — đặt file menu.json cùng thư mục với trang web này.</p>';
 });
 
-// ── ISLANDS ───────────────────────────────────────────────────────────────
+// ── ISLANDS ───────────────────────────────────────────────────────────────────
 const ISLANDS = [
-  // Main islands (within main map viewport)
   {nameEn:'Phu Quoc Island',     nameVi:'Đảo Phú Quốc',         lon:103.97, lat:10.22, inset:false},
   {nameEn:'Con Dao Islands',     nameVi:'Quần đảo Côn Đảo',      lon:106.62, lat:8.69,  inset:false},
   {nameEn:'Ly Son Island',       nameVi:'Đảo Lý Sơn',            lon:109.13, lat:15.38, inset:false},
@@ -534,82 +291,56 @@ const ISLANDS = [
   {nameEn:'Bach Long Vi Island', nameVi:'Đảo Bạch Long Vĩ',      lon:107.72, lat:20.13, inset:false},
   {nameEn:'Cat Ba Island',       nameVi:'Đảo Cát Bà',            lon:106.98, lat:20.73, inset:false},
   {nameEn:'Cu Lao Cham',         nameVi:'Cù Lao Chàm',           lon:108.52, lat:15.96, inset:false},
-  // Archipelagos — shown in inset box (east of main map)
   {nameEn:'Paracel Islands',     nameVi:'Quần đảo Hoàng Sa',     lon:112.34, lat:16.50, inset:true},
   {nameEn:'Spratly Islands',     nameVi:'Quần đảo Trường Sa',    lon:114.33, lat:10.00, inset:true},
 ];
 
-function renderIslands() {
-  // ── Main-viewport islands ───────────────────────────────────────────────
-  const mainIslands = ISLANDS.filter(i => !i.inset);
-  mainIslands.forEach(isl => {
+function renderIslands(topo) {
+  ISLANDS.filter(i => !i.inset).forEach(isl => {
     const [px, py] = proj([isl.lon, isl.lat]);
     if (!px || !py || px < 0 || px > W || py < 0 || py > H) return;
     const g = mapG.append('g').attr('transform', `translate(${px},${py})`).style('cursor','default');
-    // Diamond marker
-    g.append('path')
-      .attr('d','M0,-5 L4,0 L0,5 L-4,0 Z')
+    g.append('path').attr('d','M0,-5 L4,0 L0,5 L-4,0 Z')
       .attr('fill','#e8f0f7').attr('stroke','#5b9ec9').attr('stroke-width',1).attr('opacity',0.9);
-    // Label — show on right side, or left if near right edge
     const side = px > W - 80 ? -6 : 6;
     const anchor = px > W - 80 ? 'end' : 'start';
-    g.append('text')
-      .attr('x', side).attr('y', -4)
-      .attr('text-anchor', anchor)
+    g.append('text').attr('x', side).attr('y', -4).attr('text-anchor', anchor)
       .attr('font-size','8px').attr('font-weight','700')
-      .attr('fill','#c8dce9').attr('font-family','Arial,sans-serif')
-      .text(isl.nameEn);
-    g.append('text')
-      .attr('x', side).attr('y', 4)
-      .attr('text-anchor', anchor)
-      .attr('font-size','7px').attr('font-weight','400')
-      .attr('fill','#4a7a9b').attr('font-family','Arial,sans-serif')
-      .text(isl.nameVi);
-    // Tooltip
+      .attr('fill','#c8dce9').attr('font-family','Arial,sans-serif').text(isl.nameEn);
+    g.append('text').attr('x', side).attr('y', 4).attr('text-anchor', anchor)
+      .attr('font-size','7px').attr('fill','#4a7a9b').attr('font-family','Arial,sans-serif').text(isl.nameVi);
     g.on('mouseover', function(ev) {
       tip.innerHTML = `<span style="font-weight:600">${isl.nameEn}</span><br><span style="font-size:10px;opacity:.7">${isl.nameVi}</span>`;
       tip.style.display='block'; moveTip(ev);
     }).on('mousemove', moveTip).on('mouseleave', ()=>{ tip.style.display='none'; });
   });
 
-  // ── Inset box for Hoàng Sa & Trường Sa ─────────────────────────────────
   const IW = 95, IH = 120, IX = W - IW - 6, IY = H - IH - 8;
-  const insetProj = d3.geoMercator()
-    .center([113.5, 13.5]).scale(380).translate([IW/2, IH/2]);
+  const insetProj = d3.geoMercator().center([113.5, 13.5]).scale(380).translate([IW/2, IH/2]);
   const insetPath = d3.geoPath(insetProj);
-
   const insetG = svg.append('g').attr('transform', `translate(${IX},${IY})`);
-  // Background
   insetG.append('rect').attr('width',IW).attr('height',IH)
     .attr('fill','#0a1c2b').attr('stroke','#1e3f59').attr('stroke-width',0.8).attr('rx',4);
-  // Title
-  insetG.append('text').attr('x',IW/2).attr('y',10)
-    .attr('text-anchor','middle').attr('font-size','6px').attr('font-weight','700')
-    .attr('fill','#4a7a9b').attr('font-family','Arial,sans-serif')
-    .text('EAST SEA · BIỂN ĐÔNG');
+  insetG.append('text').attr('x',IW/2).attr('y',10).attr('text-anchor','middle')
+    .attr('font-size','6px').attr('font-weight','700')
+    .attr('fill','#4a7a9b').attr('font-family','Arial,sans-serif').text('EAST SEA · BIỂN ĐÔNG');
 
-  // Draw a tiny Vietnam coast reference
-  d3.json('https://cdn.jsdelivr.net/npm/datamaps@0.5.10/src/js/data/vnm.topo.json').then(topo => {
+  if (topo) {
     const key = Object.keys(topo.objects)[0];
     const features = topojson.feature(topo, topo.objects[key]).features;
     insetG.selectAll('path.inset-prov').data(features).join('path')
-      .attr('class','inset-prov')
-      .attr('d', insetPath)
+      .attr('class','inset-prov').attr('d', insetPath)
       .attr('fill','#1a3d56').attr('stroke','#0d2234').attr('stroke-width',0.3);
-  });
+  }
 
-  // Island dots in inset
   ISLANDS.filter(i=>i.inset).forEach(isl => {
     const [px, py] = insetProj([isl.lon, isl.lat]);
     const g = insetG.append('g').attr('transform',`translate(${px},${py})`);
     g.append('circle').attr('r',3).attr('fill','#e8f0f7').attr('stroke','#5b9ec9').attr('stroke-width',0.8);
-    g.append('text').attr('x',5).attr('y',-2)
-      .attr('font-size','6px').attr('font-weight','700')
-      .attr('fill','#c8dce9').attr('font-family','Arial,sans-serif')
-      .text(isl.nameEn);
-    g.append('text').attr('x',5).attr('y',5)
-      .attr('font-size','5.5px').attr('fill','#4a7a9b').attr('font-family','Arial,sans-serif')
-      .text(isl.nameVi);
+    g.append('text').attr('x',5).attr('y',-2).attr('font-size','6px').attr('font-weight','700')
+      .attr('fill','#c8dce9').attr('font-family','Arial,sans-serif').text(isl.nameEn);
+    g.append('text').attr('x',5).attr('y',5).attr('font-size','5.5px')
+      .attr('fill','#4a7a9b').attr('font-family','Arial,sans-serif').text(isl.nameVi);
     g.style('cursor','default')
       .on('mouseover',function(ev){
         tip.innerHTML=`<span style="font-weight:600">${isl.nameEn}</span><br><span style="font-size:10px;opacity:.7">${isl.nameVi}</span><br><span style="font-size:10px;opacity:.6">Sovereign territory of Vietnam</span>`;
@@ -617,10 +348,8 @@ function renderIslands() {
       }).on('mousemove',moveTip).on('mouseleave',()=>{ tip.style.display='none'; });
   });
 
-  // Border line connecting inset to right edge
   svg.append('line')
-    .attr('x1',IX+IW).attr('y1',IY+IH/2)
-    .attr('x2',W-2).attr('y2',IY+IH/2)
+    .attr('x1',IX+IW).attr('y1',IY+IH/2).attr('x2',W-2).attr('y2',IY+IH/2)
     .attr('stroke','#1e3f59').attr('stroke-width',0.5).attr('stroke-dasharray','3,2');
 }
 
@@ -631,8 +360,7 @@ function renderPins() {
     if (!px || !py) return;
     const tc = TCOLORS[d.type];
     const g = mapG.append('g').attr('class','pin')
-      .attr('transform', `translate(${px},${py})`)
-      .style('cursor','pointer');
+      .attr('transform', `translate(${px},${py})`).style('cursor','pointer');
     g.append('circle').attr('r', 5.5).attr('fill', tc).attr('stroke','#fff').attr('stroke-width',1.5).attr('opacity',0.9);
     g.on('click', () => selectDish(i))
      .on('mouseover', function(ev) {
@@ -654,12 +382,10 @@ function moveTip(ev) {
   tip.style.left = x + 'px'; tip.style.top = y + 'px';
 }
 
-// ── DETAIL PANEL ─────────────────────────────────────────────────────────
+// ── DETAIL PANEL ──────────────────────────────────────────────────────────────
 function selectDish(idx) {
   const d = DISHES[idx];
   selectedDish = idx;
-
-  // Image
   const slug = dishSlug(d);
   const imgEl = document.getElementById('detail-img');
   const imgPh = document.getElementById('detail-img-ph');
@@ -668,38 +394,23 @@ function selectDish(idx) {
     imgEl.src = IMAGE_BASE_URL + slug + '.jpg';
     imgEl.onload  = () => { imgEl.style.display = 'block'; imgPh.style.display = 'none'; };
     imgEl.onerror = () => { imgEl.style.display = 'none'; imgPh.style.display = 'flex'; };
-    imgPh.style.display = 'none';
-    imgEl.style.display = 'block';
+    imgPh.style.display = 'none'; imgEl.style.display = 'block';
   } else {
-    imgEl.style.display = 'none';
-    imgPh.style.display = 'flex';
+    imgEl.style.display = 'none'; imgPh.style.display = 'flex';
   }
-
   document.getElementById('detail-name-en').textContent = d.nameEn;
   document.getElementById('detail-name-vi').textContent = d.nameVi;
-
   const rc = RCOLORS[d.region] || '#888';
   const tc = TCOLORS[d.type] || '#555';
   document.getElementById('detail-meta').innerHTML =
     `<span class="badge" style="background:${rc}22;color:${rc}">${REGION_EN[d.region] || d.region} · ${REGION_VI[d.region] || d.region}</span>` +
     `<span class="badge" style="background:${tc}22;color:${tc}">${d.type} · ${TYPE_VI[d.type]}</span>`;
-
-  document.getElementById('ing-list').innerHTML = d.ingredients.map(ing =>
-    `<div class="ingredient-item">
-      <span class="ing-en">${ing.en}</span>
-      <span class="ing-vi">· ${ing.vi}</span>
-    </div>`
+  document.getElementById('ing-list').innerHTML = (d.ingredients||[]).map(ing =>
+    `<div class="ingredient-item"><span class="ing-en">${ing.en}</span><span class="ing-vi">· ${ing.vi}</span></div>`
   ).join('');
-
   document.getElementById('detail-event-text').textContent = d.events;
-
-  const panel = document.getElementById('detail');
-  panel.classList.add('visible');
-
-  // Highlight row
-  document.querySelectorAll('.dish-row').forEach((r,i) => {
-    r.classList.toggle('active', i === idx);
-  });
+  document.getElementById('detail').classList.add('visible');
+  document.querySelectorAll('.dish-row').forEach((r,i) => r.classList.toggle('active', i === idx));
 }
 
 document.getElementById('detail-close').addEventListener('click', () => {
@@ -708,34 +419,27 @@ document.getElementById('detail-close').addEventListener('click', () => {
   selectedDish = null;
 });
 
-// ── FILTERS ───────────────────────────────────────────────────────────────
+// ── FILTERS ───────────────────────────────────────────────────────────────────
 function buildFilters() {
   const rf = document.getElementById('region-filters');
   const tf = document.getElementById('type-filters');
-  rf.innerHTML = '';
-  tf.innerHTML = '';
+  rf.innerHTML = ''; tf.innerHTML = '';
 
   REGIONS.filter(r => DISHES.some(d => d.region === r)).forEach(r => {
     const btn = document.createElement('button');
     btn.className = 'filter-btn';
     btn.innerHTML = `<span style="display:block;font-size:11px;font-weight:700;line-height:1.2">${REGION_EN[r]}</span><span style="display:block;font-size:9px;opacity:.65;line-height:1.2">${REGION_VI[r]}</span>`;
-    btn.style.background = 'transparent';
-    btn.style.color = RCOLORS[r];
-    btn.style.padding = '4px 9px';
-    btn.style.lineHeight = '1';
-    btn.style.borderColor = RCOLORS[r] + '88';
+    btn.style.cssText = `background:transparent;color:${RCOLORS[r]};padding:4px 9px;line-height:1;border-color:${RCOLORS[r]}88`;
+    btn.dataset.region = r;
     btn.addEventListener('click', () => {
       activeRegion = activeRegion === r ? null : r;
       applyFilters();
-      document.querySelectorAll('#region-filters .filter-btn').forEach(b => b.classList.remove('active'));
-      if (activeRegion) {
-        btn.classList.add('active');
-        btn.style.background = RCOLORS[r];
-        btn.style.color = '#fff';
-      } else {
-        btn.style.background = 'transparent';
-        btn.style.color = RCOLORS[r];
-      }
+      document.querySelectorAll('#region-filters .filter-btn').forEach(b => {
+        b.classList.remove('active');
+        b.style.background = 'transparent';
+        b.style.color = RCOLORS[b.dataset.region];
+      });
+      if (activeRegion) { btn.classList.add('active'); btn.style.background = RCOLORS[r]; btn.style.color = '#fff'; }
     });
     rf.appendChild(btn);
   });
@@ -744,24 +448,16 @@ function buildFilters() {
     const btn = document.createElement('button');
     btn.className = 'filter-btn';
     btn.textContent = `${t} · ${TYPE_VI[t]}`;
-    btn.style.color = TCOLORS[t];
-    btn.style.borderColor = TCOLORS[t] + '88';
+    btn.style.cssText = `color:${TCOLORS[t]};border-color:${TCOLORS[t]}88`;
+    btn.dataset.type = t;
     btn.addEventListener('click', () => {
       activeType = activeType === t ? null : t;
       applyFilters();
       document.querySelectorAll('#type-filters .filter-btn').forEach(b => {
-        b.classList.remove('active');
-        b.style.background = 'transparent';
-        b.style.color = TCOLORS[b.dataset.type];
+        b.classList.remove('active'); b.style.background = 'transparent'; b.style.color = TCOLORS[b.dataset.type];
       });
-      btn.dataset.type = t;
-      if (activeType) {
-        btn.classList.add('active');
-        btn.style.background = TCOLORS[t];
-        btn.style.color = '#fff';
-      }
+      if (activeType) { btn.classList.add('active'); btn.style.background = TCOLORS[t]; btn.style.color = '#fff'; }
     });
-    btn.dataset.type = t;
     tf.appendChild(btn);
   });
 }
@@ -773,8 +469,7 @@ function matchesSearch(d) {
 }
 
 function applyFilters() {
-  const rows = document.querySelectorAll('.dish-row');
-  rows.forEach((row, i) => {
+  document.querySelectorAll('.dish-row').forEach((row, i) => {
     const d = DISHES[i];
     const show = matchesSearch(d) && (!activeRegion || d.region === activeRegion) && (!activeType || d.type === activeType);
     row.classList.toggle('dimmed', !show);
@@ -787,10 +482,9 @@ function applyFilters() {
   });
 }
 
-// ── DISH LIST ─────────────────────────────────────────────────────────────
+// ── DISH LIST ─────────────────────────────────────────────────────────────────
 function buildList() {
-  const dl = document.getElementById('dish-list');
-  dl.innerHTML = DISHES.map((d, i) => `
+  document.getElementById('dish-list').innerHTML = DISHES.map((d, i) => `
     <div class="dish-row" onclick="selectDish(${i})">
       <span class="row-dot" style="background:${TCOLORS[d.type]}"></span>
       <div>
@@ -805,9 +499,6 @@ document.getElementById('search-input').addEventListener('input', function() {
   activeSearch = this.value.trim();
   applyFilters();
 });
-
-buildFilters();
-buildList();
 </script>
 </body>
 </html>
