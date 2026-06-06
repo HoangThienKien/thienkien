@@ -163,7 +163,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
 <script>
 // ── CONFIG ────────────────────────────────────────────────────────────────────
-const IMAGE_BASE_URL = '';
+const IMAGE_BASE_URL = 'https://raw.githubusercontent.com/HoangThienKien/thienkien/main/images/';
 
 function dishSlug(d) {
   return d.nameEn.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
@@ -389,9 +389,9 @@ function selectDish(idx) {
   const slug = dishSlug(d);
   const imgEl = document.getElementById('detail-img');
   const imgPh = document.getElementById('detail-img-ph');
-  document.getElementById('detail-img-filename').textContent = slug + '.jpg';
+  document.getElementById('detail-img-filename').textContent = slug + '.webp';
   if (IMAGE_BASE_URL) {
-    imgEl.src = IMAGE_BASE_URL + slug + '.jpg';
+    imgEl.src = IMAGE_BASE_URL + slug + '.webp';
     imgEl.onload  = () => { imgEl.style.display = 'block'; imgPh.style.display = 'none'; };
     imgEl.onerror = () => { imgEl.style.display = 'none'; imgPh.style.display = 'flex'; };
     imgPh.style.display = 'none'; imgEl.style.display = 'block';
