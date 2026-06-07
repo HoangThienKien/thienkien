@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hành Trình Hưng Yên — Thiện Kiến</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Questrial&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black:  #0A0A0A;
+      --cream:  #F5E8C0;
+      --cyan:   #29C5D0;
+      --amber:  #C8872A;
+      --gap:    3px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--cream);
+      font-family: 'Questrial', sans-serif;
+      font-size: 16px;
+      line-height: 1.75;
+      cursor: none;
+      overflow-x: hidden;
+    }
+
+    /* ── CURSOR ── */
+    #cursor {
+      position: fixed;
+      width: 10px; height: 10px;
+      background: var(--cyan);
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: width .15s, height .15s, opacity .15s;
+      z-index: 9999;
+    }
+    #cursor.big { width: 48px; height: 48px; opacity: .35; }
+
+    /* ── SCROLL PROGRESS ── */
+    #progress {
+      position: fixed;
+      top: 0; left: 0;
+      height: 2px;
+      background: var(--cyan);
+      width: 0%;
+      z-index: 9998;
+      transition: width .1s linear;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 56px;
+      background: rgba(10,10,10,.92);
+      backdrop-filter: blur(8px);
+      border-bottom: var(--gap) solid #1a1a1a;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      z-index: 500;
+    }
+    .nav-logo {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: .18em;
+      color: var(--cream);
+      text-decoration: none;
+      text-transform: uppercase;
+      opacity: .7;
+    }
+    .nav-logo span { color: var(--cyan); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--cream);
+      text-decoration: none;
+      opacity: .5;
+      transition: opacity .2s;
+    }
+    .nav-links a:hover { opacity: 1; }
+    .nav-links a.active { opacity: 1; color: var(--cyan); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 0 80px 0;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-color: #1c1610;
+      background-size: cover;
+      background-position: center;
+      /* Uncomment and replace filename when image is ready: */
+      /* background-image: url('HungYen_Hero.webp'); */
+    }
+    .hero-bg.placeholder::after {
+      content: 'HERO IMAGE — HungYen_Hero.webp';
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: .16em;
+      color: rgba(245,232,192,.15);
+      border: 1px dashed rgba(245,232,192,.07);
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(10,10,10,.2) 0%,
+        rgba(10,10,10,.45) 40%,
+        rgba(10,10,10,.85) 75%,
+        rgba(10,10,10,.97) 100%
+      );
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 64px;
+      max-width: 920px;
+    }
+    .hero-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 36px;
+      height: 1px;
+      background: var(--cyan);
+    }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(56px, 8vw, 104px);
+      font-weight: 300;
+      line-height: 1.0;
+      letter-spacing: -.01em;
+      color: var(--cream);
+      margin-bottom: 6px;
+    }
+    .hero-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(17px, 2vw, 24px);
+      font-weight: 300;
+      font-style: italic;
+      color: rgba(245,232,192,.55);
+      margin-bottom: 28px;
+    }
+    .hero-meta {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .hero-meta-item {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(245,232,192,.4);
+    }
+    .hero-meta-dot {
+      width: 3px; height: 3px;
+      background: rgba(245,232,192,.2);
+      border-radius: 50%;
+    }
+
+    /* ── PAGE BODY ── */
+    .page-body {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 64px;
+      display: grid;
+      grid-template-columns: 1fr 260px;
+      gap: 72px;
+      align-items: start;
+    }
+
+    /* ── ARTICLE ── */
+    .article { min-width: 0; padding-top: 80px; }
+
+    /* Section block */
+    .section-block { margin-bottom: 72px; }
+
+    .section-kicker {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-kicker::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(41,197,208,.18);
+    }
+    .section-title-vi {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(26px, 2.8vw, 38px);
+      font-weight: 400;
+      line-height: 1.15;
+      color: var(--cream);
+      margin-bottom: 4px;
+    }
+    .section-title-en {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(14px, 1.4vw, 18px);
+      font-weight: 300;
+      font-style: italic;
+      color: rgba(245,232,192,.35);
+      margin-bottom: 28px;
+    }
+
+    /* Bilingual columns */
+    .bilingual { margin-bottom: 28px; }
+    .col-vi { display: none; }
+    .col-en p {
+      font-family: 'Questrial', sans-serif;
+      font-size: 16px;
+      line-height: 1.88;
+      color: rgba(245,232,192,.82);
+      margin-bottom: 18px;
+    }
+    .col-en p:last-child { margin-bottom: 0; }
+
+    /* Pull quote */
+    .pullquote {
+      margin: 36px 0;
+      padding: 26px 30px;
+      border-left: 3px solid var(--cyan);
+      background: rgba(41,197,208,.04);
+    }
+    .pullquote-vi {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(20px, 2.2vw, 28px);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.45;
+      color: var(--cream);
+      margin-bottom: 8px;
+    }
+    .pullquote-en {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(13px, 1.2vw, 16px);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.55;
+      color: rgba(245,232,192,.38);
+    }
+
+    /* Divider */
+    .divider {
+      text-align: center;
+      margin: 64px 0;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      color: rgba(245,232,192,.25);
+      letter-spacing: .4em;
+    }
+
+    /* ── IMAGE SLOTS ── */
+    .img-slot {
+      margin: 36px 0;
+      background: #111;
+      position: relative;
+      overflow: hidden;
+    }
+    .img-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .img-slot.h-480 { height: 480px; }
+    .img-slot.h-380 { height: 380px; }
+    .img-slot.h-320 { height: 320px; }
+
+    /* Placeholder */
+    .img-slot.ph {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 1px dashed rgba(245,232,192,.08);
+    }
+    .img-slot.ph svg { opacity: .18; }
+    .img-slot.ph .ph-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(245,232,192,.22);
+    }
+    .img-slot.ph .ph-name {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: rgba(41,197,208,.38);
+      letter-spacing: .1em;
+    }
+    .img-caption {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .11em;
+      color: rgba(245,232,192,.3);
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+
+    /* Dual image grid */
+    .img-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--gap);
+      margin: 36px 0;
+    }
+    .img-grid-2 .img-slot { margin: 0; }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      position: sticky;
+      top: 72px;
+      padding-top: 80px;
+    }
+    .sb-block {
+      border: var(--gap) solid #191919;
+      padding: 22px;
+      margin-bottom: var(--gap);
+    }
+    .sb-heading {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(41,197,208,.14);
+      margin-bottom: 16px;
+    }
+    .sb-meta dt {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: rgba(245,232,192,.3);
+      margin-top: 14px;
+      margin-bottom: 3px;
+    }
+    .sb-meta dt:first-child { margin-top: 0; }
+    .sb-meta dd {
+      font-family: 'Questrial', sans-serif;
+      font-size: 13.5px;
+      color: rgba(245,232,192,.7);
+    }
+    .toc { list-style: none; }
+    .toc li { border-bottom: 1px solid rgba(245,232,192,.05); }
+    .toc a {
+      display: block;
+      padding: 9px 0;
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .1em;
+      color: rgba(245,232,192,.4);
+      text-decoration: none;
+      transition: color .2s;
+      line-height: 1.4;
+    }
+    .toc a:hover, .toc a.active { color: var(--cyan); }
+    .tags { display: flex; flex-wrap: wrap; gap: 5px; }
+    .tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: 4px 9px;
+      border: 1px solid rgba(245,232,192,.13);
+      color: rgba(245,232,192,.4);
+    }
+
+    /* ── CLOSING ── */
+    .closing-wrap {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 64px 80px;
+    }
+    .closing-rule { height: var(--gap); background: #191919; margin-bottom: 56px; }
+    .closing-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      max-width: 640px;
+    }
+    .closing-vi p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(18px, 1.8vw, 23px);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.65;
+      color: rgba(245,232,192,.68);
+      margin-bottom: 18px;
+    }
+    .closing-en p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(18px, 1.8vw, 23px);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.65;
+      color: rgba(245,232,192,.68);
+      margin-bottom: 18px;
+    }
+    .closing-cta {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(41,197,208,.6);
+      margin-top: 32px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: color .2s;
+    }
+    .closing-cta:hover { color: var(--cyan); }
+    .closing-cta::after {
+      content: '→';
+      font-style: normal;
+    }
+
+    /* ── RELATED ── */
+    .related-wrap {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 64px 0;
+    }
+    .related-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: rgba(245,232,192,.3);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .related-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(245,232,192,.07);
+    }
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--gap);
+    }
+    .rel-card {
+      position: relative;
+      height: 220px;
+      background: #111;
+      overflow: hidden;
+      cursor: none;
+    }
+    .rel-card-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform .5s ease;
+    }
+    .rel-card:hover .rel-card-bg { transform: scale(1.05); }
+    .rel-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10,10,10,.92) 0%, rgba(10,10,10,.25) 100%);
+    }
+    .rel-card-corner {
+      position: absolute;
+      top: 0; right: 0;
+      width: 28px; height: 28px;
+      background: var(--cyan);
+      pointer-events: none;
+    }
+    .rel-card-content {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 18px 20px;
+    }
+    .rel-card-type {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 5px;
+    }
+    .rel-card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--cream);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      margin-top: 80px;
+      border-top: var(--gap) solid #191919;
+      padding: 44px 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-logo {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(245,232,192,.28);
+    }
+    .footer-logo span { color: var(--cyan); opacity: .55; }
+    .footer-copy {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .11em;
+      color: rgba(245,232,192,.18);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      .page-body { grid-template-columns: 1fr; gap: 0; padding: 0 24px; }
+      .sidebar { position: static; padding-top: 40px; }
+      .hero-content { padding: 0 24px; }
+      .bilingual { grid-template-columns: 1fr; gap: 0; }
+      .col-en { display: none; }
+      .related-grid { grid-template-columns: 1fr; }
+      .closing-wrap, .related-wrap { padding: 0 24px 60px; }
+      .closing-grid { grid-template-columns: 1fr; }
+      .closing-en { display: none; }
+      footer { padding: 32px 24px; flex-direction: column; gap: 10px; text-align: center; }
+      .img-grid-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="progress"></div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">Thiện <span>Kiến</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="journey-log.html" class="active">Journey Log</a></li>
+    <li><a href="#">Services</a></li>
+    <li><a href="#">TKG</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg placeholder"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Hành Trình Thiên Lý &nbsp;·&nbsp; Field Log</div>
+    <h1 class="hero-title">Hưng Yên</h1>
+    <div class="hero-subtitle">"In old Northern Vietnam, only the Imperial Capital surpassed Phố Hiến in prominence."</div>
+    <div class="hero-meta">
+      <span class="hero-meta-item">Hoàng Đại &amp; Hải Ninh</span>
+      <span class="hero-meta-dot"></span>
+      <span class="hero-meta-item">2024</span>
+      <span class="hero-meta-dot"></span>
+      <span class="hero-meta-item">Phố Hiến · Chùa Hiến · Hồng Châu</span>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE BODY -->
+<div class="page-body">
+
+  <!-- ARTICLE -->
+  <article class="article">
+
+    <!-- ── SECTION 01 ── -->
+    <div class="section-block" id="s-con-duong">
+      <div class="section-kicker">01</div>
+      <h2 class="section-title-vi" style="display:none">Con Đường Vào Hưng Yên</h2>
+      <div class="section-title-en" style="font-size:clamp(22px,2.4vw,32px);font-style:normal;color:rgba(245,232,192,.95);margin-bottom:24px;">The Road into Hưng Yên</div>
+
+      <div class="bilingual">
+        <div class="col-vi">
+          <p>Rời Hải Dương, chúng tôi vòng ngược về phía Tây để sang Hưng Yên.</p>
+          <p>Con đường tiến vào Hưng Yên rộng và thoáng đến bất ngờ. Khi ấy trời đã tối hẳn, không khí se lạnh của một buổi tối đầu xuân. Suốt một đoạn đường dài gần như chỉ còn tiếng xe của hai đứa vang giữa màn đêm.</p>
+          <p>Hai bên đường là những dãy trường học, bệnh viện và các trục hành chính lớn. Khung cảnh ấy khiến tôi có chút ngạc nhiên. Trong tưởng tượng trước đó, Hưng Yên phải là một nơi cổ kính và đậm đặc không khí Bắc Bộ ngay từ lúc đặt chân tới.</p>
+          <p>Nhưng rồi chỉ cần rẽ vào Phố Hiến, mọi thứ lập tức thay đổi.</p>
+        </div>
+        <div class="col-en">
+          <p>Leaving Hải Dương behind, we turned westward toward Hưng Yên.</p>
+          <p>The road into Hưng Yên was unexpectedly wide and open. By then, night had fully settled in, carrying the gentle chill of an early spring evening. For a long stretch, the only sound was the hum of our motorbike cutting through the darkness.</p>
+          <p>On either side stood rows of schools, hospitals, and large administrative buildings. The scene caught me by surprise. In my imagination, Hưng Yên would reveal itself immediately as an old northern town, steeped in history and unmistakably rooted in the atmosphere of the Red River Delta.</p>
+          <p>But everything changed the moment we entered Phố Hiến.</p>
+        </div>
+      </div>
+
+      <div class="pullquote">
+        <div class="pullquote-vi" style="display:none">Như thể vừa đi xuyên qua một lớp không gian khác.</div>
+        <div class="pullquote-en" style="font-size:clamp(19px,2vw,26px);color:var(--cream);">It felt as though we had crossed into another layer of space altogether.</div>
+      </div>
+
+      <!-- IMG 01 -->
+      <div class="img-slot h-480 ph" id="img-01">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        <span class="ph-label">Upload ảnh</span>
+        <span class="ph-name">HungYen_01.webp</span>
+      </div>
+      <div class="img-caption">The road into Phố Hiến — early spring evening, 2024</div>
+    </div>
+
+    <!-- ── SECTION 02 ── -->
+    <div class="section-block" id="s-pho-hien">
+      <div class="section-kicker">02</div>
+      <h2 class="section-title-vi" style="display:none">Phố Hiến Về Đêm</h2>
+      <div class="section-title-en" style="font-size:clamp(22px,2.4vw,32px);font-style:normal;color:rgba(245,232,192,.95);margin-bottom:24px;">The Night in Phố Hiến</div>
+
+      <div class="bilingual">
+        <div class="col-vi">
+          <p>Những cây cổ thụ lớn phủ bóng xuống mặt đường. Đền, chùa xuất hiện nhiều hơn. Những dãy nhà kiểu cũ san sát nhau trong ánh đèn vàng yên ắng. Không gian bỗng chậm lại theo cách rất khó diễn tả.</p>
+          <p>Gần như theo bản năng, chúng tôi tấp vào một khách sạn nằm trên con phố nhỏ. Khách sạn không hiện đại, nhưng rộng rãi và sáng đèn giữa khu phố tĩnh lặng. Sau cả ngày rong ruổi từ Hải Dương sang Hưng Yên, điều duy nhất cả hai cần lúc ấy là một nơi để dừng chân và hồi lại năng lượng.</p>
+        </div>
+        <div class="col-en">
+          <p>Ancient trees cast their shadows across the road. Temples and pagodas began to appear more frequently. Rows of old houses stood shoulder to shoulder beneath the quiet glow of yellow streetlights. The atmosphere seemed to slow down in a way that is difficult to describe.</p>
+          <p>Almost instinctively, we pulled over at a small hotel tucked along a narrow street. It was not modern, but it was spacious and warmly lit amid the stillness of the neighborhood. After a full day on the road, the only thing we needed was a place to stop, rest, and regain our energy.</p>
+        </div>
+      </div>
+
+      <div class="pullquote">
+        <div class="pullquote-vi" style="display:none">"Thứ nhất kinh kỳ, thứ nhì Phố Hiến."<br>Có lẽ chính câu nói ấy khiến chúng tôi háo hức cho ngày hôm sau hơn bao giờ hết.</div>
+        <div class="pullquote-en" style="font-size:clamp(19px,2vw,26px);color:var(--cream);">"First the Imperial Capital, second Phố Hiến." Perhaps it was that old saying alone that made us look forward to the next day more than ever.</div>
+      </div>
+
+      <!-- IMG 02 -->
+      <div class="img-slot h-380 ph" id="img-02">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        <span class="ph-label">Upload ảnh</span>
+        <span class="ph-name">HungYen_02.webp</span>
+      </div>
+      <div class="img-caption">Phố Hiến — yellow streetlights and old rooftops at night</div>
+    </div>
+
+    <!-- ── SECTION 03 ── -->
+    <div class="section-block" id="s-doan-thuong">
+      <div class="section-kicker">03</div>
+      <h2 class="section-title-vi" style="display:none">Đoàn Thượng — Lịch Sử Trong Dòng Họ</h2>
+      <div class="section-title-en" style="font-size:clamp(22px,2.4vw,32px);font-style:normal;color:rgba(245,232,192,.95);margin-bottom:24px;">History Carried Through Generations</div>
+
+      <div class="bilingual">
+        <div class="col-vi">
+          <p>Sáng hôm sau, khi xuống sảnh khách sạn, chúng tôi vô tình trò chuyện với anh chủ khách sạn. Ngoài việc kinh doanh khách sạn, anh còn điều hành một nhà hàng tiệc tại địa phương.</p>
+          <p>Trong lúc nói chuyện, anh tự giới thiệu mình là người họ Đoàn — và là cháu nhiều đời của Đoàn Thượng.</p>
+          <p>Tôi gần như khựng lại vài giây.</p>
+          <p>Bởi từ nhiều năm nay, tôi vẫn âm thầm theo đuổi một dự án cá nhân về giai đoạn biến động cuối thời Lý, đầu thời Trần. Và trong những năm tháng rối ren ấy, Đoàn Thượng là một nhân vật rất đặc biệt của vùng đất này.</p>
+          <p>Ông là một hào trưởng lớn ở Hồng Châu, từng nổi lên chống lại triều đình nhà Lý vào giai đoạn quyền lực trung ương bắt đầu suy yếu. Triều đình cử Phạm Du đi đánh dẹp, nhưng rồi chính những mối quan hệ quyền lực và việc mua chuộc lẫn nhau trong nội bộ lại càng khoét sâu thêm sự chia rẽ của hoàng triều.</p>
+          <p>Chỉ ít lâu sau đó, biến loạn Quách Bốc nổ ra — một sự kiện gần như đã đẩy triều Lý vào con đường suy sụp không thể cứu vãn.</p>
+        </div>
+        <div class="col-en">
+          <p>The next morning, as we came down to the hotel lobby, we struck up a conversation with the owner. Besides running the hotel, he also operated a local banquet restaurant.</p>
+          <p>During our conversation, he introduced himself as a member of the Đoàn family — and a many-generations descendant of Đoàn Thượng.</p>
+          <p>I nearly paused for a moment.</p>
+          <p>For years, I had quietly pursued a personal research project on the turbulent transition between the late Lý and early Trần dynasties. And within that era of upheaval, Đoàn Thượng was one of the most remarkable figures associated with this region.</p>
+          <p>A powerful local lord of Hồng Châu, he rose to prominence at a time when the authority of the Lý court was beginning to weaken. The royal court dispatched Phạm Du to suppress him, yet the web of political alliances and mutual patronage only deepened the fractures already spreading through the kingdom.</p>
+          <p>Not long afterward came the Quách Bốc Rebellion — an event that pushed the Lý dynasty toward a decline from which it would never fully recover.</p>
+        </div>
+      </div>
+
+      <!-- IMG 03 -->
+      <div class="img-slot h-320 ph" id="img-03">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        <span class="ph-label">Upload ảnh</span>
+        <span class="ph-name">HungYen_03.webp</span>
+      </div>
+      <div class="img-caption">Morning conversation at the hotel lobby — Phố Hiến</div>
+
+      <div class="bilingual" style="margin-top:28px;">
+        <div class="col-vi">
+          <p>Vì vậy khi nghe người chủ khách sạn trước mặt tự giới thiệu mình là hậu duệ nhiều đời của họ Đoàn, tôi có cảm giác như lịch sử bỗng hiện ra rất gần.</p>
+          <p>Không phải kiểu lịch sử nằm trong sách giáo khoa. Mà là thứ lịch sử vẫn còn tồn tại âm thầm trong dòng họ, trong vùng đất, trong ký ức địa phương, và trong cách con người nơi đây vẫn tiếp tục sống trên chính phần đất tổ tiên họ từng bước qua hơn 800 năm trước.</p>
+        </div>
+        <div class="col-en">
+          <p>So when the hotel owner casually mentioned that he was a descendant of the Đoàn lineage, history suddenly felt very close.</p>
+          <p>Not the kind of history preserved in textbooks. But the kind that continues to live quietly through family lineages, through the land itself, through local memory, and through the lives of people who still walk the same ground their ancestors crossed more than eight centuries ago.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SECTION 04 ── -->
+    <div class="section-block" id="s-den-banhte">
+      <div class="section-kicker">04</div>
+      <h2 class="section-title-vi" style="display:none">Đền Mẫu, Đền Trần &amp; Bánh Tẻ Phố Hiến</h2>
+      <div class="section-title-en" style="font-size:clamp(22px,2.4vw,32px);font-style:normal;color:rgba(245,232,192,.95);margin-bottom:24px;">The Mẫu Temple, The Trần Temple &amp; Phố Hiến Bánh Tẻ</div>
+
+      <div class="bilingual">
+        <div class="col-vi">
+          <p>Khi sáng hôm sau bước hẳn ra ngoài khách sạn, tôi mới nhận ra nơi mình ở nằm sát các cơ quan hành chính lớn của tỉnh.</p>
+          <p>Trong đầu tôi lúc ấy, mọi thứ chồng lớp lên nhau như một cuốn phim quay chậm — Phố Hiến, những dòng họ cũ, giai đoạn cuối thời Lý đầy biến động, và tiếng xe của hai đứa vừa chạy xuyên qua vùng đất này trong màn đêm hôm trước.</p>
+          <p>Điểm dừng chân đầu tiên là đền Mẫu Phố Hiến để dâng hương cho Mẫu, rồi sang đền Trần ngay bên cạnh. Vẫn là những lời cảm tạ quen thuộc — cảm tạ vì đã cho chúng tôi đi một chặng đường dài an toàn và được đón tiếp tại một nơi thật sự đặc biệt.</p>
+        </div>
+        <div class="col-en">
+          <p>It was only when we stepped outside the next morning that I realized we had spent the night just beside the province's main administrative district.</p>
+          <p>In my mind, everything seemed to overlap like scenes from a slow-moving film — Phố Hiến, the old family lineages, the turbulent final years of the Lý dynasty, and the sound of our motorbike carrying us through this land under cover of darkness.</p>
+          <p>Our first stop was the Mẫu Temple, where we offered incense to the Mother Goddess, before crossing to the nearby Trần Temple. The prayers were familiar — gratitude for a safe journey, and for being welcomed into a place that felt truly special.</p>
+        </div>
+      </div>
+
+      <!-- IMG 04 dual -->
+      <div class="img-grid-2">
+        <div>
+          <div class="img-slot h-380 ph" id="img-04a">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span class="ph-label">Upload ảnh</span>
+            <span class="ph-name">HungYen_04.webp</span>
+          </div>
+          <div class="img-caption">Mẫu Temple — Phố Hiến</div>
+        </div>
+        <div>
+          <div class="img-slot h-380 ph" id="img-04b">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span class="ph-label">Upload ảnh</span>
+            <span class="ph-name">HungYen_05.webp</span>
+          </div>
+          <div class="img-caption">Trần Temple — Phố Hiến</div>
+        </div>
+      </div>
+
+      <div class="bilingual">
+        <div class="col-vi">
+          <p>Bước ra khỏi cổng đền, những mâm bánh lá truyền thống vẫn được bày bán ven đường như từ rất lâu rồi vẫn thế. Không gian nơi đây khiến thời gian như chậm lại, đủ để người ta ngồi yên và cảm nhận văn hoá Bắc Bộ đang thấm dần vào từng chi tiết nhỏ.</p>
+          <p>Hải Ninh và tôi ngồi ngay bên đường thử bánh tẻ Phố Hiến. Khi lớp lá dong được mở ra, hơi nóng cùng mùi thơm của gạo xay và lá tươi bốc lên giữa tiết trời se lạnh đầu xuân miền Bắc tạo nên một cảm giác rất khó quên. Lớp vỏ bánh mềm, dẻo và dày vừa đủ, ánh xanh nhạt thấm từ màu lá. Bên trong là nhân thịt, mộc nhĩ và nấm hương quyện lại thành một hương vị vừa mộc vừa sâu.</p>
+        </div>
+        <div class="col-en">
+          <p>Outside the temple gates, trays of traditional leaf-wrapped cakes were still being sold along the roadside, just as they must have been for generations. There was something about this place that seemed to slow the passage of time, allowing visitors to sit quietly and feel the culture of Northern Vietnam reveal itself through the smallest details.</p>
+          <p>Hải Ninh and I settled onto a low roadside seat and ordered Bánh Tẻ Phố Hiến. As the dong leaf was unfolded, warm steam rose into the cool early spring air, carrying the aroma of freshly milled rice and green leaves. The cake was soft and supple. Inside, minced pork, wood ear mushrooms, and shiitake came together in a filling that felt both humble and deeply satisfying.</p>
+        </div>
+      </div>
+
+      <div class="pullquote">
+        <div class="pullquote-vi" style="display:none">Ngồi trước cổng đền, ăn bánh nóng và uống một cốc chè giữa cái lạnh nhè nhẹ của Phố Hiến — một cảm giác khó diễn tả thành lời.</div>
+        <div class="pullquote-en" style="font-size:clamp(19px,2vw,26px);color:var(--cream);">Sitting in front of the temple gate, eating a warm bánh tẻ and sipping hot tea in the gentle chill of Phố Hiến was a feeling that resisted description. Some experiences are best understood simply by being there.</div>
+      </div>
+
+      <!-- IMG 05 -->
+      <div class="img-slot h-480 ph" id="img-05">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        <span class="ph-label">Upload ảnh</span>
+        <span class="ph-name">HungYen_06.webp</span>
+      </div>
+      <div class="img-caption">Bánh tẻ Phố Hiến — dong leaf unfolded before the temple gate</div>
+    </div>
+
+    <!-- ── SECTION 05 ── -->
+    <div class="section-block" id="s-banh-ran">
+      <div class="section-kicker">05</div>
+      <h2 class="section-title-vi" style="display:none">Bánh Rán Mật Mía</h2>
+      <div class="section-title-en" style="font-size:clamp(22px,2.4vw,32px);font-style:normal;color:rgba(245,232,192,.95);margin-bottom:24px;">A Street Food Flavor Nearly Perfected</div>
+
+      <div class="bilingual">
+        <div class="col-vi">
+          <p>Rời khu vực hai ngôi đền, chúng tôi tiếp tục đi về phía chợ Phố Hiến. Ngay đoạn rẽ từ trục đường chính vào chợ, cả hai bắt gặp một chị bán bánh rán ngồi nép bên góc đường với vài mâm bánh nhỏ: bánh rán mật mía, bánh rán mè, bánh rán đường.</p>
+          <p>Bánh không lớn, chỉ be bé trong lòng bàn tay, nhưng mùi thơm thì đủ sức giữ chân bất kỳ ai đi ngang. Với niềm yêu thích đặc biệt dành cho quà vặt đường phố của Hải Ninh, chúng tôi dừng lại gần như ngay lập tức.</p>
+          <p>Và rồi tôi phải thừa nhận: đây có lẽ là bánh rán mật mía ngon nhất tôi từng ăn ở Việt Nam. Lớp vỏ mỏng và giòn. Mật mía ngọt nhưng không gắt. Nhân đậu xanh bùi quyện cùng lớp bánh nóng vừa chiên xong tạo thành một hương vị đường phố gần như hoàn hảo.</p>
+          <p>Sau này, chính món bánh ấy đã được chúng tôi mang từ Phố Hiến ra Hà Nội, đặt vào giữa bàn tiệc của Đại sứ quán Úc. Điều thú vị là rất nhiều thực khách ngạc nhiên khi biết rằng ngay tại Hà Nội, họ cũng khó tìm được đúng hương vị này.</p>
+        </div>
+        <div class="col-en">
+          <p>Leaving the temple district behind, we continued toward Phố Hiến Market. Just after turning off the main road, we spotted a woman sitting quietly at a street corner with a few trays of freshly made snacks: bánh rán mật mía, sesame-coated fried cakes, and sugar-glazed fried cakes.</p>
+          <p>The cakes were small enough to fit comfortably in the palm of a hand, yet their aroma was enough to stop almost anyone passing by. Given Hải Ninh's enduring affection for Vietnamese street snacks, we pulled over almost immediately.</p>
+          <p>And I have to admit — this was perhaps the finest bánh rán mật mía I have ever tasted in Vietnam. The crust was thin and crisp. The sugarcane molasses was sweet but never overwhelming. Inside, the earthy richness of mung bean blended perfectly with the warmth of the freshly fried dough — a street-food experience that felt remarkably close to perfection.</p>
+          <p>Years later, those same cakes would travel with us from Phố Hiến to Hà Nội, finding a place at the center of a dining table prepared for the Australian Embassy. What surprised many guests was learning that even in Hà Nội itself, this particular flavor is not easy to find.</p>
+        </div>
+      </div>
+
+      <!-- IMG 06 -->
+      <div class="img-slot h-380 ph" id="img-06">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        <span class="ph-label">Upload ảnh</span>
+        <span class="ph-name">HungYen_07.webp</span>
+      </div>
+      <div class="img-caption">Bánh rán mật mía — a corner of Phố Hiến Market</div>
+    </div>
+
+    <!-- ── SECTION 06 ── -->
+    <div class="section-block" id="s-nhan-to">
+      <div class="section-kicker">06</div>
+      <h2 class="section-title-vi" style="display:none">Cây Nhãn Tổ — Chùa Hiến</h2>
+      <div class="section-title-en" style="font-size:clamp(22px,2.4vw,32px);font-style:normal;color:rgba(245,232,192,.95);margin-bottom:24px;">The Ancestral Longan Tree — Hiến Pagoda</div>
+
+      <div class="bilingual">
+        <div class="col-vi">
+          <p>Có lẽ cũng từ đó mà tôi dần nhận ra một điều: rất nhiều món quà ngọt mà người ta thường gắn với Hà Nội, muốn tìm đúng hương vị gốc, đôi khi lại phải đi về những vùng như Hưng Yên hay Hải Dương.</p>
+          <p>Nếu ở Hải Dương chúng tôi đã tìm đến cây vải tổ, thì khi tới Hưng Yên, gần như không thể bỏ qua cây nhãn tổ. Chúng tôi tìm về chùa Hiến — nơi toạ lạc của cây nhãn tổ, nơi phát tích của cả một vùng nhãn lồng trứ danh.</p>
+          <p>Một cây tổ khác. Một gốc rễ khác đã nuôi sống biết bao thế hệ người dân vùng Hồng Châu xưa.</p>
+          <p>Giữa không gian tĩnh lặng của ngôi chùa cổ, Hải Ninh và tôi lại dâng hương cảm tạ. Không chỉ cho một chuyến đi bình an. Mà còn cho những con người vô danh từ nhiều thế hệ trước — những người đã đặt nền móng cho các giống cây, món ăn và sinh kế vẫn đang tiếp tục nuôi sống người Việt hôm nay.</p>
+        </div>
+        <div class="col-en">
+          <p>Perhaps it was there that I began to realize something: many of the sweet treats people commonly associate with Hà Nội are not always best discovered in the capital itself. To find their original character, one often has to travel outward — to places like Hưng Yên or Hải Dương.</p>
+          <p>If Hải Dương had led us to the ancestral lychee tree, then Hưng Yên offered something equally impossible to overlook: the ancestral longan tree. We made our way to Hiến Pagoda — home to the original longan tree and the birthplace of the famed nhãn lồng tradition that would come to define the region.</p>
+          <p>Another ancestral tree. Another root system that had sustained generations of people across the old land of Hồng Châu.</p>
+          <p>Within the quiet grounds of the ancient pagoda, Hải Ninh and I once again offered incense in gratitude. Not only for a safe journey — but also for the countless unnamed individuals who came before us, those who cultivated the trees, preserved the knowledge, and laid the foundations for the crops, foods, and livelihoods that continue to nourish Vietnamese life today.</p>
+        </div>
+      </div>
+
+      <!-- IMG 07 dual -->
+      <div class="img-grid-2">
+        <div>
+          <div class="img-slot h-420 ph" id="img-07a">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span class="ph-label">Upload ảnh</span>
+            <span class="ph-name">HungYen_08.webp</span>
+          </div>
+          <div class="img-caption">Hiến Pagoda — quiet grounds</div>
+        </div>
+        <div>
+          <div class="img-slot h-420 ph" id="img-07b">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span class="ph-label">Upload ảnh</span>
+            <span class="ph-name">HungYen_09.webp</span>
+          </div>
+          <div class="img-caption">The ancestral longan tree — Hưng Yên</div>
+        </div>
+      </div>
+
+      <div class="divider">✦ &nbsp; ✦ &nbsp; ✦</div>
+    </div>
+
+  </article>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <div class="sb-block">
+      <div class="sb-heading">Journey Details</div>
+      <dl class="sb-meta">
+        <dt>Route</dt>
+        <dd>Hải Dương → Hưng Yên</dd>
+        <dt>Period</dt>
+        <dd>Early Spring 2024</dd>
+        <dt>Authors</dt>
+        <dd>Hoàng Đại &amp; Hải Ninh</dd>
+        <dt>Type</dt>
+        <dd>Field Log</dd>
+        <dt>Series</dt>
+        <dd>Hành Trình Thiên Lý</dd>
+      </dl>
+    </div>
+
+    <div class="sb-block">
+      <div class="sb-heading">Contents</div>
+      <ul class="toc">
+        <li><a href="#s-con-duong">The Road into Hưng Yên</a></li>
+        <li><a href="#s-pho-hien">The Night in Phố Hiến</a></li>
+        <li><a href="#s-doan-thuong">History Carried Through Generations</a></li>
+        <li><a href="#s-den-banhte">The Temples &amp; Bánh Tẻ</a></li>
+        <li><a href="#s-banh-ran">Bánh Rán Mật Mía</a></li>
+        <li><a href="#s-nhan-to">The Ancestral Longan Tree</a></li>
+      </ul>
+    </div>
+
+    <div class="sb-block">
+      <div class="sb-heading">Places</div>
+      <div class="tags">
+        <span class="tag">Phố Hiến</span>
+        <span class="tag">Đền Mẫu</span>
+        <span class="tag">Đền Trần</span>
+        <span class="tag">Chùa Hiến</span>
+        <span class="tag">Chợ Phố Hiến</span>
+        <span class="tag">Hồng Châu</span>
+      </div>
+    </div>
+
+    <div class="sb-block">
+      <div class="sb-heading">Food Notes</div>
+      <div class="tags">
+        <span class="tag">Bánh Tẻ</span>
+        <span class="tag">Bánh Rán Mật Mía</span>
+        <span class="tag">Nhãn Lồng</span>
+        <span class="tag">Bánh Rán Mè</span>
+      </div>
+    </div>
+
+    <div class="sb-block">
+      <div class="sb-heading">Historical Figures</div>
+      <div class="tags">
+        <span class="tag">Đoàn Thượng</span>
+        <span class="tag">Triều Lý</span>
+        <span class="tag">Triều Trần</span>
+        <span class="tag">Quách Bốc</span>
+        <span class="tag">Phạm Du</span>
+      </div>
+    </div>
+
+  </aside>
+
+</div><!-- /page-body -->
+
+<!-- CLOSING -->
+<div class="closing-wrap">
+  <div class="closing-rule"></div>
+  <div class="closing-grid">
+    <div class="closing-vi" style="display:none">
+      <p>Tôi vẫn quen gọi Hà Nội là Thăng Long.</p>
+      <p>Có lẽ vì trên hành trình này, lịch sử trong những trang sách tôi từng đọc không còn nằm yên nữa. Nó như đang lần lượt lật mở ngược chiều thời gian suốt dọc hành trình Nam – Bắc của chúng tôi. Và phía trước, hành trình ấy vẫn còn tiếp tục.</p>
+      <a class="closing-cta" href="#">Next: Onward to Thăng Long</a>
+    </div>
+    <div class="closing-en" style="grid-column:1/-1">
+      <p>I have always found myself calling Hà Nội by its older name — Thăng Long.</p>
+      <p>Perhaps because on this journey, the history I had once encountered only in books no longer felt distant or still. It seemed to be unfolding before us, page by page, moving backward through time as we traveled northward. What had once been names, dates, and events became places, people, family lineages, temples, markets, and ancestral trees.</p>
+      <p>And ahead of us, the journey was far from over.</p>
+    </div>
+  </div>
+</div>
+
+<!-- RELATED -->
+<div class="related-wrap">
+  <div class="related-label">Other entries in this series</div>
+  <div class="related-grid">
+
+    <div class="rel-card" data-href="field-log-1.html">
+      <div class="rel-card-bg" style="background-color:#1a1610;"></div>
+      <!-- background-image: url('Journey_NamDinh.webp') -->
+      <div class="rel-card-overlay"></div>
+      <div class="rel-card-corner"></div>
+      <div class="rel-card-content">
+        <div class="rel-card-type">Field Log</div>
+        <div class="rel-card-title">Hành Trình<br>Nam Định</div>
+      </div>
+    </div>
+
+    <div class="rel-card" data-href="field-log-hai-duong.html">
+      <div class="rel-card-bg" style="background-color:#10130f;"></div>
+      <!-- background-image: url('Journey_HaiDuong.webp') -->
+      <div class="rel-card-overlay"></div>
+      <div class="rel-card-corner"></div>
+      <div class="rel-card-content">
+        <div class="rel-card-type">Field Log</div>
+        <div class="rel-card-title">Hành Trình<br>Hải Dương</div>
+      </div>
+    </div>
+
+    <div class="rel-card" data-href="journey-log.html">
+      <div class="rel-card-bg" style="background-color:#0c0c0c;"></div>
+      <div class="rel-card-overlay"></div>
+      <div class="rel-card-content">
+        <div class="rel-card-type">Archive</div>
+        <div class="rel-card-title">Xem toàn bộ<br>Journey Log</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Thiện <span>Kiến</span> &nbsp;·&nbsp; Hành Trình Thiên Lý</div>
+  <div class="footer-copy">© 2024 Thiện Kiến Co., Ltd.</div>
+</footer>
+
+<script>
+  // ── Cursor
+  const isTouchDevice = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+  const cur = document.getElementById('cursor');
+  if (!isTouchDevice) {
+    document.addEventListener('mousemove', e => {
+      cur.style.left = e.clientX + 'px';
+      cur.style.top  = e.clientY + 'px';
+    });
+    document.querySelectorAll('.rel-card[data-href]').forEach(el => {
+      el.addEventListener('mouseenter', () => cur.classList.add('big'));
+      el.addEventListener('mouseleave', () => cur.classList.remove('big'));
+    });
+  }
+
+  // ── Card navigation
+  document.querySelectorAll('[data-href]').forEach(card => {
+    card.addEventListener('click', () => { window.location.href = card.dataset.href; });
+  });
+
+  // ── Scroll progress
+  const prog = document.getElementById('progress');
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    prog.style.width = (scrollTop / docHeight * 100) + '%';
+  }, { passive: true });
+
+  // ── Active ToC highlight
+  const sections = document.querySelectorAll('[id^="s-"]');
+  const tocLinks = document.querySelectorAll('.toc a');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        tocLinks.forEach(a => {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id);
+        });
+      }
+    });
+  }, { rootMargin: '-25% 0px -65% 0px' });
+  sections.forEach(s => io.observe(s));
+</script>
+
+</body>
+</html>
