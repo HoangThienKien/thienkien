@@ -15,7 +15,7 @@
 <link rel="icon" type="image/webp" href="Thien-Kien-logo-symbol.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Questrial&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
 <style>
   :root {
     --cyan:     #29C5D0;
@@ -33,9 +33,9 @@
     --off-black:#0A0A0A;
     --stone:    #888780;
     --gap:      3px;
-    --f-display: 'Cormorant Garamond', serif;
-    --f-body:    'Questrial', sans-serif;
-    --f-mono:    'DM Mono', monospace;
+    --f-display: 'Be Vietnam Pro', sans-serif;
+    --f-body:    'Be Vietnam Pro', sans-serif;
+    --f-mono:    'Be Vietnam Pro', sans-serif;
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { font-size: 16px; scroll-behavior: smooth; }
@@ -921,7 +921,7 @@
     align-items: start;
   }
   .footer-brand .footer-logo {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: var(--f-display);
     font-size: 12px;
     letter-spacing: 0.3em;
     color: rgba(41,197,208,0.85);
@@ -930,14 +930,14 @@
     margin-bottom: 8px;
   }
   .footer-tagline {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: var(--f-display);
     font-size: 13px;
     font-style: italic;
     color: rgba(245,232,192,0.65);
     line-height: 1.5;
   }
   .footer-company h4, .footer-contact h4 {
-    font-family: 'DM Mono', monospace;
+    font-family: var(--f-mono);
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.22em;
@@ -948,7 +948,7 @@
   }
   .footer-company p, .footer-company a,
   .footer-contact a {
-    font-family: 'DM Mono', monospace;
+    font-family: var(--f-mono);
     font-size: 12px;
     letter-spacing: 0.1em;
     color: rgba(136,135,128,0.8);
@@ -966,7 +966,7 @@
     justify-content: space-between;
   }
   .footer-note {
-    font-family: 'DM Mono', monospace;
+    font-family: var(--f-mono);
     font-size: 11px;
     letter-spacing: 0.14em;
     color: rgba(136,135,128,0.6);
@@ -1032,6 +1032,108 @@
     transition: opacity 0.2s;
   }
   .video-modal-close:hover { opacity: 1; }
+  /* ── ISO CERTIFICATE MODAL ── */
+  .iso-trigger { transition: opacity 0.2s; }
+  .iso-trigger:hover { opacity: 0.85; }
+  .iso-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    background: rgba(0,0,0,0.92);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .iso-modal.open { display: flex; }
+  .iso-modal-inner {
+    position: relative;
+    width: min(92vw, 720px);
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .iso-modal-imgwrap {
+    position: relative;
+    width: 100%;
+    background: #fff;
+    border-radius: 4px;
+    overflow: hidden;
+    line-height: 0;
+  }
+  .iso-modal-imgwrap img {
+    width: 100%;
+    height: auto;
+    max-height: 78vh;
+    object-fit: contain;
+    display: block;
+  }
+  .iso-modal-close {
+    position: absolute;
+    top: -40px; right: 0;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 28px;
+    cursor: pointer;
+    line-height: 1;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+  .iso-modal-close:hover { opacity: 1; }
+  .iso-modal-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.55);
+    border: 0.5px solid rgba(255,255,255,0.25);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s, opacity 0.2s;
+    z-index: 2;
+  }
+  .iso-modal-arrow:hover { background: rgba(0,0,0,0.8); }
+  .iso-modal-arrow svg { width: 18px; height: 18px; fill: #fff; }
+  .iso-modal-arrow.prev { left: -56px; }
+  .iso-modal-arrow.next { right: -56px; }
+  .iso-modal-arrow.disabled { opacity: 0.25; pointer-events: none; }
+  .iso-modal-dots {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+  }
+  .iso-modal-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    cursor: pointer;
+    transition: background 0.25s, transform 0.25s;
+  }
+  .iso-modal-dot.active {
+    background: var(--cyan);
+    transform: scale(1.4);
+  }
+  .iso-modal-caption {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: rgba(245,232,192,0.6);
+    text-transform: uppercase;
+    margin-top: 14px;
+    text-align: center;
+  }
+  @media (max-width: 900px) {
+    .iso-modal-arrow.prev { left: 4px; }
+    .iso-modal-arrow.next { right: 4px; }
+    .iso-modal-arrow { width: 36px; height: 36px; }
+    .iso-modal-arrow svg { width: 15px; height: 15px; }
+  }
   /* ─── HAMBURGER BUTTON ─── */
   .nav-right {
     display: flex;
@@ -1462,7 +1564,7 @@ dành cho các tổ chức gắn bó sâu sắc với bối cảnh Việt Nam.</
     <div class="logo-mark">
       <img src="Thien-Kien-logo.webp" alt="Thiện Kiến Logo" class="logo-mark-img">
     </div>
-    <div class="iso-badge">
+    <div class="iso-badge iso-trigger" role="button" tabindex="0" aria-label="Xem chứng nhận ISO 22000:2018">
       <img src="ISO-22000.webp" alt="ISO 22000:2018">
       ISO 22000:2018 · Hệ Thống Quản Lý An Toàn Thực Phẩm
     </div>
@@ -1598,7 +1700,7 @@ Hình thức thay đổi. Trách nhiệm không thay đổi.</p>
       <div class="bh-heading">Hình thái vật lý của <br> triết lý chuẩn bị từ Thiện Kiến.</div>
       <p class="bh-body">TKG được phát triển qua nhiều năm chuẩn bị nguyên liệu Việt Nam cho ngành tiếp đãi và các môi trường quốc tế.<br>
 Kết quả là một hệ thống thảo mộc gọn nhẹ được thiết kế để di chuyển mà không mất đi giá trị hay bối cảnh gốc.</p>
-      <div style="display:inline-flex;align-items:center;gap:7px;margin-top:18px;font-family:var(--f-mono);font-size:8px;letter-spacing:0.16em;color:rgba(200,135,42,0.7);border:0.5px solid rgba(200,135,42,0.25);padding:5px 10px 5px 6px;border-radius:2px;">
+      <div class="iso-trigger" role="button" tabindex="0" aria-label="Xem chứng nhận ISO 22000:2018" style="display:inline-flex;align-items:center;gap:7px;margin-top:18px;font-family:var(--f-mono);font-size:8px;letter-spacing:0.16em;color:rgba(200,135,42,0.7);border:0.5px solid rgba(200,135,42,0.25);padding:5px 10px 5px 6px;border-radius:2px;cursor:pointer;">
         <img src="ISO-22000.webp" alt="ISO 22000:2018" style="width:18px;height:18px;object-fit:contain;filter:grayscale(20%) brightness(0.75);">
         ĐẠT CHỨNG NHẬN ISO 22000:2018
       </div>
@@ -1662,7 +1764,7 @@ Nó đến từ không khí, nhịp điệu, sự chuẩn bị và trải nghi�
         <span class="jc-year" style="color:rgba(41,197,208,0.7)">Khoảng Cách Văn Hóa & Lòng Hiếu Khách</span>
         <div class="jc-name" style="color:#fff; font-size:clamp(16px,1.8vw,24px)">Những điều lòng hiếu khách gợi mở qua các môi trường văn hóa khác nhau.</div>
       </div>
-      <span style="position:absolute;bottom:18px;right:20px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.18em;color:rgba(41,197,208,0.55);text-transform:uppercase;z-index:2;">Đọc tiếp →</span>
+      <span style="position:absolute;bottom:18px;right:20px;font-family:var(--f-mono);font-size:10px;letter-spacing:0.18em;color:rgba(41,197,208,0.55);text-transform:uppercase;z-index:2;">Đọc tiếp →</span>
     </div>
     <div class="jc" style="background:#C8872A">
       <div class="jc-content">
@@ -1695,7 +1797,7 @@ Nó đến từ không khí, nhịp điệu, sự chuẩn bị và trải nghi�
       <h4>THÔNG TIN CÔNG TY</h4>
       <p>Công Ty TNHH Thương Mại - Dịch Vụ Thiện Kiến</p>
       <p>MST: 0317374438</p>
-      <div style="display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.13em;color:rgba(136,135,128,0.6);border:0.5px solid rgba(136,135,128,0.18);padding:4px 9px 4px 5px;border-radius:2px;">
+      <div class="iso-trigger" role="button" tabindex="0" aria-label="Xem chứng nhận ISO 22000:2018" style="display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-family:var(--f-mono);font-size:10px;letter-spacing:0.13em;color:rgba(136,135,128,0.6);border:0.5px solid rgba(136,135,128,0.18);padding:4px 9px 4px 5px;border-radius:2px;cursor:pointer;">
         <img src="ISO-22000.webp" alt="ISO 22000:2018" style="width:16px;height:16px;object-fit:contain;filter:grayscale(100%) brightness(0.6);">
         ISO 22000:2018
       </div>
@@ -1718,6 +1820,23 @@ Nó đến từ không khí, nhịp điệu, sự chuẩn bị và trải nghi�
     <video id="modalVideo" controls>
       <source src="cell-f.webm" type="video/webm">
     </video>
+  </div>
+</div>
+<!-- ── ISO CERTIFICATE MODAL ── -->
+<div class="iso-modal" id="isoModal">
+  <div class="iso-modal-inner">
+    <button class="iso-modal-close" id="isoModalClose" aria-label="Đóng">✕</button>
+    <button class="iso-modal-arrow prev" id="isoModalPrev" aria-label="Trang trước">
+      <svg viewBox="0 0 24 24"><polygon points="16,3 6,12 16,21 16,17.5 10.5,12 16,6.5"/></svg>
+    </button>
+    <div class="iso-modal-imgwrap">
+      <img id="isoModalImg" src="ISO-Cert-page1.webp" alt="Chứng nhận ISO 22000:2018">
+    </div>
+    <button class="iso-modal-arrow next" id="isoModalNext" aria-label="Trang sau">
+      <svg viewBox="0 0 24 24"><polygon points="8,3 18,12 8,21 8,17.5 13.5,12 8,6.5"/></svg>
+    </button>
+    <div class="iso-modal-dots" id="isoModalDots"></div>
+    <div class="iso-modal-caption" id="isoModalCaption">Trang 1 / 3</div>
   </div>
 </div>
 <script>
@@ -1881,7 +2000,7 @@ Nó đến từ không khí, nhịp điệu, sự chuẩn bị và trải nghi�
     document.body.style.overflow = isOpen ? 'hidden' : '';
   });
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') { closeMobileMenu(); closeModal(); }
+    if (e.key === 'Escape') { closeMobileMenu(); closeModal(); if (window.closeIsoModal) window.closeIsoModal(); }
   });
   // ── JOURNEY STRIP CARDS with data-href ──
   document.querySelectorAll('.jc[data-href]').forEach(card => {
@@ -1921,6 +2040,43 @@ Nó đến từ không khí, nhịp điệu, sự chuẩn bị và trải nghi�
   }
   modalClose.addEventListener('click', closeModal);
   modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+  // ── ISO CERTIFICATE MODAL ──
+  (function() {
+    const pages = ['ISO-Cert-page1.webp', 'ISO-Cert-page2.webp', 'ISO-Cert-page3.webp'];
+    const isoModal   = document.getElementById('isoModal');
+    const isoImg     = document.getElementById('isoModalImg');
+    const isoCaption = document.getElementById('isoModalCaption');
+    const isoDots    = document.getElementById('isoModalDots');
+    const isoPrev    = document.getElementById('isoModalPrev');
+    const isoNext    = document.getElementById('isoModalNext');
+    const isoClose   = document.getElementById('isoModalClose');
+    let current = 0;
+    pages.forEach((_, i) => {
+      const d = document.createElement('div');
+      d.className = 'iso-modal-dot' + (i === 0 ? ' active' : '');
+      d.addEventListener('click', () => goToPage(i));
+      isoDots.appendChild(d);
+    });
+    function goToPage(n) {
+      current = (n + pages.length) % pages.length;
+      isoImg.src = pages[current];
+      isoCaption.textContent = `Trang ${current + 1} / ${pages.length}`;
+      Array.from(isoDots.children).forEach((d, i) => d.classList.toggle('active', i === current));
+    }
+    function openIsoModal() {
+      goToPage(0);
+      isoModal.classList.add('open');
+    }
+    window.closeIsoModal = function() { isoModal.classList.remove('open'); };
+    document.querySelectorAll('.iso-trigger').forEach(el => {
+      el.addEventListener('click', openIsoModal);
+      el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openIsoModal(); } });
+    });
+    isoPrev.addEventListener('click', () => goToPage(current - 1));
+    isoNext.addEventListener('click', () => goToPage(current + 1));
+    isoClose.addEventListener('click', window.closeIsoModal);
+    isoModal.addEventListener('click', e => { if (e.target === isoModal) window.closeIsoModal(); });
+  })();
 </script>
 
 <script>
