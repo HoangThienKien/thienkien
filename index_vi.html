@@ -1,0 +1,1946 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+     <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V035ZKD02Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-V035ZKD02Y');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thiện Kiến — Chuẩn Bị Bằng Sự Thấu Hiểu</title>
+<link rel="icon" type="image/webp" href="Thien-Kien-logo-symbol.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Questrial&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cyan:     #29C5D0;
+    --cyan-dim: #1A8A92;
+    --cyan-pale:#7DE8EE;
+    --cyan-deep:#050E10;
+    --cyan-mid: #0A1E20;
+    --amber:    #C8872A;
+    --amber-lt: #E3A84A;
+    --amber-pale:#F5D08B;
+    --cream:    #F5E8C0;
+    --earth:    #2D1E10;
+    --bark:     #4A3828;
+    --black:    #000000;
+    --off-black:#0A0A0A;
+    --stone:    #888780;
+    --gap:      3px;
+    --f-display: 'Cormorant Garamond', serif;
+    --f-body:    'Questrial', sans-serif;
+    --f-mono:    'DM Mono', monospace;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: var(--f-body);
+    overflow-x: hidden;
+    cursor: none;
+  }
+  /* ─── CUSTOM CURSOR ─── */
+  .cursor {
+    position: fixed;
+    width: 8px; height: 8px;
+    background: var(--cyan);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s, width 0.25s, height 0.25s, background 0.25s;
+    mix-blend-mode: screen;
+  }
+  .cursor.big {
+    width: 36px; height: 36px;
+    background: transparent;
+    border: 1px solid var(--cyan);
+  }
+  .cursor.amber { background: var(--amber); }
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 36px;
+    mix-blend-mode: normal;
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 45px;
+    text-decoration: none;
+  }
+  .nav-logo svg {
+    width: 45px; height: 45px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+  .nav-logo-img {
+    width: 45px; height: 45px;
+    object-fit: contain;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+  .nav-wordmark {
+    font-family: var(--f-display);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.28em;
+    color: var(--cyan);
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.35s forwards;
+  }
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.5s forwards;
+  }
+  .nav-links a {
+    font-family: var(--f-mono);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    color: rgba(245,232,192,0.85);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.25s;
+  }
+  .nav-links a:hover { color: var(--cyan); }
+  .nav-lang {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+  }
+  .nav-lang a {
+    display: block;
+    width: 20px;
+    height: 14px;
+    border-radius: 2px;
+    overflow: hidden;
+    opacity: 0.4;
+    transition: opacity 0.25s, transform 0.25s;
+    line-height: 0;
+  }
+  .nav-lang a svg { display: block; width: 100%; height: 100%; }
+  .nav-lang a:hover { transform: translateY(-1px); }
+  .nav-lang a.active { opacity: 1; }
+  .nav-lang a:not(.active) { opacity: 0.38; }
+  .nav-lang a:not(.active):hover { opacity: 0.75; }
+  /* ─── HERO GRID ─── */
+  .hero {
+    width: 100%;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 3fr 1.1fr 1.1fr;
+    grid-template-rows: 58fr 20fr 22fr;
+    gap: var(--gap);
+    background: var(--black);
+  }
+  .cell {
+    position: relative;
+    overflow: hidden;
+  }
+  /* ── CELL A: main photo slideshow ── */
+  .cell-a {
+    grid-column: 1;
+    grid-row: 1 / 3;
+  }
+  .slideshow {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+  .slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 1.2s ease-in-out;
+    background-size: cover;
+    background-position: center;
+    transform: scale(1);
+    animation: none;
+  }
+  .slide.active {
+    opacity: 1;
+  }
+  .slide::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+   background:
+  linear-gradient(to top,
+    rgba(0,0,0,0.55) 0%,
+    rgba(0,0,0,0.08) 35%,
+    transparent      100%
+  );
+  }
+  /* slide dots */
+  .slide-dots {
+    position: absolute;
+    bottom: 20px;
+    right: 44px;
+    z-index: 4;
+    display: flex;
+    gap: 6px;
+  }
+  @media (max-width: 767px) {
+    .slide-dots { right: 18px; bottom: 14px; }
+  }
+  .slide-dot {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: rgba(245,232,192,0.3);
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+  }
+  .slide-dot.active {
+    background: var(--cyan);
+    transform: scale(1.4);
+  }
+  .cell-a .cell-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 40px 44px 44px;
+    z-index: 3;
+    background: rgba(5, 14, 16, 0.65);
+  }
+  .event-tag {
+    display: inline-block;
+    font-family: var(--f-mono);
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--cream);
+    border: 0.5px solid var(--cream);
+    padding: 4px 10px;
+    border-radius: 2px;
+    margin-bottom: 16px;
+    opacity: 0;
+    animation: fadeUp 0.9s 1.0s forwards;
+  }
+  .cell-a-title {
+    font-family: var(--f-display);
+    font-size: clamp(25px, 4.5vw, 45px);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.08;
+    color: #fff;
+    margin-bottom: 12px;
+    opacity: 0;
+    animation: fadeUp 0.9s 1.15s forwards;
+  }
+  .cell-a-sub {
+    font-family: var(--f-mono);
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0.16em;
+    color: var(--cyan);
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeUp 0.9s 1.3s forwards;
+  }
+  /* ── CELL B: Logo / Brand ── */
+  .cell-b {
+    grid-column: 2;
+    grid-row: 1;
+    background: var(--black);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 24px;
+  }
+  .logo-mark {
+    opacity: 0;
+    animation: fadeIn 1.2s 0.8s forwards;
+  }
+  .logo-mark svg {
+    width: clamp(80px, 8vw, 120px);
+    height: auto;
+    display: block;
+    margin: 0 auto 20px;
+  }
+  .logo-mark-img {
+    width: clamp(80px, 8vw, 120px);
+    height: auto;
+    display: block;
+    margin: 0 auto 20px;
+    object-fit: contain;
+  }
+  .logo-word {
+    font-family: var(--f-display);
+    font-size: clamp(11px, 1.1vw, 16px);
+    font-weight: 400;
+    letter-spacing: 0.32em;
+    color: var(--cyan);
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 1.6;
+  }
+  /* ── CELL C link overlay ── */
+  .cell-c-link {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    cursor: pointer;
+  }
+  /* ── CELL C: Amber TKG ── */
+  .cell-c {
+    grid-column: 3;
+    grid-row: 1;
+    background: var(--earth);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 28px 24px;
+    opacity: 0;
+    animation: fadeIn 0.8s 0.9s forwards;
+    position: relative;
+    overflow: hidden;
+  }
+  .cell-c-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('Products.webp');
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+  }
+  .cell-c-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(5, 14, 16, 0.55);
+    z-index: 1;
+  }
+  .cell-c-top {
+    position: relative;
+    z-index: 2;
+  }
+  .tkg-logo-img {
+    width: clamp(64px, 6vw, 96px);
+    height: auto;
+    display: block;
+    object-fit: contain;
+  }
+  .tkg-sub {
+    font-family: var(--f-mono);
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    color: rgba(245, 232, 192, 0.6);
+    text-transform: uppercase;
+    line-height: 1.6;
+  }
+  .tkg-tagline {
+    font-family: var(--f-display);
+    font-size: clamp(11px, 1.1vw, 14px);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--earth);
+    line-height: 1.5;
+    background: var(--amber);
+    padding: 10px 14px;
+    position: relative;
+    z-index: 2;
+  }
+  .iso-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--f-mono);
+    font-size: 7.5px;
+    font-weight: 300;
+    letter-spacing: 0.16em;
+    color: rgba(245,208,139,0.75);
+    border: 0.5px solid rgba(200,135,42,0.35);
+    padding: 5px 10px 5px 6px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 2;
+    margin-top: 10px;
+    backdrop-filter: blur(4px);
+  }
+  .iso-badge img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    filter: brightness(0.85) sepia(0.3);
+    flex-shrink: 0;
+  }
+  /* ── CELL D: Deep cyan event ── */
+  .cell-d {
+    grid-column: 2;
+    grid-row: 2;
+    background: var(--cyan-mid);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 20px 22px;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    animation: fadeIn 0.8s 1.0s forwards;
+    cursor: pointer;
+  }
+  .cell-d-slideshow {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .cell-d-slide {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+  }
+  .cell-d-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 50%, rgba(41,197,208,0.18) 0%, transparent 65%),
+      rgba(10, 30, 32, 0.60);
+    z-index: 1;
+  }
+  .cell-d::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 30px; height: 30px;
+    background: #0A1E20;
+    z-index: 3;
+  }
+  .cell-d-label {
+    font-family: var(--f-mono);
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--cream);
+    margin-bottom: 4px;
+    position: relative; z-index: 2;
+  }
+  .cell-d-text {
+    font-family: var(--f-display);
+    font-size: clamp(12px, 1.3vw, 18px);
+    font-weight: 300;
+    color: var(--cyan-pale);
+    line-height: 1.3;
+    position: relative; z-index: 2;
+  }
+  /* ── CELL E: Earth/dark event ── */
+  .cell-e {
+    grid-column: 3;
+    grid-row: 2;
+    background: var(--earth);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 20px 22px;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    animation: fadeIn 0.8s 1.1s forwards;
+  }
+  .cell-e-slideshow {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .cell-e-slide {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+  }
+  .cell-e-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(45, 30, 16, 0.62);
+    z-index: 1;
+  }
+  .cell-e::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 30px; height: 30px;
+    background: #2D1E10;
+    z-index: 3;
+  }
+  .cell-e-label {
+    font-family: var(--f-mono);
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--cream);
+    margin-bottom: 4px;
+    position: relative; z-index: 2;
+  }
+  .cell-e-text {
+    font-family: var(--f-display);
+    font-size: clamp(12px, 1.3vw, 18px);
+    font-weight: 300;
+    color: var(--amber-pale);
+    line-height: 1.3;
+    position: relative; z-index: 2;
+  }
+  /* ── CELL F: wide bottom video ── */
+  .cell-f {
+    grid-column: 1;
+    grid-row: 3;
+    background: #060E10;
+    display: flex;
+    align-items: flex-end;
+    padding: 24px 44px;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    animation: fadeIn 0.8s 1.2s forwards;
+    cursor: pointer;
+  }
+  .cell-f::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(90deg, rgba(0,0,0,0.75) 0%, transparent 50%),
+      linear-gradient(180deg, transparent 30%, rgba(0,0,0,0.5) 100%);
+    z-index: 1;
+  }
+  .cell-f-texture {
+    position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(
+        102deg,
+        transparent 0px, transparent 4px,
+        rgba(41,197,208,0.018) 4px, rgba(41,197,208,0.018) 5px
+      ),
+      linear-gradient(160deg, #060E10 0%, #091418 50%, #050A0C 100%);
+  }
+  .cell-f-content { position: relative; z-index: 2; }
+  .cell-f-tag {
+    font-family: var(--f-mono);
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.22em;
+    color: var(--amber);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    display: block;
+  }
+  .cell-f-title {
+    font-family: var(--f-display);
+    font-size: clamp(18px, 2.2vw, 32px);
+    font-weight: 300;
+    color: #fff;
+    line-height: 1.15;
+  }
+  .cell-f-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 50%;
+    display: block;
+    z-index: 0;
+  }
+  .cell-f-play-hint {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.45);
+    border: 1px solid rgba(255,255,255,0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+  .cell-f-play-hint svg {
+    width: 18px; height: 18px;
+    fill: #fff;
+    margin-left: 3px;
+  }
+  .cell-f:hover .cell-f-play-hint { opacity: 1; }
+  /* .cell-f-poster: reserved for future use */
+  .cell-f-poster { display: none; }
+  /* ── CELL G: tagline cyan-deep ── */
+  .cell-g {
+    grid-column: 2;
+    grid-row: 3;
+    background: var(--cyan-deep);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 24px 22px;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    animation: fadeIn 0.8s 1.3s forwards;
+  }
+  .cell-g::after {
+    content: '';
+    position: absolute;
+    right: -40%; bottom: -40%;
+    width: 120%; height: 120%;
+    border-radius: 50%;
+    border: 0.5px solid rgba(41,197,208,0.12);
+  }
+  .cell-g-tagline {
+    font-family: var(--f-display);
+    font-size: clamp(13px, 1.4vw, 20px);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--cyan);
+    line-height: 1.5;
+    position: relative; z-index: 1;
+  }
+  .cell-g-mark {
+    font-family: var(--f-mono);
+    font-size: 8px;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    color: rgba(41,197,208,0.3);
+    text-transform: uppercase;
+    margin-top: 10px;
+    position: relative; z-index: 1;
+  }
+  /* ── CELL H: CTA amber-light ── */
+  .cell-h {
+    grid-column: 3;
+    grid-row: 3;
+    background: var(--bark);
+    background-image: url('Journey_6.webp');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding: 24px 22px;
+    opacity: 0;
+    animation: fadeIn 0.8s 1.4s forwards;
+    cursor: pointer;
+    transition: background 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .cell-h::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 20px; height: 20px;
+    background: #C8872A;
+    z-index: 3;
+  }
+  .cell-h::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(180, 110, 20, 0.45);
+    z-index: 1;
+  }
+  .cell-h:hover { background-color: #5A4535; }
+  .cta-label {
+    font-family: var(--f-mono);
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    color: var(--cyan-deep);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    position: relative; z-index: 2;
+  }
+  .cta-text {
+    font-family: var(--f-display);
+    font-size: clamp(14px, 1.5vw, 22px);
+    font-weight: 600;
+    color: var(--amber-pale);
+    line-height: 1.3;
+    position: relative; z-index: 2;
+  }
+  .cta-arrow {
+    font-size: 20px;
+    color: var(--amber);
+    margin-top: 10px;
+    transition: transform 0.25s;
+    position: relative; z-index: 2;
+  }
+  .cell-h:hover .cta-arrow { transform: translateX(4px); }
+  /* ─── CLIENTS SECTION ─── */
+  .clients-section {
+    background: var(--off-black);
+    border-top: var(--gap) solid var(--black);
+    padding: 56px 0 52px;
+    overflow: hidden;
+  }
+  .clients-header {
+    text-align: center;
+    margin-bottom: 36px;
+    padding: 0 36px;
+  }
+  .clients-label {
+    display: block;
+    font-family: var(--f-mono);
+    font-size: 30px;
+    font-weight: 300;
+    letter-spacing: 0.24em;
+    color: var(--stone);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .clients-title {
+    font-family: var(--f-display);
+    font-size: clamp(20px, 2.2vw, 32px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--cream);
+  }
+  .clients-track-wrap {
+    position: relative;
+    overflow: hidden;
+  }
+  .clients-track-wrap::before,
+  .clients-track-wrap::after {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 120px;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .clients-track-wrap::before {
+    left: 0;
+    background: linear-gradient(to right, var(--off-black), transparent);
+  }
+  .clients-track-wrap::after {
+    right: 0;
+    background: linear-gradient(to left, var(--off-black), transparent);
+  }
+  .clients-track {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    animation: clientsScroll 36s linear infinite;
+    white-space: nowrap;
+    width: max-content;
+  }
+  .clients-track:hover { animation-play-state: paused; }
+  .client-item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 44px;
+    flex-shrink: 0;
+    border-right: 0.5px solid rgba(136,135,128,0.12);
+  }
+  .client-item img {
+    height: 100px;
+    width: auto;
+    max-width: 1000px;
+    object-fit: contain;
+    filter: grayscale(100%) brightness(0.55);
+    transition: filter 0.35s;
+  }
+  .client-item:hover img { filter: grayscale(0%) brightness(1); }
+  @keyframes clientsScroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  /* ─── SECTION BELOW HERO ─── */
+  .below-hero {
+    background: var(--off-black);
+    padding: 80px 36px 60px;
+    border-top: var(--gap) solid var(--black);
+  }
+  .bh-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 48px;
+  }
+  .bh-label {
+    font-family: var(--f-mono);
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    color: var(--stone);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    display: block;
+  }
+  .bh-heading {
+    font-family: var(--f-display);
+    font-size: clamp(20px, 2.2vw, 32px);
+    font-weight: 300;
+    color: var(--cream);
+    line-height: 1.25;
+    margin-bottom: 14px;
+  }
+  .bh-body {
+    font-family: var(--f-body);
+    font-size: 13px;
+    color: var(--stone);
+    line-height: 1.75;
+  }
+  .bh-divider {
+    width: 24px;
+    height: 0.5px;
+    background: var(--cyan);
+    margin-bottom: 18px;
+  }
+  .bh-divider.amber { background: var(--amber); }
+  /* ─── SCROLLING TICKER ─── */
+  .ticker-wrap {
+    background: var(--cyan-deep);
+    border-top: var(--gap) solid var(--black);
+    border-bottom: var(--gap) solid var(--black);
+    overflow: hidden;
+    padding: 14px 0;
+  }
+  .ticker-track {
+    display: flex;
+    gap: 0;
+    animation: ticker 28s linear infinite;
+    white-space: nowrap;
+  }
+  .ticker-item {
+    font-family: var(--f-mono);
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0.18em;
+    color: rgba(41,197,208,0.45);
+    text-transform: uppercase;
+    padding: 0 32px;
+    flex-shrink: 0;
+  }
+  .ticker-dot { color: var(--amber); opacity: 0.7; }
+  /* ─── JOURNEY LOG STRIP ─── */
+  .journey {
+    background: var(--black);
+    padding: 60px 36px;
+    border-top: var(--gap) solid var(--off-black);
+  }
+  .journey-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .journey-title {
+    font-family: var(--f-display);
+    font-size: clamp(22px, 2.8vw, 42px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--cream);
+  }
+  .journey-link {
+    font-family: var(--f-mono);
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    color: var(--cyan);
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  .journey-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: var(--gap);
+    background: var(--black);
+  }
+  .jc {
+    position: relative;
+    overflow: hidden;
+    min-height: 160px;
+    display: flex;
+    align-items: flex-end;
+    padding: 18px 20px;
+  }
+  .jc::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: inherit;
+    opacity: 0.92;
+  }
+  .jc-content { position: relative; z-index: 1; }
+  .jc-year {
+    font-family: var(--f-mono);
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    margin-bottom: 5px;
+    display: block;
+  }
+  .jc-name {
+    font-family: var(--f-display);
+    font-size: clamp(15px, 1.3vw, 17px);
+    font-weight: 300;
+    line-height: 1.3;
+  }
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--black);
+    border-top: 3px solid #111;
+    padding: 40px 36px 36px;
+  }
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+  .footer-brand .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 12px;
+    letter-spacing: 0.3em;
+    color: rgba(41,197,208,0.85);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 8px;
+  }
+  .footer-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    font-style: italic;
+    color: rgba(245,232,192,0.65);
+    line-height: 1.5;
+  }
+  .footer-company h4, .footer-contact h4 {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    color: rgba(136,135,128,0.9);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    opacity: 1;
+  }
+  .footer-company p, .footer-company a,
+  .footer-contact a {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: rgba(136,135,128,0.8);
+    line-height: 2;
+    display: block;
+    text-decoration: none;
+  }
+  .footer-company a:hover, .footer-contact a:hover { color: #29C5D0; }
+  .footer-bottom {
+    max-width: 1200px;
+    margin: 28px auto 0;
+    padding-top: 20px;
+    border-top: 0.5px solid rgba(255,255,255,0.05);
+    display: flex;
+    justify-content: space-between;
+  }
+  .footer-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: rgba(136,135,128,0.6);
+  }
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes ticker {
+    from { transform: translateX(-50%); }
+    to   { transform: translateX(0); }
+  }
+  @keyframes mandalaBreath {
+    0%, 100% { opacity: 0.7; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.03); }
+  }
+  /* ─── HOVER EFFECTS on cells ─── */
+  .cell-d, .cell-e, .jc { transition: filter 0.3s; }
+  .cell-d:hover, .cell-e:hover { filter: brightness(1.12); }
+  .jc:hover { filter: brightness(1.1); }
+  /* Mandala animation */
+  .logo-mark svg, .logo-mark-img {
+    animation: mandalaBreath 5s ease-in-out infinite;
+  }
+  /* ── VIDEO MODAL ── */
+  .video-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    background: rgba(0,0,0,0.92);
+    align-items: center;
+    justify-content: center;
+  }
+  .video-modal.open { display: flex; }
+  .video-modal-inner {
+    position: relative;
+    width: min(92vw, 1100px);
+    aspect-ratio: 16/9;
+  }
+  .video-modal video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    background: #000;
+  }
+  .video-modal-close {
+    position: absolute;
+    top: -40px; right: 0;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 28px;
+    cursor: pointer;
+    line-height: 1;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+  .video-modal-close:hover { opacity: 1; }
+  /* ─── HAMBURGER BUTTON ─── */
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 22px;
+    height: 14px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 200;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+  }
+  .nav-hamburger span {
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: var(--cream);
+    transition: transform 0.3s, opacity 0.3s;
+    transform-origin: center;
+  }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+  /* ─── MOBILE NAV OVERLAY ─── */
+  .nav-mobile-menu {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    background: rgba(0,0,0,0.97);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .nav-mobile-menu.open { display: flex; }
+  .nav-mobile-menu ul { list-style: none; text-align: center; width: 100%; padding: 0 40px; }
+  .nav-mobile-menu li {
+    padding: 20px 0;
+    border-bottom: 0.5px solid rgba(245,232,192,0.07);
+  }
+  .nav-mobile-menu li:first-child { border-top: 0.5px solid rgba(245,232,192,0.07); }
+  .nav-mobile-menu a {
+    font-family: var(--f-display);
+    font-size: 34px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--cream);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: color 0.25s;
+  }
+  .nav-mobile-menu a:active { color: var(--cyan); }
+  .nav-mobile-lang {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 36px;
+    border-top: none !important;
+    border-bottom: none !important;
+  }
+  .nav-mobile-lang a {
+    display: block;
+    width: 28px;
+    height: 19px;
+    border-radius: 2px;
+    overflow: hidden;
+    opacity: 0.4;
+    line-height: 0;
+  }
+  .nav-mobile-lang a svg { display: block; width: 100%; height: 100%; }
+  .nav-mobile-lang a.active { opacity: 1; }
+  /* ─── TOUCH DEVICES ─── */
+  @media (hover: none), (pointer: coarse) {
+    /* Tắt custom cursor */
+    .cursor { display: none !important; }
+    body { cursor: auto; }
+    .cell-c, .cell-d, .cell-e, .cell-f, .cell-h { cursor: pointer; }
+    /* Tắt animation logo (tiết kiệm GPU) */
+    .logo-mark-img { animation: none; opacity: 1; }
+    /* Ẩn slide-dots vì không có slideshow trên mobile */
+    .slide-dots { display: none; }
+    /* Giảm tốc clients scroll để giảm repaint */
+    .clients-track { animation-duration: 60s; }
+  }
+  /* ═══════════════════════════════════════════
+     TABLET  768px – 1023px
+  ═══════════════════════════════════════════ */
+  @media (max-width: 1023px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .nav-hamburger { display: flex; }
+    .hero {
+      height: auto;
+      min-height: 0;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows:
+        56vh
+        190px
+        155px
+        250px
+        145px;
+    }
+    .cell-a  { grid-column: 1 / 3; grid-row: 1; }
+    .cell-b  { grid-column: 1;     grid-row: 2; padding: 20px; }
+    .cell-c  { grid-column: 2;     grid-row: 2; padding: 18px 16px; }
+    .cell-d  { grid-column: 1;     grid-row: 3; }
+    .cell-e  { grid-column: 2;     grid-row: 3; }
+    .cell-f  { grid-column: 1 / 3; grid-row: 4; padding: 22px 28px; }
+    .cell-g  { grid-column: 1;     grid-row: 5; }
+    .cell-h  { grid-column: 2;     grid-row: 5; }
+    .cell-a .cell-caption { padding: 28px 28px 28px; }
+    .logo-mark-img { width: clamp(60px, 10vw, 90px); margin-bottom: 12px; }
+    .tkg-tagline { font-size: 11px; padding: 8px 10px; }
+    .bh-inner { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .bh-inner > div:last-child { grid-column: 1 / 3; }
+    .journey-grid { grid-template-columns: 1fr 1fr; }
+    .journey-grid .jc:first-child { grid-column: 1 / 3; }
+    .footer-inner { grid-template-columns: 1fr 1fr; }
+    .footer-brand { grid-column: 1 / 3; margin-bottom: 4px; }
+    .client-item img { height: 64px; }
+    .client-item { padding: 0 28px; }
+    .clients-label { font-size: 22px; }
+  }
+  /* ═══════════════════════════════════════════
+     MOBILE  < 768px
+  ═══════════════════════════════════════════ */
+  @media (max-width: 767px) {
+    nav { padding: 13px 18px; }
+    .nav-logo-img { width: 36px; height: 36px; }
+    .nav-lang { gap: 6px; }
+    .nav-lang a { width: 16px; height: 11px; }
+    .hero {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows:
+        60vh
+        140px
+        120px
+        210px
+        108px;
+    }
+    .cell-a  { grid-column: 1 / 3; grid-row: 1; }
+    .cell-b  { grid-column: 1;     grid-row: 2; padding: 14px 12px; }
+    .cell-c  { grid-column: 2;     grid-row: 2; padding: 14px 12px; }
+    .cell-d  { grid-column: 1;     grid-row: 3; padding: 12px 14px; }
+    .cell-e  { grid-column: 2;     grid-row: 3; padding: 12px 14px; }
+    .cell-f  { grid-column: 1 / 3; grid-row: 4; padding: 14px 18px; }
+    .cell-g  { grid-column: 1;     grid-row: 5; padding: 14px 14px; }
+    .cell-h  { grid-column: 2;     grid-row: 5; padding: 14px 14px; }
+    .cell-a .cell-caption { padding: 16px 18px 18px; }
+    .event-tag { font-size: 7px; letter-spacing: 0.14em; padding: 3px 7px; margin-bottom: 8px; }
+    .cell-a-sub { display: none; }
+    .logo-mark-img { width: clamp(44px, 12vw, 68px); margin-bottom: 8px; }
+    .tkg-logo-img { width: clamp(44px, 12vw, 68px); }
+    .tkg-sub { display: none; }
+    .tkg-tagline { font-size: 10px; padding: 6px 8px; line-height: 1.35; }
+    .cell-d-label, .cell-e-label { font-size: 7.5px; }
+    .cell-d-text, .cell-e-text { font-size: clamp(11px, 3vw, 14px); }
+    .cell-f-title { font-size: clamp(14px, 4vw, 20px); }
+    .cell-g-tagline { font-size: clamp(12px, 3.5vw, 16px); }
+    .cell-g-mark { font-size: 7px; }
+    .cta-label { font-size: 8px; }
+    .cta-text { font-size: clamp(13px, 3.5vw, 16px); }
+    .cta-arrow { font-size: 16px; margin-top: 6px; }
+    .ticker-item { font-size: 8.5px; padding: 0 18px; letter-spacing: 0.1em; }
+    .clients-section { padding: 32px 0 28px; }
+    .clients-label { font-size: 16px; letter-spacing: 0.14em; }
+    .client-item img { height: 44px; }
+    .client-item { padding: 0 18px; }
+    .clients-track-wrap::before,
+    .clients-track-wrap::after { width: 40px; }
+    .below-hero { padding: 44px 18px 32px; }
+    .bh-inner { grid-template-columns: 1fr; gap: 32px; }
+    .bh-inner > div:last-child { grid-column: auto; }
+    .bh-heading { font-size: clamp(18px, 5vw, 26px); }
+    .journey { padding: 36px 18px; }
+    .journey-grid { grid-template-columns: 1fr 1fr; }
+    .journey-grid .jc:first-child { grid-column: 1 / 3; min-height: 160px !important; }
+    .jc { min-height: 120px; padding: 14px 14px; }
+    .jc-year { font-size: 8.5px; }
+    .jc-name { font-size: clamp(11px, 3vw, 14px); }
+    footer { padding: 28px 18px 24px; }
+    .footer-inner { grid-template-columns: 1fr; gap: 22px; }
+    .footer-brand { grid-column: auto; }
+    .footer-bottom { flex-direction: column; gap: 5px; align-items: flex-start; }
+    .footer-note { font-size: 9px; }
+  }
+  /* ─── FOOD ARCHIVE SECTION ─── */
+  .archive-section {
+    background: var(--off-black);
+    border-top: var(--gap) solid var(--black);
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .archive-section::before {
+    content: '';
+    position: absolute;
+    left: -5%; top: -30%;
+    width: 55%; height: 160%;
+    background: radial-gradient(ellipse, rgba(41,197,208,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .archive-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0;
+    align-items: stretch;
+  }
+  /* Image frame — height driven by right column, width = height × ratio */
+  .archive-img-col {
+    aspect-ratio: 4/5;
+    align-self: stretch;
+    position: relative;
+    background: #0a1a26;
+    border-right: 1px solid rgba(245,232,192,0.07);
+    min-width: 140px;
+    max-width: 260px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .archive-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+  }
+  .archive-img-ph {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px;
+  }
+  .archive-img-ph svg { opacity: .2; }
+  .archive-img-filename {
+    font-size: 8px;
+    color: #2e4f6a;
+    font-family: monospace;
+    text-align: center;
+    word-break: break-all;
+    line-height: 1.5;
+  }
+  .archive-text-col { padding: 56px 56px 56px 64px; }
+  .archive-label {
+    font-family: var(--f-mono);
+    font-size: 9px;
+    letter-spacing: 0.28em;
+    color: rgba(41,197,208,0.65);
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    display: block;
+  }
+  .archive-heading {
+    font-family: var(--f-display);
+    font-size: clamp(26px, 3.4vw, 50px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--cream);
+    line-height: 1.1;
+    margin-bottom: 18px;
+  }
+  .archive-sub {
+    font-family: var(--f-body);
+    font-size: 13px;
+    color: var(--stone);
+    line-height: 1.85;
+    margin-bottom: 44px;
+    max-width: 500px;
+  }
+  .archive-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin-bottom: 44px;
+    border-top: 0.5px solid rgba(245,232,192,0.07);
+    border-left: 0.5px solid rgba(245,232,192,0.07);
+  }
+  .archive-stat {
+    padding: 20px 16px 20px 24px;
+    border-right: 0.5px solid rgba(245,232,192,0.07);
+    border-bottom: 0.5px solid rgba(245,232,192,0.07);
+  }
+  .stat-num {
+    font-family: var(--f-display);
+    font-size: clamp(36px, 4vw, 58px);
+    font-weight: 300;
+    color: var(--cream);
+    line-height: 1;
+    display: block;
+    margin-bottom: 7px;
+  }
+  .stat-label {
+    font-family: var(--f-mono);
+    font-size: 8px;
+    letter-spacing: 0.14em;
+    color: var(--stone);
+    text-transform: uppercase;
+    line-height: 1.6;
+  }
+  .archive-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    color: var(--cyan);
+    text-decoration: none;
+    text-transform: uppercase;
+    border-bottom: 0.5px solid rgba(41,197,208,0.28);
+    padding-bottom: 5px;
+    transition: color 0.25s, gap 0.25s, border-color 0.25s;
+  }
+  .archive-cta:hover { color: var(--cyan-pale); gap: 16px; border-color: rgba(125,232,238,0.45); }
+  @media (max-width: 1023px) {
+    .archive-inner { grid-template-columns: auto 1fr; }
+    .archive-img-col { min-width: 110px; max-width: 200px; }
+    .archive-stats { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 767px) {
+    .archive-section { padding: 0; }
+    .archive-inner { grid-template-columns: 1fr; }
+    .archive-img-col { aspect-ratio: 16/9; max-width: 100%; min-width: unset; width: 100%; border-right: none; border-bottom: 1px solid rgba(245,232,192,0.07); }
+    .archive-text-col { padding: 32px 18px; }
+    .archive-stats { grid-template-columns: repeat(2, 1fr); }
+    .stat-num { font-size: clamp(28px, 8vw, 42px); }
+    .archive-sub { margin-bottom: 32px; }
+  }
+  /* ─── VERY SMALL MOBILE < 390px ─── */
+  @media (max-width: 389px) {
+    .hero { grid-template-rows: 55vh 130px 108px 185px 100px; }
+    .cell-a-title { font-size: clamp(17px, 4vw, 24px) !important; }
+    .tkg-tagline { font-size: 9px; }
+    .cell-d-text, .cell-e-text { font-size: 11px; }
+    .nav-mobile-menu a { font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<!-- ── NAV ── -->
+<nav>
+  <a href="#" class="nav-logo">
+    <img src="Thien-Kien-logo.webp" alt="Thiện Kiến Logo" class="nav-logo-img">
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="journey-log.html">Nhật Ký</a></li>
+    <li><a href="#archive-section">Sự Chuẩn Bị</a></li>
+    <li><a href="https://tkg-naula.com" target="_blank" rel="noopener">TKG</a></li>
+    <li><a href="#">Liên Hệ</a></li>
+  </ul>
+  <div class="nav-right">
+    <span class="nav-lang">
+      <a href="index.html" aria-label="English" title="English">
+        <svg viewBox="0 0 24 16" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="16" fill="#B22234"/><g fill="#FFFFFF"><rect y="1.23" width="24" height="1.23"/><rect y="3.69" width="24" height="1.23"/><rect y="6.15" width="24" height="1.23"/><rect y="8.62" width="24" height="1.23"/><rect y="11.08" width="24" height="1.23"/><rect y="13.54" width="24" height="1.23"/></g><rect width="10.3" height="8.62" fill="#3C3B6E"/></svg>
+      </a>
+      <a href="index_vi.html" class="active" aria-label="Tiếng Việt" title="Tiếng Việt">
+        <svg viewBox="0 0 24 16" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="16" fill="#DA251D"/><polygon fill="#FFFF00" points="12,3.2 13.41,7.4 17.85,7.4 14.22,9.95 15.63,14.15 12,11.6 8.37,14.15 9.78,9.95 6.15,7.4 10.59,7.4"/></svg>
+      </a>
+    </span>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<!-- ── MOBILE NAV MENU ── -->
+<div class="nav-mobile-menu" id="navMobileMenu">
+  <ul>
+    <li><a href="journey-log.html" onclick="closeMobileMenu()">Nhật Ký</a></li>
+    <li><a href="#archive-section" onclick="closeMobileMenu()">Sự Chuẩn Bị</a></li>
+    <li><a href="https://tkg-naula.com" target="_blank" rel="noopener" onclick="closeMobileMenu()">TKG</a></li>
+    <li><a href="#" onclick="closeMobileMenu()">Liên Hệ</a></li>
+    <li class="nav-mobile-lang">
+      <a href="index.html" aria-label="English" title="English">
+        <svg viewBox="0 0 24 16" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="16" fill="#B22234"/><g fill="#FFFFFF"><rect y="1.23" width="24" height="1.23"/><rect y="3.69" width="24" height="1.23"/><rect y="6.15" width="24" height="1.23"/><rect y="8.62" width="24" height="1.23"/><rect y="11.08" width="24" height="1.23"/><rect y="13.54" width="24" height="1.23"/></g><rect width="10.3" height="8.62" fill="#3C3B6E"/></svg>
+      </a>
+      <a href="index_vi.html" class="active" aria-label="Tiếng Việt" title="Tiếng Việt">
+        <svg viewBox="0 0 24 16" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="16" fill="#DA251D"/><polygon fill="#FFFF00" points="12,3.2 13.41,7.4 17.85,7.4 14.22,9.95 15.63,14.15 12,11.6 8.37,14.15 9.78,9.95 6.15,7.4 10.59,7.4"/></svg>
+      </a>
+    </li>
+  </ul>
+</div>
+<!-- ── HERO GRID ── -->
+<div class="hero">
+  <!-- A: Main photo slideshow — data-bg for lazy loading -->
+  <div class="cell cell-a">
+    <div class="slideshow" id="heroSlideshow">
+      <div class="slide active" data-bg="IMG_5812.webp"></div>
+      <div class="slide" data-bg="IMG_8778.webp"></div>
+      <div class="slide" data-bg="IMG_8779.webp"></div>
+      <div class="slide" data-bg="IMG_8782.webp"></div>
+      <div class="slide" data-bg="IMG_8790.webp"></div>
+      <div class="slide" data-bg="IMG_8791.webp"></div>
+      <div class="slide" data-bg="IMG_8797.webp"></div>
+      <div class="slide" data-bg="IMG_8806.webp"></div>
+      <div class="slide" data-bg="IMG_8811.webp"></div>
+      <div class="slide" data-bg="IMG_8813.webp"></div>
+      <div class="slide" data-bg="IMG_8814.webp"></div>
+      <div class="slide" data-bg="IMG_8835.webp"></div>
+      <div class="slide" data-bg="IMG_8836.webp"></div>
+      <div class="slide" data-bg="IMG_8851.webp"></div>
+    </div>
+    <div class="slide-dots" id="slideDots"></div>
+    <div class="cell-caption">
+      <span class="event-tag">NEW ENERGY NEXUS × ĐẠI SỨ QUÁN ÚC · 2024</span>
+      <h1 class="cell-a-title">Không gian trải nghiệm văn hóa hiếu khách<br>
+được chuẩn bị cho các đội ngũ quốc tế tại Việt Nam.</h1>
+      <p class="cell-a-sub">Ẩm thực, nghi thức và sự chuẩn bị theo mùa được kiến tạo<br>
+dành cho các tổ chức gắn bó sâu sắc với bối cảnh Việt Nam.</p>
+    </div>
+  </div>
+  <!-- B: Logo cell -->
+  <div class="cell cell-b">
+    <div class="logo-mark">
+      <img src="Thien-Kien-logo.webp" alt="Thiện Kiến Logo" class="logo-mark-img">
+    </div>
+    <div class="iso-badge">
+      <img src="ISO-22000.webp" alt="ISO 22000:2018">
+      ISO 22000:2018 · Hệ Thống Quản Lý An Toàn Thực Phẩm
+    </div>
+  </div>
+  <!-- C: TKG Amber cell -->
+  <div class="cell cell-c">
+    <a href="https://tkg-naula.com" target="_blank" rel="noopener" class="cell-c-link" aria-label="Visit TKG website"></a>
+    <div class="cell-c-bg"></div>
+    <div class="cell-c-overlay"></div>
+    <div class="cell-c-top">
+      <img src="TKG-logo.webp" alt="TKG" class="tkg-logo-img">
+      <div class="tkg-sub">Hệ thống chế biến thảo mộc được hình thành<br>
+từ cách chế biến văn hóa của Thiện Kiến.</div>
+    </div>
+    <div class="tkg-tagline">· Thảo mộc nguyên bản được sấy thăng hoa để giữ trọn vẹn giá trị tự nhiên. <br>· Được phát triển cho không gian tiếp đãi và môi trường quốc tế.</div>
+  </div>
+  <!-- D: Cyan event cell -->
+  <div class="cell cell-d">
+    <div class="cell-d-slideshow" id="cellDSlideshow"></div>
+    <div class="cell-d-overlay"></div>
+    <div>
+      <div class="cell-d-label"><strong>TECx · 2023</strong></div>
+      <div class="cell-d-text">Truyền thống theo mùa của Việt Nam, được chuẩn bị nguyên bản không tinh giản.<br>Tổng Lãnh Sự Quán Hoa Kỳ × SAVVi Code</div>
+    </div>
+  </div>
+  <!-- E: Earth event cell -->
+  <div class="cell cell-e">
+    <div class="cell-e-slideshow" id="cellESlideshow"></div>
+    <div class="cell-e-overlay"></div>
+    <div>
+      <div class="cell-e-label">Nghi Lễ Văn Hóa · 2024</div>
+      <div class="cell-e-text">Lễ Cấp Sắc<br>Đại lễ trưởng thành của người Dao — Kỷ niệm 5 năm NEXUS</div>
+    </div>
+  </div>
+  <!-- F: Bottom wide video — preload="none", mobile shows static poster -->
+  <div class="cell cell-f" id="cellF">
+    <div class="cell-f-poster"></div>
+    <video class="cell-f-video" id="heroVideo" muted loop playsinline preload="none">
+      <source src="cell-f.webm" type="video/webm">
+    </video>
+    <div class="cell-f-play-hint">
+      <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+    </div>
+    <div class="cell-f-content">
+      <span class="cell-f-tag">Abbott · Tết Trung Thu</span>
+      <div class="cell-f-title">Tết Trung Thu được chuẩn bị <br>cho các đội ngũ quốc tế tại Việt Nam.</div>
+    </div>
+  </div>
+  <!-- G: Tagline cell -->
+  <div class="cell cell-g">
+    <div class="cell-g-tagline">"Chuẩn bị bằng sự thấu hiểu."</div>
+    <div class="cell-g-mark">Thiện Kiến — Từ năm 2022</div>
+  </div>
+  <!-- H: CTA cell -->
+  <div class="cell cell-h">
+    <div class="cta-label">Ghi Chép Hành Trình</div>
+    <div class="cta-text">Những điều đã chiêm nghiệm qua sự chuẩn bị.</div>
+    <div class="cta-arrow">→</div>
+  </div>
+</div>
+<!-- ── TICKER ── -->
+<div class="ticker-wrap">
+  <div class="ticker-track" id="ticker">
+    <span class="ticker-item">Trái cây theo mùa · Văn phòng quốc tế tại TP.HCM <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">Tết Đoan Ngọ · Tổng Lãnh Sự Quán Hoa Kỳ × SAVVi Code <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">New Energy NEXUS VN · Đại Sứ Quán Úc <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">Lễ Cấp Sắc người Dao · Kỷ niệm 5 năm NEXUS <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">Tết Trung Thu · Abbott <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">TKG · Bột Hòa Tan Thảo Mộc · Michigan 2026 <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">Những câu chuyện Biết Ơn · Lễ Hội Hàng Năm <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">Trái cây theo mùa · Văn phòng quốc tế tại TP.HCM <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">Tết Đoan Ngọ · Tổng Lãnh Sự Quán Hoa Kỳ × SAVVi Code <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">New Energy NEXUS VN · Đại Sứ Quán Úc <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">Lễ Cấp Sắc người Dao · Kỷ niệm 5 năm NEXUS <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">Tết Trung Thu · Abbott <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">TKG · Bột Hòa Tan Thảo Mộc · Michigan 2026 <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">Những câu chuyện Biết Ơn · Lễ Hội Hàng Năm <span class="ticker-dot">✦</span></span>
+  </div>
+</div>
+<!-- ── CLIENTS ── -->
+<div class="clients-section">
+  <div class="clients-header">
+    <span class="clients-label">Không gian đã được chuẩn bị cho</span>
+  </div>
+  <div class="clients-track-wrap">
+    <div class="clients-track" id="clientsTrack">
+      <div class="client-item"><a href="https://vietnam.embassy.gov.au/" target="_blank" rel="noopener"><img src="Australian-Embassy-Vietnam.webp" alt="Australian Embassy Vietnam" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://www.vn.abbott/" target="_blank" rel="noopener"><img src="Abbott.webp" alt="Abbott Laboratories" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://www.newenergynexus.vn/vi/home/" target="_blank" rel="noopener"><img src="NEXUS-New-Energy-VN.webp" alt="New Energy NEXUS VN" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://www.savvicode.com/" target="_blank" rel="noopener"><img src="SAVVIcode.webp" alt="SAVVi Code" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://fulbright.edu.vn/vi/" target="_blank" rel="noopener"><img src="Fulbright.webp" alt="Fulbright" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://www.britishcouncil.vn/" target="_blank" rel="noopener"><img src="Britishcouncil.webp" alt="British Council" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://www.amanotes.com/" target="_blank" rel="noopener"><img src="Amanotes.webp" alt="Amanotes" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://kms-technology.com/" target="_blank" rel="noopener"><img src="KMS solutions.webp" alt="KMS Technology" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://vn.usembassy.gov/education/yseali-in-vietnam/" target="_blank" rel="noopener"><img src="YSEALI.webp" alt="YSEALI" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://blackstones.vn/" target="_blank" rel="noopener"><img src="Blackstones.webp" alt="Blackstones" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://dtp-education.com/en/" target="_blank" rel="noopener"><img src="DTP.webp" alt="DTP Education Solutions" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://www.sparx.com/" target="_blank" rel="noopener"><img src="sparx.webp" alt="Sparx" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://www.phudonggroup.com/" target="_blank" rel="noopener"><img src="Phu Dong group.webp" alt="Phú Đông Group" loading="lazy"></a></div>
+      <!-- duplicate for seamless loop -->
+      <div class="client-item"><a href="https://vietnam.embassy.gov.au/" target="_blank" rel="noopener"><img src="Australian-Embassy-Vietnam.webp" alt="Australian Embassy Vietnam" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://www.vn.abbott/" target="_blank" rel="noopener"><img src="Abbott.webp" alt="Abbott Laboratories" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://www.newenergynexus.vn/vi/home/" target="_blank" rel="noopener"><img src="NEXUS-New-Energy-VN.webp" alt="New Energy NEXUS VN" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://www.savvicode.com/" target="_blank" rel="noopener"><img src="SAVVIcode.webp" alt="SAVVi Code" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://fulbright.edu.vn/vi/" target="_blank" rel="noopener"><img src="Fulbright.webp" alt="Fulbright" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://www.britishcouncil.vn/" target="_blank" rel="noopener"><img src="Britishcouncil.webp" alt="British Council" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://www.amanotes.com/" target="_blank" rel="noopener"><img src="Amanotes.webp" alt="Amanotes" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://kms-technology.com/" target="_blank" rel="noopener"><img src="KMS solutions.webp" alt="KMS Technology" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://vn.usembassy.gov/education/yseali-in-vietnam/" target="_blank" rel="noopener"><img src="YSEALI.webp" alt="YSEALI" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://blackstones.vn/" target="_blank" rel="noopener"><img src="Blackstones.webp" alt="Blackstones" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://dtp-education.com/en/" target="_blank" rel="noopener"><img src="DTP.webp" alt="DTP Education Solutions" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://www.sparx.com/" target="_blank" rel="noopener"><img src="sparx.webp" alt="Sparx" loading="lazy"></a></div>
+      <div class="client-item"><a href="https://www.phudonggroup.com/" target="_blank" rel="noopener"><img src="Phu Dong group.webp" alt="Phú Đông Group" loading="lazy"></a></div>
+    </div>
+  </div>
+</div>
+<!-- ── BELOW HERO — Brand pillars ── -->
+<div class="below-hero">
+  <div class="bh-inner">
+    <div>
+      <div class="bh-divider"></div>
+      <span class="bh-label">QUAN SÁT TRƯỚC KHI CHUẨN BỊ</span>
+      <div class="bh-heading">Sự thấu hiểu đến trước khi thực hiện.</div>
+      <p class="bh-body">Mỗi không gian bắt đầu một cách khác nhau.<br>
+Có không gian được chuẩn bị cho các đoàn ngoại giao.<br>
+Có không gian cho văn phòng đa quốc gia.<br>
+Có không gian cho những người lần đầu tiếp cận Việt Nam.
+Hình thức thay đổi. Trách nhiệm không thay đổi.</p>
+    </div>
+    <div>
+      <div class="bh-divider amber"></div>
+      <span class="bh-label">TKG · HỆ THỐNG CHẾ BIẾN THẢO MỘC</span>
+      <div class="bh-heading">Hình thái vật lý của <br> triết lý chuẩn bị từ Thiện Kiến.</div>
+      <p class="bh-body">TKG được phát triển qua nhiều năm chuẩn bị nguyên liệu Việt Nam cho ngành tiếp đãi và các môi trường quốc tế.<br>
+Kết quả là một hệ thống thảo mộc gọn nhẹ được thiết kế để di chuyển mà không mất đi giá trị hay bối cảnh gốc.</p>
+      <div style="display:inline-flex;align-items:center;gap:7px;margin-top:18px;font-family:var(--f-mono);font-size:8px;letter-spacing:0.16em;color:rgba(200,135,42,0.7);border:0.5px solid rgba(200,135,42,0.25);padding:5px 10px 5px 6px;border-radius:2px;">
+        <img src="ISO-22000.webp" alt="ISO 22000:2018" style="width:18px;height:18px;object-fit:contain;filter:grayscale(20%) brightness(0.75);">
+        ĐẠT CHỨNG NHẬN ISO 22000:2018
+      </div>
+    </div>
+    <div>
+      <div class="bh-divider" style="background:var(--stone)"></div>
+      <span class="bh-label">TÍNH DỄ HIỂU VĂN HÓA</span>
+      <div class="bh-heading">Việt Nam không cần phải được trình diễn<br>để được thấu hiểu.</div>
+      <p class="bh-body">Sự thấu hiểu văn hóa không chỉ đến từ lời giải thích.<br>
+Nó đến từ không khí, nhịp điệu, sự chuẩn bị và trải nghiệm được chia sẻ cùng nhau.</p>
+    </div>
+  </div>
+</div>
+<!-- ── FOOD ARCHIVE SECTION ── -->
+<section class="archive-section" id="archive-section">
+  <div class="archive-inner">
+    <div class="archive-img-col">
+      <img class="archive-img" id="archive-photo" src="TECx2023_7.webp" alt="Thiện Kiến — TECx 2023" style="display:block">
+    </div>
+    <div class="archive-text-col">
+      <span class="archive-label">Lưu Trữ Sự Chuẩn Bị Văn Hóa</span>
+      <div class="archive-heading">Một Bảo Tàng Sống Về<br>Các Nền Văn Hóa Ẩm Thực Việt Nam</div>
+      <p class="archive-sub">Những món ăn, nguyên liệu và truyền thống vùng miền từng xuất hiện trong các hành trình chuẩn bị của Thiện Kiến — từ vùng cao Tây Bắc đến đồng bằng sông Cửu Long.</p>
+      <div class="archive-stats">
+        <div class="archive-stat">
+          <span class="stat-num" id="stat-dishes">—</span>
+          <span class="stat-label">Món ăn<br>được ghi nhận</span>
+        </div>
+        <div class="archive-stat">
+          <span class="stat-num" id="stat-regions">—</span>
+          <span class="stat-label">Vùng miền<br>của Việt Nam</span>
+        </div>
+        <div class="archive-stat">
+          <span class="stat-num">20+</span>
+          <span class="stat-label">Tổ chức<br>đã được chuẩn bị</span>
+        </div>
+        <div class="archive-stat">
+          <span class="stat-num">2022</span>
+          <span class="stat-label">Năm chuẩn bị<br>đầu tiên</span>
+        </div>
+      </div>
+      <a href="ThienKien_MenuMap.html" class="archive-cta">
+        Khám Phá Kho Lưu Trữ <span>→</span>
+      </a>
+    </div>
+  </div>
+</section>
+<!-- ── JOURNEY LOG STRIP ── -->
+<div class="journey">
+  <div class="journey-header">
+    <div class="journey-title">Ghi Chép Hành Trình</div>
+    <a href="journey-log.html" class="journey-link">Xem tất cả →</a>
+  </div>
+  <div class="journey-grid">
+    <div class="jc" style="background:#0A1820; min-height:220px; cursor:pointer;" data-href="cultural-distance-hospitality.html">
+      <div style="position:absolute;inset:0;background-image:url('hospitality.webp');background-size:cover;background-position:center;opacity:0.28;z-index:0;"></div>
+      <div style="position:absolute;inset:0;background:rgba(41,197,208,0.18);z-index:0;"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,24,32,0.85) 0%,rgba(10,24,32,0.2) 100%);z-index:0;"></div>
+      <div style="position:absolute;top:0;right:0;width:30px;height:30px;background:var(--cyan);z-index:3;"></div>
+      <div class="jc-content">
+        <span class="jc-year" style="color:rgba(41,197,208,0.7)">Khoảng Cách Văn Hóa & Lòng Hiếu Khách</span>
+        <div class="jc-name" style="color:#fff; font-size:clamp(16px,1.8vw,24px)">Những điều lòng hiếu khách gợi mở qua các môi trường văn hóa khác nhau.</div>
+      </div>
+      <span style="position:absolute;bottom:18px;right:20px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.18em;color:rgba(41,197,208,0.55);text-transform:uppercase;z-index:2;">Đọc tiếp →</span>
+    </div>
+    <div class="jc" style="background:#C8872A">
+      <div class="jc-content">
+        <span class="jc-year" style="color:rgba(45,30,16,0.6)">Nghi Thức, Ký Ức & Tính Chính Danh</span>
+        <div class="jc-name" style="color:var(--earth)">Chuẩn bị cho sự tưởng nhớ mà không biến truyền thống thành màn trình diễn.</div>
+      </div>
+    </div>
+    <div class="jc" style="background:#1A1035">
+      <div class="jc-content">
+        <span class="jc-year" style="color:rgba(127,119,221,0.5)">Ghi Chép Về Sự Chuẩn Bị</span>
+        <div class="jc-name" style="color:#C8C0F0">Ghi chép thực địa từ những căn bếp, những chuyến tìm nguồn nguyên liệu, và những quyết định thầm lặng phía sau mỗi sự chuẩn bị.</div>
+      </div>
+    </div>
+    <div class="jc" style="background:#2D1E10">
+      <div class="jc-content">
+        <span class="jc-year" style="color:rgba(200,135,42,0.5)">Chế Biến Thảo Mộc & Naula</span>
+        <div class="jc-name" style="color:var(--amber-pale)">Ghi chép về thảo mộc nguyên bản, quy trình chuẩn bị được kiểm soát chặt chẽ, và cách TKG tiến hóa qua quá trình phục vụ.</div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="footer-logo">Thiện Kiến</span>
+      <div class="footer-tagline">Chuẩn Bị Bằng Sự Thấu Hiểu</div>
+    </div>
+    <div class="footer-company">
+      <h4>THÔNG TIN CÔNG TY</h4>
+      <p>Công Ty TNHH Thương Mại - Dịch Vụ Thiện Kiến</p>
+      <p>MST: 0317374438</p>
+      <div style="display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.13em;color:rgba(136,135,128,0.6);border:0.5px solid rgba(136,135,128,0.18);padding:4px 9px 4px 5px;border-radius:2px;">
+        <img src="ISO-22000.webp" alt="ISO 22000:2018" style="width:16px;height:16px;object-fit:contain;filter:grayscale(100%) brightness(0.6);">
+        ISO 22000:2018
+      </div>
+    </div>
+    <div class="footer-contact">
+      <h4>LIÊN HỆ</h4>
+      <a href="mailto:thienkien.sudarshana@gmail.com">thienkien.sudarshana@gmail.com</a>
+      <a href="tel:+84976847789">(+84) 976-847-789</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-note">© 2026 Thiện Kiến · Thành phố Hồ Chí Minh, Việt Nam</div>
+    <div class="footer-note">Thiết kế bằng sự tận tâm</div>
+  </div>
+</footer>
+<!-- ── VIDEO MODAL ── -->
+<div class="video-modal" id="videoModal">
+  <div class="video-modal-inner">
+    <button class="video-modal-close" id="videoModalClose">✕</button>
+    <video id="modalVideo" controls>
+      <source src="cell-f.webm" type="video/webm">
+    </video>
+  </div>
+</div>
+<script>
+  const isTouchDevice = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+  // ── HELPER: lazy-load background from data-bg attribute ──
+  function loadBg(el) {
+    if (el && el.dataset.bg && !el.style.backgroundImage) {
+      el.style.backgroundImage = `url('${el.dataset.bg}')`;
+    }
+  }
+  // ── HELPER: silently preload an image into browser cache ──
+  function preloadImg(src) {
+    const img = new Image();
+    img.src = src;
+  }
+  // ── HERO SLIDESHOW ──
+  // Mobile: 1 ảnh tĩnh duy nhất — không timer, không dots, không preload
+  // Desktop: slideshow đầy đủ với lazy load
+  const allTimers = [];
+  (function() {
+    const slides   = document.querySelectorAll('#heroSlideshow .slide');
+    const dotsWrap = document.getElementById('slideDots');
+    // Luôn load ảnh đầu tiên
+    loadBg(slides[0]);
+    if (isTouchDevice) return; // Mobile: dừng ở đây
+    // Desktop: preload ảnh thứ 2, build dots, start timer
+    if (slides[1]) loadBg(slides[1]);
+    const INTERVAL = 4500;
+    let current = 0, timer;
+    slides.forEach((_, i) => {
+      const d = document.createElement('div');
+      d.className = 'slide-dot' + (i === 0 ? ' active' : '');
+      d.addEventListener('click', () => goTo(i));
+      dotsWrap.appendChild(d);
+    });
+    function goTo(n) {
+      slides[current].classList.remove('active');
+      dotsWrap.children[current].classList.remove('active');
+      current = (n + slides.length) % slides.length;
+      loadBg(slides[current]);
+      loadBg(slides[(current + 1) % slides.length]);
+      slides[current].classList.add('active');
+      dotsWrap.children[current].classList.add('active');
+    }
+    function startTimer() {
+      clearInterval(timer);
+      timer = setInterval(() => goTo(current + 1), INTERVAL);
+      allTimers.push(timer);
+    }
+    startTimer();
+  })();
+  // ── CELL D SLIDESHOW ──
+  // Mobile: 1 ảnh tĩnh — Desktop: slideshow + stagger preload
+  (function() {
+    const imgs = [
+      'TECx2023.webp','TECx2023_1.webp','TECx2023_2.webp',
+      'TECx2023_3.webp','TECx2023_4.webp','TECx2023_5.webp',
+      'TECx2023_6.webp','TECx2023_7.webp','TECx2023_8.webp',
+      'TECx2023_9.webp','TECx2023_10.webp'
+    ];
+    const wrap = document.getElementById('cellDSlideshow');
+    wrap.style.cssText = `background-image:url('${imgs[0]}');background-size:cover;background-position:center`;
+    if (isTouchDevice) return; // Mobile: dừng ở đây
+    setTimeout(() => {
+      imgs.slice(1).forEach((src, i) => setTimeout(() => preloadImg(src), i * 300));
+    }, 2000);
+    let idx = 0;
+    const t = setInterval(() => {
+      idx = (idx + 1) % imgs.length;
+      wrap.style.backgroundImage = `url('${imgs[idx]}')`;
+    }, 4500);
+    allTimers.push(t);
+  })();
+  // ── CELL E SLIDESHOW ──
+  // Mobile: 1 ảnh tĩnh — Desktop: slideshow + stagger preload
+  (function() {
+    const imgs = [
+      'NEX-5y.webp','NEX-5y_1.webp','NEX-5y_2.webp',
+      'NEX-5y_3.webp','NEX-5y_4.webp','NEX-5y_5.webp',
+      'NEX-5y_6.webp','NEX-5y_7.webp','NEX-5y_8.webp',
+      'NEX-5y_9.webp','NEX-5y_10.webp'
+    ];
+    const wrap = document.getElementById('cellESlideshow');
+    wrap.style.cssText = `background-image:url('${imgs[0]}');background-size:cover;background-position:center`;
+    if (isTouchDevice) return; // Mobile: dừng ở đây
+    setTimeout(() => {
+      imgs.slice(1).forEach((src, i) => setTimeout(() => preloadImg(src), i * 400));
+    }, 3500);
+    let idx = 0;
+    const t = setInterval(() => {
+      idx = (idx + 1) % imgs.length;
+      wrap.style.backgroundImage = `url('${imgs[idx]}')`;
+    }, 6000);
+    allTimers.push(t);
+  })();
+  // ── VIDEO: lazy load + autoplay khi cell-f vào viewport (cả mobile lẫn desktop) ──
+  const heroVideo = document.getElementById('heroVideo');
+  if (heroVideo) {
+    const videoObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          heroVideo.load();
+          heroVideo.play().catch(() => {});
+        } else {
+          heroVideo.pause();
+        }
+      });
+    }, { threshold: 0.1 });
+    videoObserver.observe(document.getElementById('cellF'));
+  }
+  // ── PAUSE all intervals and animations when tab is hidden ──
+  document.addEventListener('visibilitychange', () => {
+    const animated = document.querySelectorAll('.clients-track, .ticker-track');
+    if (document.hidden) {
+      animated.forEach(el => el.style.animationPlayState = 'paused');
+    } else {
+      animated.forEach(el => el.style.animationPlayState = 'running');
+    }
+  });
+  // ── TICKER: pause when hero is in viewport ──
+  (function() {
+    const tickerTrack = document.getElementById('ticker');
+    const hero = document.querySelector('.hero');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        tickerTrack.style.animationPlayState =
+          entry.isIntersecting ? 'paused' : 'running';
+      });
+    }, { threshold: 0.1 });
+    observer.observe(hero);
+  })();
+  // ── CUSTOM CURSOR (desktop only) ──
+  const cur = document.getElementById('cursor');
+  if (!isTouchDevice) {
+    document.addEventListener('mousemove', e => {
+      cur.style.left = e.clientX + 'px';
+      cur.style.top  = e.clientY + 'px';
+    });
+    document.querySelectorAll('.cell-c, .cell-e, .cell-h').forEach(el => {
+      el.addEventListener('mouseenter', () => cur.classList.add('amber'));
+      el.addEventListener('mouseleave', () => cur.classList.remove('amber'));
+    });
+    document.querySelectorAll('.cell-c, .cell-d, .cell-e, .cell-f, .cell-h, .jc').forEach(el => {
+      el.addEventListener('mouseenter', () => cur.classList.add('big'));
+      el.addEventListener('mouseleave', () => cur.classList.remove('big'));
+    });
+  }
+  // ── HAMBURGER MENU ──
+  const hamburger  = document.getElementById('navHamburger');
+  const mobileMenu = document.getElementById('navMobileMenu');
+  function closeMobileMenu() {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+  hamburger.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    hamburger.classList.toggle('open', isOpen);
+    hamburger.setAttribute('aria-expanded', String(isOpen));
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { closeMobileMenu(); closeModal(); }
+  });
+  // ── JOURNEY STRIP CARDS with data-href ──
+  document.querySelectorAll('.jc[data-href]').forEach(card => {
+    card.addEventListener('click', () => {
+      window.location.href = card.dataset.href;
+    });
+    if (!isTouchDevice) {
+      card.addEventListener('mouseenter', () => cur.classList.add('big'));
+      card.addEventListener('mouseleave', () => cur.classList.remove('big'));
+    }
+  });
+  // ── CELL D → TECx2023 page ──
+  document.querySelector('.cell-d').addEventListener('click', () => {
+    window.location.href = 'tecx2023.html';
+  });
+  // ── CELL E → Dao Initiation page ──
+  document.querySelector('.cell-e').addEventListener('click', () => {
+    window.location.href = 'dao-initiation.html';
+  });
+  // ── CELL H → Journey Log page ──
+  document.querySelector('.cell-h').addEventListener('click', () => {
+    window.location.href = 'journey-log.html';
+  });
+  // ── VIDEO MODAL ──
+  const modal      = document.getElementById('videoModal');
+  const modalVideo = document.getElementById('modalVideo');
+  const modalClose = document.getElementById('videoModalClose');
+  const cellF      = document.getElementById('cellF');
+  cellF.addEventListener('click', () => {
+    modal.classList.add('open');
+    modalVideo.currentTime = 0;
+    modalVideo.play();
+  });
+  function closeModal() {
+    modal.classList.remove('open');
+    modalVideo.pause();
+  }
+  modalClose.addEventListener('click', closeModal);
+  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+</script>
+
+<script>
+// ── AUTO STATS FROM MENU.JSON ─────────────────────────────────────────────────
+fetch('menu.json')
+  .then(r => r.ok ? r.json() : null)
+  .then(dishes => {
+    if (!dishes) return;
+    const totalDishes = dishes.length;
+    const uniqueRegions = new Set(dishes.map(d => d.region)).size;
+    const elDishes  = document.getElementById('stat-dishes');
+    const elRegions = document.getElementById('stat-regions');
+    if (elDishes)  elDishes.textContent  = totalDishes;
+    if (elRegions) elRegions.textContent = uniqueRegions;
+  })
+  .catch(() => {
+    // Fallback nếu không fetch được (mở file cục bộ)
+    document.getElementById('stat-dishes').textContent  = '71';
+    document.getElementById('stat-regions').textContent = '8';
+  });
+</script>
+</body>
+</html>
