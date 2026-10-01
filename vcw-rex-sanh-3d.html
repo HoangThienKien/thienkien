@@ -8,16 +8,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;600;800&display=swap" rel="stylesheet">
 <style id="st">
 :root{--bg:#F4F6FC;--panel:#FFFFFF;--ink:#1D2620;--muted:#5E6963;--line:#DCE2EA;--accent:#419559;--accent-ink:#00501B;--accent-on:#FFFFFF;--soft:#F0FFEB;--danger:#B3261E;--danger-soft:#FCEBEB;--scene:#EEF1F7;--floor:#FFFFFF;--hall:#E2E7F0;--wall:#C9D2DE;
-color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+color-scheme:light;box-sizing:border-box}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121813;--panel:#1A221C;--ink:#E9F0EA;--muted:#A7B2AA;--line:#2D3830;--accent:#8BE09E;--accent-ink:#8BE09E;--accent-on:#0D2414;--soft:#1F2E22;--danger:#F09595;--danger-soft:#3A1C1C;--scene:#1A201C;--floor:#2B332D;--hall:#222A24;--wall:#55605A;color-scheme:dark}}
 :root[data-theme="dark"]{--bg:#121813;--panel:#1A221C;--ink:#E9F0EA;--muted:#A7B2AA;--line:#2D3830;--accent:#8BE09E;--accent-ink:#8BE09E;--accent-on:#0D2414;--soft:#1F2E22;--danger:#F09595;--danger-soft:#3A1C1C;--scene:#1A201C;--floor:#2B332D;--hall:#222A24;--wall:#55605A;color-scheme:dark}
 html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
-body{height:100%;margin:0;background:var(--bg);color:var(--ink);font:400 14px/1.45 Archivo,"Helvetica Neue",Arial,sans-serif;overflow:hidden}
+body{height:100%;margin:0;overscroll-behavior:none;background:var(--bg);color:var(--ink);font:400 14px/1.45 Archivo,"Helvetica Neue",Arial,sans-serif;overflow:hidden}
 *,*::before,*::after{box-sizing:border-box}
 button,input,textarea{font:inherit;color:inherit}
 button{cursor:pointer}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-#root{display:grid;grid-template-columns:320px minmax(0,1fr);height:100%}
+#root{position:fixed;top:0;left:0;right:0;width:100%;height:100%;height:100dvh;height:max(100dvh, var(--app-h, 0px));box-sizing:border-box;padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px);display:grid;grid-template-columns:320px minmax(0,1fr)}
 #side{background:var(--panel);border-right:1px solid var(--line);overflow-y:auto;padding:22px 18px 28px}
 .brand h1{font-size:24px;line-height:1.1;font-weight:800;letter-spacing:-.01em;margin:0 0 6px;color:var(--accent-ink)}
 .brand p{margin:0;color:var(--muted);font-size:13px}
@@ -110,10 +110,8 @@ ul{list-style:none;margin:0;padding:0}
 .joy::after{content:"";position:absolute;inset:30%;border-radius:50%;border:1px dashed var(--muted);opacity:.5}
 .joy-knob{position:absolute;left:50%;top:50%;width:54px;height:54px;margin:-27px 0 0 -27px;border-radius:50%;background:var(--accent-ink);opacity:.92;z-index:1}
 .joy[hidden]{display:none}
-#lock-badge{position:absolute;top:60px;left:50%;transform:translateX(-50%);background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px 8px 6px 11px;display:flex;gap:10px;align-items:center;font-size:13px;white-space:nowrap;z-index:12}
-#lock-badge button{border:1px solid var(--line);background:var(--bg);border-radius:6px;padding:4px 10px;font-size:13px;font-weight:600}
-#lock-badge[hidden],#rot-hint[hidden]{display:none}
-#rot-hint{position:absolute;left:12px;right:12px;top:104px;background:var(--panel);border:2px solid var(--accent-ink);border-radius:10px;padding:12px 14px;display:flex;gap:12px;align-items:center;font-size:14px;font-weight:600;z-index:18}
+#rot-hint[hidden]{display:none}
+#rot-hint{position:absolute;left:12px;right:12px;top:60px;background:var(--panel);border:2px solid var(--accent-ink);border-radius:10px;padding:12px 14px;display:flex;gap:12px;align-items:center;font-size:14px;font-weight:600;z-index:18}
 #rot-hint button{margin-left:auto;border:1px solid var(--line);background:var(--bg);border-radius:6px;padding:6px 10px;font-size:13px;white-space:nowrap}
 .phone{flex:none;width:20px;height:34px;border:3px solid var(--accent-ink);border-radius:5px;animation:turnphone 2.4s ease-in-out infinite}
 @keyframes turnphone{0%,25%{transform:rotate(0)}60%,100%{transform:rotate(-90deg)}}
@@ -197,7 +195,7 @@ const BODY = `
     <p>Vùng đỏ trước hai cửa ballroom là khoảng trống 3,5 m cần giữ. Ô màu dưới bàn đang chọn gồm cả chỗ đứng của exhibitor phía sau.</p>
     <p>Mỗi bàn chọn được cỡ 180×80 hoặc bàn IBM 120×60 cm. Cửa sổ ở tường ngoài vẽ theo ảnh hiện trường, vị trí còn ước lượng. Hoa văn sàn mô phỏng thảm hoa sen của REX, bấm Hoa văn sàn để tắt khi cần nhìn rõ mặt bằng.</p>
     <p>Vải trải sàn: bấm + Vải chữ nhật hoặc + Vải tròn, kéo để dời, chọn để chỉnh dài, rộng, dày, góc xoay và màu CMYK. Phím R và E xoay, Delete xoá. Vải nằm dưới bàn nên không tính vào cảnh báo va chạm.</p>
-    <p>Ở chế độ Tầm mắt, mọi đối tượng bị khoá, không chọn hay kéo được. Trên điện thoại: cần trái để đi, cần phải để nhìn quanh, nên xoay ngang màn hình. Bấm Thoát hoặc chọn Toàn cảnh để chỉnh sửa lại.</p>
+    <p>Ở chế độ Tầm mắt, mọi đối tượng bị khoá, không chọn hay kéo được. Trên điện thoại: cần trái để đi, cần phải để nhìn quanh, nên xoay ngang màn hình. Chọn Toàn cảnh hoặc Từ trên xuống để chỉnh sửa lại.</p>
     <p>Mặt bằng dựng theo các số đo ghi trên bản vẽ REX. Bản vẽ không theo tỉ lệ nên cần đối chiếu lại khi có file CAD.</p>
   </section>
 </aside>
@@ -298,7 +296,6 @@ const BODY = `
   </div>
   <div id="joy" class="joy" hidden role="application" aria-label="Cần điều khiển trái: kéo để đi trong sảnh"><div class="joy-knob"></div></div>
   <div id="joy2" class="joy" hidden role="application" aria-label="Cần điều khiển phải: kéo để xoay camera"><div class="joy-knob"></div></div>
-  <div id="lock-badge" hidden><span>Chế độ xem: các đối tượng đã khoá</span><button id="lock-exit">Thoát</button></div>
   <div id="rot-hint" hidden role="status"><span class="phone" aria-hidden="true"></span><span>Xoay ngang màn hình để xem toàn khung hình.</span><button id="rot-dismiss">Để sau</button></div>
   <div id="toast" role="status" hidden></div>
 </main>
@@ -1020,7 +1017,7 @@ function modeTip(text){ const el = $('#mode-tip'); el.hidden = !text; el.textCon
 /* ---------- actions ---------- */
 function touch(){ state.dirty = true; renderSave(); saveDraftSoon(); }
 function changed(){ state.dirty = true; refreshIssues(); renderSel(); renderShapeCard(); renderShapeList(); renderSave(); saveDraftSoon(); }
-const LOCK_MSG = 'Đang ở chế độ xem nên các đối tượng bị khoá. Bấm Thoát hoặc chọn Toàn cảnh để chỉnh sửa.';
+const LOCK_MSG = 'Đang ở chế độ xem nên các đối tượng bị khoá. Chọn Toàn cảnh hoặc Từ trên xuống để chỉnh sửa.';
 function locked(){ if (state.eye){ toast(LOCK_MSG); return true; } return false; }
 function select(id, focus){
   if (state.eye && id !== null){ toast(LOCK_MSG); return; }
@@ -1409,13 +1406,11 @@ const joy = makeStick(joyEl), joy2 = makeStick(joy2El);
 function updateJoy(){
   const eye = state.eye, touch = isTouch();
   joyEl.hidden = !eye; joy2El.hidden = !(eye && touch);
-  $('#lock-badge').hidden = !eye;
   if (!eye) rotDismissed = false;
   const coarse = !!(window.matchMedia && window.matchMedia('(pointer: coarse)').matches);
   $('#rot-hint').hidden = !(eye && coarse && window.innerHeight > window.innerWidth && !rotDismissed);
-  if (eye && !joyHinted){ joyHinted = true; toast(touch ? 'Cần trái để đi, cần phải để nhìn quanh. Bấm Thoát để chỉnh sửa lại.' : 'Kéo cần tròn bên trái hoặc dùng phím mũi tên để đi. W S để nhìn lên xuống, A D để quay trái phải.'); }
+  if (eye && !joyHinted){ joyHinted = true; if (!touch) toast('Kéo cần tròn bên trái hoặc dùng phím mũi tên để đi. W S để nhìn lên xuống, A D để quay trái phải.'); }
 }
-$('#lock-exit').onclick = () => setView('overview');
 $('#rot-dismiss').onclick = () => { rotDismissed = true; updateJoy(); };
 window.addEventListener('resize', updateJoy);
 window.addEventListener('orientationchange', () => setTimeout(updateJoy, 150));
@@ -1427,6 +1422,17 @@ function resize(){
   const vb = $('#views'); if (vb) stage.style.setProperty('--vbar', vb.offsetHeight + 'px');
 }
 new ResizeObserver(resize).observe(stage);
+/* Sau khi xoay màn hình, một số trình duyệt di động báo chiều cao cũ. Đo lại nhiều lần để khung hình luôn phủ kín phần nhìn thấy. */
+function fitViewport(){
+  const vv = window.visualViewport;
+  const h = Math.max(window.innerHeight || 0, vv ? Math.round(vv.height + (vv.offsetTop || 0)) : 0, document.documentElement.clientHeight || 0);
+  document.documentElement.style.setProperty('--app-h', h + 'px');
+  if (window.scrollY || window.scrollX) window.scrollTo(0, 0);
+  resize();
+}
+['resize', 'orientationchange'].forEach(ev => window.addEventListener(ev, () => { fitViewport(); [120, 400, 900, 1600].forEach(ms => setTimeout(fitViewport, ms)); }));
+if (window.visualViewport) window.visualViewport.addEventListener('resize', fitViewport);
+fitViewport();
 let last = performance.now();
 function loop(now){
   const dt = Math.min(0.05, (now-last)/1000); last = now;
