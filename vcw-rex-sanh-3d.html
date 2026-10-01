@@ -127,6 +127,14 @@ const BODY = `
     <p class="muted" id="tv-count" style="margin:8px 0 0;font-size:13px"></p>
   </section>
   <section class="block">
+    <h2>Kích thước bàn</h2>
+    <p class="muted" id="size-count" style="margin:0 0 8px;font-size:13px"></p>
+    <div class="seg" role="group" aria-label="Đổi kích thước tất cả bàn">
+      <button data-allsize="L">Tất cả 180×80</button>
+      <button data-allsize="S">Tất cả 120×50</button>
+    </div>
+  </section>
+  <section class="block">
     <h2>Cụm doanh nghiệp</h2>
     <ul id="group-list"></ul>
   </section>
@@ -140,6 +148,7 @@ const BODY = `
     <p>Kéo một bàn để dời chỗ. Kéo trên nền để xoay góc nhìn, chuột phải hoặc hai ngón tay để dời khung hình, cuộn chuột để phóng to.</p>
     <p>Phím W A S D để đi trong sảnh. Chọn một bàn rồi bấm R để xoay 90°, E để xoay 45°, phím mũi tên để nhích từng 10 cm. Ctrl/Cmd + Z để hoàn tác.</p>
     <p>Vùng đỏ trước hai cửa ballroom là khoảng trống 3,5 m cần giữ. Ô màu dưới bàn đang chọn gồm cả chỗ đứng của exhibitor phía sau.</p>
+    <p>Mỗi bàn chọn được cỡ 180×80 hoặc 120×50 cm. Cửa sổ ở tường ngoài vẽ theo ảnh hiện trường, vị trí còn ước lượng.</p>
     <p>Mặt bằng dựng theo các số đo ghi trên bản vẽ REX. Bản vẽ không theo tỉ lệ nên cần đối chiếu lại khi có file CAD.</p>
   </section>
 </aside>
@@ -189,6 +198,7 @@ const BODY = `
       <button data-sel="rot90">Xoay 90°</button>
       <button data-sel="rot45">Xoay 45°</button>
       <button data-sel="tv" aria-pressed="true">Có TV</button>
+      <button data-sel="size">Đổi sang bàn 120×50</button>
       <button data-sel="swap">Đổi chỗ với bàn khác</button>
     </div>
   </div>
@@ -283,14 +293,19 @@ const COLUMNS = [
 const DOORS = [{x0:16.4,x1:19.5,label:'cửa ballroom 1'},{x0:22.0,x1:25.1,label:'cửa ballroom 2'}];
 const FORE_DEPTH = 3.5;
 const FORECOURTS = DOORS.map(d => ({label:d.label, x0:d.x0-0.5, x1:d.x1+0.5, y0:0, y1:FORE_DEPTH}));
-const TW = 1.8, TD = 0.8, ZONE = 0.55;
+const SIZES = {L:{w:1.8,d:0.8,label:'180×80'}, S:{w:1.2,d:0.5,label:'120×50'}};
+const ZONE = 0.55;
+/* Cửa sổ tường ngoài: ước lượng từ ảnh hiện trường, 2 ô giữa mỗi cặp trụ, cần đo lại */
+const WINDOWS = [{x0:1.6,x1:3.2},{x0:4.4,x1:6.0},{x0:9.6,x1:11.2},{x0:13.9,x1:15.5},{x0:18.2,x1:19.8},{x0:20.4,x1:22.0},{x0:24.3,x1:25.9},{x0:26.9,x1:28.5}];
+const WIN_SILL = 0.9, WIN_HEAD = 2.5;
 
 function rectPoly(r){ return [[r.x0,r.y0],[r.x1,r.y0],[r.x1,r.y1],[r.x0,r.y1]]; }
 function tableGeom(t){
   const a = t.r*Math.PI/180;
   const fx = Math.sin(a), fy = -Math.cos(a);
   const ux = Math.cos(a), uy = Math.sin(a);
-  const hw = TW/2, hd = TD/2;
+  const sz = SIZES[t.s] || SIZES.L;
+  const hw = sz.w/2, hd = sz.d/2;
   const P = (su, sf) => [t.x + ux*su + fx*sf, t.y + uy*su + fy*sf];
   return {
     body:[P(-hw,-hd),P(hw,-hd),P(hw,hd),P(-hw,hd)],
@@ -363,9 +378,9 @@ const SS_KEY = 'vcw-rex-lobby-saved-v1';
 function normalize(arr){
   const map = {};
   (Array.isArray(arr) ? arr : []).forEach(t => {
-    if (t && CBY[t.id] && isFinite(+t.x) && isFinite(+t.y)) map[t.id] = {id:t.id, x:+t.x, y:+t.y, r:((Math.round(+t.r||0)%360)+360)%360, tv: t.tv !== false};
+    if (t && CBY[t.id] && isFinite(+t.x) && isFinite(+t.y)) map[t.id] = {id:t.id, x:+t.x, y:+t.y, r:((Math.round(+t.r||0)%360)+360)%360, tv: t.tv !== false, s: t.s === 'S' ? 'S' : 'L'};
   });
-  return DEFAULT.map(d => map[d.id] || {id:d.id, x:d.x, y:d.y, r:d.r, tv:true});
+  return DEFAULT.map(d => map[d.id] || {id:d.id, x:d.x, y:d.y, r:d.r, tv:true, s:'L'});
 }
 let initial = {savedAt:null, tables:null};
 try { initial = JSON.parse(document.getElementById('layout-data').textContent) || initial; } catch(e) {}
@@ -497,6 +512,22 @@ function buildWalls(h){
     const m = new THREE.Mesh(new THREE.BoxGeometry(d.x1-d.x0, dh, 0.06), glass);
     m.position.set((d.x0+d.x1)/2, dh/2, 0); g.add(m);
   });
+  const winMat = new THREE.MeshStandardMaterial({color:0xA9CFEA, transparent:true, opacity:.55, roughness:.2, depthWrite:false});
+  const frameMat = new THREE.LineBasicMaterial({color:0x6B5A4A});
+  WINDOWS.forEach(w => {
+    const ww = w.x1 - w.x0, cx = (w.x0 + w.x1)/2;
+    if (h > 1){
+      const pane = new THREE.Mesh(new THREE.BoxGeometry(ww, WIN_HEAD-WIN_SILL, 0.04), winMat);
+      pane.position.set(cx, (WIN_SILL+WIN_HEAD)/2, 11.41); g.add(pane);
+      const fr = new THREE.LineSegments(new THREE.EdgesGeometry(pane.geometry), frameMat);
+      fr.position.copy(pane.position); g.add(fr);
+      const mull = new THREE.Mesh(new THREE.BoxGeometry(0.04, WIN_HEAD-WIN_SILL, 0.05), new THREE.MeshStandardMaterial({color:0xF2EFEA}));
+      mull.position.set(cx, (WIN_SILL+WIN_HEAD)/2, 11.41); g.add(mull);
+    } else {
+      const strip = new THREE.Mesh(new THREE.BoxGeometry(ww, h+0.02, 0.18), winMat);
+      strip.position.set(cx, (h+0.02)/2, 11.5); g.add(strip);
+    }
+  });
   const blockMat = new THREE.MeshStandardMaterial({color:0xE1E5EB, roughness:1});
   [[4.8,-4,14.4,2.9],[-2.2,-4,0.6,2.9],[28.6,0,32,2.87]].forEach(b => {
     const m = new THREE.Mesh(new THREE.BoxGeometry(b[2]-b[0]-0.16, h, b[3]-b[1]-0.16), blockMat);
@@ -507,7 +538,8 @@ function buildWalls(h){
 
 function buildTable(t){
   const co = CBY[t.id], gr = GROUPS[co.g];
-  const g = new THREE.Group(); g.userData.tid = t.id;
+  const sz = SIZES[t.s] || SIZES.L, TW = sz.w, TD = sz.d;
+  const g = new THREE.Group(); g.userData.tid = t.id; g.userData.s = t.s;
   const clothMat = new THREE.MeshStandardMaterial({color:gr.color, roughness:.85, transparent:true, opacity:1});
   const cloth = new THREE.Mesh(new THREE.BoxGeometry(TW, 0.74, TD), clothMat);
   cloth.position.y = 0.37; cloth.castShadow = true; cloth.receiveShadow = true; g.add(cloth);
@@ -521,23 +553,25 @@ function buildTable(t){
   const top = new THREE.Mesh(new THREE.PlaneGeometry(TW-0.04, TD-0.04), topMat);
   top.rotation.set(-Math.PI/2, 0, 0); top.position.y = 0.742; g.add(top);
 
-  const frC = textCanvas([{text:co.name, size:78, weight:800, y:72}], {w:720, h:144, bg:gr.color, fg:'#ffffff'});
+  const fw = TW-0.1, fh = t.s === 'S' ? 0.3 : 0.34, fch = Math.round(720*fh/fw);
+  const frC = textCanvas([{text:co.name, size:Math.round(fch*0.54), weight:800, y:Math.round(fch/2)}], {w:720, h:fch, bg:gr.color, fg:'#ffffff'});
   const frTex = new THREE.CanvasTexture(frC); frTex.anisotropy = 8;
   const frMat = new THREE.MeshBasicMaterial({map:frTex, transparent:true});
-  const front = new THREE.Mesh(new THREE.PlaneGeometry(1.7, 0.34), frMat);
+  const front = new THREE.Mesh(new THREE.PlaneGeometry(fw, fh), frMat);
   front.rotation.y = Math.PI; front.position.set(0, 0.5, -TD/2-0.003); g.add(front);
 
-  [-0.45, 0.45].forEach(sx => {
-    const seat = new THREE.Mesh(new THREE.BoxGeometry(0.44,0.05,0.44), chairMat); seat.position.set(sx,0.46,0.78);
-    const back = new THREE.Mesh(new THREE.BoxGeometry(0.44,0.42,0.05), chairMat); back.position.set(sx,0.7,1.0);
-    const base = new THREE.Mesh(new THREE.BoxGeometry(0.34,0.44,0.34), chairDark); base.position.set(sx,0.22,0.78);
+  const cz = TD/2 + 0.38, cx = t.s === 'S' ? 0.3 : 0.45;
+  [-cx, cx].forEach(sx => {
+    const seat = new THREE.Mesh(new THREE.BoxGeometry(0.44,0.05,0.44), chairMat); seat.position.set(sx,0.46,cz);
+    const back = new THREE.Mesh(new THREE.BoxGeometry(0.44,0.42,0.05), chairMat); back.position.set(sx,0.7,cz+0.22);
+    const base = new THREE.Mesh(new THREE.BoxGeometry(0.34,0.44,0.34), chairDark); base.position.set(sx,0.22,cz);
     [seat,back,base].forEach(m => { m.castShadow = true; g.add(m); });
   });
 
   const tv = new THREE.Group();
-  const pole = new THREE.Mesh(new THREE.BoxGeometry(0.06,1.3,0.06), tvMat); pole.position.set(0,0.65,0.5);
-  const foot = new THREE.Mesh(new THREE.BoxGeometry(0.5,0.03,0.4), tvMat); foot.position.set(0,0.015,0.5);
-  const screen = new THREE.Mesh(new THREE.BoxGeometry(1.0,0.58,0.05), tvMat); screen.position.set(0,1.58,0.47);
+  const pole = new THREE.Mesh(new THREE.BoxGeometry(0.06,1.3,0.06), tvMat); pole.position.set(0,0.65,TD/2+0.1);
+  const foot = new THREE.Mesh(new THREE.BoxGeometry(0.5,0.03,0.4), tvMat); foot.position.set(0,0.015,TD/2+0.1);
+  const screen = new THREE.Mesh(new THREE.BoxGeometry(1.0,0.58,0.05), tvMat); screen.position.set(0,1.58,TD/2+0.07);
   [pole,foot,screen].forEach(m => { m.castShadow = true; tv.add(m); });
   g.add(tv);
 
@@ -548,6 +582,19 @@ function buildTable(t){
   world.add(g);
   tableMeshes[t.id] = {g, cloth, clothMat, topMat, frMat, top, front, tv, plate, plateMat};
   placeTable(t);
+}
+function rebuildTable(t){
+  const m = tableMeshes[t.id];
+  if (m){
+    world.remove(m.g);
+    m.g.traverse(o => { if (o.geometry) o.geometry.dispose(); if (o.material && o.material !== chairMat && o.material !== chairDark && o.material !== tvMat){ if (o.material.map) o.material.map.dispose(); o.material.dispose(); } });
+    delete tableMeshes[t.id];
+  }
+  buildTable(t);
+}
+function syncMeshes(){
+  state.tables.forEach(t => { const m = tableMeshes[t.id]; if (!m || m.g.userData.s !== t.s) rebuildTable(t); else placeTable(t); });
+  styleTables();
 }
 function placeTable(t){
   const m = tableMeshes[t.id]; if (!m) return;
@@ -664,7 +711,7 @@ function endPointer(e){
   downEmpty = null;
 }
 renderer.domElement.addEventListener('pointerup', endPointer);
-renderer.domElement.addEventListener('pointercancel', () => { if (drag && drag.id && drag.moved){ state.tables = JSON.parse(drag.before); state.tables.forEach(placeTable); refreshIssues(); } drag = null; controls.enabled = true; });
+renderer.domElement.addEventListener('pointercancel', () => { if (drag && drag.id && drag.moved){ state.tables = JSON.parse(drag.before); syncMeshes(); refreshIssues(); } drag = null; controls.enabled = true; });
 
 /* ---------- measuring ---------- */
 const measureGroup = new THREE.Group(); scene.add(measureGroup);
@@ -711,17 +758,21 @@ function startSwap(){ if (!state.selected) return; state.swapFrom = state.select
 function cancelSwap(){ if (!state.swapFrom) return; state.swapFrom = null; styleTables(); modeTip(null); }
 function doSwap(a, b){
   const A = T(a), B = T(b); pushHistory();
-  const tmp = {x:A.x, y:A.y, r:A.r}; A.x = B.x; A.y = B.y; A.r = B.r; B.x = tmp.x; B.y = tmp.y; B.r = tmp.r;
-  placeTable(A); placeTable(B); state.swapFrom = null; modeTip(null); changed(); select(a, false);
+  const tmp = {x:A.x, y:A.y, r:A.r, s:A.s}; A.x = B.x; A.y = B.y; A.r = B.r; A.s = B.s; B.x = tmp.x; B.y = tmp.y; B.r = tmp.r; B.s = tmp.s;
+  syncMeshes(); state.swapFrom = null; modeTip(null); changed(); select(a, false);
   toast('Đã đổi chỗ '+CBY[a].name+' và '+CBY[b].name+'.');
 }
 function undo(){
   const prev = state.history.pop(); if (!prev) return;
-  state.tables = normalize(JSON.parse(prev)); state.tables.forEach(placeTable);
+  state.tables = normalize(JSON.parse(prev)); syncMeshes();
   $('#btn-undo').disabled = state.history.length === 0; changed();
 }
 function applyTables(arr, msg){
-  pushHistory(); state.tables = normalize(arr); state.tables.forEach(placeTable); changed(); if (msg) toast(msg);
+  pushHistory(); state.tables = normalize(arr); syncMeshes(); changed(); if (msg) toast(msg);
+}
+function setSize(ids, size){
+  const list = ids.map(T).filter(t => t && t.s !== size); if (!list.length) return;
+  pushHistory(); list.forEach(t => { t.s = size; rebuildTable(t); }); styleTables(); changed();
 }
 
 /* ---------- issues & panels ---------- */
@@ -734,6 +785,8 @@ function refreshIssues(){
   $('#issue-list').innerHTML = state.issues.list.slice(0, 40).map(i => `<li><button data-id="${i.id}"><b>${code(i.id)} ${esc(CBY[i.id].name)}</b>: ${esc(i.msg)}</button></li>`).join('');
   const tv = state.tables.filter(t => t.tv).length;
   $('#tv-count').textContent = `TV cần chuẩn bị: ${tv} trên ${state.tables.length} bàn.`;
+  const nS = state.tables.filter(t => t.s === 'S').length;
+  $('#size-count').textContent = `Đang dùng ${state.tables.length-nS} bàn 180×80 và ${nS} bàn 120×50. Chọn từng bàn để đổi riêng.`;
   $$('#table-list .row').forEach(r => { const f = r.querySelector('.flag'); if (f) f.textContent = state.issues.byId[r.dataset.id] ? '!' : ''; });
 }
 function esc(s){ return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
@@ -764,11 +817,12 @@ function renderSel(){
   $('#sel-name').textContent = c.name;
   $('#sel-meta').textContent = `${code(id)}, ${g.name}`;
   $('#sel-desc').textContent = c.desc;
-  $('#sel-pos').textContent = `Tâm bàn cách tường trái ${t.x.toFixed(2).replace('.',',')} m, cách tường ballroom ${t.y.toFixed(2).replace('.',',')} m. Mặt bàn quay về ${facing(t.r)}.`;
+  $('#sel-pos').textContent = `Bàn ${(SIZES[t.s]||SIZES.L).label} cm. Tâm bàn cách tường trái ${t.x.toFixed(2).replace('.',',')} m, cách tường ballroom ${t.y.toFixed(2).replace('.',',')} m. Mặt bàn quay về ${facing(t.r)}.`;
   const iss = state.issues.byId[id];
   $('#sel-issue').textContent = iss ? 'Vấn đề: ' + iss.join('; ') + '.' : '';
   const tvb = card.querySelector('[data-sel="tv"]');
   tvb.setAttribute('aria-pressed', String(t.tv)); tvb.textContent = t.tv ? 'Có TV' : 'Không TV';
+  card.querySelector('[data-sel="size"]').textContent = 'Đổi sang bàn ' + SIZES[t.s === 'S' ? 'L' : 'S'].label;
 }
 function fmtTime(iso){ try { const d = new Date(iso); return d.toLocaleTimeString('vi-VN',{hour:'2-digit',minute:'2-digit'})+' ngày '+d.toLocaleDateString('vi-VN',{day:'2-digit',month:'2-digit'}); } catch(e){ return iso; } }
 function renderSave(){
@@ -814,7 +868,7 @@ function buildDoc(data){
 async function saveShared(){
   if (!state.artifact || state.saving) return;
   const savedAt = new Date().toISOString();
-  const doc = buildDoc({savedAt, tables: state.tables.map(t => ({id:t.id, x:t.x, y:t.y, r:t.r, tv:t.tv}))});
+  const doc = buildDoc({savedAt, tables: state.tables.map(t => ({id:t.id, x:t.x, y:t.y, r:t.r, tv:t.tv, s:t.s}))});
   state.saving = true; renderSave();
   try { sessionStorage.setItem(SS_KEY, savedAt); } catch(e){}
   try {
@@ -840,7 +894,7 @@ function openModal({title, text, area, actions}){
   $('#modal').hidden = false; (area !== undefined ? ta : box.lastChild).focus();
 }
 function closeModal(){ $('#modal').hidden = true; }
-function exportText(){ return JSON.stringify({ten:'Sảnh REX, VCW 2026', luc:new Date().toISOString(), tables:state.tables.map(t => ({id:t.id, x:t.x, y:t.y, r:t.r, tv:t.tv}))}); }
+function exportText(){ return JSON.stringify({ten:'Sảnh REX, VCW 2026', luc:new Date().toISOString(), tables:state.tables.map(t => ({id:t.id, x:t.x, y:t.y, r:t.r, tv:t.tv, s:t.s}))}); }
 
 /* ---------- UI wiring ---------- */
 $('#btn-save').onclick = saveShared;
@@ -884,7 +938,9 @@ $('.sel-actions').onclick = e => {
   if (a === 'rot45') rotateSel(45);
   if (a === 'tv'){ const t = T(state.selected); pushHistory(); t.tv = !t.tv; placeTable(t); changed(); }
   if (a === 'swap') startSwap();
+  if (a === 'size'){ const t = T(state.selected); setSize([t.id], t.s === 'S' ? 'L' : 'S'); }
 };
+$$('[data-allsize]').forEach(b => b.onclick = () => { setSize(state.tables.map(t => t.id), b.dataset.allsize); toast('Đã đổi tất cả sang bàn ' + SIZES[b.dataset.allsize].label + '. Kiểm tra lại các cảnh báo nếu có.'); });
 $('#group-list').onclick = e => { const b = e.target.closest('.grp'); if (!b) return; state.focusGroup = state.focusGroup === b.dataset.g ? null : b.dataset.g; renderGroups(); styleTables(); };
 $('#table-list').onclick = e => { const b = e.target.closest('.row'); if (!b) return; if (state.swapFrom && state.swapFrom !== b.dataset.id){ doSwap(state.swapFrom, b.dataset.id); return; } select(b.dataset.id, true); closeSideMobile(); };
 $('#issue-list').onclick = e => { const b = e.target.closest('button'); if (!b) return; select(b.dataset.id, true); closeSideMobile(); };
