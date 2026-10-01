@@ -104,15 +104,26 @@ ul{list-style:none;margin:0;padding:0}
 .modal-box p{margin:0 0 10px;color:var(--muted);font-size:13px}
 #modal-area{width:100%;height:160px;border:1px solid var(--line);border-radius:6px;padding:8px;font:12px/1.4 Archivo,Arial,sans-serif;background:var(--bg);resize:vertical}
 .modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:12px;flex-wrap:wrap}
-#joy{cursor:grab;position:absolute;left:20px;bottom:80px;width:124px;height:124px;border-radius:50%;background:rgba(255,255,255,.6);border:1px solid var(--line);touch-action:none;z-index:15;-webkit-user-select:none;user-select:none}
-#joy::after{content:"";position:absolute;inset:30%;border-radius:50%;border:1px dashed var(--muted);opacity:.5}
-#joy-knob{position:absolute;left:50%;top:50%;width:54px;height:54px;margin:-27px 0 0 -27px;border-radius:50%;background:var(--accent-ink);opacity:.92;z-index:1}
-#joy[hidden]{display:none}
+.joy{cursor:grab;position:absolute;bottom:calc(var(--vbar,48px) + 24px);width:124px;height:124px;border-radius:50%;background:rgba(255,255,255,.6);border:1px solid var(--line);touch-action:none;z-index:15;-webkit-user-select:none;user-select:none}
+#joy{left:20px}
+#joy2{right:20px}
+.joy::after{content:"";position:absolute;inset:30%;border-radius:50%;border:1px dashed var(--muted);opacity:.5}
+.joy-knob{position:absolute;left:50%;top:50%;width:54px;height:54px;margin:-27px 0 0 -27px;border-radius:50%;background:var(--accent-ink);opacity:.92;z-index:1}
+.joy[hidden]{display:none}
+#lock-badge{position:absolute;top:60px;left:50%;transform:translateX(-50%);background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px 8px 6px 11px;display:flex;gap:10px;align-items:center;font-size:13px;white-space:nowrap;z-index:12}
+#lock-badge button{border:1px solid var(--line);background:var(--bg);border-radius:6px;padding:4px 10px;font-size:13px;font-weight:600}
+#lock-badge[hidden],#rot-hint[hidden]{display:none}
+#rot-hint{position:absolute;left:12px;right:12px;top:104px;background:var(--panel);border:2px solid var(--accent-ink);border-radius:10px;padding:12px 14px;display:flex;gap:12px;align-items:center;font-size:14px;font-weight:600;z-index:18}
+#rot-hint button{margin-left:auto;border:1px solid var(--line);background:var(--bg);border-radius:6px;padding:6px 10px;font-size:13px;white-space:nowrap}
+.phone{flex:none;width:20px;height:34px;border:3px solid var(--accent-ink);border-radius:5px;animation:turnphone 2.4s ease-in-out infinite}
+@keyframes turnphone{0%,25%{transform:rotate(0)}60%,100%{transform:rotate(-90deg)}}
+@media (prefers-reduced-motion:reduce){.phone{animation:none;transform:rotate(-90deg)}}
+#root.eye-lock .edit-only{display:none}
 .only-mobile{display:none}
 .side-bar{display:none}
 #side-scrim{display:none}
 #loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:14px}
-@media (max-width:760px){
+@media (max-width:760px), (pointer:coarse) and (max-height:540px){
 #root{grid-template-columns:1fr}
 #side{position:absolute;top:0;bottom:0;left:0;width:min(88vw,340px);z-index:30;transform:translateX(-102%);transition:transform .2s ease;box-shadow:none}
 #root.side-open #side{transform:none;border-right:1px solid var(--line)}
@@ -153,7 +164,7 @@ const BODY = `
     <ul id="issue-list"></ul>
     <p class="muted" id="tv-count" style="margin:8px 0 0;font-size:13px"></p>
   </section>
-  <section class="block">
+  <section class="block edit-only">
     <h2>Kích thước bàn</h2>
     <p class="muted" id="size-count" style="margin:0 0 8px;font-size:13px"></p>
     <div class="seg" role="group" aria-label="Đổi kích thước tất cả bàn">
@@ -161,7 +172,7 @@ const BODY = `
       <button data-allsize="S">Tất cả 120×60 (IBM)</button>
     </div>
   </section>
-  <section class="block">
+  <section class="block edit-only">
     <h2>Vải trải sàn</h2>
     <p class="muted" style="margin:0 0 8px;font-size:13px">Thêm khối phẳng lót dưới bàn để chia khu vực cho từng cụm. Kéo để dời, chọn để chỉnh số đo, độ dày và màu CMYK.</p>
     <div class="seg" role="group" aria-label="Thêm vải trải sàn">
@@ -186,6 +197,7 @@ const BODY = `
     <p>Vùng đỏ trước hai cửa ballroom là khoảng trống 3,5 m cần giữ. Ô màu dưới bàn đang chọn gồm cả chỗ đứng của exhibitor phía sau.</p>
     <p>Mỗi bàn chọn được cỡ 180×80 hoặc bàn IBM 120×60 cm. Cửa sổ ở tường ngoài vẽ theo ảnh hiện trường, vị trí còn ước lượng. Hoa văn sàn mô phỏng thảm hoa sen của REX, bấm Hoa văn sàn để tắt khi cần nhìn rõ mặt bằng.</p>
     <p>Vải trải sàn: bấm + Vải chữ nhật hoặc + Vải tròn, kéo để dời, chọn để chỉnh dài, rộng, dày, góc xoay và màu CMYK. Phím R và E xoay, Delete xoá. Vải nằm dưới bàn nên không tính vào cảnh báo va chạm.</p>
+    <p>Ở chế độ Tầm mắt, mọi đối tượng bị khoá, không chọn hay kéo được. Trên điện thoại: cần trái để đi, cần phải để nhìn quanh, nên xoay ngang màn hình. Bấm Thoát hoặc chọn Toàn cảnh để chỉnh sửa lại.</p>
     <p>Mặt bằng dựng theo các số đo ghi trên bản vẽ REX. Bản vẽ không theo tỉ lệ nên cần đối chiếu lại khi có file CAD.</p>
   </section>
 </aside>
@@ -195,7 +207,7 @@ const BODY = `
     <button id="toggle-side" class="ghost only-mobile" aria-expanded="false">Danh sách</button>
     <div class="save-wrap">
       <span id="save-status" role="status"></span>
-      <button id="btn-undo" class="ghost" disabled>Hoàn tác</button>
+      <button id="btn-undo" class="ghost edit-only" disabled>Hoàn tác</button>
       <button id="btn-save" class="primary" disabled>Lưu cho cả nhóm</button>
       <button id="btn-more" class="ghost" aria-expanded="false" aria-haspopup="true">Phương án</button>
       <div id="more-menu" hidden>
@@ -224,7 +236,7 @@ const BODY = `
       <button id="btn-measure" aria-pressed="false">Đo khoảng cách</button>
       <button id="btn-clear-measure" hidden>Xoá số đo</button>
     </div>
-    <div class="seg" role="group" aria-label="Thêm vải trải sàn">
+    <div class="seg edit-only" role="group" aria-label="Thêm vải trải sàn">
       <button data-addshape="rect">+ Vải chữ nhật</button>
       <button data-addshape="round">+ Vải tròn</button>
     </div>
@@ -284,7 +296,10 @@ const BODY = `
       <div class="modal-actions" id="modal-actions"></div>
     </div>
   </div>
-  <div id="joy" hidden role="application" aria-label="Cần điều khiển: kéo để đi trong sảnh"><div id="joy-knob"></div></div>
+  <div id="joy" class="joy" hidden role="application" aria-label="Cần điều khiển trái: kéo để đi trong sảnh"><div class="joy-knob"></div></div>
+  <div id="joy2" class="joy" hidden role="application" aria-label="Cần điều khiển phải: kéo để xoay camera"><div class="joy-knob"></div></div>
+  <div id="lock-badge" hidden><span>Chế độ xem: các đối tượng đã khoá</span><button id="lock-exit">Thoát</button></div>
+  <div id="rot-hint" hidden role="status"><span class="phone" aria-hidden="true"></span><span>Xoay ngang màn hình để xem toàn khung hình.</span><button id="rot-dismiss">Để sau</button></div>
   <div id="toast" role="status" hidden></div>
 </main>
 </div>`;
@@ -846,6 +861,11 @@ const VIEWS = {
 };
 function setView(name){
   const v = VIEWS[name]; state.eye = !!v.eye;
+  if (state.eye){ if (state.measureMode) setMeasure(false); cancelSwap(); select(null); closeSideMobile(); }
+  $('#root').classList.toggle('eye-lock', state.eye);
+  const touchEye = state.eye && isTouch();
+  controls.enableRotate = !touchEye; controls.enablePan = !touchEye;
+  controls.maxPolarAngle = state.eye ? Math.PI - 0.05 : Math.PI/2 - 0.03; controls.minPolarAngle = state.eye ? 0.05 : 0;
   controls.enableZoom = !state.eye;
   controls.minDistance = state.eye ? 0.05 : 2;
   controls.rotateSpeed = state.eye ? 0.35 : 0.8;
@@ -908,6 +928,7 @@ renderer.domElement.addEventListener('pointerdown', e => {
     const p = floorPoint(); if (p) addMeasure(p);
     controls.enabled = false; drag = {measure:true}; return;
   }
+  if (state.eye) return;
   const id = pickTable();
   if (id){
     const t = T(id), p = floorPoint() || new THREE.Vector3(t.x,0,t.y);
@@ -943,7 +964,7 @@ renderer.domElement.addEventListener('pointermove', e => {
     renderer.domElement.style.cursor = 'grabbing';
   } else if (!drag && e.buttons === 0){
     setNdc(e);
-    renderer.domElement.style.cursor = state.measureMode ? 'crosshair' : ((pickTable() || pickShape()) ? 'grab' : 'default');
+    renderer.domElement.style.cursor = state.measureMode ? 'crosshair' : ((!state.eye && (pickTable() || pickShape())) ? 'grab' : 'default');
   }
 });
 function endPointer(e){
@@ -999,11 +1020,15 @@ function modeTip(text){ const el = $('#mode-tip'); el.hidden = !text; el.textCon
 /* ---------- actions ---------- */
 function touch(){ state.dirty = true; renderSave(); saveDraftSoon(); }
 function changed(){ state.dirty = true; refreshIssues(); renderSel(); renderShapeCard(); renderShapeList(); renderSave(); saveDraftSoon(); }
+const LOCK_MSG = 'Đang ở chế độ xem nên các đối tượng bị khoá. Bấm Thoát hoặc chọn Toàn cảnh để chỉnh sửa.';
+function locked(){ if (state.eye){ toast(LOCK_MSG); return true; } return false; }
 function select(id, focus){
+  if (state.eye && id !== null){ toast(LOCK_MSG); return; }
   state.selected = id; state.selShape = null; styleTables(); styleShapes(); renderSel(); renderShapeCard(); renderShapeList(); markListCurrent();
   if (id && focus) focusTable(id);
 }
 function selectShape(id, focus){
+  if (state.eye && id){ toast(LOCK_MSG); return; }
   state.selShape = id; state.selected = null; if (state.swapFrom) cancelSwap();
   styleTables(); styleShapes(); renderSel(); renderShapeCard(); renderShapeList(); markListCurrent();
   if (id && focus) focusShape(id);
@@ -1015,28 +1040,31 @@ function focusShape(id){
 }
 function nextShapeId(){ let n = 0; state.shapes.forEach(s => { const k = parseInt(String(s.id).slice(1), 10); if (k > n) n = k; }); return 'S' + (n+1); }
 function addShape(kind){
+  if (locked()) return;
   const tg = controls.target;
   const sh = normShapes([{id:nextShapeId(), k:kind, x:snap(clampN(tg.x, 2, 30)), y:snap(clampN(tg.z, 3.6, 10.4)), r:0, w:kind === 'round' ? 2.4 : 3, d:kind === 'round' ? 2.4 : 2, t:1, cmyk:[0,26,26,0]}])[0];
   pushHistory(); state.shapes.push(sh); syncShapes(); selectShape(sh.id); changed(); closeSideMobile();
   toast('Đã thêm vải trải sàn. Kéo để dời. Số đo, độ dày và màu CMYK chỉnh trong thẻ Vải trải sàn.');
 }
 function curShape(){ return state.selShape ? SH(state.selShape) : null; }
-function rotShape(step){ const sh = curShape(); if (!sh) return; pushHistory(); sh.r = (sh.r + step) % 360; placeShape(sh); changed(); }
-function nudgeShape(dx, dy){ const sh = curShape(); if (!sh) return; pushHistory(); sh.x = snap(sh.x+dx); sh.y = snap(sh.y+dy); placeShape(sh); changed(); }
-function swapShapeWD(){ const sh = curShape(); if (!sh) return; pushHistory(); const w = sh.w; sh.w = sh.d; sh.d = w; placeShape(sh); changed(); }
+function rotShape(step){ if (state.eye) return; const sh = curShape(); if (!sh) return; pushHistory(); sh.r = (sh.r + step) % 360; placeShape(sh); changed(); }
+function nudgeShape(dx, dy){ if (state.eye) return; const sh = curShape(); if (!sh) return; pushHistory(); sh.x = snap(sh.x+dx); sh.y = snap(sh.y+dy); placeShape(sh); changed(); }
+function swapShapeWD(){ if (state.eye) return; const sh = curShape(); if (!sh) return; pushHistory(); const w = sh.w; sh.w = sh.d; sh.d = w; placeShape(sh); changed(); }
 function dupShape(){
+  if (state.eye) return;
   const sh = curShape(); if (!sh || state.shapes.length >= 60) return;
   const c = normShapes([Object.assign({}, sh, {id:nextShapeId(), x:sh.x + 0.5, y:sh.y + 0.5, cmyk:sh.cmyk.slice()})])[0];
   pushHistory(); state.shapes.push(c); syncShapes(); selectShape(c.id); changed();
 }
 function delShape(){
+  if (state.eye) return;
   const sh = curShape(); if (!sh) return;
   pushHistory(); state.shapes = state.shapes.filter(x => x.id !== sh.id); state.selShape = null; syncShapes(); changed();
   toast('Đã xoá vải trải sàn. Bấm Hoàn tác nếu xoá nhầm.');
 }
 function shapeName(sh){ return 'Vải trải sàn ' + String(sh.id).slice(1); }
 function setVal(sel, v){ const el = $(sel); if (document.activeElement !== el) el.value = v; }
-let shapeFold = window.innerWidth <= 760;
+let shapeFold = !!(window.matchMedia && window.matchMedia('(max-width:760px), (pointer:coarse) and (max-height:540px)').matches);
 function renderShapeCard(){
   const card = $('#shape-card'), sh = curShape();
   if (!sh){ card.hidden = true; return; }
@@ -1060,14 +1088,16 @@ function renderShapeList(){
     : '<p class="muted" style="font-size:13px;margin:0">Chưa có vải trải sàn nào.</p>';
 }
 function rotateSel(step){
+  if (state.eye) return;
   const t = T(state.selected); if (!t) return;
   pushHistory(); t.r = (t.r + step) % 360; placeTable(t); changed();
 }
 function nudge(dx, dy){
+  if (state.eye) return;
   const t = T(state.selected); if (!t) return;
   pushHistory(); t.x = snap(t.x+dx); t.y = snap(t.y+dy); placeTable(t); changed();
 }
-function startSwap(){ if (!state.selected) return; state.swapFrom = state.selected; styleTables(); modeTip('Bấm vào bàn muốn đổi chỗ với '+CBY[state.swapFrom].name+'. Esc để huỷ.'); }
+function startSwap(){ if (state.eye || !state.selected) return; state.swapFrom = state.selected; styleTables(); modeTip('Bấm vào bàn muốn đổi chỗ với '+CBY[state.swapFrom].name+'. Esc để huỷ.'); }
 function cancelSwap(){ if (!state.swapFrom) return; state.swapFrom = null; styleTables(); modeTip(null); }
 function doSwap(a, b){
   const A = T(a), B = T(b); pushHistory();
@@ -1076,18 +1106,22 @@ function doSwap(a, b){
   toast('Đã đổi chỗ '+CBY[a].name+' và '+CBY[b].name+'.');
 }
 function undo(){
+  if (locked()) return;
   const prev = state.history.pop(); if (!prev) return;
   loadSnap(prev);
   $('#btn-undo').disabled = state.history.length === 0; changed();
 }
 function applyTables(arr, msg){
+  if (locked()) return;
   pushHistory(); state.tables = normalize(arr); syncMeshes(); changed(); if (msg) toast(msg);
 }
 function applyLayout(arr, shapes, msg){
+  if (locked()) return;
   pushHistory(); state.tables = normalize(arr); if (shapes !== undefined) state.shapes = normShapes(shapes);
   state.selShape = null; syncMeshes(); syncShapes(); changed(); if (msg) toast(msg);
 }
 function setSize(ids, size){
+  if (locked()) return;
   const list = ids.map(T).filter(t => t && t.s !== size); if (!list.length) return;
   pushHistory(); list.forEach(t => { t.s = size; rebuildTable(t); }); styleTables(); changed();
 }
@@ -1353,27 +1387,38 @@ window.addEventListener('keydown', e => {
 window.addEventListener('keyup', e => keys.delete(e.key.toLowerCase()));
 window.addEventListener('blur', () => keys.clear());
 
-/* ---------- joystick (màn hình cảm ứng, chế độ tầm mắt) ---------- */
-const joyEl = $('#joy'), knob = $('#joy-knob');
-const joy = {x:0, y:0, active:false, id:null};
-let joyHinted = false;
+/* ---------- hai cần điều khiển (chế độ tầm mắt): trái để đi, phải để nhìn quanh ---------- */
+const joyEl = $('#joy'), joy2El = $('#joy2');
+let joyHinted = false, rotDismissed = false;
 const isTouch = () => (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) || window.innerWidth <= 760;
+function makeStick(el){
+  const st = {x:0, y:0, active:false, id:null}, kn = el.querySelector('.joy-knob');
+  const mv = e => {
+    const r = el.getBoundingClientRect(); const max = r.width/2 - 16;
+    let dx = e.clientX - (r.left + r.width/2), dy = e.clientY - (r.top + r.height/2);
+    const d = Math.hypot(dx, dy); if (d > max){ dx *= max/d; dy *= max/d; }
+    kn.style.transform = 'translate(' + dx + 'px, ' + dy + 'px)'; st.x = dx/max; st.y = dy/max;
+  };
+  el.addEventListener('pointerdown', e => { e.preventDefault(); e.stopPropagation(); st.active = true; st.id = e.pointerId; try { el.setPointerCapture(e.pointerId); } catch(err){} mv(e); });
+  el.addEventListener('pointermove', e => { if (st.active && e.pointerId === st.id) mv(e); });
+  const end = e => { if (e.pointerId !== st.id) return; st.active = false; st.id = null; st.x = st.y = 0; kn.style.transform = ''; };
+  el.addEventListener('pointerup', end); el.addEventListener('pointercancel', end);
+  return st;
+}
+const joy = makeStick(joyEl), joy2 = makeStick(joy2El);
 function updateJoy(){
-  const show = state.eye;
-  joyEl.hidden = !show;
-  if (show && !joyHinted){ joyHinted = true; toast(isTouch() ? 'Kéo cần tròn bên trái để đi. Vuốt lên màn hình để nhìn quanh.' : 'Kéo cần tròn bên trái hoặc dùng phím mũi tên để đi. W S để nhìn lên xuống, A D để quay trái phải.'); }
+  const eye = state.eye, touch = isTouch();
+  joyEl.hidden = !eye; joy2El.hidden = !(eye && touch);
+  $('#lock-badge').hidden = !eye;
+  if (!eye) rotDismissed = false;
+  const coarse = !!(window.matchMedia && window.matchMedia('(pointer: coarse)').matches);
+  $('#rot-hint').hidden = !(eye && coarse && window.innerHeight > window.innerWidth && !rotDismissed);
+  if (eye && !joyHinted){ joyHinted = true; toast(touch ? 'Cần trái để đi, cần phải để nhìn quanh. Bấm Thoát để chỉnh sửa lại.' : 'Kéo cần tròn bên trái hoặc dùng phím mũi tên để đi. W S để nhìn lên xuống, A D để quay trái phải.'); }
 }
-function joyMove(e){
-  const r = joyEl.getBoundingClientRect(); const max = r.width/2 - 16;
-  let dx = e.clientX - (r.left + r.width/2), dy = e.clientY - (r.top + r.height/2);
-  const d = Math.hypot(dx, dy); if (d > max){ dx *= max/d; dy *= max/d; }
-  knob.style.transform = `translate(${dx}px, ${dy}px)`; joy.x = dx/max; joy.y = dy/max;
-}
-joyEl.addEventListener('pointerdown', e => { e.preventDefault(); e.stopPropagation(); joy.active = true; joy.id = e.pointerId; try { joyEl.setPointerCapture(e.pointerId); } catch(err){} joyMove(e); });
-joyEl.addEventListener('pointermove', e => { if (joy.active && e.pointerId === joy.id) joyMove(e); });
-const joyEnd = e => { if (e.pointerId !== joy.id) return; joy.active = false; joy.id = null; joy.x = joy.y = 0; knob.style.transform = ''; };
-joyEl.addEventListener('pointerup', joyEnd); joyEl.addEventListener('pointercancel', joyEnd);
+$('#lock-exit').onclick = () => setView('overview');
+$('#rot-dismiss').onclick = () => { rotDismissed = true; updateJoy(); };
 window.addEventListener('resize', updateJoy);
+window.addEventListener('orientationchange', () => setTimeout(updateJoy, 150));
 
 /* ---------- loop ---------- */
 function resize(){
@@ -1398,6 +1443,10 @@ function loop(now){
   if (joy.active){
     const mag = Math.hypot(joy.x, joy.y);
     if (mag > 0.1){ const k = 2.6*dt*Math.min(1, (mag-0.1)/0.9)/mag; walk(-joy.y*k, joy.x*k); }
+  }
+  if (joy2.active && state.eye){
+    const mag = Math.hypot(joy2.x, joy2.y);
+    if (mag > 0.1){ const k = Math.pow(Math.min(1, (mag-0.1)/0.9), 1.4)/mag; look(-joy2.x*k*1.9*dt, -joy2.y*k*1.5*dt); }
   }
   controls.update(); renderer.render(scene, camera); requestAnimationFrame(loop);
 }
