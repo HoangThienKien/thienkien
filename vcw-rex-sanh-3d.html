@@ -131,7 +131,7 @@ const BODY = `
     <p class="muted" id="size-count" style="margin:0 0 8px;font-size:13px"></p>
     <div class="seg" role="group" aria-label="Đổi kích thước tất cả bàn">
       <button data-allsize="L">Tất cả 180×80</button>
-      <button data-allsize="S">Tất cả 120×50</button>
+      <button data-allsize="S">Tất cả 120×60 (IBM)</button>
     </div>
   </section>
   <section class="block">
@@ -148,7 +148,7 @@ const BODY = `
     <p>Kéo một bàn để dời chỗ. Kéo trên nền để xoay góc nhìn, chuột phải hoặc hai ngón tay để dời khung hình, cuộn chuột để phóng to.</p>
     <p>Phím W A S D để đi trong sảnh. Chọn một bàn rồi bấm R để xoay 90°, E để xoay 45°, phím mũi tên để nhích từng 10 cm. Ctrl/Cmd + Z để hoàn tác.</p>
     <p>Vùng đỏ trước hai cửa ballroom là khoảng trống 3,5 m cần giữ. Ô màu dưới bàn đang chọn gồm cả chỗ đứng của exhibitor phía sau.</p>
-    <p>Mỗi bàn chọn được cỡ 180×80 hoặc 120×50 cm. Cửa sổ ở tường ngoài vẽ theo ảnh hiện trường, vị trí còn ước lượng.</p>
+    <p>Mỗi bàn chọn được cỡ 180×80 hoặc bàn IBM 120×60 cm. Cửa sổ ở tường ngoài vẽ theo ảnh hiện trường, vị trí còn ước lượng.</p>
     <p>Mặt bằng dựng theo các số đo ghi trên bản vẽ REX. Bản vẽ không theo tỉ lệ nên cần đối chiếu lại khi có file CAD.</p>
   </section>
 </aside>
@@ -162,6 +162,8 @@ const BODY = `
       <button id="btn-save" class="primary" disabled>Lưu cho cả nhóm</button>
       <button id="btn-more" class="ghost" aria-expanded="false" aria-haspopup="true">Phương án</button>
       <div id="more-menu" hidden>
+        <button data-act="link" hidden>Sao chép link phương án</button>
+        <button data-act="download" hidden>Tải file HTML có phương án này</button>
         <button data-act="copy">Sao chép phương án</button>
         <button data-act="paste">Dán phương án</button>
         <button data-act="reset">Về phương án gốc</button>
@@ -198,7 +200,7 @@ const BODY = `
       <button data-sel="rot90">Xoay 90°</button>
       <button data-sel="rot45">Xoay 45°</button>
       <button data-sel="tv" aria-pressed="true">Có TV</button>
-      <button data-sel="size">Đổi sang bàn 120×50</button>
+      <button data-sel="size">Đổi sang bàn 120×60</button>
       <button data-sel="swap">Đổi chỗ với bàn khác</button>
     </div>
   </div>
@@ -293,7 +295,7 @@ const COLUMNS = [
 const DOORS = [{x0:16.4,x1:19.5,label:'cửa ballroom 1'},{x0:22.0,x1:25.1,label:'cửa ballroom 2'}];
 const FORE_DEPTH = 3.5;
 const FORECOURTS = DOORS.map(d => ({label:d.label, x0:d.x0-0.5, x1:d.x1+0.5, y0:0, y1:FORE_DEPTH}));
-const SIZES = {L:{w:1.8,d:0.8,label:'180×80'}, S:{w:1.2,d:0.5,label:'120×50'}};
+const SIZES = {L:{w:1.8,d:0.8,label:'180×80'}, S:{w:1.2,d:0.6,label:'120×60'}};
 const ZONE = 0.55;
 /* Cửa sổ tường ngoài: ước lượng từ ảnh hiện trường, 2 ô giữa mỗi cặp trụ, cần đo lại */
 const WINDOWS = [{x0:1.6,x1:3.2},{x0:4.4,x1:6.0},{x0:9.6,x1:11.2},{x0:13.9,x1:15.5},{x0:18.2,x1:19.8},{x0:20.4,x1:22.0},{x0:24.3,x1:25.9},{x0:26.9,x1:28.5}];
@@ -382,14 +384,30 @@ function normalize(arr){
   });
   return DEFAULT.map(d => map[d.id] || {id:d.id, x:d.x, y:d.y, r:d.r, tv:true, s:'L'});
 }
+function encodeLayout(tables){
+  return 'v1~' + tables.map(t => [Math.round(t.x*100), Math.round(t.y*100), t.r, (t.tv?1:0) + (t.s==='S'?2:0)].join('.')).join('_');
+}
+function decodeLayout(str){
+  if (!str || str.indexOf('v1~') !== 0) return null;
+  const parts = str.slice(3).split('_'); if (parts.length !== DEFAULT.length) return null;
+  const out = [];
+  for (let i=0;i<parts.length;i++){
+    const v = parts[i].split('.').map(Number); if (v.length !== 4 || v.some(n => !isFinite(n))) return null;
+    out.push({id:DEFAULT[i].id, x:v[0]/100, y:v[1]/100, r:v[2], tv:!!(v[3]&1), s:(v[3]&2)?'S':'L'});
+  }
+  return out;
+}
+let linkTables = null;
+try { const m = (location.hash || '').match(/[#&]p=([^&]+)/); if (m) linkTables = decodeLayout(decodeURIComponent(m[1])); } catch(e){}
 let initial = {savedAt:null, tables:null};
 try { initial = JSON.parse(document.getElementById('layout-data').textContent) || initial; } catch(e) {}
 
 const state = {
-  tables: normalize(initial.tables || DEFAULT),
+  tables: normalize(linkTables || initial.tables || DEFAULT),
   savedAt: initial.savedAt || null,
   selected: null, swapFrom: null, measureMode: false, measurePts: [],
   dirty: false, readOnly: false, artifact: undefined, saving: false,
+  fromLink: !!linkTables,
   history: [], focusGroup: null, showLabels: true, showWalls: true, showTV: true,
   issues: {list:[], byId:{}}, eye: false
 };
@@ -786,7 +804,7 @@ function refreshIssues(){
   const tv = state.tables.filter(t => t.tv).length;
   $('#tv-count').textContent = `TV cần chuẩn bị: ${tv} trên ${state.tables.length} bàn.`;
   const nS = state.tables.filter(t => t.s === 'S').length;
-  $('#size-count').textContent = `Đang dùng ${state.tables.length-nS} bàn 180×80 và ${nS} bàn 120×50. Chọn từng bàn để đổi riêng.`;
+  $('#size-count').textContent = `Đang dùng ${state.tables.length-nS} bàn 180×80 và ${nS} bàn IBM 120×60. Chọn từng bàn để đổi riêng.`;
   $$('#table-list .row').forEach(r => { const f = r.querySelector('.flag'); if (f) f.textContent = state.issues.byId[r.dataset.id] ? '!' : ''; });
 }
 function esc(s){ return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
@@ -829,10 +847,13 @@ function renderSave(){
   const st = $('#save-status'), btn = $('#btn-save');
   st.classList.toggle('dirty', state.dirty);
   if (state.saving) st.textContent = 'Đang lưu…';
+  else if (state.artifact === null) st.textContent = state.dirty ? 'Thay đổi mới chỉ lưu trên trình duyệt này' : (state.fromLink ? 'Đang xem phương án từ link' : (state.savedAt ? 'Phương án lưu lúc ' + fmtTime(state.savedAt) : 'Phương án gốc'));
   else if (state.readOnly) st.textContent = state.dirty ? 'Bản xem chỉ đọc. Dùng Sao chép phương án để gửi lại.' : 'Bản xem chỉ đọc';
   else if (state.dirty) st.textContent = 'Có thay đổi chưa lưu';
   else st.textContent = state.savedAt ? 'Bản chung lưu lúc ' + fmtTime(state.savedAt) : 'Phương án gốc, chưa lưu lần nào';
-  if (state.artifact === null || state.readOnly){ btn.hidden = true; }
+  const outside = state.artifact === null;
+  $$('[data-act="link"],[data-act="download"]').forEach(b => { b.hidden = !outside; });
+  if (outside || state.readOnly){ btn.hidden = true; }
   else { btn.hidden = false; btn.disabled = !state.artifact || state.saving || !state.dirty; }
 }
 let toastTimer = 0;
@@ -903,6 +924,22 @@ $('#btn-more').onclick = e => { const m = $('#more-menu'); m.hidden = !m.hidden;
 document.addEventListener('click', e => { if (!e.target.closest('.save-wrap')){ $('#more-menu').hidden = true; $('#btn-more').setAttribute('aria-expanded','false'); } });
 $('#more-menu').onclick = e => {
   const act = e.target.dataset.act; if (!act) return; $('#more-menu').hidden = true;
+  if (act === 'link'){
+    const url = location.origin + location.pathname + '#p=' + encodeLayout(state.tables);
+    openModal({title:'Link phương án', text:'Ai mở link này sẽ thấy đúng cách xếp hiện tại của bạn, gồm vị trí, hướng, cỡ bàn và TV. Mỗi lần thay đổi cần sao chép link mới.', area:url, actions:[
+      {label:'Đóng', run:closeModal},
+      {label:'Chép link', primary:true, run:async () => { const ta = $('#modal-area'); ta.select(); let ok = false; try { await navigator.clipboard.writeText(url); ok = true; } catch(err){ try { ok = document.execCommand('copy'); } catch(e2){} } toast(ok ? 'Đã chép link phương án.' : 'Trình duyệt chặn sao chép tự động. Link đã được bôi đen, bấm Ctrl/Cmd + C để chép.'); if (ok) closeModal(); }}
+    ]});
+    return;
+  }
+  if (act === 'download'){
+    const doc = buildDoc({savedAt:new Date().toISOString(), tables:state.tables.map(t => ({id:t.id, x:t.x, y:t.y, r:t.r, tv:t.tv, s:t.s}))});
+    const url = URL.createObjectURL(new Blob([doc], {type:'text/html'}));
+    const a = document.createElement('a'); a.href = url; a.download = 'vcw-rex-sanh-3d.html'; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 4000);
+    openModal({title:'Đã tải file có phương án mới', text:'Mở GitHub, ghi đè file vcw-rex-sanh-3d.html bằng file vừa tải. Sau khoảng 1 đến 2 phút, link thienkien.com sẽ mở ra đúng phương án này cho mọi người.', actions:[{label:'Đã hiểu', primary:true, run:closeModal}]});
+    return;
+  }
   if (act === 'copy'){
     const txt = exportText();
     openModal({title:'Sao chép phương án', text:'Gửi đoạn mã này cho người cần xem. Họ mở trang, chọn Phương án, Dán phương án là thấy đúng cách xếp của bạn.', area:txt, actions:[
@@ -1004,6 +1041,7 @@ async function start(){
   requestAnimationFrame(loop);
   let justSaved = null; try { justSaved = sessionStorage.getItem(SS_KEY); } catch(e){}
   if (justSaved && justSaved === state.savedAt){ try { sessionStorage.removeItem(SS_KEY); } catch(e){} clearDraft(); toast('Đã lưu. Ai mở trang này đều thấy phương án mới.'); }
+  else if (state.fromLink){ toast('Đang xem phương án được chia sẻ qua link.'); }
   else checkDraft();
 }
 start();
