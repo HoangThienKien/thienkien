@@ -111,7 +111,7 @@ ul{list-style:none;margin:0;padding:0}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head><body>
-<script id="layout-data" type="application/json">{"savedAt":"2026-10-01T12:20:38.529Z","tables":[{"id":"GB01","x":27.9,"y":3.8,"r":225,"tv":true,"s":"S"},{"id":"GB02","x":27.25,"y":2.1,"r":270,"tv":true,"s":"S"},{"id":"CB01","x":30.5,"y":9.5,"r":225,"tv":true,"s":"S"},{"id":"CB02","x":29.85,"y":6.65,"r":270,"tv":true,"s":"S"},{"id":"CB03","x":29.85,"y":7.9,"r":270,"tv":true,"s":"S"},{"id":"CB04","x":30.6,"y":4.95,"r":315,"tv":true,"s":"S"},{"id":"NN01","x":2.9,"y":5.9,"r":315,"tv":true,"s":"S"},{"id":"NN02","x":4.3,"y":8.3,"r":180,"tv":true,"s":"S"},{"id":"NN03","x":4.6,"y":5.3,"r":0,"tv":true,"s":"S"},{"id":"NN04","x":5.55,"y":8.3,"r":180,"tv":true,"s":"S"},{"id":"NN05","x":9.15,"y":5.3,"r":0,"tv":true,"s":"S"},{"id":"NN06","x":2.35,"y":7.6,"r":270,"tv":true,"s":"S"},{"id":"NN07","x":7.95,"y":8.3,"r":180,"tv":true,"s":"S"},{"id":"NN08","x":9.15,"y":8.3,"r":180,"tv":true,"s":"S"},{"id":"NN09","x":6.75,"y":8.3,"r":180,"tv":true,"s":"S"},{"id":"NN10","x":7.9,"y":5.3,"r":0,"tv":true,"s":"S"},{"id":"NN11","x":10.35,"y":8.3,"r":180,"tv":true,"s":"S"},{"id":"NN12","x":10.85,"y":5.9,"r":45,"tv":true,"s":"S"},{"id":"NL01","x":24.05,"y":8.15,"r":180,"tv":true,"s":"S"},{"id":"NL02","x":22.35,"y":7.55,"r":225,"tv":true,"s":"S"},{"id":"NL03","x":25.25,"y":8.15,"r":180,"tv":true,"s":"S"},{"id":"NL04","x":26.85,"y":7.05,"r":90,"tv":true,"s":"S"},{"id":"NL05","x":22.85,"y":5.35,"r":0,"tv":true,"s":"S"},{"id":"NL06","x":24.1,"y":5.35,"r":0,"tv":true,"s":"S"},{"id":"NL07","x":25.35,"y":5.35,"r":0,"tv":true,"s":"S"},{"id":"TH01","x":13.75,"y":5.3,"r":0,"tv":true,"s":"S"},{"id":"TH02","x":19.35,"y":5.35,"r":0,"tv":true,"s":"S"},{"id":"TH03","x":15,"y":8.3,"r":180,"tv":true,"s":"S"},{"id":"TH04","x":17.5,"y":8.3,"r":180,"tv":true,"s":"S"},{"id":"TH05","x":13.4,"y":7.7,"r":225,"tv":true,"s":"S"},{"id":"TH06","x":16.25,"y":8.3,"r":180,"tv":true,"s":"S"},{"id":"TH07","x":20.4,"y":7.6,"r":135,"tv":true,"s":"S"},{"id":"TH08","x":16.85,"y":5.35,"r":0,"tv":true,"s":"S"},{"id":"TH09","x":18.75,"y":8.3,"r":180,"tv":true,"s":"S"},{"id":"TH10","x":18.1,"y":5.35,"r":0,"tv":true,"s":"S"}]}</script>
+<script id="layout-data" type="application/json">{"savedAt":null,"tables":null}</script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 <script id="app">
@@ -156,7 +156,7 @@ const BODY = `
   <section class="block howto">
     <h2>Cách dùng</h2>
     <p>Kéo một bàn để dời chỗ. Kéo trên nền để xoay góc nhìn, chuột phải hoặc hai ngón tay để dời khung hình, cuộn chuột để phóng to.</p>
-    <p>Phím W A S D để đi trong sảnh. Chọn một bàn rồi bấm R để xoay 90°, E để xoay 45°, phím mũi tên để nhích từng 10 cm. Ctrl/Cmd + Z để hoàn tác.</p>
+    <p>Phím mũi tên để đi tới, lùi, sang trái, sang phải. Phím W ngước lên, S nhìn xuống, A quay trái, D quay phải. Chọn một bàn rồi bấm R để xoay 90°, E để xoay 45°. Ở góc nhìn từ trên và toàn cảnh, phím mũi tên nhích bàn đang chọn từng 10 cm. Ctrl/Cmd + Z để hoàn tác.</p>
     <p>Vùng đỏ trước hai cửa ballroom là khoảng trống 3,5 m cần giữ. Ô màu dưới bàn đang chọn gồm cả chỗ đứng của exhibitor phía sau.</p>
     <p>Mỗi bàn chọn được cỡ 180×80 hoặc bàn IBM 120×60 cm. Cửa sổ ở tường ngoài vẽ theo ảnh hiện trường, vị trí còn ước lượng.</p>
     <p>Mặt bằng dựng theo các số đo ghi trên bản vẽ REX. Bản vẽ không theo tỉ lệ nên cần đối chiếu lại khi có file CAD.</p>
@@ -668,6 +668,20 @@ renderer.domElement.addEventListener('wheel', e => {
   if (!state.eye) return; e.preventDefault();
   walk(-e.deltaY*0.004, 0);
 }, {passive:false});
+/* W/S: ngước lên, nhìn xuống. A/D: quay trái, quay phải */
+function look(yaw, pitch){
+  if (state.eye){
+    const dir = controls.target.clone().sub(camera.position);
+    const sp = new THREE.Spherical().setFromVector3(dir);
+    sp.theta += yaw; sp.phi = Math.min(Math.PI - 0.2, Math.max(0.2, sp.phi - pitch));
+    dir.setFromSpherical(sp); controls.target.copy(camera.position).add(dir);
+  } else {
+    const off = camera.position.clone().sub(controls.target);
+    const sp = new THREE.Spherical().setFromVector3(off);
+    sp.theta += yaw; sp.phi = Math.min(controls.maxPolarAngle, Math.max(0.05, sp.phi + pitch));
+    off.setFromSpherical(sp); camera.position.copy(controls.target).add(off);
+  }
+}
 function walk(f, s){
   const fwd = new THREE.Vector3(); camera.getWorldDirection(fwd); fwd.y = 0; if (fwd.lengthSq() < 1e-6) fwd.set(0,0,-1); fwd.normalize();
   const right = new THREE.Vector3().crossVectors(fwd, new THREE.Vector3(0,1,0)).normalize();
@@ -1013,7 +1027,7 @@ window.addEventListener('keydown', e => {
     if (k === 'e'){ rotateSel(45); return; }
     const step = e.shiftKey ? 0.5 : 0.1;
     const arrows = {arrowup:[0,-step], arrowdown:[0,step], arrowleft:[-step,0], arrowright:[step,0]};
-    if (arrows[k]){ e.preventDefault(); nudge(arrows[k][0], arrows[k][1]); return; }
+    if (arrows[k] && !state.eye){ e.preventDefault(); nudge(arrows[k][0], arrows[k][1]); return; }
   }
   if (['w','a','s','d','arrowup','arrowdown','arrowleft','arrowright'].includes(k)){ keys.add(k); if (k.startsWith('arrow')) e.preventDefault(); }
 });
@@ -1028,7 +1042,7 @@ const isTouch = () => (window.matchMedia && window.matchMedia('(pointer: coarse)
 function updateJoy(){
   const show = state.eye;
   joyEl.hidden = !show;
-  if (show && !joyHinted){ joyHinted = true; toast(isTouch() ? 'Kéo cần tròn bên trái để đi. Vuốt lên màn hình để nhìn quanh.' : 'Kéo cần tròn bên trái hoặc dùng W A S D để đi. Kéo chuột trên nền để nhìn quanh.'); }
+  if (show && !joyHinted){ joyHinted = true; toast(isTouch() ? 'Kéo cần tròn bên trái để đi. Vuốt lên màn hình để nhìn quanh.' : 'Kéo cần tròn bên trái hoặc dùng phím mũi tên để đi. W S để nhìn lên xuống, A D để quay trái phải.'); }
 }
 function joyMove(e){
   const r = joyEl.getBoundingClientRect(); const max = r.width/2 - 16;
@@ -1053,9 +1067,13 @@ function loop(now){
   const dt = Math.min(0.05, (now-last)/1000); last = now;
   if (keys.size){
     const sp = (state.eye ? 2.6 : 9) * dt;
-    const f = (keys.has('w')||keys.has('arrowup') ? 1 : 0) - (keys.has('s')||keys.has('arrowdown') ? 1 : 0);
-    const s = (keys.has('d')||keys.has('arrowright') ? 1 : 0) - (keys.has('a')||keys.has('arrowleft') ? 1 : 0);
+    const f = (keys.has('arrowup') ? 1 : 0) - (keys.has('arrowdown') ? 1 : 0);
+    const s = (keys.has('arrowright') ? 1 : 0) - (keys.has('arrowleft') ? 1 : 0);
     if (f || s) walk(f*sp, s*sp);
+    const rs = (state.eye ? 1.3 : 1.0) * dt;
+    const yaw = ((keys.has('a') ? 1 : 0) - (keys.has('d') ? 1 : 0)) * rs;
+    const pitch = ((keys.has('w') ? 1 : 0) - (keys.has('s') ? 1 : 0)) * rs * 0.8;
+    if (yaw || pitch) look(yaw, pitch);
   }
   if (joy.active){
     const mag = Math.hypot(joy.x, joy.y);
