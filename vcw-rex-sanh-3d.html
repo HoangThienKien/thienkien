@@ -34,7 +34,7 @@ ul{list-style:none;margin:0;padding:0}
 .grp:hover{background:var(--soft)}
 .grp[aria-pressed="true"]{border-color:var(--accent);background:var(--soft)}
 .grp .n{margin-left:auto;color:var(--muted);font-variant-numeric:tabular-nums}
-.sw{width:14px;height:14px;border-radius:3px;flex:none;display:inline-block}
+.sw{width:14px;height:14px;border-radius:3px;flex:none;display:inline-block;box-shadow:inset 0 0 0 1px rgba(128,128,128,.55)}
 #search{width:100%;border:1px solid var(--line);background:var(--bg);border-radius:6px;padding:8px 10px;margin-bottom:8px}
 .tl-group{margin:10px 0 4px;font-size:12px;color:var(--muted)}
 .row{display:flex;align-items:center;gap:8px;width:100%;border:0;background:none;text-align:left;padding:5px 6px;border-radius:5px;font-size:13px}
@@ -304,11 +304,11 @@ document.body.insertAdjacentHTML('afterbegin', BODY);
 
 /*GEO-START*/
 const GROUPS = {
-  NN:{name:'Nông nghiệp & thực phẩm', en:'Farming & Food', color:'#419559'},
-  TH:{name:'Kinh tế tuần hoàn', en:'Circular Economy', color:'#954B4D'},
-  NL:{name:'Chuyển dịch năng lượng', en:'Energy Transition', color:'#415395'},
-  CB:{name:'Carbon & công trình', en:'Carbon + Built Environment', color:'#6B4A89'},
-  GB:{name:'Giao thông & kinh tế biển', en:'Mobility + Blue Economy', color:'#417477'}
+  NN:{name:'Nông nghiệp & thực phẩm', en:'Farming & Food', color:'#DBFFD6'},
+  TH:{name:'Kinh tế tuần hoàn', en:'Circular Economy', color:'#FBE4FF'},
+  NL:{name:'Chuyển dịch năng lượng', en:'Energy Transition', color:'#FFFFD1'},
+  CB:{name:'Carbon & công trình', en:'Carbon + Built Environment', color:'#FFFFFF'},
+  GB:{name:'Giao thông & kinh tế biển', en:'Mobility + Blue Economy', color:'#AFCBFF'}
 };
 const COMPANIES = [
   {id:'NN01',g:'NN',name:'DEMETER',desc:'Nền tảng nông nghiệp số kết nối nông dân, nhà cung cấp và người mua.'},
@@ -347,6 +347,7 @@ const COMPANIES = [
   {id:'GB01',g:'GB',name:'GOZO',desc:'Vận tải nội đô bằng xe tải điện dưới 1 tấn.'},
   {id:'GB02',g:'GB',name:'Doraverse',desc:'AI workspace cho tổ chức sự kiện. NEX đang xếp vào nhóm Blue Economy.'}
 ];
+function textOn(hex){ const n = parseInt(hex.slice(1), 16), r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255; return (0.2126*r + 0.7152*g + 0.0722*b)/255 > 0.6 ? '#1D2620' : '#ffffff'; }
 const CBY = {}; COMPANIES.forEach(c => { CBY[c.id] = c; });
 
 const DEFAULT = [
@@ -485,17 +486,21 @@ function decodeLayout(str){
 const clampN = (v, a, b) => Math.min(b, Math.max(a, v));
 const fmtM = n => String(+(+n).toFixed(2)).replace('.', ',');
 const PAL = [
-  ['Green Sepal, cụm Nông nghiệp', [56,0,40,42]],
-  ['Nâu đỏ, cụm Tuần hoàn', [0,50,48,42]],
-  ['Navy, cụm Năng lượng', [56,44,0,42]],
-  ['Tím, cụm Carbon và công trình', [22,46,0,46]],
-  ['Teal, cụm Giao thông và biển', [45,3,0,53]],
-  ['Lotus Petal', [0,36,36,11]],
-  ['Lotus Hearth', [0,26,26,0]],
-  ['Xanh lá đậm', [100,0,66,69]],
-  ['Xanh lá nhạt', [38,0,29,12]],
-  ['Magenta', [0,56,16,42]],
-  ['Trắng', [0,0,0,0]]
+  ['Cụm Nông nghiệp và thực phẩm, #DBFFD6', [14,0,16,0]],
+  ['Cụm Kinh tế tuần hoàn, #FBE4FF', [2,11,0,0]],
+  ['Cụm Chuyển dịch năng lượng, #FFFFD1', [0,0,18,0]],
+  ['Cụm Carbon và công trình, trắng #FFFFFF', [0,0,0,0]],
+  ['Cụm Giao thông và kinh tế biển, #AFCBFF', [31,20,0,0]],
+  ['Green Sepal (VCW)', [56,0,40,42]],
+  ['Lotus Petal (VCW)', [0,36,36,11]],
+  ['Lotus Hearth (VCW)', [0,26,26,0]],
+  ['Xanh lá đậm (VCW)', [100,0,66,69]],
+  ['Xanh lá nhạt (VCW)', [38,0,29,12]],
+  ['Navy (VCW)', [56,44,0,42]],
+  ['Teal (VCW)', [45,3,0,53]],
+  ['Tím (VCW)', [22,46,0,46]],
+  ['Magenta (VCW)', [0,56,16,42]],
+  ['Nâu đỏ (VCW)', [0,50,48,42]]
 ];
 function cmykHex(c){
   const v = (c || [0,0,0,0]).map(x => clampN(+x || 0, 0, 100)/100);
@@ -741,19 +746,21 @@ function buildTable(t){
   const g = new THREE.Group(); g.userData.tid = t.id; g.userData.s = t.s;
   const clothMat = new THREE.MeshStandardMaterial({color:gr.color, roughness:.85, transparent:true, opacity:1});
   const cloth = new THREE.Mesh(new THREE.BoxGeometry(TW, 0.74, TD), clothMat);
+  const edgeMat = new THREE.LineBasicMaterial({color:0x56606c, transparent:true, opacity:.55});
+  const cedges = new THREE.LineSegments(new THREE.EdgesGeometry(cloth.geometry), edgeMat); cedges.raycast = function(){}; cloth.add(cedges);
   cloth.position.y = 0.37; cloth.castShadow = true; cloth.receiveShadow = true; g.add(cloth);
 
   const topC = textCanvas([
     {text:co.name, size:92, weight:800, y:118},
     {text:code(t.id)+'  '+gr.en, size:38, weight:600, y:208, alpha:.82}
-  ], {w:720, h:300, bg:gr.color, fg:'#ffffff'});
+  ], {w:720, h:300, bg:gr.color, fg:textOn(gr.color)});
   const topTex = new THREE.CanvasTexture(topC); topTex.anisotropy = 8;
   const topMat = new THREE.MeshBasicMaterial({map:topTex, transparent:true});
   const top = new THREE.Mesh(new THREE.PlaneGeometry(TW-0.04, TD-0.04), topMat);
   top.rotation.set(-Math.PI/2, 0, 0); top.position.y = 0.742; g.add(top);
 
   const fw = TW-0.1, fh = t.s === 'S' ? 0.3 : 0.34, fch = Math.round(720*fh/fw);
-  const frC = textCanvas([{text:co.name, size:Math.round(fch*0.54), weight:800, y:Math.round(fch/2)}], {w:720, h:fch, bg:gr.color, fg:'#ffffff'});
+  const frC = textCanvas([{text:co.name, size:Math.round(fch*0.54), weight:800, y:Math.round(fch/2)}], {w:720, h:fch, bg:gr.color, fg:textOn(gr.color)});
   const frTex = new THREE.CanvasTexture(frC); frTex.anisotropy = 8;
   const frMat = new THREE.MeshBasicMaterial({map:frTex, transparent:true});
   const front = new THREE.Mesh(new THREE.PlaneGeometry(fw, fh), frMat);
@@ -779,7 +786,7 @@ function buildTable(t){
   plate.rotation.x = -Math.PI/2; plate.position.set(0, 0.034, (ZONE)/2); plate.visible = false; g.add(plate);
 
   world.add(g);
-  tableMeshes[t.id] = {g, cloth, clothMat, topMat, frMat, top, front, tv, plate, plateMat};
+  tableMeshes[t.id] = {g, cloth, clothMat, edgeMat, topMat, frMat, top, front, tv, plate, plateMat};
   placeTable(t);
 }
 function rebuildTable(t){
@@ -805,7 +812,7 @@ function styleTables(){
     const m = tableMeshes[t.id]; if (!m) return;
     const dim = state.focusGroup && CBY[t.id].g !== state.focusGroup;
     const op = dim ? 0.18 : 1;
-    m.clothMat.opacity = op; m.topMat.opacity = op; m.frMat.opacity = op;
+    m.clothMat.opacity = op; m.topMat.opacity = op; m.frMat.opacity = op; m.edgeMat.opacity = 0.55*op;
     m.clothMat.depthWrite = !dim;
     m.top.visible = state.showLabels; m.front.visible = state.showLabels;
     const sel = state.selected === t.id || state.swapFrom === t.id;
