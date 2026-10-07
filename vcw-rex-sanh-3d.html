@@ -2,7 +2,7 @@
 <html lang="vi"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Sảnh REX: bố trí 38 bàn showcase, VCW 2026</title>
+<title>Sảnh REX: bố trí 39 bàn showcase, VCW 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -117,6 +117,14 @@ ul{list-style:none;margin:0;padding:0}
 @keyframes turnphone{0%,25%{transform:rotate(0)}60%,100%{transform:rotate(-90deg)}}
 @media (prefers-reduced-motion:reduce){.phone{animation:none;transform:rotate(-90deg)}}
 #root.eye-lock .edit-only{display:none}
+#root.view-only .edit-only,#root.view-only #sel-card .sel-actions,#root.view-only #sh-fold,#root.view-only #shape-card .fld-grid,#root.view-only #shape-card .cm-head,#root.view-only #sh-pal,#root.view-only #sh-actions{display:none}
+#view-badge{display:none;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--accent-ink);background:var(--soft);border:1px solid var(--accent);padding:6px 10px;border-radius:999px;white-space:nowrap}
+#view-badge::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent)}
+#root.view-only #view-badge{display:inline-flex}
+#root.view-only #btn-more,#root.view-only #more-menu,#root.view-only #btn-save,#root.view-only #banner{display:none!important}
+.view-note{display:none;margin:14px 0 0;padding:10px 12px;border-radius:8px;background:var(--soft);border:1px solid var(--line);font-size:13px;color:var(--ink)}
+#root.view-only .view-note{display:block}
+#root.view-only .howto .edit-tip{display:none}
 .only-mobile{display:none}
 .side-bar{display:none}
 #side-scrim{display:none}
@@ -137,14 +145,14 @@ ul{list-style:none;margin:0;padding:0}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head><body>
-<script id="layout-data" type="application/json">{"savedAt":"2026-10-05T16:31:24.000Z","tables":[{"id":"GB01","x":27.4,"y":2.9,"r":270,"tv":true,"s":"S"},{"id":"GB02","x":27.5,"y":1.15,"r":270,"tv":true,"s":"S"},{"id":"CB01","x":29.9,"y":6.45,"r":270,"tv":true,"s":"S"},{"id":"CB02","x":29.15,"y":9.35,"r":315,"tv":true,"s":"S"},{"id":"CB03","x":29.9,"y":7.9,"r":270,"tv":true,"s":"S"},{"id":"CB04","x":29.9,"y":5,"r":270,"tv":true,"s":"S"},{"id":"NN01","x":2.35,"y":7.6,"r":270,"tv":true,"s":"S"},{"id":"NN02","x":11.6,"y":8.3,"r":180,"tv":true,"s":"S"},{"id":"NN03","x":6.75,"y":8.3,"r":180,"tv":true,"s":"S"},{"id":"NN04","x":10.35,"y":8.3,"r":180,"tv":true,"s":"S"},{"id":"NN05","x":10.19,"y":5.3,"r":0,"tv":true,"s":"S"},{"id":"NN06","x":4.6,"y":5.3,"r":0,"tv":true,"s":"S"},{"id":"NN07","x":2.9,"y":5.9,"r":315,"tv":true,"s":"S"},{"id":"NN08","x":4.3,"y":8.3,"r":180,"tv":true,"s":"S"},{"id":"NN09","x":5.55,"y":8.3,"r":180,"tv":true,"s":"S"},{"id":"NN10","x":7.95,"y":8.3,"r":180,"tv":true,"s":"S"},{"id":"NN11","x":9.15,"y":8.3,"r":180,"tv":true,"s":"S"},{"id":"NN12","x":8.99,"y":5.3,"r":0,"tv":true,"s":"S"},{"id":"NL01","x":26.6,"y":5.3,"r":0,"tv":true,"s":"S"},{"id":"NL02","x":22.85,"y":5.3,"r":0,"tv":true,"s":"S"},{"id":"NL03","x":26.85,"y":7.05,"r":90,"tv":true,"s":"S"},{"id":"NL04","x":22.35,"y":7.55,"r":225,"tv":true,"s":"S"},{"id":"NL05","x":24.05,"y":8.15,"r":180,"tv":true,"s":"S"},{"id":"NL06","x":25.25,"y":8.15,"r":180,"tv":true,"s":"S"},{"id":"NL07","x":25.35,"y":5.3,"r":0,"tv":true,"s":"S"},{"id":"TH01","x":19.35,"y":5.3,"r":0,"tv":true,"s":"S"},{"id":"TH02","x":17.5,"y":8.3,"r":180,"tv":true,"s":"S"},{"id":"TH03","x":13.75,"y":8.3,"r":180,"tv":true,"s":"S"},{"id":"TH04","x":18.75,"y":8.3,"r":180,"tv":true,"s":"S"},{"id":"TH05","x":12.5,"y":5.3,"r":0,"tv":true,"s":"S"},{"id":"TH06","x":13.75,"y":5.3,"r":0,"tv":true,"s":"S"},{"id":"TH07","x":15.0,"y":8.3,"r":180,"tv":true,"s":"S"},{"id":"TH08","x":16.25,"y":8.3,"r":180,"tv":true,"s":"S"},{"id":"TH09","x":20.35,"y":7.65,"r":135,"tv":true,"s":"S"},{"id":"TH10","x":18.1,"y":5.3,"r":0,"tv":true,"s":"S"},{"id":"NN13","x":7.79,"y":5.3,"r":0,"tv":true,"s":"S"},{"id":"TH11","x":16.85,"y":5.3,"r":0,"tv":true,"s":"S"},{"id":"NL08","x":24.1,"y":5.3,"r":0,"tv":true,"s":"S"}],"shapes":[]}</script>
+<script id="layout-data" type="application/json">{"savedAt":"2026-10-07T04:40:39.000Z","tables":[{"id":"GB01","x":27.45,"y":2.35,"r":270,"tv":true,"s":"S"},{"id":"GB02","x":27.45,"y":1.1,"r":270,"tv":true,"s":"S"},{"id":"CB01","x":29.65,"y":5.5,"r":270,"tv":true,"s":"S"},{"id":"CB02","x":29.65,"y":8.0,"r":270,"tv":true,"s":"S"},{"id":"CB03","x":29.65,"y":6.75,"r":270,"tv":true,"s":"S"},{"id":"CB04","x":29.65,"y":4.25,"r":270,"tv":true,"s":"S"},{"id":"NN01","x":2.35,"y":7.6,"r":270,"tv":true,"s":"S"},{"id":"NN02","x":11.6,"y":8.3,"r":180,"tv":true,"s":"S"},{"id":"NN03","x":6.75,"y":8.3,"r":180,"tv":true,"s":"S"},{"id":"NN04","x":10.35,"y":8.3,"r":180,"tv":true,"s":"S"},{"id":"NN05","x":10.19,"y":5.3,"r":0,"tv":true,"s":"S"},{"id":"NN06","x":4.6,"y":5.3,"r":0,"tv":true,"s":"S"},{"id":"NN07","x":2.9,"y":5.9,"r":315,"tv":true,"s":"S"},{"id":"NN08","x":4.3,"y":8.3,"r":180,"tv":true,"s":"S"},{"id":"NN09","x":5.55,"y":8.3,"r":180,"tv":true,"s":"S"},{"id":"NN10","x":7.95,"y":8.3,"r":180,"tv":true,"s":"S"},{"id":"NN11","x":9.15,"y":8.3,"r":180,"tv":true,"s":"S"},{"id":"NN12","x":8.99,"y":5.3,"r":0,"tv":true,"s":"S"},{"id":"NL01","x":26.6,"y":5.3,"r":0,"tv":true,"s":"S"},{"id":"NL02","x":22.85,"y":5.3,"r":0,"tv":true,"s":"S"},{"id":"NL03","x":26.85,"y":7.05,"r":90,"tv":true,"s":"S"},{"id":"NL04","x":22.35,"y":7.55,"r":225,"tv":true,"s":"S"},{"id":"NL05","x":24.05,"y":8.15,"r":180,"tv":true,"s":"S"},{"id":"NL06","x":25.25,"y":8.15,"r":180,"tv":true,"s":"S"},{"id":"NL07","x":25.35,"y":5.3,"r":0,"tv":true,"s":"S"},{"id":"TH01","x":19.35,"y":5.3,"r":0,"tv":true,"s":"S"},{"id":"TH02","x":17.5,"y":8.3,"r":180,"tv":true,"s":"S"},{"id":"TH03","x":13.75,"y":8.3,"r":180,"tv":true,"s":"S"},{"id":"TH04","x":18.75,"y":8.3,"r":180,"tv":true,"s":"S"},{"id":"TH05","x":12.5,"y":5.3,"r":0,"tv":true,"s":"S"},{"id":"TH06","x":13.75,"y":5.3,"r":0,"tv":true,"s":"S"},{"id":"TH07","x":15.0,"y":8.3,"r":180,"tv":true,"s":"S"},{"id":"TH08","x":16.25,"y":8.3,"r":180,"tv":true,"s":"S"},{"id":"TH09","x":20.35,"y":7.65,"r":135,"tv":true,"s":"S"},{"id":"TH10","x":18.1,"y":5.3,"r":0,"tv":true,"s":"S"},{"id":"NN13","x":7.79,"y":5.3,"r":0,"tv":true,"s":"S"},{"id":"TH11","x":16.85,"y":5.3,"r":0,"tv":true,"s":"S"},{"id":"NL08","x":24.1,"y":5.3,"r":0,"tv":true,"s":"S"},{"id":"CB05","x":29.15,"y":9.35,"r":315,"tv":true,"s":"S"}],"shapes":[]}</script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 <script id="app">
 (function(){
 'use strict';
 
-const HEAD = '<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n<title>Sảnh REX: bố trí 38 bàn showcase, VCW 2026</title>\n<link rel="preconnect" href="https://fonts.googleapis.com">\n<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;600;800&display=swap" rel="stylesheet">\n';
+const HEAD = '<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n<title>Sảnh REX: bố trí 39 bàn showcase, VCW 2026</title>\n<link rel="preconnect" href="https://fonts.googleapis.com">\n<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;600;800&display=swap" rel="stylesheet">\n';
 const LIBS = '<scr'+'ipt src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></scr'+'ipt>\n<scr'+'ipt src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></scr'+'ipt>\n';
 
 const BODY = `
@@ -153,9 +161,10 @@ const BODY = `
 <aside id="side" aria-label="Danh sách bàn và kiểm tra mặt bằng">
   <div class="side-bar"><button id="side-close" class="ghost">Đóng danh sách</button></div>
   <header class="brand">
-    <h1>Sảnh REX, 38 bàn</h1>
+    <h1>Sảnh REX, 39 bàn</h1>
     <p>Climate Enterprise Showcase, Vietnam Climate Week 2026, thứ Tư 21.10</p>
   </header>
+  <p class="view-note">Bạn đang xem bản chia sẻ chỉ xem. Có thể xoay, phóng to, đi trong sảnh, bấm vào bàn để xem thông tin và đo khoảng cách, nhưng không di dời hay chỉnh sửa được cách xếp.</p>
   <section class="block">
     <h2>Kiểm tra mặt bằng</h2>
     <p id="check-summary"></p>
@@ -185,12 +194,12 @@ const BODY = `
   </section>
   <section class="block">
     <h2>Danh sách bàn</h2>
-    <input id="search" type="search" placeholder="Tìm theo tên hoặc mã bàn" aria-label="Tìm doanh nghiệp">
+    <input id="search" type="search" placeholder="Tìm theo tên hoặc số bàn" aria-label="Tìm doanh nghiệp">
     <div id="table-list"></div>
   </section>
   <section class="block howto">
     <h2>Cách dùng</h2>
-    <p>Kéo một bàn để dời chỗ. Kéo trên nền để xoay góc nhìn, chuột phải hoặc hai ngón tay để dời khung hình, cuộn chuột để phóng to.</p>
+    <p class="edit-tip">Kéo một bàn để dời chỗ. Kéo trên nền để xoay góc nhìn, chuột phải hoặc hai ngón tay để dời khung hình, cuộn chuột để phóng to.</p>
     <p>Phím mũi tên để đi tới, lùi, sang trái, sang phải. Phím W ngước lên, S nhìn xuống, A quay trái, D quay phải. Chọn một bàn rồi bấm R để xoay 90°, E để xoay 45°. Ở góc nhìn từ trên và toàn cảnh, phím mũi tên nhích bàn đang chọn từng 10 cm. Ctrl/Cmd + Z để hoàn tác.</p>
     <p>Vùng đỏ trước hai cửa ballroom là khoảng trống 3,5 m cần giữ. Ô màu dưới bàn đang chọn gồm cả chỗ đứng của exhibitor phía sau.</p>
     <p>Mỗi bàn chọn được cỡ 180×80 hoặc bàn IBM 120×60 cm. Cửa sổ ở tường ngoài vẽ theo ảnh hiện trường, vị trí còn ước lượng. Hoa văn sàn mô phỏng thảm hoa sen của REX, bấm Hoa văn sàn để tắt khi cần nhìn rõ mặt bằng.</p>
@@ -204,11 +213,13 @@ const BODY = `
   <div id="topbar">
     <button id="toggle-side" class="ghost only-mobile" aria-expanded="false">Danh sách</button>
     <div class="save-wrap">
+      <span id="view-badge" title="Bản chia sẻ chỉ xem: không di dời, xoay hay chỉnh sửa được">Chỉ xem</span>
       <span id="save-status" role="status"></span>
       <button id="btn-undo" class="ghost edit-only" disabled>Hoàn tác</button>
       <button id="btn-save" class="primary" disabled>Lưu cho cả nhóm</button>
       <button id="btn-more" class="ghost" aria-expanded="false" aria-haspopup="true">Phương án</button>
       <div id="more-menu" hidden>
+        <button data-act="viewlink" hidden>Sao chép link chỉ xem</button>
         <button data-act="link" hidden>Sao chép link phương án</button>
         <button data-act="download" hidden>Tải file HTML có phương án này</button>
         <button data-act="copy">Sao chép phương án</button>
@@ -323,7 +334,7 @@ const COMPANIES = [
   {id:'NN10',g:'NN',name:'VIGINSENG',desc:'Phát triển sâm Việt Nam và dược liệu bản địa bền vững.'},
   {id:'NN11',g:'NN',name:'SOKFARM',desc:'Sản phẩm từ mật hoa dừa hữu cơ, Trà Vinh.'},
   {id:'NN12',g:'NN',name:'CNSH Probiotics',desc:'Lợi khuẩn cải tạo đất, nước và xử lý phụ phẩm nông nghiệp.'},
-  {id:'NN13',g:'NN',name:'Ecoka Agriculture',desc:'Nông nghiệp, nguyên liệu tự nhiên và chuỗi giá trị nông sản. Chưa có hồ sơ, cần xác nhận sản phẩm mang tới VCW.'},
+  {id:'NN13',g:'NN',name:'Ecoka',desc:'Vật liệu tự nhiên thích ứng khí hậu như lục bình, cói, bồn bồn, làm thành đồ gia dụng, trang trí, thời trang; liên kết hộ dân và làng nghề ĐBSCL tạo sinh kế.'},
   {id:'TH01',g:'TH',name:'ARC-V',desc:'Biến rác thành tài nguyên, không đốt, không chôn lấp.'},
   {id:'TH02',g:'TH',name:'Felix Mattress',desc:'Nệm và gối từ cao su thiên nhiên.'},
   {id:'TH03',g:'TH',name:'Út Thuận',desc:'Túi xách thủ công từ lục bình.'},
@@ -341,25 +352,27 @@ const COMPANIES = [
   {id:'NL05',g:'NL',name:'Tekjoy',desc:'Điện mặt trời, lưu trữ BESS và trạm sạc xe điện.'},
   {id:'NL06',g:'NL',name:'Alternō',desc:'Pin cát chuyển điện tái tạo thành nhiệt cho công nghiệp.'},
   {id:'NL07',g:'NL',name:'VEEP',desc:'Nền tảng AIoT AMIGO quản lý năng lượng toà nhà.'},
+  {id:'CB05',g:'CB',name:'Nuoa.io',desc:'Quản lý carbon: dấu chân carbon sản phẩm, kiểm kê khí nhà kính, carbon chuỗi cung ứng theo GHG Protocol, ISO 14064-1; giúp đáp ứng yêu cầu thị trường như CBAM.'},
   {id:'CB01',g:'CB',name:'Gaia',desc:'Chương trình bảo tồn và trồng rừng cùng doanh nghiệp.'},
   {id:'CB02',g:'CB',name:'LnData',desc:'Phần mềm kiểm kê khí nhà kính Ln{GHG}.'},
   {id:'CB03',g:'CB',name:'LC Tech',desc:'MMM EcoMeter, IoT/AI giám sát năng lượng và nước.'},
   {id:'CB04',g:'CB',name:'ESG Climatech',desc:'Fusion Cube, hạ tầng mô-đun tích hợp năng lượng tái tạo và thoát nước.'},
   {id:'GB01',g:'GB',name:'GOZO',desc:'Vận tải nội đô bằng xe tải điện dưới 1 tấn.'},
-  {id:'TH11',g:'TH',name:'VTCOS / BIOQ',desc:'BIOQ, mỹ phẩm thuần chay làm từ vỏ thanh long: phụ phẩm nông nghiệp thành nguyên liệu chăm sóc da.'},
-  {id:'NL08',g:'NL',name:'FUCHS Lubricants Vietnam',desc:'Dầu bôi trơn công nghiệp, hướng tới cải thiện hiệu suất năng lượng, quy trình và chi phí vận hành.'},
+  {id:'TH11',g:'TH',name:'VTCOS / BIO-Q',desc:'BIO-Q, mỹ phẩm từ vỏ thanh long: phụ phẩm nông nghiệp thành nguyên liệu mỹ phẩm và chăm sóc cá nhân.'},
+  {id:'NL08',g:'NL',name:'FUCHS Lubricants Vietnam',desc:'Dầu bôi trơn và chất lỏng chức năng giảm ma sát, mài mòn, hao tổn năng lượng; có giải pháp cho thiết bị năng lượng tái tạo, trục điện và làm mát pin.'},
   {id:'GB02',g:'GB',name:'Doraverse',desc:'AI workspace cho tổ chức sự kiện. NEX đang xếp vào nhóm Blue Economy.'}
 ];
 function textOn(hex){ const n = parseInt(hex.slice(1), 16), r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255; return (0.2126*r + 0.7152*g + 0.0722*b)/255 > 0.6 ? '#1D2620' : '#ffffff'; }
 const CBY = {}; COMPANIES.forEach(c => { CBY[c.id] = c; });
 
 const DEFAULT = [
-  {id:'GB01',x:27.4,y:2.9,r:270,s:'S'},
-  {id:'GB02',x:27.5,y:1.15,r:270,s:'S'},
-  {id:'CB01',x:29.9,y:6.45,r:270,s:'S'},
-  {id:'CB02',x:29.15,y:9.35,r:315,s:'S'},
-  {id:'CB03',x:29.9,y:7.9,r:270,s:'S'},
-  {id:'CB04',x:29.9,y:5,r:270,s:'S'},
+  {id:'GB01',x:27.45,y:2.35,r:270,s:'S'},
+  {id:'GB02',x:27.45,y:1.1,r:270,s:'S'},
+  {id:'CB01',x:29.65,y:5.5,r:270,s:'S'},
+  {id:'CB02',x:29.65,y:8.0,r:270,s:'S'},
+  {id:'CB03',x:29.65,y:6.75,r:270,s:'S'},
+  {id:'CB04',x:29.65,y:4.25,r:270,s:'S'},
+  {id:'CB05',x:29.15,y:9.35,r:315,s:'S'},
   {id:'NN01',x:2.35,y:7.6,r:270,s:'S'},
   {id:'NN02',x:11.6,y:8.3,r:180,s:'S'},
   {id:'NN03',x:6.75,y:8.3,r:180,s:'S'},
@@ -453,7 +466,9 @@ function allInside(pts){
   let cx=0, cy=0; pts.forEach(p=>{cx+=p[0];cy+=p[1];}); cx/=pts.length; cy/=pts.length;
   return pts.every(p => { const dx=cx-p[0], dy=cy-p[1], l=Math.hypot(dx,dy)||1; return pointIn([p[0]+dx/l*0.006, p[1]+dy/l*0.006], POLY); });
 }
-function code(id){ return id.slice(0,2)+'-'+id.slice(2); }
+/* Số thứ tự tham quan: năm cụm từ trái sang phải, mỗi cụm đi hết một vòng rồi sang cụm kế tiếp */
+const STT = {NN06:1,NN07:2,NN01:3,NN08:4,NN09:5,NN03:6,NN10:7,NN11:8,NN04:9,NN02:10,NN05:11,NN12:12,NN13:13,TH06:14,TH05:15,TH03:16,TH07:17,TH08:18,TH02:19,TH04:20,TH09:21,TH01:22,TH10:23,TH11:24,NL04:25,NL05:26,NL06:27,NL03:28,NL01:29,NL07:30,NL08:31,NL02:32,CB05:33,CB02:34,CB03:35,CB01:36,CB04:37,GB01:38,GB02:39};
+function code(id){ return STT[id] ? String(STT[id]) : id.slice(0,2)+'-'+id.slice(2); }
 function computeIssues(tables){
   const geo = {}; tables.forEach(t => { geo[t.id] = tableGeom(t); });
   const byId = {}; const list = [];
@@ -554,8 +569,12 @@ function decodeShapes(str){
   }
   return out;
 }
-let linkTables = null, linkShapes = null;
+const VIEW_BUILD = false;
+const VIEW_URL = 'https://www.thienkien.com/VCWview';
+const VIEW_SOURCE = '/vcw-rex-sanh-3d.html';
+let linkTables = null, linkShapes = null, linkView = VIEW_BUILD;
 try {
+  if (VIEW_BUILD) throw 0;
   const m = (location.hash || '').match(/[#&]p=([^&]+)/); if (m) linkTables = decodeLayout(decodeURIComponent(m[1]));
   const ms = (location.hash || '').match(/[#&]s=([^&]+)/); if (ms) linkShapes = decodeShapes(decodeURIComponent(ms[1]));
 } catch(e){}
@@ -568,7 +587,7 @@ const state = {
   savedAt: initial.savedAt || null,
   selected: null, swapFrom: null, measureMode: false, measurePts: [],
   dirty: false, readOnly: false, artifact: undefined, saving: false,
-  fromLink: !!linkTables,
+  fromLink: !!linkTables, viewOnly: linkView,
   history: [], focusGroup: null, showLabels: true, showWalls: true, showTV: true,
   issues: {list:[], byId:{}}, eye: false
 };
@@ -778,7 +797,7 @@ function buildTable(t){
 
   const topC = textCanvas([
     {text:co.name, size:92, weight:800, y:118},
-    {text:code(t.id)+'  '+gr.en, size:38, weight:600, y:208, alpha:.82}
+    {text:'Số ' + code(t.id)+'  ·  '+gr.en, size:38, weight:600, y:208, alpha:.82}
   ], {w:720, h:300, bg:gr.color, fg:textOn(gr.color)});
   const topTex = new THREE.CanvasTexture(topC); topTex.anisotropy = 8;
   const topMat = new THREE.MeshBasicMaterial({map:topTex, transparent:true});
@@ -950,7 +969,7 @@ function pickTable(){
 }
 function floorPoint(){ const p = new THREE.Vector3(); return ray.ray.intersectPlane(ground, p) ? p : null; }
 const snap = v => Math.round(v*20)/20;
-let drag = null, downEmpty = null, rafIssue = 0;
+let drag = null, downEmpty = null, viewDown = null, rafIssue = 0;
 renderer.domElement.addEventListener('pointerdown', e => {
   if (e.button !== 0) return;
   setNdc(e);
@@ -959,6 +978,7 @@ renderer.domElement.addEventListener('pointerdown', e => {
     controls.enabled = false; drag = {measure:true}; return;
   }
   if (state.eye) return;
+  if (state.viewOnly){ const vid = pickTable(); viewDown = {id: vid, sid: vid ? null : pickShape(), x: e.clientX, y: e.clientY}; return; }
   const id = pickTable();
   if (id){
     const t = T(id), p = floorPoint() || new THREE.Vector3(t.x,0,t.y);
@@ -994,11 +1014,12 @@ renderer.domElement.addEventListener('pointermove', e => {
     renderer.domElement.style.cursor = 'grabbing';
   } else if (!drag && e.buttons === 0){
     setNdc(e);
-    renderer.domElement.style.cursor = state.measureMode ? 'crosshair' : ((!state.eye && (pickTable() || pickShape())) ? 'grab' : 'default');
+    renderer.domElement.style.cursor = state.measureMode ? 'crosshair' : ((!state.eye && (pickTable() || pickShape())) ? (state.viewOnly ? 'pointer' : 'grab') : 'default');
   }
 });
 function endPointer(e){
   if (drag && drag.measure){ drag = null; controls.enabled = true; return; }
+  if (viewDown){ const v = viewDown; viewDown = null; if (e && Math.hypot(e.clientX-v.x, e.clientY-v.y) < 5){ if (v.id) select(v.id, false); else if (v.sid) selectShape(v.sid, false); else select(null); } return; }
   if (drag && drag.sid){
     const sid = drag.sid;
     if (drag.moved){ state.history.push(drag.before); if (state.history.length > 80) state.history.shift(); $('#btn-undo').disabled = false; changed(); }
@@ -1018,7 +1039,7 @@ function endPointer(e){
   downEmpty = null;
 }
 renderer.domElement.addEventListener('pointerup', endPointer);
-renderer.domElement.addEventListener('pointercancel', () => { if (drag && (drag.id || drag.sid) && drag.moved){ loadSnap(drag.before); refreshIssues(); } drag = null; controls.enabled = true; });
+renderer.domElement.addEventListener('pointercancel', () => { viewDown = null; if (drag && (drag.id || drag.sid) && drag.moved){ loadSnap(drag.before); refreshIssues(); } drag = null; controls.enabled = true; });
 
 /* ---------- measuring ---------- */
 const measureGroup = new THREE.Group(); scene.add(measureGroup);
@@ -1051,14 +1072,18 @@ function modeTip(text){ const el = $('#mode-tip'); el.hidden = !text; el.textCon
 function touch(){ state.dirty = true; renderSave(); saveDraftSoon(); }
 function changed(){ state.dirty = true; refreshIssues(); renderSel(); renderShapeCard(); renderShapeList(); renderSave(); saveDraftSoon(); }
 const LOCK_MSG = 'Đang ở chế độ xem nên các đối tượng bị khoá. Chọn Toàn cảnh hoặc Từ trên xuống để chỉnh sửa.';
-function locked(){ if (state.eye){ toast(LOCK_MSG); return true; } return false; }
+const LOCK_MSG_VIEW = 'Ở chế độ Tầm mắt không chọn được bàn. Chọn Toàn cảnh hoặc Từ trên xuống để bấm xem thông tin bàn.';
+const VIEW_MSG = 'Đây là bản chỉ xem nên không di dời hay chỉnh sửa được.';
+const lockMsg = () => state.viewOnly ? LOCK_MSG_VIEW : LOCK_MSG;
+function frozen(){ return state.eye || state.viewOnly; }
+function locked(){ if (state.viewOnly){ toast(VIEW_MSG); return true; } if (state.eye){ toast(LOCK_MSG); return true; } return false; }
 function select(id, focus){
-  if (state.eye && id !== null){ toast(LOCK_MSG); return; }
+  if (state.eye && id !== null){ toast(lockMsg()); return; }
   state.selected = id; state.selShape = null; styleTables(); styleShapes(); renderSel(); renderShapeCard(); renderShapeList(); markListCurrent();
   if (id && focus) focusTable(id);
 }
 function selectShape(id, focus){
-  if (state.eye && id){ toast(LOCK_MSG); return; }
+  if (state.eye && id){ toast(lockMsg()); return; }
   state.selShape = id; state.selected = null; if (state.swapFrom) cancelSwap();
   styleTables(); styleShapes(); renderSel(); renderShapeCard(); renderShapeList(); markListCurrent();
   if (id && focus) focusShape(id);
@@ -1077,17 +1102,17 @@ function addShape(kind){
   toast('Đã thêm vải trải sàn. Kéo để dời. Số đo, độ dày và màu CMYK chỉnh trong thẻ Vải trải sàn.');
 }
 function curShape(){ return state.selShape ? SH(state.selShape) : null; }
-function rotShape(step){ if (state.eye) return; const sh = curShape(); if (!sh) return; pushHistory(); sh.r = (sh.r + step) % 360; placeShape(sh); changed(); }
-function nudgeShape(dx, dy){ if (state.eye) return; const sh = curShape(); if (!sh) return; pushHistory(); sh.x = snap(sh.x+dx); sh.y = snap(sh.y+dy); placeShape(sh); changed(); }
-function swapShapeWD(){ if (state.eye) return; const sh = curShape(); if (!sh) return; pushHistory(); const w = sh.w; sh.w = sh.d; sh.d = w; placeShape(sh); changed(); }
+function rotShape(step){ if (frozen()) return; const sh = curShape(); if (!sh) return; pushHistory(); sh.r = (sh.r + step) % 360; placeShape(sh); changed(); }
+function nudgeShape(dx, dy){ if (frozen()) return; const sh = curShape(); if (!sh) return; pushHistory(); sh.x = snap(sh.x+dx); sh.y = snap(sh.y+dy); placeShape(sh); changed(); }
+function swapShapeWD(){ if (frozen()) return; const sh = curShape(); if (!sh) return; pushHistory(); const w = sh.w; sh.w = sh.d; sh.d = w; placeShape(sh); changed(); }
 function dupShape(){
-  if (state.eye) return;
+  if (frozen()) return;
   const sh = curShape(); if (!sh || state.shapes.length >= 60) return;
   const c = normShapes([Object.assign({}, sh, {id:nextShapeId(), x:sh.x + 0.5, y:sh.y + 0.5, cmyk:sh.cmyk.slice()})])[0];
   pushHistory(); state.shapes.push(c); syncShapes(); selectShape(c.id); changed();
 }
 function delShape(){
-  if (state.eye) return;
+  if (frozen()) return;
   const sh = curShape(); if (!sh) return;
   pushHistory(); state.shapes = state.shapes.filter(x => x.id !== sh.id); state.selShape = null; syncShapes(); changed();
   toast('Đã xoá vải trải sàn. Bấm Hoàn tác nếu xoá nhầm.');
@@ -1118,18 +1143,19 @@ function renderShapeList(){
     : '<p class="muted" style="font-size:13px;margin:0">Chưa có vải trải sàn nào.</p>';
 }
 function rotateSel(step){
-  if (state.eye) return;
+  if (frozen()) return;
   const t = T(state.selected); if (!t) return;
   pushHistory(); t.r = (t.r + step) % 360; placeTable(t); changed();
 }
 function nudge(dx, dy){
-  if (state.eye) return;
+  if (frozen()) return;
   const t = T(state.selected); if (!t) return;
   pushHistory(); t.x = snap(t.x+dx); t.y = snap(t.y+dy); placeTable(t); changed();
 }
-function startSwap(){ if (state.eye || !state.selected) return; state.swapFrom = state.selected; styleTables(); modeTip('Bấm vào bàn muốn đổi chỗ với '+CBY[state.swapFrom].name+'. Esc để huỷ.'); }
+function startSwap(){ if (frozen() || !state.selected) return; state.swapFrom = state.selected; styleTables(); modeTip('Bấm vào bàn muốn đổi chỗ với '+CBY[state.swapFrom].name+'. Esc để huỷ.'); }
 function cancelSwap(){ if (!state.swapFrom) return; state.swapFrom = null; styleTables(); modeTip(null); }
 function doSwap(a, b){
+  if (frozen()) return;
   const A = T(a), B = T(b); pushHistory();
   const tmp = {x:A.x, y:A.y, r:A.r, s:A.s}; A.x = B.x; A.y = B.y; A.r = B.r; A.s = B.s; B.x = tmp.x; B.y = tmp.y; B.r = tmp.r; B.s = tmp.s;
   syncMeshes(); state.swapFrom = null; modeTip(null); changed(); select(a, false);
@@ -1179,11 +1205,11 @@ function renderList(){
   const q = ($('#search').value || '').trim().toLowerCase();
   let html = '';
   Object.keys(GROUPS).forEach(k => {
-    const rows = COMPANIES.filter(c => c.g === k && (!q || c.name.toLowerCase().includes(q) || code(c.id).toLowerCase().includes(q) || c.id.toLowerCase().includes(q)));
+    const rows = COMPANIES.filter(c => c.g === k && (!q || c.name.toLowerCase().includes(q) || code(c.id).toLowerCase() === q || c.id.toLowerCase().includes(q))).sort((a, b) => (STT[a.id] || 99) - (STT[b.id] || 99));
     if (!rows.length) return;
     html += `<div class="tl-group">${GROUPS[k].name}</div>` + rows.map(c => `<button class="row" data-id="${c.id}" aria-current="${state.selected===c.id}"><span class="sw" style="background:${GROUPS[k].color}"></span><span class="code">${code(c.id)}</span><span>${esc(c.name)}</span><span class="flag">${state.issues.byId[c.id] ? '!' : ''}</span></button>`).join('');
   });
-  $('#table-list').innerHTML = html || '<p class="muted" style="font-size:13px">Không có bàn nào khớp. Thử tên ngắn hơn hoặc mã như NN-03.</p>';
+  $('#table-list').innerHTML = html || '<p class="muted" style="font-size:13px">Không có bàn nào khớp. Thử tên ngắn hơn hoặc số bàn như 13.</p>';
 }
 function markListCurrent(){ $$('#table-list .row').forEach(r => r.setAttribute('aria-current', String(r.dataset.id === state.selected))); }
 function facing(r){
@@ -1196,7 +1222,7 @@ function renderSel(){
   card.hidden = false;
   $('#sel-sw').style.background = g.color;
   $('#sel-name').textContent = c.name;
-  $('#sel-meta').textContent = `${code(id)}, ${g.name}`;
+  $('#sel-meta').textContent = `Số ${code(id)}, ${g.name}`;
   $('#sel-desc').textContent = c.desc;
   $('#sel-pos').textContent = `Bàn ${(SIZES[t.s]||SIZES.L).label} cm. Tâm bàn cách tường trái ${t.x.toFixed(2).replace('.',',')} m, cách tường ballroom ${t.y.toFixed(2).replace('.',',')} m. Mặt bàn quay về ${facing(t.r)}.`;
   const iss = state.issues.byId[id];
@@ -1209,14 +1235,17 @@ function fmtTime(iso){ try { const d = new Date(iso); return d.toLocaleTimeStrin
 function renderSave(){
   const st = $('#save-status'), btn = $('#btn-save');
   st.classList.toggle('dirty', state.dirty);
-  if (state.saving) st.textContent = 'Đang lưu…';
+  if (state.viewOnly) st.textContent = state.savedAt ? 'Phương án cập nhật lúc ' + fmtTime(state.savedAt) : 'Phương án gốc';
+  else if (state.saving) st.textContent = 'Đang lưu…';
   else if (state.artifact === null) st.textContent = state.dirty ? 'Thay đổi mới chỉ lưu trên trình duyệt này' : (state.fromLink ? 'Đang xem phương án từ link' : (state.savedAt ? 'Phương án lưu lúc ' + fmtTime(state.savedAt) : 'Phương án gốc'));
   else if (state.readOnly) st.textContent = state.dirty ? 'Bản xem chỉ đọc. Dùng Sao chép phương án để gửi lại.' : 'Bản xem chỉ đọc';
   else if (state.dirty) st.textContent = 'Có thay đổi chưa lưu';
   else st.textContent = state.savedAt ? 'Bản chung lưu lúc ' + fmtTime(state.savedAt) : 'Phương án gốc, chưa lưu lần nào';
   const outside = state.artifact === null;
-  $$('[data-act="link"],[data-act="download"]').forEach(b => { b.hidden = !outside; });
-  if (outside || state.readOnly){ btn.hidden = true; }
+  $$('[data-act="link"],[data-act="download"]').forEach(b => { b.hidden = !outside || state.viewOnly; });
+  $('[data-act="viewlink"]').hidden = !outside;
+  $$('[data-act="paste"],[data-act="reset"]').forEach(b => { b.hidden = state.viewOnly; });
+  if (outside || state.readOnly || state.viewOnly){ btn.hidden = true; }
   else { btn.hidden = false; btn.disabled = !state.artifact || state.saving || !state.dirty; }
 }
 let toastTimer = 0;
@@ -1287,7 +1316,16 @@ $('#btn-more').onclick = e => { const m = $('#more-menu'); m.hidden = !m.hidden;
 document.addEventListener('click', e => { if (!e.target.closest('.save-wrap')){ $('#more-menu').hidden = true; $('#btn-more').setAttribute('aria-expanded','false'); } });
 $('#more-menu').onclick = e => {
   const act = e.target.dataset.act; if (!act) return; $('#more-menu').hidden = true;
+  if (act === 'viewlink'){
+    const vurl = VIEW_URL;
+    openModal({title:'Link chỉ xem', text:'Link cố định, luôn hiện phương án đã lưu mới nhất trên thienkien.com. Người xem xoay, phóng to, đi trong sảnh, bấm xem thông tin bàn và đo được, nhưng không có mục Phương án và không di dời hay chỉnh sửa được gì. Sau khi bạn ghi đè file mới lên GitHub, link này tự cập nhật trong vài phút.', area:vurl, actions:[
+      {label:'Đóng', run:closeModal},
+      {label:'Chép link', primary:true, run:async () => { const ta = $('#modal-area'); ta.select(); let ok = false; try { await navigator.clipboard.writeText(vurl); ok = true; } catch(err){ try { ok = document.execCommand('copy'); } catch(e2){} } toast(ok ? 'Đã chép link chỉ xem.' : 'Trình duyệt chặn sao chép tự động. Link đã được bôi đen, bấm Ctrl/Cmd + C để chép.'); if (ok) closeModal(); }}
+    ]});
+    return;
+  }
   if (act === 'link'){
+    if (state.viewOnly) return;
     const url = location.origin + location.pathname + '#p=' + encodeLayout(state.tables) + (state.shapes.length ? '&s=' + encodeShapes(state.shapes) : '');
     openModal({title:'Link phương án', text:'Ai mở link này sẽ thấy đúng cách xếp hiện tại của bạn, gồm vị trí, hướng, cỡ bàn, TV và vải trải sàn. Mỗi lần thay đổi cần sao chép link mới.', area:url, actions:[
       {label:'Đóng', run:closeModal},
@@ -1296,6 +1334,7 @@ $('#more-menu').onclick = e => {
     return;
   }
   if (act === 'download'){
+    if (state.viewOnly) return;
     const doc = buildDoc({savedAt:new Date().toISOString(), tables:state.tables.map(t => ({id:t.id, x:t.x, y:t.y, r:t.r, tv:t.tv, s:t.s})), shapes:state.shapes});
     const url = URL.createObjectURL(new Blob([doc], {type:'text/html'}));
     const a = document.createElement('a'); a.href = url; a.download = 'vcw-rex-sanh-3d.html'; document.body.appendChild(a); a.click(); a.remove();
@@ -1310,12 +1349,14 @@ $('#more-menu').onclick = e => {
       {label:'Chép vào bộ nhớ', primary:true, run:async () => { const ta = $('#modal-area'); ta.select(); let ok = false; try { await navigator.clipboard.writeText(txt); ok = true; } catch(err){ try { ok = document.execCommand('copy'); } catch(e2){} } toast(ok ? 'Đã chép phương án.' : 'Trình duyệt chặn sao chép tự động. Đoạn mã đã được bôi đen, bấm Ctrl/Cmd + C để chép.'); if (ok) closeModal(); }}
     ]});
   } else if (act === 'paste'){
+    if (locked()) return;
     openModal({title:'Dán phương án', text:'Dán đoạn mã phương án vào ô dưới. Cách xếp hiện tại sẽ được thay, có thể hoàn tác.', area:'', actions:[
       {label:'Huỷ', run:closeModal},
       {label:'Áp dụng', primary:true, run:v => { try { const o = JSON.parse(v); const arr = Array.isArray(o) ? o : o.tables; if (!Array.isArray(arr) || !arr.some(t => t && CBY[t.id])) throw 0; applyLayout(arr, Array.isArray(o) ? undefined : o.shapes, 'Đã áp dụng phương án được dán.'); closeModal(); } catch(e){ $('#modal-text').textContent = 'Đoạn mã không đọc được. Hãy dán nguyên văn đoạn bắt đầu bằng {"ten" do nút Sao chép phương án tạo ra.'; } }}
     ]});
   } else if (act === 'reset'){
-    openModal({title:'Về phương án gốc?', text:'Toàn bộ 38 bàn trở về cách xếp ban đầu. Vải trải sàn đã thêm được giữ nguyên. Bạn vẫn hoàn tác được nếu đổi ý.', actions:[
+    if (locked()) return;
+    openModal({title:'Về phương án gốc?', text:'Toàn bộ 39 bàn trở về cách xếp ban đầu. Vải trải sàn đã thêm được giữ nguyên. Bạn vẫn hoàn tác được nếu đổi ý.', actions:[
       {label:'Huỷ', run:closeModal},
       {label:'Về phương án gốc', primary:true, run:() => { applyTables(DEFAULT.map(d => Object.assign({tv:true}, d)), 'Đã về phương án gốc.'); closeModal(); }}
     ]});
@@ -1335,7 +1376,7 @@ $('#shape-list').onclick = e => { const b = e.target.closest('.row'); if (!b) re
 $('#sh-close').onclick = () => select(null);
 $('#sh-fold').onclick = () => { shapeFold = !shapeFold; renderShapeCard(); };
 $('#sh-actions').onclick = e => {
-  const a = e.target.dataset && e.target.dataset.sh; if (!a) return;
+  const a = e.target.dataset && e.target.dataset.sh; if (!a || locked()) return;
   if (a === 'rot90') rotShape(90);
   if (a === 'swapwd') swapShapeWD();
   if (a === 'dup') dupShape();
@@ -1343,7 +1384,7 @@ $('#sh-actions').onclick = e => {
 };
 $('#sh-pal').innerHTML = PAL.map((p, i) => '<button data-i="' + i + '" style="background:' + cmykHex(p[1]) + '" aria-label="' + p[0] + '" title="' + p[0] + ' (C' + p[1][0] + ' M' + p[1][1] + ' Y' + p[1][2] + ' K' + p[1][3] + ')" aria-pressed="false"></button>').join('');
 $('#sh-pal').onclick = e => {
-  const b = e.target.closest('button'); const sh = curShape(); if (!b || !sh) return;
+  const b = e.target.closest('button'); const sh = curShape(); if (!b || !sh || locked()) return;
   pushHistory(); sh.cmyk = PAL[+b.dataset.i][1].slice(); placeShape(sh); changed();
 };
 let editBefore = null;
@@ -1351,7 +1392,7 @@ function shapeEdit(sel, get, set){
   const el = $(sel);
   el.addEventListener('focus', () => { editBefore = snapshot(); });
   el.addEventListener('input', () => {
-    const sh = curShape(); if (!sh) return;
+    const sh = curShape(); if (!sh || frozen()) return;
     const v = parseFloat(String(el.value).replace(',', '.')); if (!isFinite(v)) return;
     set(sh, v); placeShape(sh); touch(); renderShapeCard(); renderShapeList();
   });
@@ -1371,7 +1412,7 @@ $('#btn-measure').onclick = () => setMeasure(!state.measureMode);
 $('#btn-clear-measure').onclick = clearMeasures;
 $('#sel-close').onclick = () => select(null);
 $('.sel-actions').onclick = e => {
-  const a = e.target.dataset && e.target.dataset.sel; if (!a) return;
+  const a = e.target.dataset && e.target.dataset.sel; if (!a || locked()) return;
   if (a === 'rot90') rotateSel(90);
   if (a === 'rot45') rotateSel(45);
   if (a === 'tv'){ const t = T(state.selected); pushHistory(); t.tv = !t.tv; placeTable(t); changed(); }
@@ -1400,17 +1441,17 @@ window.addEventListener('keydown', e => {
   if (state.selShape){
     if (k === 'r'){ rotShape(90); return; }
     if (k === 'e'){ rotShape(45); return; }
-    if (k === 'delete' || k === 'backspace'){ e.preventDefault(); delShape(); return; }
+    if ((k === 'delete' || k === 'backspace') && !state.viewOnly){ e.preventDefault(); delShape(); return; }
     const st = e.shiftKey ? 0.5 : 0.1;
     const ar = {arrowup:[0,-st], arrowdown:[0,st], arrowleft:[-st,0], arrowright:[st,0]};
-    if (ar[k] && !state.eye){ e.preventDefault(); nudgeShape(ar[k][0], ar[k][1]); return; }
+    if (ar[k] && !frozen()){ e.preventDefault(); nudgeShape(ar[k][0], ar[k][1]); return; }
   }
   if (state.selected){
     if (k === 'r'){ rotateSel(90); return; }
     if (k === 'e'){ rotateSel(45); return; }
     const step = e.shiftKey ? 0.5 : 0.1;
     const arrows = {arrowup:[0,-step], arrowdown:[0,step], arrowleft:[-step,0], arrowright:[step,0]};
-    if (arrows[k] && !state.eye){ e.preventDefault(); nudge(arrows[k][0], arrows[k][1]); return; }
+    if (arrows[k] && !frozen()){ e.preventDefault(); nudge(arrows[k][0], arrows[k][1]); return; }
   }
   if (['w','a','s','d','arrowup','arrowdown','arrowleft','arrowright'].includes(k)){ keys.add(k); if (k.startsWith('arrow')) e.preventDefault(); }
 });
@@ -1498,7 +1539,19 @@ function applyTheme(){
 if (mq && mq.addEventListener) mq.addEventListener('change', applyTheme);
 
 /* ---------- start ---------- */
+async function loadLatest(){
+  try {
+    const res = await fetch(VIEW_SOURCE + '?t=' + Date.now(), {cache:'no-store'}); if (!res.ok) return;
+    const doc = new DOMParser().parseFromString(await res.text(), 'text/html');
+    const el = doc.getElementById('layout-data'); if (!el) return;
+    const d = JSON.parse(el.textContent); if (!d || !Array.isArray(d.tables)) return;
+    if (state.savedAt && (!d.savedAt || d.savedAt < state.savedAt)) return;
+    state.tables = normalize(d.tables); state.shapes = normShapes(d.shapes); state.savedAt = d.savedAt || null;
+  } catch(e){}
+}
 async function start(){
+  if (VIEW_BUILD) await loadLatest();
+  if (state.viewOnly){ $('#root').classList.add('view-only'); $$('#shape-card input').forEach(i => { i.disabled = true; }); }
   try { await Promise.race([Promise.all([document.fonts.load('800 60px Archivo'), document.fonts.load('600 40px Archivo')]), new Promise(r => setTimeout(r, 2500))]); } catch(e){}
   buildStatic();
   state.tables.forEach(buildTable); syncShapes();
@@ -1508,6 +1561,7 @@ async function start(){
   requestAnimationFrame(loop);
   let justSaved = null; try { justSaved = sessionStorage.getItem(SS_KEY); } catch(e){}
   if (justSaved && justSaved === state.savedAt){ try { sessionStorage.removeItem(SS_KEY); } catch(e){} clearDraft(); toast('Đã lưu. Ai mở trang này đều thấy phương án mới.'); }
+  else if (state.viewOnly){ toast('Bản chỉ xem: xoay, phóng to và bấm vào bàn để xem thông tin. Không di dời được.'); }
   else if (state.fromLink){ toast('Đang xem phương án được chia sẻ qua link.'); }
   else checkDraft();
 }
