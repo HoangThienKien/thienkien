@@ -2,7 +2,7 @@
 <html lang="vi"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Sảnh REX: bố trí 39 bàn showcase, VCW 2026</title>
+<title>Sảnh REX: bố trí 39 bàn showcase, VNCW 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -152,7 +152,7 @@ ul{list-style:none;margin:0;padding:0}
 (function(){
 'use strict';
 
-const HEAD = '<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n<title>Sảnh REX: bố trí 39 bàn showcase, VCW 2026</title>\n<link rel="preconnect" href="https://fonts.googleapis.com">\n<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;600;800&display=swap" rel="stylesheet">\n';
+const HEAD = '<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n<title>Sảnh REX: bố trí 39 bàn showcase, VNCW 2026</title>\n<link rel="preconnect" href="https://fonts.googleapis.com">\n<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;600;800&display=swap" rel="stylesheet">\n';
 const LIBS = '<scr'+'ipt src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></scr'+'ipt>\n<scr'+'ipt src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></scr'+'ipt>\n';
 
 const BODY = `
@@ -205,6 +205,7 @@ const BODY = `
     <p>Mỗi bàn chọn được cỡ 180×80 hoặc bàn IBM 120×60 cm. Cửa sổ ở tường ngoài vẽ theo ảnh hiện trường, vị trí còn ước lượng. Hoa văn sàn mô phỏng thảm hoa sen của REX, bấm Hoa văn sàn để tắt khi cần nhìn rõ mặt bằng.</p>
     <p>Vải trải sàn: bấm + Vải chữ nhật hoặc + Vải tròn, kéo để dời, chọn để chỉnh dài, rộng, dày, góc xoay và màu CMYK. Phím R và E xoay, Delete xoá. Vải nằm dưới bàn nên không tính vào cảnh báo va chạm.</p>
     <p>Ở chế độ Tầm mắt, mọi đối tượng bị khoá, không chọn hay kéo được. Trên điện thoại: cần trái để đi, cần phải để nhìn quanh, nên xoay ngang màn hình. Chọn Toàn cảnh hoặc Từ trên xuống để chỉnh sửa lại.</p>
+    <p>Lotus Ballroom nằm ngay sau hai cửa ballroom, 17 × 33 m, trần 3,6 m. Chỉ còn một cách xếp: 500 ghế xếp cung quanh sân khấu, 3 dãy đầu có bàn, không còn vách ngăn và quầy đăng ký. Sân khấu và số dãy ghế đo lại từ ảnh SketchUp nên có thể lệch 0,2 đến 0,5 m. Bấm Cả hai sảnh để xem liền một mạch, hoặc Tầm mắt: trong ballroom để đi từ cửa vào.</p>
     <p>Mặt bằng dựng theo các số đo ghi trên bản vẽ REX. Bản vẽ không theo tỉ lệ nên cần đối chiếu lại khi có file CAD.</p>
   </section>
 </aside>
@@ -236,6 +237,16 @@ const BODY = `
       <button data-view="overview">Toàn cảnh</button>
       <button data-view="arrival">Tầm mắt: lối vào</button>
       <button data-view="doors">Tầm mắt: cửa ballroom</button>
+    </div>
+    <div class="seg" role="group" aria-label="Lotus Ballroom, góc nhìn">
+      <button data-view="all">Cả hai sảnh</button>
+      <button data-view="lotustop">Ballroom từ trên</button>
+      <button data-view="lotusdoor">Tầm mắt: trong ballroom</button>
+      <button data-view="lotusstage">Tầm mắt: sân khấu</button>
+    </div>
+    <div class="seg" role="group" aria-label="Lotus Ballroom, bố trí">
+      <button data-lotus="after" aria-pressed="true">Hiện Lotus (500 ghế)</button>
+      <button data-lotus="off" aria-pressed="false">Ẩn Lotus</button>
     </div>
     <div class="seg" role="group" aria-label="Hiển thị">
       <button data-toggle="walls" aria-pressed="true">Tường</button>
@@ -287,7 +298,7 @@ const BODY = `
       <label>Y<input id="sh-c2" type="number" inputmode="numeric" min="0" max="100" step="1"></label>
       <label>K<input id="sh-c3" type="number" inputmode="numeric" min="0" max="100" step="1"></label>
     </div>
-    <div class="pal" id="sh-pal" role="group" aria-label="Màu có sẵn theo bảng màu VCW"></div>
+    <div class="pal" id="sh-pal" role="group" aria-label="Màu có sẵn theo bảng màu VNCW"></div>
     <p id="sh-note" class="muted"></p>
     <p id="sh-pos" class="muted"></p>
     <div class="sel-actions" id="sh-actions">
@@ -408,14 +419,15 @@ const DEFAULT = [
 ];
 
 /* Mặt bằng sảnh (mét). Gốc toạ độ: góc tường trái, y = 0 là tường ballroom Lotus, y tăng về phía tường ngoài. */
-const POLY = [[0,2.9],[0.6,2.9],[0.6,-4],[4.8,-4],[4.8,2.9],[14.4,2.9],[14.4,0],[28.6,0],[28.6,2.87],[32,2.87],[32,9.1],[29.6,11.5],[0,11.5]];
+const POLY = [[0,2.9],[0.77,2.9],[0.77,-4],[4.97,-4],[4.97,2.9],[14.57,2.9],[14.57,0],[28.6,0],[28.6,2.87],[32,2.87],[32,9.4],[29.6,11.8],[0,11.8]];
 const COLUMNS = [
   {x0:5.36,y0:5.2,x1:7.19,y1:6.57,kind:'cột'},
   {x0:14.39,y0:5.2,x1:16.22,y1:6.57,kind:'cột'},
   {x0:20.37,y0:5.2,x1:22.2,y1:6.57,kind:'cột'},
-  {x0:7.7,y0:10.28,x1:8.4,y1:11.5,kind:'trụ tường'},
-  {x0:16.74,y0:10.28,x1:17.44,y1:11.5,kind:'trụ tường'},
-  {x0:22.74,y0:10.28,x1:23.44,y1:11.5,kind:'trụ tường'}
+  {x0:7.7,y0:10.58,x1:8.4,y1:11.8,kind:'trụ tường'},
+  {x0:16.74,y0:10.58,x1:17.44,y1:11.8,kind:'trụ tường'},
+  {x0:22.74,y0:10.58,x1:23.44,y1:11.8,kind:'trụ tường'},
+  {x0:20.17,y0:0,x1:21.33,y1:0.27,kind:'cột nhỏ'}
 ];
 const DOORS = [{x0:16.4,x1:19.5,label:'cửa ballroom 1'},{x0:22.0,x1:25.1,label:'cửa ballroom 2'}];
 const FORE_DEPTH = 3.5;
@@ -532,16 +544,16 @@ const PAL = [
   ['Cụm Chuyển dịch năng lượng, #FFFFD1', [0,0,18,0]],
   ['Cụm Carbon và công trình, trắng #FFFFFF', [0,0,0,0]],
   ['Cụm Giao thông và kinh tế biển, #AFCBFF', [31,20,0,0]],
-  ['Green Sepal (VCW)', [56,0,40,42]],
-  ['Lotus Petal (VCW)', [0,36,36,11]],
-  ['Lotus Hearth (VCW)', [0,26,26,0]],
-  ['Xanh lá đậm (VCW)', [100,0,66,69]],
-  ['Xanh lá nhạt (VCW)', [38,0,29,12]],
-  ['Navy (VCW)', [56,44,0,42]],
-  ['Teal (VCW)', [45,3,0,53]],
-  ['Tím (VCW)', [22,46,0,46]],
-  ['Magenta (VCW)', [0,56,16,42]],
-  ['Nâu đỏ (VCW)', [0,50,48,42]]
+  ['Green Sepal (VNCW)', [56,0,40,42]],
+  ['Lotus Petal (VNCW)', [0,36,36,11]],
+  ['Lotus Hearth (VNCW)', [0,26,26,0]],
+  ['Xanh lá đậm (VNCW)', [100,0,66,69]],
+  ['Xanh lá nhạt (VNCW)', [38,0,29,12]],
+  ['Navy (VNCW)', [56,44,0,42]],
+  ['Teal (VNCW)', [45,3,0,53]],
+  ['Tím (VNCW)', [22,46,0,46]],
+  ['Magenta (VNCW)', [0,56,16,42]],
+  ['Nâu đỏ (VNCW)', [0,50,48,42]]
 ];
 function cmykHex(c){
   const v = (c || [0,0,0,0]).map(x => clampN(+x || 0, 0, 100)/100);
@@ -570,8 +582,8 @@ function decodeShapes(str){
   return out;
 }
 const VIEW_BUILD = false;
-const VIEW_URL = 'https://www.thienkien.com/VCWview';
-const VIEW_SOURCE = '/vcw-rex-sanh-3d.html';
+const VIEW_URL = 'https://www.thienkien.com/VNCWview';
+const VIEW_SOURCE = '/vncw-rex-sanh-3d.html';
 let linkTables = null, linkShapes = null, linkView = VIEW_BUILD;
 try {
   if (VIEW_BUILD) throw 0;
@@ -617,7 +629,7 @@ const camera = new THREE.PerspectiveCamera(50, 1, 0.05, 250);
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true; controls.dampingFactor = 0.12;
 controls.screenSpacePanning = false; controls.maxPolarAngle = Math.PI/2 - 0.03;
-controls.minDistance = 2; controls.maxDistance = 90;
+controls.minDistance = 2; controls.maxDistance = 110;
 
 scene.add(new THREE.HemisphereLight(0xffffff, 0xd8dee8, 0.78));
 const sun = new THREE.DirectionalLight(0xffffff, 0.55);
@@ -711,11 +723,11 @@ function buildStatic(){
 
   hallMat = new THREE.MeshStandardMaterial({color:css('--hall') || '#E2E7F0', roughness:1});
   const hall = new THREE.Mesh(new THREE.PlaneGeometry(17.2, 8), hallMat);
-  hall.rotation.x = -Math.PI/2; hall.position.set(14.4+8.6, -0.002, -4); world.add(hall);
-  const hl = sprite('Lotus Ballroom', 0.75, '#1D2620', 'rgba(255,255,255,0.88)'); hl.position.set(23, 0.6, -4); world.add(hl);
+  hall.rotation.x = -Math.PI/2; hall.position.set(14.57+8.6, -0.002, -4); hall.visible = false; world.add(hall);
+  const hl = sprite('Lotus Ballroom', 0.75, '#1D2620', 'rgba(255,255,255,0.88)'); hl.position.set(23, 0.6, -4); hl.visible = false; world.add(hl);
 
   const gp = [];
-  for (let x=0; x<=32; x++){ gp.push(x,0.004,-4, x,0.004,11.5); }
+  for (let x=0; x<=32; x++){ gp.push(x,0.004,-4, x,0.004,11.8); }
   for (let y=-4; y<=11; y++){ gp.push(0,0.004,y, 32,0.004,y); }
   const gg = new THREE.BufferGeometry(); gg.setAttribute('position', new THREE.Float32BufferAttribute(gp, 3));
   gridLines = new THREE.LineSegments(gg, new THREE.LineBasicMaterial({color:0xffffff, transparent:true, opacity:.14}));
@@ -739,7 +751,7 @@ function buildStatic(){
   wallsTall = buildWalls(3.2); wallsLow = buildWalls(0.14); wallsLow.visible = false;
   world.add(wallsTall, wallsLow);
 
-  [['Banquet Office', 9.6, 3.9, -0.6], ['Thang máy', -0.8, 3.9, -0.6]].forEach(([t,x,y,z]) => { const s = sprite(t, 0.5, '#1D2620', 'rgba(255,255,255,0.88)'); s.position.set(x, y, z); world.add(s); });
+  [['Banquet Office', 9.77, 3.9, -0.6], ['Thang máy', -0.8, 3.9, -0.6]].forEach(([t,x,y,z]) => { const s = sprite(t, 0.5, '#1D2620', 'rgba(255,255,255,0.88)'); s.position.set(x, y, z); world.add(s); });
   const sc = sprite('Hành lang lên check-in và Sun Flower', 0.42, '#1D2620', 'rgba(255,255,255,0.9)'); sc.position.set(2.7, 0.35, -3.3); world.add(sc);
   const sv = sprite('Góc vát', 0.36, '#5E6963', 'rgba(255,255,255,0.85)'); sv.position.set(31.6, 0.25, 11.3); world.add(sv);
 }
@@ -747,8 +759,8 @@ function buildWalls(h){
   const g = new THREE.Group();
   const wallMat = new THREE.MeshStandardMaterial({color:css('--wall') || '#C9D2DE', transparent:true, opacity: h > 1 ? .32 : .9, roughness:1, depthWrite: h <= 1});
   const segs = [
-    [0,2.9,0,11.5],[0,11.5,29.6,11.5],[29.6,11.5,32,9.1],[32,9.1,32,2.87],[32,2.87,28.6,2.87],[28.6,2.87,28.6,0],
-    [28.6,0,25.1,0],[22.0,0,19.5,0],[16.4,0,14.4,0],[14.4,0,14.4,2.9],[14.4,2.9,4.8,2.9],[4.8,2.9,4.8,-4],[0.6,-4,0.6,2.9],[0.6,2.9,0,2.9]
+    [0,2.9,0,11.8],[0,11.8,29.6,11.8],[29.6,11.8,32,9.4],[32,9.4,32,2.87],[32,2.87,28.6,2.87],[28.6,2.87,28.6,0],
+    [28.6,0,25.1,0],[22.0,0,19.5,0],[16.4,0,14.57,0],[14.57,0,14.57,2.9],[14.57,2.9,4.97,2.9],[4.97,2.9,4.97,-4],[0.77,-4,0.77,2.9],[0.77,2.9,0,2.9]
   ];
   segs.forEach(s => {
     const dx = s[2]-s[0], dz = s[3]-s[1], L = Math.hypot(dx,dz);
@@ -767,18 +779,18 @@ function buildWalls(h){
     const ww = w.x1 - w.x0, cx = (w.x0 + w.x1)/2;
     if (h > 1){
       const pane = new THREE.Mesh(new THREE.BoxGeometry(ww, WIN_HEAD-WIN_SILL, 0.04), winMat);
-      pane.position.set(cx, (WIN_SILL+WIN_HEAD)/2, 11.41); g.add(pane);
+      pane.position.set(cx, (WIN_SILL+WIN_HEAD)/2, 11.71); g.add(pane);
       const fr = new THREE.LineSegments(new THREE.EdgesGeometry(pane.geometry), frameMat);
       fr.position.copy(pane.position); g.add(fr);
       const mull = new THREE.Mesh(new THREE.BoxGeometry(0.04, WIN_HEAD-WIN_SILL, 0.05), new THREE.MeshStandardMaterial({color:0xF2EFEA}));
-      mull.position.set(cx, (WIN_SILL+WIN_HEAD)/2, 11.41); g.add(mull);
+      mull.position.set(cx, (WIN_SILL+WIN_HEAD)/2, 11.71); g.add(mull);
     } else {
       const strip = new THREE.Mesh(new THREE.BoxGeometry(ww, h+0.02, 0.18), winMat);
-      strip.position.set(cx, (h+0.02)/2, 11.5); g.add(strip);
+      strip.position.set(cx, (h+0.02)/2, 11.8); g.add(strip);
     }
   });
   const blockMat = new THREE.MeshStandardMaterial({color:0xE1E5EB, roughness:1});
-  [[4.8,-4,14.4,2.9],[-2.2,-4,0.6,2.9],[28.6,0,32,2.87]].forEach(b => {
+  [[4.97,-4,14.57,2.9],[-2.2,-4,0.77,2.9],[28.6,0,32,2.87]].forEach(b => {
     const m = new THREE.Mesh(new THREE.BoxGeometry(b[2]-b[0]-0.16, h, b[3]-b[1]-0.16), blockMat);
     m.position.set((b[0]+b[2])/2, h/2, (b[1]+b[3])/2); m.castShadow = h > 1; m.receiveShadow = true; g.add(m);
   });
@@ -901,12 +913,217 @@ function pickShape(){
   return null;
 }
 
+/* ---------- Lotus Ballroom (ghép sau hai cửa ballroom, gốc toạ độ ballroom đặt tại x 14,4, z -33) ---------- */
+const LOTUS = (function(){
+  const W = 17, L = 33, H = 3.6, WALL_T = 0.2;
+  const STAGE = {x0:4.11, x1:11.47, z0:1.9, z1:5.55, h:0.5};
+  const STAGE_CX = (STAGE.x0 + STAGE.x1) / 2;
+  const COL_Z = [5.8, 15.66, 23.62, 28.68], COL_LEN = 1.16, COL_W_WEST = 0.5, COL_W_EAST = 0.85;
+  const NORTH_PILLARS = [[0.0,1.4],[2.97,4.16],[11.52,12.7],[14.28,15.47]];
+  const NORTH_DOORS = [[1.4,2.97],[12.7,14.28]];
+  const LED = {x0:4.16, x1:11.5, y0:0.3, y1:3.2};
+  const RECESS = {z0:17.85, z1:23.05, depth:1.2};
+  const A_COLS = 10, A_ROWS = 24, A_PITCH_X = 0.49, A_PITCH_Z = 0.52, A_AISLE_HALF = 0.75, A_FIRST_Z = 9.15, A_ARC_R0 = 15.5, TABLE_ROWS = 3, TABLE_EXTRA = 0.48, TARGET_SEATS = 500;
+  const A_ARC_CZ = A_FIRST_Z - A_ARC_R0;
+  const THEME = {
+    light:{floor:'#8C98A9', grid:'#5F6C7E', line:'#1D2620'},
+    dark:{floor:'#2E3730', grid:'#6E7D72', line:'#9DB0A3'}
+  };
+  const isDark = () => {
+    const t = document.documentElement.getAttribute('data-theme');
+    if (t) return t === 'dark';
+    return !!(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  };
+  const S = {group:null, grpAfter:null, tall:null, low:null, ceil:null, pillars:null, labels:null, mode:'after', walls:true};
+
+  const rowR = k => A_ARC_R0 + k*A_PITCH_Z + TABLE_EXTRA*Math.min(k+1, TABLE_ROWS);
+  const colU = i => A_AISLE_HALF + A_PITCH_X/2 + i*A_PITCH_X;
+  const arcPos = (R, u) => { const z = A_ARC_CZ + Math.sqrt(R*R - u*u), x = STAGE_CX + u; return {x, z, yaw:Math.atan2(-(STAGE_CX - x), -(A_ARC_CZ - z))}; };
+  function afterLayout(){
+    const seats = [], tables = [];
+    for (let k=0;k<A_ROWS;k++){
+      const R = rowR(k);
+      for (let side=-1; side<=1; side+=2){
+        for (let i=0;i<A_COLS;i++) seats.push(arcPos(R, side*colU(i)));
+        if (k < TABLE_ROWS){
+          for (let i=0;i<A_COLS;i+=2) tables.push(arcPos(R-0.5, side*(colU(i)+A_PITCH_X/2)));
+        }
+      }
+    }
+    /* cột ghế ngoài cùng hai bên, 10 ghế mỗi bên ở 10 dãy cuối, đủ 500 ghế */
+    const extra = (TARGET_SEATS - seats.length) / 2;
+    for (let side=-1; side<=1; side+=2){
+      for (let n=0;n<extra;n++) seats.push(arcPos(rowR(A_ROWS-extra+n), side*(colU(A_COLS)+0.155)));
+    }
+    return {seats, tables};
+  }
+
+  function mergeBoxes(parts){
+    const pos = [], nor = [], col = [];
+    parts.forEach(p => {
+      const g = new THREE.BoxGeometry(p.w,p.h,p.d).toNonIndexed(); g.translate(p.x,p.y,p.z);
+      const pa = g.attributes.position.array, na = g.attributes.normal.array, c = new THREE.Color(p.c);
+      for (let i=0;i<pa.length;i++){ pos.push(pa[i]); nor.push(na[i]); }
+      for (let i=0;i<pa.length/3;i++) col.push(c.r,c.g,c.b);
+    });
+    const g = new THREE.BufferGeometry();
+    g.setAttribute('position', new THREE.Float32BufferAttribute(pos,3));
+    g.setAttribute('normal', new THREE.Float32BufferAttribute(nor,3));
+    g.setAttribute('color', new THREE.Float32BufferAttribute(col,3));
+    return g;
+  }
+  function bannerTexture(){
+    const c = document.createElement('canvas'); c.width = 1536; c.height = 800;
+    const x = c.getContext('2d');
+    x.fillStyle = '#E8F5EA'; x.fillRect(0,0,c.width,c.height);
+    for (let i=0;i<9;i++) for (let j=0;j<4;j++){
+      x.save(); x.translate(1040+i*50, 300+j*56); x.rotate(-0.6);
+      x.fillStyle = (i+j)%2 ? '#8FD3A2' : '#F2A3AE'; x.beginPath(); x.ellipse(0,0,28,13,0,0,Math.PI*2); x.fill(); x.restore();
+    }
+    x.fillStyle = '#F7B6BE'; x.beginPath(); x.moveTo(520,800); x.bezierCurveTo(760,520,1000,700,1536,560); x.lineTo(1536,800); x.closePath(); x.fill();
+    x.fillStyle = '#2F8F57'; x.beginPath(); x.moveTo(0,800); x.lineTo(0,640); x.bezierCurveTo(240,560,520,640,700,800); x.closePath(); x.fill();
+    x.save(); x.translate(250,620);
+    for (let k=0;k<8;k++){ x.rotate(Math.PI/4); x.fillStyle = k%2 ? '#F29AA6' : '#F7B6BE'; x.beginPath(); x.ellipse(0,-62,34,64,0,0,Math.PI*2); x.fill(); }
+    x.fillStyle = '#fff'; x.beginPath(); x.arc(0,0,22,0,Math.PI*2); x.fill(); x.restore();
+    x.fillStyle = '#E2556B'; x.font = '800 92px Archivo, Arial, sans-serif'; x.textBaseline = 'alphabetic';
+    x.fillText('CLIMATE ENTERPRISE', 90, 170); x.fillText('SHOWCASE', 90, 270);
+    x.fillStyle = '#1F6B3F'; x.font = '700 44px Archivo, Arial, sans-serif';
+    x.fillText('TRƯNG BÀY GIẢI PHÁP', 90, 350); x.fillText('DOANH NGHIỆP VÌ KHÍ HẬU', 90, 408);
+    x.font = '400 30px Archivo, Arial, sans-serif'; x.fillStyle = '#2B4A38';
+    x.fillText('Accelerating Innovation and Climate Solutions', 90, 470); x.fillText('for Sustainable Agriculture', 90, 510);
+    x.font = '600 28px Archivo, Arial, sans-serif';
+    x.fillText('HCMC, October 21st 2026  ·  TP.HCM, 21.10.2026', 90, 570);
+    const t = new THREE.CanvasTexture(c); t.anisotropy = 4; return t;
+  }
+
+  function build(){
+    const g = new THREE.Group(); g.position.set(14.57, 0, -33); world.add(g); S.group = g;
+    const lam = (color, o) => new THREE.MeshLambertMaterial(Object.assign({color}, o||{}));
+    const lineMat = new THREE.LineBasicMaterial({color:0x1d2620, transparent:true, opacity:0.38}); S.lineMat = lineMat;
+    function span(parent, x0,x1, z0,z1, y0,y1, mat, edges){
+      const geo = new THREE.BoxGeometry(x1-x0, y1-y0, z1-z0);
+      const m = new THREE.Mesh(geo, mat); m.position.set((x0+x1)/2, (y0+y1)/2, (z0+z1)/2); parent.add(m);
+      if (edges){ const e = new THREE.LineSegments(new THREE.EdgesGeometry(geo), lineMat); e.position.copy(m.position); parent.add(e); }
+      return m;
+    }
+    /* sàn và lưới */
+    S.floorMat = new THREE.MeshBasicMaterial({color:0xb4becc, polygonOffset:true, polygonOffsetFactor:-2, polygonOffsetUnits:-2});
+    const floor = new THREE.Mesh(new THREE.PlaneGeometry(W, L), new THREE.MeshLambertMaterial({color:0xb4becc, polygonOffset:true, polygonOffsetFactor:-2, polygonOffsetUnits:-2}));
+    S.floorMat = floor.material;
+    floor.rotation.x = -Math.PI/2; floor.position.set(W/2, 0.006, L/2); g.add(floor);
+    const gp = []; for (let x=0;x<=W;x++) gp.push(x,0.012,0, x,0.012,L); for (let z=0;z<=L;z++) gp.push(0,0.012,z, W,0.012,z);
+    const gg = new THREE.BufferGeometry(); gg.setAttribute('position', new THREE.Float32BufferAttribute(gp,3));
+    S.gridMat = new THREE.LineBasicMaterial({color:0x7d8a9c, transparent:true, opacity:0.38});
+    g.add(new THREE.LineSegments(gg, S.gridMat));
+
+    /* tường tây, đông, bắc. Tường nam là tường sảnh REX có sẵn hai cửa. */
+    function walls(h, opacity, depthWrite){
+      const grp = new THREE.Group();
+      const m = new THREE.MeshStandardMaterial({color:css('--wall') || '#C9D2DE', transparent:true, opacity, roughness:1, depthWrite, side:THREE.DoubleSide});
+      span(grp, -WALL_T,0, -WALL_T,L, 0,h, m, false);
+      span(grp, W,W+WALL_T, -WALL_T,L, 0,h, m, false);
+      span(grp, -WALL_T,W+WALL_T, -WALL_T,0, 0,h, m, false);
+      grp.userData.mat = m; return grp;
+    }
+    S.tall = walls(H, 0.32, false); S.low = walls(0.14, 0.9, true); S.low.visible = false; g.add(S.tall, S.low);
+    const doorMat = lam(0x6b5b4b);
+    NORTH_DOORS.forEach(d => span(S.tall, d[0],d[1], 0,0.06, 0,2.3, doorMat, true));
+    span(S.tall, LED.x0,LED.x1, 0,0.15, LED.y0,LED.y1, new THREE.MeshLambertMaterial({color:0x14181c, emissive:0x0b1016}), true);
+
+    /* cột */
+    const pil = new THREE.Group(); S.pillars = pil; g.add(pil);
+    const pm = lam(0xc3ccd8);
+    NORTH_PILLARS.forEach(p => span(pil, p[0],p[1], 0,0.5, 0,H, pm, true));
+    COL_Z.forEach(z0 => { span(pil, 0,COL_W_WEST, z0,z0+COL_LEN, 0,H, pm, true); span(pil, W-COL_W_EAST,W, z0,z0+COL_LEN, 0,H, pm, true); });
+    const rm = new THREE.MeshLambertMaterial({color:0x9aa6b6, transparent:true, opacity:0.32, depthWrite:false});
+    span(pil, W-RECESS.depth,W, RECESS.z0,RECESS.z1, 0,H, rm, true);
+
+    /* trần và đèn */
+    const ceil = new THREE.Group(); S.ceil = ceil; g.add(ceil);
+    const cp = new THREE.Mesh(new THREE.PlaneGeometry(W, L), new THREE.MeshBasicMaterial({color:0xdfe4ec}));
+    cp.rotation.x = Math.PI/2; cp.position.set(W/2, H, L/2); ceil.add(cp);
+    const xs = [2.5, 6.5, 10.5, 14.5], zs = []; for (let z=3.5; z<L; z+=4) zs.push(z);
+    const li = new THREE.InstancedMesh(new THREE.PlaneGeometry(0.6,0.6), new THREE.MeshBasicMaterial({color:0xfffbe6}), xs.length*zs.length);
+    const o = new THREE.Object3D(); let n = 0;
+    xs.forEach(x => zs.forEach(z => { o.position.set(x, H-0.01, z); o.rotation.set(Math.PI/2,0,0); o.updateMatrix(); li.setMatrixAt(n++, o.matrix); }));
+    li.frustumCulled = false; ceil.add(li);
+
+    /* sân khấu và backdrop */
+    span(g, STAGE.x0,STAGE.x1, STAGE.z0,STAGE.z1, 0.012,STAGE.h, lam(0xf4f5f7), true);
+    const BD_H = 2.7, BD_Z = STAGE.z0 + 0.06;
+    const bd = new THREE.Mesh(new THREE.PlaneGeometry(5.0, BD_H), new THREE.MeshBasicMaterial({map:bannerTexture()}));
+    bd.position.set(STAGE_CX, STAGE.h + BD_H/2, BD_Z); g.add(bd);
+    const bb = new THREE.Mesh(new THREE.PlaneGeometry(5.0, BD_H), lam(0x6f7a82)); bb.rotation.y = Math.PI; bb.position.set(STAGE_CX, STAGE.h + BD_H/2, BD_Z-0.01); g.add(bb);
+    const wm = lam(0x707b84, {side:THREE.DoubleSide});
+    [-1,1].forEach(s => {
+      const x0 = STAGE_CX + s*2.5, x1 = STAGE_CX + s*3.7, z0 = BD_Z, z1 = BD_Z + 2.1, y0 = STAGE.h, y1 = STAGE.h + BD_H;
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute('position', new THREE.Float32BufferAttribute([x0,y0,z0, x1,y0,z1, x1,y1,z1, x0,y0,z0, x1,y1,z1, x0,y1,z0],3)); geo.computeVertexNormals();
+      g.add(new THREE.Mesh(geo, wm));
+    });
+
+    /* ghế và bàn */
+    const chairAfter = mergeBoxes([
+      {w:.44,h:.46,d:.42, x:0,y:.23,z:0, c:'#FBFBF9'}, {w:.45,h:.5,d:.06, x:0,y:.7,z:.2, c:'#FBFBF9'}, {w:.46,h:.07,d:.075, x:0,y:.62,z:.2, c:'#2E8B57'}]);
+    const tableGeo = mergeBoxes([
+      {w:.92,h:.04,d:.45, x:0,y:.74,z:0, c:'#FFFFFF'},
+      {w:.04,h:.72,d:.04, x:-.42,y:.36,z:-.2, c:'#4A5055'}, {w:.04,h:.72,d:.04, x:.42,y:.36,z:-.2, c:'#4A5055'},
+      {w:.04,h:.72,d:.04, x:-.42,y:.36,z:.2, c:'#4A5055'}, {w:.04,h:.72,d:.04, x:.42,y:.36,z:.2, c:'#4A5055'}]);
+    const vc = new THREE.MeshLambertMaterial({vertexColors:true});
+    const inst = (geo, list) => {
+      const m = new THREE.InstancedMesh(geo, vc, Math.max(1, list.length)), d = new THREE.Object3D();
+      list.forEach((s,i) => { d.position.set(s.x,0.012,s.z); d.rotation.set(0, s.yaw||0, 0); d.updateMatrix(); m.setMatrixAt(i, d.matrix); });
+      m.count = list.length; m.frustumCulled = false; return m;
+    };
+    const LA = afterLayout();
+    S.counts = {seats:LA.seats.length, tables:LA.tables.length};
+    S.grpAfter = new THREE.Group();
+    S.grpAfter.add(inst(chairAfter, LA.seats), inst(tableGeo, LA.tables));
+    g.add(S.grpAfter);
+
+    /* tên khu */
+    const lg = new THREE.Group(); S.labels = lg; g.add(lg);
+    S.sprites = []; S.lblOn = true;
+    const lab = (parent, t, x,y,z, size) => { const s = sprite(t, size || 0.55, '#1D2620', 'rgba(255,255,255,0.9)'); s.position.set(x,y,z); parent.add(s); S.sprites.push(s); };
+    lab(lg, 'Lotus Ballroom', 8.5, 4.3, 31, 0.75);
+    lab(lg, 'Sân khấu', STAGE_CX, STAGE.h+0.5, 4.0);
+    lab(lg, 'Partition 5,2 m', W-0.6, 2.0, (RECESS.z0+RECESS.z1)/2);
+
+    document.querySelectorAll('[data-lotus]').forEach(b => { b.onclick = () => setMode(b.dataset.lotus); });
+    setMode('after'); theme(); setWalls(true);
+  }
+  function setMode(m){
+    S.mode = m;
+    S.group.visible = m !== 'off';
+    S.grpAfter.visible = m === 'after';
+    document.querySelectorAll('[data-lotus]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lotus === m)));
+  }
+  function setWalls(on){ S.walls = on; S.tall.visible = on; S.low.visible = !on; S.pillars.visible = on; S.ceil.visible = on; }
+  function setLabels(on){ S.lblOn = on; }
+  function tick(dt){
+    if (!S.sprites) return;
+    const showL = S.lblOn && !state.eye;
+    for (let i=0;i<S.sprites.length;i++) S.sprites[i].visible = showL;
+  }
+  function theme(){
+    if (!S.group) return;
+    const T = THEME[isDark() ? 'dark' : 'light'];
+    S.floorMat.color.set(T.floor); S.gridMat.color.set(T.grid); S.lineMat.color.set(T.line);
+    const wc = css('--wall') || '#C9D2DE'; S.tall.userData.mat.color.set(wc); S.low.userData.mat.color.set(wc);
+  }
+  return {build, setMode, setWalls, setLabels, tick, theme, state:S};
+})();
+
 /* ---------- views ---------- */
 const VIEWS = {
   top:{pos:[16,36,4.62], tgt:[16,0,4.6]},
   overview:{pos:[5,19,27], tgt:[16,0,4.8]},
   arrival:{pos:[2.0,1.6,-3.6], tgt:[2.32,1.58,-2.87], eye:true},
-  doors:{pos:[17.95,1.6,0.5], tgt:[17.95,1.55,1.3], eye:true}
+  doors:{pos:[17.95,1.6,0.5], tgt:[17.95,1.55,1.3], eye:true},
+  all:{pos:[-4,46,34], tgt:[22,0,-9]},
+  lotustop:{pos:[22.9,46,-16.49], tgt:[22.9,0,-16.5]},
+  lotusdoor:{pos:[20.9,1.6,-1.2], tgt:[20.9,1.58,-2.0], eye:true},
+  lotusstage:{pos:[22.2,2.1,-28.05], tgt:[22.2,2.05,-27.25], eye:true}
 };
 function setView(name){
   const v = VIEWS[name]; state.eye = !!v.eye;
@@ -1307,7 +1524,7 @@ function openModal({title, text, area, actions}){
   $('#modal').hidden = false; (area !== undefined ? ta : box.lastChild).focus();
 }
 function closeModal(){ $('#modal').hidden = true; }
-function exportText(){ return JSON.stringify({ten:'Sảnh REX, VCW 2026', luc:new Date().toISOString(), tables:state.tables.map(t => ({id:t.id, x:t.x, y:t.y, r:t.r, tv:t.tv, s:t.s})), shapes:state.shapes}); }
+function exportText(){ return JSON.stringify({ten:'Sảnh REX, VNCW 2026', luc:new Date().toISOString(), tables:state.tables.map(t => ({id:t.id, x:t.x, y:t.y, r:t.r, tv:t.tv, s:t.s})), shapes:state.shapes}); }
 
 /* ---------- UI wiring ---------- */
 $('#btn-save').onclick = saveShared;
@@ -1337,9 +1554,9 @@ $('#more-menu').onclick = e => {
     if (state.viewOnly) return;
     const doc = buildDoc({savedAt:new Date().toISOString(), tables:state.tables.map(t => ({id:t.id, x:t.x, y:t.y, r:t.r, tv:t.tv, s:t.s})), shapes:state.shapes});
     const url = URL.createObjectURL(new Blob([doc], {type:'text/html'}));
-    const a = document.createElement('a'); a.href = url; a.download = 'vcw-rex-sanh-3d.html'; document.body.appendChild(a); a.click(); a.remove();
+    const a = document.createElement('a'); a.href = url; a.download = 'vncw-rex-sanh-3d.html'; document.body.appendChild(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(url), 4000);
-    openModal({title:'Đã tải file có phương án mới', text:'Mở GitHub, ghi đè file vcw-rex-sanh-3d.html bằng file vừa tải. Sau khoảng 1 đến 2 phút, link thienkien.com sẽ mở ra đúng phương án này cho mọi người.', actions:[{label:'Đã hiểu', primary:true, run:closeModal}]});
+    openModal({title:'Đã tải file có phương án mới', text:'Mở GitHub, ghi đè file vncw-rex-sanh-3d.html bằng file vừa tải. Sau khoảng 1 đến 2 phút, link thienkien.com sẽ mở ra đúng phương án này cho mọi người.', actions:[{label:'Đã hiểu', primary:true, run:closeModal}]});
     return;
   }
   if (act === 'copy'){
@@ -1366,8 +1583,8 @@ $('#modal').addEventListener('click', e => { if (e.target.id === 'modal') closeM
 $$('[data-view]').forEach(b => b.onclick = () => setView(b.dataset.view));
 $$('[data-toggle]').forEach(b => b.onclick = () => {
   const k = b.dataset.toggle; const on = b.getAttribute('aria-pressed') !== 'true'; b.setAttribute('aria-pressed', String(on));
-  if (k === 'walls'){ state.showWalls = on; wallsTall.visible = on; wallsLow.visible = !on; }
-  if (k === 'labels'){ state.showLabels = on; styleTables(); }
+  if (k === 'walls'){ state.showWalls = on; wallsTall.visible = on; wallsLow.visible = !on; LOTUS.setWalls(on); }
+  if (k === 'labels'){ state.showLabels = on; styleTables(); LOTUS.setLabels(on); }
   if (k === 'tv'){ state.showTV = on; state.tables.forEach(placeTable); }
   if (k === 'carpet'){ setCarpet(on); }
 });
@@ -1528,6 +1745,7 @@ function loop(now){
     const mag = Math.hypot(joy2.x, joy2.y);
     if (mag > 0.1){ const k = Math.pow(Math.min(1, (mag-0.1)/0.9), 1.4)/mag; look(-joy2.x*k*1.9*dt, -joy2.y*k*1.5*dt); }
   }
+  LOTUS.tick(dt);
   controls.update(); renderer.render(scene, camera); requestAnimationFrame(loop);
 }
 const mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
@@ -1535,6 +1753,7 @@ function applyTheme(){
   scene.background = new THREE.Color(css('--scene') || '#EEF1F7');
   if (floorMat && !state.carpet) floorMat.color.set(css('--floor') || '#ffffff');
   if (hallMat) hallMat.color.set(css('--hall') || '#E2E7F0');
+  LOTUS.theme();
 }
 if (mq && mq.addEventListener) mq.addEventListener('change', applyTheme);
 
@@ -1553,7 +1772,7 @@ async function start(){
   if (VIEW_BUILD) await loadLatest();
   if (state.viewOnly){ $('#root').classList.add('view-only'); $$('#shape-card input').forEach(i => { i.disabled = true; }); }
   try { await Promise.race([Promise.all([document.fonts.load('800 60px Archivo'), document.fonts.load('600 40px Archivo')]), new Promise(r => setTimeout(r, 2500))]); } catch(e){}
-  buildStatic();
+  buildStatic(); LOTUS.build();
   state.tables.forEach(buildTable); syncShapes();
   renderGroups(); renderShapeList(); refreshIssues(); renderList(); renderSave();
   setView('overview'); resize();
